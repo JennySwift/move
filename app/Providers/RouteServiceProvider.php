@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Entry;
+use App\Models\Exercise;
+use App\Models\Series;
+use App\Models\Unit;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,9 +29,27 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
-
         parent::boot($router);
+
+        Route::bind('exercises', function($id)
+        {
+            return Exercise::findOrFail($id);
+        });
+
+        Route::bind('exerciseSeries', function($id)
+        {
+            return Series::findOrFail($id);
+        });
+
+        Route::bind('exerciseUnits', function($id)
+        {
+            return Unit::where('for', 'exercise')->findOrFail($id);
+        });
+
+        Route::bind('exerciseEntries', function ($id) {
+            return Entry::findOrFail($id);
+        });
+
     }
 
     /**

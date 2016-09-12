@@ -39,9 +39,9 @@ class ExerciseUnitsController extends Controller
     }
 
     /**
-     *
+     * POST /api/exerciseUnits
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -53,7 +53,8 @@ class ExerciseUnitsController extends Controller
         $unit->user()->associate(Auth::user());
         $unit->save();
 
-        return $this->responseCreatedWithTransformer($unit, new UnitTransformer);
+        $unit = $this->transform($this->createItem($unit, new UnitTransformer))['data'];
+        return response($unit, Response::HTTP_CREATED);
     }
 
     /**
@@ -76,16 +77,16 @@ class ExerciseUnitsController extends Controller
     }
 
     /**
-     *
+     * DELETE /api/exerciseUnits/{exerciseUnits}
+     * @param Request $request
      * @param Unit $unit
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
      */
-    public function destroy(Unit $unit)
+    public function destroy(Request $request, Unit $unit)
     {
         try {
             $unit->delete();
-            return $this->responseNoContent();
+            return response([], Response::HTTP_NO_CONTENT);
         }
         catch (\Exception $e) {
             //Integrity constraint violation

@@ -145,22 +145,29 @@ class ExercisesController extends Controller
     }
 
     /**
-     *
+     * DELETE /api/exercises/{exercises}
+     * @param Request $request
      * @param Exercise $exercise
-     * @return mixed
-     * @throws \Exception
+     * @return Response
      */
-    public function destroy(Exercise $exercise = null)
+    public function destroy(Request $request, Exercise $exercise)
     {
-//        if(is_null($exercise)) {
-//            return response([
-//                'error' => 'Exercise not found.',
-//                'status' => Response::HTTP_NOT_FOUND // = 404
-//            ], Response::HTTP_NOT_FOUND);
-//        }
-
-        $exercise->delete();
-
-        return $this->responseNoContent();
+        try {
+            $exercise->delete();
+            return response([], Response::HTTP_NO_CONTENT);
+        }
+        catch (\Exception $e) {
+            //Integrity constraint violation
+            if ($e->getCode() === '23000') {
+                $message = 'Exercise could not be deleted. It is in use.';
+            }
+            else {
+                $message = 'There was an error';
+            }
+            return response([
+                'error' => $message,
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

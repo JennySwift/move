@@ -1,4 +1,5 @@
 var ExercisesRepository = require('../repositories/ExercisesRepository');
+var $ = require('jquery');
 
 module.exports = {
     template: '#exercise-popup-template',

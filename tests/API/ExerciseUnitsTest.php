@@ -43,7 +43,7 @@ class ExerciseUnitsTest extends TestCase {
         ];
 
         $response = $this->call('POST', '/api/exerciseUnits', $unit);
-        $content = json_decode($response->getContent(), true)['data'];
+        $content = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('id', $content);
         $this->assertArrayHasKey('name', $content);

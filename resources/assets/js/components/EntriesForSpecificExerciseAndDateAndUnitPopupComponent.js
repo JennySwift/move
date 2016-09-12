@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 module.exports = {
     template: '#entries-for-specific-exercise-and-date-and-unit-popup-template',
     data: function () {

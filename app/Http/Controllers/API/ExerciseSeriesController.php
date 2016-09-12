@@ -79,11 +79,11 @@ class ExerciseSeriesController extends Controller
     }
 
     /**
-     *
-     * @param Request $request
-     * @param Series $series
-     * @return mixed
-     */
+    * UPDATE /api/series/{series}
+    * @param Request $request
+    * @param Series $series
+    * @return Response
+    */
     public function update(Request $request, Series $series)
     {
         // Create an array with the new fields merged
@@ -100,22 +100,23 @@ class ExerciseSeriesController extends Controller
 //            $series->save();
         }
 
-        return $this->responseOkWithTransformer($series, new SeriesTransformer);
+        $series = $this->transform($this->createItem($series, new SeriesTransformer))['data'];
+        return response($series, Response::HTTP_OK);
     }
 
     /**
-     *
+     * DELETE /api/exerciseSeries/{series}
+     * @param Request $request
      * @param Series $series
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
      */
-    public function destroy(Series $series)
+    public function destroy(Request $request, Series $series)
     {
         try {
             $series->delete();
-
-            return $this->responseNoContent();
-        } catch (\Exception $e) {
+            return response([], Response::HTTP_NO_CONTENT);
+        }
+        catch (\Exception $e) {
             //Integrity constraint violation
             if ($e->getCode() === '23000') {
                 $message = 'Series could not be deleted. It is in use.';
@@ -123,7 +124,6 @@ class ExerciseSeriesController extends Controller
             else {
                 $message = 'There was an error';
             }
-
             return response([
                 'error' => $message,
                 'status' => Response::HTTP_BAD_REQUEST

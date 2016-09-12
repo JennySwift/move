@@ -131,14 +131,29 @@ class ExerciseEntriesController extends Controller
     }
 
     /**
-     *
+     * DELETE /api/exerciseEntries/{entries}
+     * @param Request $request
      * @param Entry $entry
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
      */
-    public function destroy(Entry $entry)
+    public function destroy(Request $request, Entry $entry)
     {
-        $entry->delete();
-        return $this->responseNoContent();
+        try {
+            $entry->delete();
+            return response([], Response::HTTP_NO_CONTENT);
+        }
+        catch (\Exception $e) {
+            //Integrity constraint violation
+            if ($e->getCode() === '23000') {
+                $message = 'Entry could not be deleted. It is in use.';
+            }
+            else {
+                $message = 'There was an error';
+            }
+            return response([
+                'error' => $message,
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

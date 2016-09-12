@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 module.exports = {
     template: '#series-popup-template',
     data: function () {

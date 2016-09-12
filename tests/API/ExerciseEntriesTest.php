@@ -215,6 +215,7 @@ class ExerciseEntriesTest extends TestCase {
         ]);
 
         $response = $this->call('DELETE', '/api/exerciseEntries/'.$entry->id);
+//        dd($response);
         $this->assertEquals(204, $response->getStatusCode());
         $this->missingFromDatabase('exercise_entries', [
             'date' => $date,

@@ -85,7 +85,7 @@ class ExerciseSeriesTest extends TestCase {
             'priority' => 8
         ]);
 //        dd($response);
-        $content = json_decode($response->getContent(), true)['data'];
+        $content = json_decode($response->getContent(), true);
 //        dd($content);
 
         $this->checkSeriesKeysExist($content);
@@ -112,7 +112,7 @@ class ExerciseSeriesTest extends TestCase {
             'name' => 'numbat'
         ]);
 //        dd($response);
-        $content = json_decode($response->getContent(), true)['data'];
+        $content = json_decode($response->getContent(), true);
 //        dd($content);
 
         $this->checkSeriesKeysExist($content);

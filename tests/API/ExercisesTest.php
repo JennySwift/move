@@ -224,7 +224,7 @@ class ExercisesTest extends TestCase {
             'stretch' => 0
         ]);
 //        dd($response);
-        $content = json_decode($response->getContent(), true)['data'];
+        $content = json_decode($response->getContent(), true);
 //        dd($content);
 
         $this->checkExerciseKeysExist($content);

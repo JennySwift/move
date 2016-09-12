@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 module.exports = {
     template: '#exercise-entries-template',
     data: function () {

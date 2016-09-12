@@ -3,7 +3,6 @@ require('sugar');
 module.exports = {
     changeDate: function (date) {
         var date = Date.create(date).format('{yyyy}-{MM}-{dd}');
-        console.log('date is: ' + date);
         store.setDate(date);
     },
     today: function () {

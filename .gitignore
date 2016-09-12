@@ -12,3 +12,5 @@ storage/debugbar
 
 # mocha-webpack
 .tmp
+
+npm-debug.log

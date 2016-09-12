@@ -2,7 +2,9 @@
   "private": true,
   "scripts": {
     "prod": "gulp --production",
-    "dev": "gulp watch"
+    "dev": "gulp watch",
+    "test": "mocha-webpack --webpack-config webpack.config-test.js \"test/**/*.js\" --watch",
+    "casper": "casperjs test e2e"
   },
   "dependencies": {
     "@jennyswift/feedback": "0.0.2",

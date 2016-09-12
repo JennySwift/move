@@ -1,4 +1,6 @@
 var Vue = require('vue');
+var VueResource = require('vue-resource');
+Vue.use(VueResource);
 var helpers = require('./Helpers');
 var object = require('lodash/object');
 require('sugar');

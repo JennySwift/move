@@ -67,6 +67,7 @@
 
 <script>
     var DatesRepository = require('../../repositories/DatesRepository');
+    Date.setLocale('en-AU');
     // require('sugar');
 
     module.exports = {
@@ -109,9 +110,6 @@
                 DatesRepository.changeDate(date);
             }
         },
-        props: [
-
-        ],
         ready: function () {
 
         }

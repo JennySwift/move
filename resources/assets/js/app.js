@@ -33,7 +33,6 @@ Vue.component('exercise-entries', require('./components/ExerciseEntriesComponent
 Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('./components/EntriesForSpecificExerciseAndDateAndUnitPopupComponent.vue'));
 Vue.component('series-history-popup', require('./components/SeriesHistoryPopupComponent.vue'));
 Vue.component('series-popup', require('./components/SeriesPopupComponent.vue'));
-Vue.component('new-series', require('./components/NewSeriesComponent.vue'));
 
 //Transitions
 Vue.transition('fade', require('./transitions/FadeTransition'));

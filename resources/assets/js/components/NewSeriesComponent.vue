@@ -1,5 +1,5 @@
 <template>
-    <div v-show="showNewSeriesFields" class="margin-bottom">
+    <div>
         <div>
             <input
                 v-model="newSeries.name"
@@ -66,9 +66,6 @@
                 this.newSeries.name = '';
             }
         },
-        props: [
-            'showNewSeriesFields',
-        ],
         ready: function () {
 
         }

@@ -103,7 +103,7 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a
-                                        v-on:click="showNewSeriesFields = true;showNewExerciseFields = false"
+                                        v-link="{path: '/series/#/add'}"
                                     >
                                         Series
                                     </a>
@@ -118,12 +118,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <new-series
-                        :show-new-series-fields="showNewSeriesFields"
-                        :exercise-series.sync="exerciseSeries"
-                    >
-                    </new-series>
 
                 </div>
 

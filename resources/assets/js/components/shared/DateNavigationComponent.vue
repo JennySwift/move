@@ -1,7 +1,7 @@
 <template>
     <div id="date-navigation-container">
 
-        <h1 class="center">{{ date.long }}</h1>
+        <h1 class="center">{{ shared.date.long }}</h1>
 
         <div id="date-navigation" class="margin-bottom">
 
@@ -67,30 +67,31 @@
 
 <script>
     var DatesRepository = require('../../repositories/DatesRepository');
-    Date.setLocale('en-AU');
+    var $ = require('jquery');
+
     // require('sugar');
 
     module.exports = {
         template: '#date-navigation-template',
         data: function () {
             return {
-                date: store.state.date
+                shared: store.state
             };
         },
         components: {},
         watch: {
-            'date.typed': function (newValue, oldValue) {
-                $("#date").val(this.date.typed);
+            'shared.date.typed': function (newValue, oldValue) {
+                $("#date").val(this.shared.date.typed);
                 $.event.trigger('date-changed');
             }
         },
         methods: {
             /**
              *
-             * @param $number
+             * @param number
              */
-            goToDate: function ($number) {
-                DatesRepository.goToDate($number);
+            goToDate: function (number) {
+                DatesRepository.goToDate(number);
             },
 
             /**

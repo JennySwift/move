@@ -16,6 +16,10 @@
             </ul>
         </li>
 
+        <li>
+            <a v-on:click="showFilters()" href="#" class="fa fa-search"></a>
+        </li>
+
         <!--User-->
         <li id="menu-dropdown" class="dropdown gravatar-li">
             <a href="#" data-toggle="dropdown">
@@ -46,7 +50,12 @@
         },
         components: {},
         methods: {
-
+            /**
+             *
+             */
+            showFilters: function () {
+                store.set(true, 'showFilters')
+            }
         },
         props: [
             //data to be received from parent

@@ -1,84 +1,14 @@
 
 <template>
-        <div id="exercises-page">
+    <div>
+        <filters :filters.sync="filters"></filters>
+
+        <div v-show="!shared.showFilters" id="exercises-page">
 
             <date-navigation
 
             >
             </date-navigation>
-
-            <div id="exercise-filters" class="margin-bottom">
-                <button v-on:click="showFilters = !showFilters" class="btn btn-default btn-sm">Filters</button>
-
-                <div v-show="showFilters" class="flex">
-
-                    <div class="form-group">
-                        <label for="filter-by-name">Name</label>
-                        <input
-                            v-model="filterByName"
-                            type="text"
-                            id="filter-by-name"
-                            name="filter-by-name"
-                            placeholder="name"
-                            class="form-control"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="filter-by-description">Description</label>
-                        <input
-                            v-model="filterByDescription"
-                            type="text"
-                            id="filter-by-description"
-                            name="filter-by-description"
-                            placeholder="description"
-                            class="form-control"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="filter-by-series">Series</label>
-
-                        <select
-                            v-model="filterBySeries"
-                            id="filter-by-series"
-                            class="form-control"
-                        >
-                            <option value="all">All</option>
-                            <option
-                                v-for="series in exerciseSeries"
-                                v-bind:value="series.name"
-                            >
-                                {{ series.name }}
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="filter-by-priority">Priority</label>
-                        <input
-                            v-model="filterByPriority"
-                            type="text"
-                            id="filter-by-priority"
-                            name="filter-by-priority"
-                            placeholder="priority"
-                            class="form-control"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <div class="checkbox-container">
-                            <input
-                                v-model="showStretches"
-                                id="show-stretches"
-                                type="checkbox"
-                            >
-                            <label for="show-stretches-">Show stretches</label>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
 
             <series-history-popup
                 :exercise-series-history="exerciseSeriesHistory"
@@ -149,6 +79,7 @@
             </table>
 
         </div>
+    </div>
     </template>
 
 <script>
@@ -171,12 +102,13 @@
                 },
                 showExerciseEntryInputs: false,
                 shared: store.state,
-                showStretches: false,
-                filterByName: '',
-                filterByDescription: '',
-                filterByPriority: 1,
-                filterBySeries: '',
-                showFilters: false
+                filters: {
+                    showStretches: false,
+                    name: '',
+                    description: '',
+                    priority: 1,
+                    series: '',
+                }
             };
         },
         computed: {
@@ -193,7 +125,9 @@
                 return this.shared.exerciseSeries;
             }
         },
-        components: {},
+        components: {
+            'filters': require('./ExerciseFiltersComponent.vue')
+        },
         filters: {
             filterExercises: function (exercises) {
                 var that = this;
@@ -218,31 +152,31 @@
                     var filteredIn = true;
 
                     //Priority filter
-                    if (that.filterByPriority && exercise.priority != that.filterByPriority) {
+                    if (that.filters.priority && exercise.priority != that.filters.priority) {
                         filteredIn = false;
                     }
 
                     //Name filter
-                    if (that.filterByName && exercise.name.indexOf(that.filterByName) === -1) {
+                    if (that.filters.name && exercise.name.indexOf(that.filters.name) === -1) {
                         filteredIn = false;
                     }
 
                     //Description filter
-                    if (exercise.description && exercise.description.indexOf(that.filterByDescription) === -1) {
+                    if (exercise.description && exercise.description.indexOf(that.filters.description) === -1) {
                         filteredIn = false;
                     }
 
-                    else if (!exercise.description && that.filterByDescription !== '') {
+                    else if (!exercise.description && that.filters.description !== '') {
                         filteredIn = false;
                     }
 
                     //Stretches files
-                    if (!that.showStretches && exercise.stretch) {
+                    if (!that.filters.showStretches && exercise.stretch) {
                         filteredIn = false;
                     }
 
                     //Series filter
-                    if (that.filterBySeries && exercise.series.name != that.filterBySeries && that.filterBySeries !== 'all') {
+                    if (that.filters.series && exercise.series.name != that.filters.series && that.filters.series !== 'all') {
                         filteredIn = false;
                     }
 

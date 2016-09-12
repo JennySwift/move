@@ -1,17 +1,22 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Move</title>
+    @include('shared.head-links')
+</head>
+<body>
 
-@section('content')
+<navbar></navbar>
+<feedback></feedback>
+<loading></loading>
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
+    <router-view></router-view>
 </div>
-@endsection
+
+@include('shared.footer.footer')
+
+</body>
+</html>

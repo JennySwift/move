@@ -1,0 +1,35 @@
+#exercises {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	> div {
+		margin: 0 20px;
+	}
+	.new-exercise-container {
+		margin-bottom: 20px;
+	}
+	@include newExercise;
+	#exercise-filters {
+		.flex {
+			display: flex;
+			justify-content: center;
+			input {
+				width: 200px;
+				&:last-child {
+					width: 100px;
+				}
+			}
+			> *:not(:last-child) {
+				margin-right: 10px;
+			}
+		}
+	}
+}
+
+#default-exercise-unit-popup-checkboxes {
+	display: flex;
+	flex-wrap: wrap;
+	label {
+		padding: 2px 8px;
+	}
+}

@@ -12,6 +12,7 @@ module.exports = {
         exercises: [],
         exercisesLoaded: false,
         showFilters: false,
+        showNewExerciseEntryFields: false,
         exercise: {
             program: {},
             series: {},

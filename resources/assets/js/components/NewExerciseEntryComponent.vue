@@ -1,6 +1,5 @@
 <template>
-    <div class="margin-bottom">
-
+    <div>
         <autocomplete
             :insert-item-function="insertEntry"
             url="/api/exercises"
@@ -41,6 +40,12 @@
             </select>
         </div>
 
+        <buttons
+            :save="insertEntry"
+            :redirect-to="redirectTo"
+        >
+        </buttons>
+
     </div>
 </template>
 
@@ -51,7 +56,7 @@
             return {
                 newEntry: {},
                 shared: store.state,
-                date: store.state.date
+                redirectTo: '/exercises'
             };
         },
         components: {},
@@ -67,7 +72,7 @@
             */
             insertEntry: function () {
                 var data = {
-                    date: this.date.sql,
+                    date: this.shared.date.sql,
                     exercise_id: this.newEntry.id,
                     quantity: this.newEntry.quantity,
                     unit_id: this.newEntry.unit.id

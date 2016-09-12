@@ -13,6 +13,7 @@
                 <li><a v-link="{path: '/exercise-units'}" href="#">Units</a></li>
                 <li><a v-link="{path: '/exercises/#/add'}" href="#">New Exercise</a></li>
                 <li><a v-link="{path: '/series/#/add'}" href="#">New Series</a></li>
+                <li><a v-link="{path: '/entries/#/add'}" href="#">New Exercise Entry</a></li>
             </ul>
         </li>
 

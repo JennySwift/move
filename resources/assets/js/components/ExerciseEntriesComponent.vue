@@ -7,7 +7,6 @@
 
         <div>
             <table class="table table-bordered">
-                <caption>exercise entries</caption>
                 <tr>
                     <th>Exercise</th>
                     <th>Sets</th>

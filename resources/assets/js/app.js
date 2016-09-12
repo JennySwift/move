@@ -29,7 +29,6 @@ Vue.component('date-navigation', require('./components/shared/DateNavigationComp
 Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
 
 //Components
-Vue.component('new-exercise-entry', require('./components/NewExerciseEntryComponent.vue'));
 Vue.component('exercise-entries', require('./components/ExerciseEntriesComponent.vue'));
 Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('./components/EntriesForSpecificExerciseAndDateAndUnitPopupComponent.vue'));
 Vue.component('series-history-popup', require('./components/SeriesHistoryPopupComponent.vue'));

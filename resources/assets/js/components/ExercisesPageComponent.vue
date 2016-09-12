@@ -24,16 +24,6 @@
 
             <div>
                 <div>
-                    <button v-on:click="showExerciseEntryInputs = !showExerciseEntryInputs" class="btn btn-sm btn-success">Add manual entry</button>
-                    <div v-show="showExerciseEntryInputs">
-
-                        <new-exercise-entry
-                            :date="date"
-                        >
-                        </new-exercise-entry>
-
-                    </div>
-
                     <exercise-entries
                         :date="date"
                     >

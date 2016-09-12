@@ -8,7 +8,7 @@ router.map({
         component: require('./components/ExercisesPageComponent.vue')
     },
     '/exercise-units': {
-        component: require('./components/ExerciseUnitsPageComponent')
+        component: require('./components/ExerciseUnitsPageComponent.vue')
     }
 });
 

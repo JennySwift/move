@@ -5,6 +5,7 @@ require('sugar');
 module.exports = {
 
     state: {
+        me: {gravatar: ''},
         exercises: [],
         exerciseSeries: [],
         exerciseEntries: [],

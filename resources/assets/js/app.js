@@ -19,23 +19,23 @@ global.helpers = require('./repositories/Helpers');
 Date.setLocale('en-AU');
 
 //Shared components
-Vue.component('navbar', require('./components/shared/NavbarComponent.js'));
+Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
 Vue.component('feedback', require('@jennyswift/feedback'));
-Vue.component('loading', require('./components/shared/LoadingComponent.js'));
-Vue.component('popup', require('./components/shared/PopupComponent.js'));
-Vue.component('autocomplete', require('./components/shared/AutocompleteComponent.js'));
+Vue.component('loading', require('./components/shared/LoadingComponent.vue'));
+Vue.component('popup', require('./components/shared/PopupComponent.vue'));
+Vue.component('autocomplete', require('./components/shared/AutocompleteComponent.vue'));
 // Vue.component('date-picker', require('./components/Shared/DatePickerComponent.vue'));
-Vue.component('date-navigation', require('./components/shared/DateNavigationComponent'));
+Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
 
 //Components
-Vue.component('new-exercise', require('./components/NewExerciseComponent'));
-Vue.component('new-exercise-entry', require('./components/NewExerciseEntryComponent'));
-Vue.component('exercise-entries', require('./components/ExerciseEntriesComponent'));
-Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('./components/EntriesForSpecificExerciseAndDateAndUnitPopupComponent'));
-Vue.component('series-history-popup', require('./components/SeriesHistoryPopupComponent'));
-Vue.component('series-popup', require('./components/SeriesPopupComponent'));
-Vue.component('new-series', require('./components/NewSeriesComponent'));
-Vue.component('exercise-popup', require('./components/ExercisePopupComponent'));
+Vue.component('new-exercise', require('./components/NewExerciseComponent.vue'));
+Vue.component('new-exercise-entry', require('./components/NewExerciseEntryComponent.vue'));
+Vue.component('exercise-entries', require('./components/ExerciseEntriesComponent.vue'));
+Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('./components/EntriesForSpecificExerciseAndDateAndUnitPopupComponent.vue'));
+Vue.component('series-history-popup', require('./components/SeriesHistoryPopupComponent.vue'));
+Vue.component('series-popup', require('./components/SeriesPopupComponent.vue'));
+Vue.component('new-series', require('./components/NewSeriesComponent.vue'));
+Vue.component('exercise-popup', require('./components/ExercisePopupComponent.vue'));
 
 //Transitions
 Vue.transition('fade', require('./transitions/FadeTransition'));

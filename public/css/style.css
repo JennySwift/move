@@ -227,43 +227,8 @@ li {
   .iphone {
     display: none; } }
 
-#exercises {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap; }
-  #exercises > div {
-    margin: 0 20px; }
-  #exercises .new-exercise-container {
-    margin-bottom: 20px; }
-  #exercises .new-exercise .flex {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap; }
-    #exercises .new-exercise .flex > * {
-      margin-right: 10px; }
-  #exercises #exercise-filters .flex {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-    justify-content: center; }
-    #exercises #exercise-filters .flex input {
-      width: 200px; }
-      #exercises #exercise-filters .flex input:last-child {
-        width: 100px; }
-    #exercises #exercise-filters .flex > *:not(:last-child) {
-      margin-right: 10px; }
-
-#default-exercise-unit-popup-checkboxes {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap; }
-  #default-exercise-unit-popup-checkboxes label {
-    padding: 2px 8px; }
+#exercises-page td {
+  text-align: left; }
 
 #exercise-series .new-exercise .flex {
   display: -ms-flexbox;

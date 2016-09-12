@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <div id="exercises-page">
         <filters :filters.sync="filters"></filters>
 
         <div v-show="!shared.showFilters" id="exercises-page">

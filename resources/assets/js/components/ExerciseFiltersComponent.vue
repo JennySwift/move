@@ -36,7 +36,7 @@
                 >
                     <option value="all">All</option>
                     <option
-                        v-for="series in exerciseSeries"
+                        v-for="series in shared.exerciseSeries"
                         v-bind:value="series.name"
                     >
                         {{ series.name }}

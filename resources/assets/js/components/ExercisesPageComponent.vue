@@ -1,6 +1,6 @@
 
 <template>
-        <div id="exercise-series">
+        <div id="exercises-page">
 
             <date-navigation
 

@@ -1,10 +1,10 @@
 var page = require('webpage').create();
 
-var url = 'http://move.dev:8000/auth/login';
+var url = 'http://move.dev:8000/login';
 var email = 'cheezyspaghetti@gmail.com';
 var password = 'abcdefg';
 
-casper.test.begin('Exercises are shown', 3, function suite(test) {
+casper.test.begin('Exercises are shown', function suite(test) {
     casper.start(url, function() {
         this.echo("I'm loaded.");
     });
@@ -16,20 +16,58 @@ casper.test.begin('Exercises are shown', 3, function suite(test) {
             'input[name = email ]' : email,
             'input[name = password ]' : password
         }, true);
-
+        this.capture('test-img/logged-in.png');
     });
 
-    casper.waitForSelector('#exercises .table-bordered', function () {
-        // this.capture('test.png');
-        this.echo('should be testing');
-        test.assertTextExists('back lever');
+    casper.waitForSelector('#exercises-table', function () {
+        casper.waitForText('back lever', function () {
+            this.echo('Back lever is on the page');
+            casper.wait(100, function () {
+                this.capture('test-img/exercises-page.png');
+                test.assertVisible('.table');
+                this.echo('The exercises table is visible');
+            });
+        });
     });
+
+    // casper.waitUntilVisible('#something', function () {
+    //     this.echo('something is visible');
+    //     casper.wait(100, function () {
+    //         test.assertTextExists('something');
+    //     });
+    // });
 
     casper.run(function() {
         test.done();
         this.echo('The suite ended.');
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

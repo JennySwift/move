@@ -110,7 +110,7 @@
                                 </li>
                                 <li>
                                     <a
-                                        v-on:click="showNewExerciseFields = true;showNewSeriesFields = false"
+                                        v-link="{path: '/exercises/#/add'}"
                                     >
                                         Exercise
                                     </a>
@@ -124,14 +124,6 @@
                         :exercise-series.sync="exerciseSeries"
                     >
                     </new-series>
-
-                    <new-exercise
-                        :show-new-exercise-fields.sync="showNewExerciseFields"
-                        :programs="programs"
-                        :exercise-series="exerciseSeries"
-                        :units="units"
-                    >
-                    </new-exercise>
 
                 </div>
 

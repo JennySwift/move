@@ -28,7 +28,6 @@ Vue.component('autocomplete', require('./components/shared/AutocompleteComponent
 Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
 
 //Components
-Vue.component('new-exercise', require('./components/NewExerciseComponent.vue'));
 Vue.component('new-exercise-entry', require('./components/NewExerciseEntryComponent.vue'));
 Vue.component('exercise-entries', require('./components/ExerciseEntriesComponent.vue'));
 Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('./components/EntriesForSpecificExerciseAndDateAndUnitPopupComponent.vue'));

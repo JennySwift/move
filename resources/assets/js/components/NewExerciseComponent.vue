@@ -1,5 +1,5 @@
 <template>
-    <div v-show="showNewExerciseFields" class="new-exercise margin-bottom">
+    <div class="new-exercise margin-bottom">
 
         <div class="flex">
             <div>
@@ -214,9 +214,6 @@
                 });
             }
         },
-        props: [
-            'showNewExerciseFields'
-        ],
         ready: function () {
 
         }

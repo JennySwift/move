@@ -24,10 +24,7 @@ class ExerciseEntriesTest extends TestCase {
 
         $date = Carbon::today()->format('Y-m-d');
 
-        $response = $this->apiCall('GET', '/api/exerciseEntries/' . $date);
-//        dd($response);
-        $content = json_decode($response->getContent(), true);
-//        dd($content);
+        $content = $this->getEntriesForTheDay($date);
 
         $this->checkExerciseEntryKeysExist($content[0]);
 
@@ -58,8 +55,6 @@ class ExerciseEntriesTest extends TestCase {
         $this->assertEquals(10, $content[0]['total']);
         $this->assertEquals(5, $content[0]['quantity']);
         $this->assertCount(2, $content);
-
-        $this->assertEquals(200, $response->getStatusCode());
     }
 
     /**
@@ -133,6 +128,9 @@ class ExerciseEntriesTest extends TestCase {
 
         $date = Carbon::today()->format('Y-m-d');
 
+//        $this->assertCount(19, $this->user->exerciseEntries);
+//        $this->assertCount(2, $this->getEntriesForTheDay($date));
+
         $entry = [
             'date' => $date,
             'exercise_id' => 1,
@@ -150,11 +148,18 @@ class ExerciseEntriesTest extends TestCase {
         $this->assertEquals(1, $content['exercise']['data']['id']);
 //        $this->assertEquals(20, $content['daysAgo']);
         $this->assertEquals(1, $content['unit']['id']);
-//        $this->assertEquals(20, $content['sets']);
+        $this->assertEquals(3, $content['sets']);
 //        $this->assertEquals(20, $content['total']);
         $this->assertEquals(20, $content['quantity']);
         $this->assertEquals(0, $content['exercise']['data']['lastDone']);
         $this->assertEquals(7, $content['exercise']['data']['dueIn']);
+
+        $entriesForTheDay = $this->getEntriesForTheDay($date);
+
+        $this->assertCount(20, $this->user->exerciseEntries()->get());
+        //The number shouldn't increase because it was an exericise/unit combination already done that day
+        $this->assertCount(2, $entriesForTheDay);
+        $this->assertEquals(3, $entriesForTheDay[0]['sets']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }
@@ -225,5 +230,19 @@ class ExerciseEntriesTest extends TestCase {
 
         $response = $this->call('DELETE', '/api/exerciseEntries/' . $entry->id);
         $this->assertEquals(404, $response->getStatusCode());
+    }
+
+    /**
+     *
+     * @param $date
+     * @return mixed
+     */
+    private function getEntriesForTheDay($date)
+    {
+        $response = $this->apiCall('GET', '/api/exerciseEntries/' . $date);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        return json_decode($response->getContent(), true);
     }
 }

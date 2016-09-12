@@ -48,40 +48,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof \InvalidArgumentException) {
-            return response([
-                'error' => $e->getMessage(),
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        if ($e instanceof HttpResponseException) {
-            if ($e->getResponse()->getStatusCode() === Response::HTTP_FORBIDDEN) {
-                return response([
-                    'error' => 'Forbidden',
-                    'status' => Response::HTTP_FORBIDDEN
-                ], Response::HTTP_FORBIDDEN);
-            }
-        }
-
-        if ($e instanceof NotFoundHttpException) {
-            return response([
-                'error' => 'Not found',
-                'status' => Response::HTTP_NOT_FOUND
-            ], Response::HTTP_NOT_FOUND);
-        }
-
-        if ($e instanceof Exception) {
-            if (!method_exists($e, 'getResponse') || !$e->getResponse()->getContent()) {
-                if ($e->getCode() > 0) {
-                    return response([
-                        'error' => $e->getMessage(),
-                        'status' => $e->getCode()
-                    ], $e->getCode());
-                }
-            }
-        }
-
         if ($e instanceof ModelNotFoundException) {
             $model = (new \ReflectionClass($e->getModel()))->getShortName();
 
@@ -91,33 +57,55 @@ class Handler extends ExceptionHandler
             ], Response::HTTP_NOT_FOUND);
         }
 
-//        if ($e instanceof GeneralException) {
-//            return response([
-//                'error' => $e->errorMessage,
-//                'status' => Response::HTTP_BAD_REQUEST
-//            ], Response::HTTP_BAD_REQUEST);
-//        }
+        else if ($e instanceof \InvalidArgumentException) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
-        if ($e instanceof NotFoundHttpException) {
+        else if ($e instanceof HttpResponseException) {
+            if ($e->getResponse()->getStatusCode() === Response::HTTP_FORBIDDEN) {
+                return response([
+                    'error' => 'Forbidden',
+                    'status' => Response::HTTP_FORBIDDEN
+                ], Response::HTTP_FORBIDDEN);
+            }
+        }
+
+        else if ($e instanceof NotFoundHttpException) {
             return response([
                 'error' => 'Not found',
                 'status' => Response::HTTP_NOT_FOUND
             ], Response::HTTP_NOT_FOUND);
         }
 
-        if ($e instanceof Exception) {
+        else if ($e instanceof Exception) {
             if (!method_exists($e, 'getResponse') || !$e->getResponse()->getContent()) {
-                return response([
-                    'error' => $e->getMessage(),
-                    'status' => Response::HTTP_UNPROCESSABLE_ENTITY
-                ], Response::HTTP_UNPROCESSABLE_ENTITY);
+                if ($e->getCode() > 0) {
+                    return response([
+                        'error' => $e->getMessage(),
+                        'status' => $e->getCode()
+                    ], $e->getCode());
+                }
             }
-            else {
-                return response ([
-                    'error' => $e->getMessage()
-                ]);
-            }
+            return response ([
+                'error' => $e->getMessage()
+            ]);
         }
+
+        else {
+            return response([
+                'error' => 'There was an error'
+            ], 422);
+        }
+
+//        if ($e instanceof GeneralException) {
+//            return response([
+//                'error' => $e->errorMessage,
+//                'status' => Response::HTTP_BAD_REQUEST
+//            ], Response::HTTP_BAD_REQUEST);
+//        }
 
         return parent::render($request, $e);
     }

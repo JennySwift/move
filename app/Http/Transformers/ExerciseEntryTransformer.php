@@ -38,16 +38,20 @@ class ExerciseEntryTransformer extends TransformerAbstract
      */
     public function transform(Entry $entry)
     {
+        $sets = $entry->sets ? $entry->sets : $entry->calculateSets($entry->date);
+        $total = $entry->total ? $entry->total : $entry->calculateTotal($entry->date);
+
         $array = [
             'id' => $entry->id,
             'date' => $entry->date,
+            //Todo: is this needed on the entry? Isn't it for the exercise?
             'daysAgo' => $entry->days_ago,
             'unit' => [
                 'id' => $entry->unit->id,
                 'name' => $entry->unit->name
             ],
-            'sets' => $entry->sets,
-            'total' => $entry->total,
+            'sets' => $sets,
+            'total' => $total,
             'quantity' => $entry->quantity,
             'createdAt' => $entry->created_at->format('h:ia')
         ];

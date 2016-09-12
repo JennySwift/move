@@ -126,8 +126,10 @@ module.exports = {
         helpers.post({
             url: '/api/exerciseEntries',
             data: data,
-            array: 'exerciseEntries',
-            message: 'Set added'
+            message: 'Set added',
+            callback: function () {
+                store.getExerciseEntriesForTheDay();
+            }
         });
     },
 

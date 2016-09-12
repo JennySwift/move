@@ -26,6 +26,7 @@ Vue.component('popup', require('./components/shared/PopupComponent.vue'));
 Vue.component('autocomplete', require('./components/shared/AutocompleteComponent.vue'));
 // Vue.component('date-picker', require('./components/Shared/DatePickerComponent.vue'));
 Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
+Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
 
 //Components
 Vue.component('new-exercise-entry', require('./components/NewExerciseEntryComponent.vue'));

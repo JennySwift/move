@@ -123,6 +123,13 @@
 
             </div>
         </div>
+        
+        <buttons
+            :save="updateExercise"
+            :destroy="deleteExercise"
+            :redirect-to="redirectTo"
+        >
+        </buttons>
     </div>
 
 </template>
@@ -175,15 +182,9 @@
                 helpers.put({
                     url: '/api/exercises/' + this.shared.exercise.id,
                     data: data,
-//                    property: 'exercises',
+                    property: 'exercises',
                     message: 'Exercise updated',
-                    redirectTo: this.redirectTo,
-                    callback: function (response) {
-                        this.shared.exercise = response.data.data;
-                        store.update(response.data.data, 'exercises');
-                        this.showPopup = false;
-                        $("#exercise-step-number").val("");
-                    }.bind(this)
+                    redirectTo: this.redirectTo
                 });
             },
 

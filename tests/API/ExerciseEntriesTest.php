@@ -31,10 +31,12 @@ class ExerciseEntriesTest extends TestCase {
 
         $this->checkExerciseEntryKeysExist($content[0]);
 
-        $this->assertEquals(1, $content[0]['exercise']['data']['id']);
-        $this->assertEquals('kneeling pushups', $content[0]['exercise']['data']['name']);
-        $this->assertEquals('1.00', $content[0]['exercise']['data']['stepNumber']);
-        $this->assertEquals(1, $content[0]['exercise']['data']['defaultUnit']['data']['id']);
+        $exercise = $content[0]['exercise']['data'];
+
+        $this->assertEquals(1, $exercise['id']);
+        $this->assertEquals('kneeling pushups', $exercise['name']);
+        $this->assertEquals('1.00', $exercise['stepNumber']);
+        $this->assertEquals(1, $exercise['defaultUnit']['data']['id']);
 
         /**
          * @VP:
@@ -92,8 +94,10 @@ class ExerciseEntriesTest extends TestCase {
     {
         $this->logInUser();
 
+        $date = Carbon::today()->format('Y-m-d');
+
         $entry = [
-            'date' => Carbon::today()->format('Y-m-d'),
+            'date' => $date,
             'exercise_id' => 1,
             'quantity' => 5,
             'unit_id' => 1
@@ -104,20 +108,17 @@ class ExerciseEntriesTest extends TestCase {
         $content = json_decode($response->getContent(), true);
 //        dd($content);
 
-        $this->checkExerciseEntryKeysExist($content[0]);
+        $this->checkExerciseEntryKeysExist($content);
 
-        $this->assertEquals(1, $content[0]['exercise']['data']['id']);
-        $this->assertEquals('kneeling pushups', $content[0]['exercise']['data']['name']);
-        $this->assertEquals('1.00', $content[0]['exercise']['data']['stepNumber']);
-
-        $this->assertEquals(1, $content[0]['unit']['id']);
-        $this->assertEquals('reps', $content[0]['unit']['name']);
-
-        $this->assertEquals(1, $content[0]['exercise']['data']['defaultUnit']['data']['id']);
-        $this->assertEquals(3, $content[0]['sets']);
-        $this->assertEquals(15, $content[0]['total']);
-        $this->assertEquals(5, $content[0]['quantity']);
-        $this->assertCount(2, $content);
+        $this->assertEquals($date, $content['date']);
+        $this->assertEquals(1, $content['exercise']['data']['id']);
+//        $this->assertEquals(20, $content['daysAgo']);
+        $this->assertEquals(1, $content['unit']['id']);
+//        $this->assertEquals(20, $content['sets']);
+//        $this->assertEquals(20, $content['total']);
+        $this->assertEquals(5, $content['quantity']);
+        $this->assertEquals(0, $content['exercise']['data']['lastDone']);
+        $this->assertEquals(7, $content['exercise']['data']['dueIn']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }
@@ -130,8 +131,10 @@ class ExerciseEntriesTest extends TestCase {
     {
         $this->logInUser();
 
+        $date = Carbon::today()->format('Y-m-d');
+
         $entry = [
-            'date' => Carbon::today()->format('Y-m-d'),
+            'date' => $date,
             'exercise_id' => 1,
             'exerciseSet' => true
         ];
@@ -140,22 +143,18 @@ class ExerciseEntriesTest extends TestCase {
         $content = json_decode($response->getContent(), true);
 //        dd($content);
 
-        $this->checkExerciseEntryKeysExist($content[0]);
+        $this->checkExerciseEntryKeysExist($content);
 
-        $this->assertEquals(1, $content[0]['exercise']['data']['id']);
-        $this->assertEquals('kneeling pushups', $content[0]['exercise']['data']['name']);
-        $this->assertEquals('1.00', $content[0]['exercise']['data']['stepNumber']);
-        $this->assertEquals(1, $content[0]['exercise']['data']['defaultUnit']['data']['id']);
-
-        $this->assertEquals(1, $content[0]['unit']['id']);
-        $this->assertEquals('reps', $content[0]['unit']['name']);
-
-        $this->assertEquals(3, $content[0]['sets']);
-        //2 * 5 reps from seeder, plus one set of 20 from the 'add set' function
-        $this->assertEquals(30, $content[0]['total']);
-        //Not sure why this should equal 5 since the last set added was 20
-        $this->assertEquals(5, $content[0]['quantity']);
-        $this->assertCount(2, $content);
+        //Todo: check values are according to default exercise set values
+        $this->assertEquals($date, $content['date']);
+        $this->assertEquals(1, $content['exercise']['data']['id']);
+//        $this->assertEquals(20, $content['daysAgo']);
+        $this->assertEquals(1, $content['unit']['id']);
+//        $this->assertEquals(20, $content['sets']);
+//        $this->assertEquals(20, $content['total']);
+        $this->assertEquals(20, $content['quantity']);
+        $this->assertEquals(0, $content['exercise']['data']['lastDone']);
+        $this->assertEquals(7, $content['exercise']['data']['dueIn']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }

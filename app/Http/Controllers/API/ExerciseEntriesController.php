@@ -19,7 +19,6 @@ use Illuminate\Http\Response;
  */
 class ExerciseEntriesController extends Controller
 {
-
     /**
      * @var ExerciseEntriesRepository
      */
@@ -34,18 +33,23 @@ class ExerciseEntriesController extends Controller
     }
 
     /**
+     * GET /api/exerciseEntries
      * Get the user's exercise entries for the day
+     * @param Request $request
      * @param $date
-     * @return mixed
+     * @return Response
      */
-    public function index($date)
+    public function index(Request $request, $date)
     {
-        return transform(
-            createCollection(
-                $this->exerciseEntriesRepository->getEntriesForTheDay($date),
-                new ExerciseEntryTransformer
-            )
-        )['data'];
+        $entries = Entry::forCurrentUser()
+            ->where('date', $date)
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $entries = $this->exerciseEntriesRepository->compactExerciseEntries($entries, $date);
+
+        $entries = $this->transform($this->createCollection($entries, new ExerciseEntryTransformer))['data'];
+        return response($entries, Response::HTTP_OK);
     }
 
     /**
@@ -66,14 +70,15 @@ class ExerciseEntriesController extends Controller
             ->with('exercise')
             ->get();
 
-        return transform(createCollection($entries, new ExerciseEntryTransformer))['data'];
+        return $this->transform($this->createCollection($entries, new ExerciseEntryTransformer))['data'];
     }
 
     /**
+     * POST /api/exerciseEntries
      * Insert an exercise entry.
      * It can be an exercise set.
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -100,15 +105,8 @@ class ExerciseEntriesController extends Controller
 
         $entry->save();
 
-        //Return the entries for the day
-        $entries = transform(
-            createCollection(
-                $this->exerciseEntriesRepository->getEntriesForTheDay($request->get('date')),
-                new ExerciseEntryTransformer
-            )
-        )['data'];
-
-        return response($entries, Response::HTTP_CREATED);
+        $entry = $this->transform($this->createItem($entry, new ExerciseEntryTransformer))['data'];
+        return response($entry, Response::HTTP_CREATED);
     }
 
     /**

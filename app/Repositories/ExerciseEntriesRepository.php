@@ -13,21 +13,6 @@ use Auth;
  */
 class ExerciseEntriesRepository
 {
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getEntriesForTheDay($date)
-    {
-        $entries = Entry::forCurrentUser()
-            ->where('date', $date)
-            ->orderBy('id', 'asc')
-            ->get();
-
-        return $this->compactExerciseEntries($entries, $date);
-    }
-
     /**
      * If entries share the same exercise, date, and unit,
      * compact them into one item.

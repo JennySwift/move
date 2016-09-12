@@ -124,11 +124,10 @@ module.exports = {
         };
 
         helpers.post({
-            url: '/api/exericseEntries',
+            url: '/api/exerciseEntries',
             data: data,
             array: 'exerciseEntries',
-            message: 'Set added',
-            redirectTo: this.redirectTo
+            message: 'Set added'
         });
     },
 

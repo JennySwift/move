@@ -1,5 +1,6 @@
 var Vue = require('vue');
 var helpers = require('./Helpers');
+var object = require('lodash/object');
 require('sugar');
 
 module.exports = {
@@ -7,14 +8,18 @@ module.exports = {
     state: {
         me: {gravatar: ''},
         exercises: [],
+        exercisesLoaded: false,
         exerciseSeries: [],
+        exerciseSeriesLoaded: false,
         exerciseEntries: [],
+        exerciseEntriesLoaded: false,
         date: {
             typed: Date.create('today').format('{dd}/{MM}/{yyyy}'),
             long: helpers.formatDateToLong('today'),
             sql: helpers.formatDateToSql('today')
         },
         exerciseUnits: [],
+        exerciseUnitsLoaded: false,
         programs: [],
         loading: false
     },
@@ -44,54 +49,63 @@ module.exports = {
     },
 
     /**
-     *
-     */
+    *
+    */
     getExercises: function () {
-        helpers.get('/api/exercises', false, 'exercises');
+        helpers.get({
+            url: '/api/exercises',
+            storeProperty: 'exercises',
+            loadedProperty: 'exercisesLoaded'
+        });
     },
 
     /**
      * Todo: all the entries I think are actually in the data (unnecessarily)
      */
     getExerciseEntriesForTheDay: function () {
-        helpers.get('/api/exerciseEntries/' + this.state.date.sql, false, 'exerciseEntries');
-    },
-
-    /**
-     *
-     */
-    getSeries: function () {
-        helpers.get('/api/exerciseSeries', false, 'exerciseSeries');
-    },
-
-    /**
-     *
-     * @param data
-     * @param propertyName
-     */
-    set: function (data, propertyName) {
-        store.state[propertyName] = data;
-    },
-
-    /**
-     *
-     */
-    getExerciseUnits: function () {
-        helpers.get('/api/exerciseUnits', false, 'exerciseUnits');
-    },
-
-    /**
-     *
-     */
-    getExercisePrograms: function () {
-        helpers.get('/api/exercisePrograms', function (response) {
-            store.state.programs = response.data;
+        helpers.get({
+            url: '/api/exerciseEntries/' + this.state.date.sql,
+            storeProperty: 'exerciseEntries',
+            loadedProperty: 'exerciseEntriesLoaded'
         });
     },
 
     /**
      *
      */
+    getExerciseSeries: function () {
+        helpers.get({
+            url: '/api/exerciseSeries',
+            storeProperty: 'exerciseSeries',
+            loadedProperty: 'exerciseSeriesLoaded'
+        });
+    },
+
+    /**
+     *
+     */
+    getExerciseUnits: function () {
+        helpers.get({
+            url: '/api/exerciseUnits',
+            storeProperty: 'exerciseUnits',
+            loadedProperty: 'exerciseUnitsLoaded'
+        });
+    },
+
+    /**
+     *
+     */
+    getExercisePrograms: function () {
+        helpers.get({
+            url: '/api/exercisePrograms',
+            storeProperty: 'exercisePrograms',
+            loadedProperty: 'exerciseProgramsLoaded'
+        });
+    },
+
+    /**
+    *
+    */
     insertExerciseSet: function (exercise) {
         var data = {
             date: this.state.date.sql,
@@ -99,37 +113,52 @@ module.exports = {
             exerciseSet: true
         };
 
-        helpers.post('/api/exerciseEntries', data, 'Set added', function (response) {
-            store.state.exerciseEntries = response.data;
-            exercise.lastDone = 0;
-        }.bind(this));
+        helpers.post({
+            url: '/api/exericseEntries',
+            data: data,
+            array: 'exerciseEntries',
+            message: 'Set added',
+            redirectTo: this.redirectTo
+        });
     },
 
     /**
-     *
+     * Add an item to an array
      * @param item
-     * @param propertyName
+     * @param path
      */
-    add: function (item, propertyName) {
-        store.state[propertyName].push(item);
+    add: function (item, path) {
+        object.get(this.state, path).push(item);
     },
 
     /**
-     *
+     * Update an item that is in an array
      * @param item
-     * @param propertyName
+     * @param path
      */
-    update: function (item, propertyName) {
-        var index = helpers.findIndexById(this.state[propertyName], item.id);
-        this.state[propertyName].$set(index, item);
+    update: function (item, path) {
+        var index = helpers.findIndexById(object.get(this.state, path), item.id);
+
+        object.get(this.state, path).$set(index, item);
     },
 
     /**
-     *
-     * @param item
-     * @param propertyName
+     * Set a property (can be nested)
+     * @param data
+     * @param path
      */
-    delete: function (item, propertyName) {
-        this.state[propertyName] = helpers.deleteById(this.state[propertyName], item.id);
+    set: function (data, path) {
+        object.set(this.state, path, data);
+    },
+
+    /**
+     * Delete an item from an array
+     * To delete a nested property of store.state, for example a class in store.state.classes.data:
+     * store.delete(itemToDelete, 'student.classes.data');
+     * @param itemToDelete
+     * @param path
+     */
+    delete: function (itemToDelete, path) {
+        object.set(this.state, path, helpers.deleteById(object.get(this.state, path), itemToDelete.id));
     }
 };

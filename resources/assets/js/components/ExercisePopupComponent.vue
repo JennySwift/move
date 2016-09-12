@@ -169,28 +169,40 @@
         methods: {
 
             /**
-             *
-             */
+            *
+            */
             updateExercise: function () {
                 var data = ExercisesRepository.setData(this.selectedExercise);
 
-                helpers.put('/api/exercises/' + this.selectedExercise.id, data, 'Exercise updated', function (response) {
-                    this.selectedExercise = response.data.data;
-                    store.update(response.data.data, 'exercises');
-                    this.showPopup = false;
-                    $("#exercise-step-number").val("");
-                }.bind(this));
+                helpers.put({
+                    url: '/api/exercises/' + this.selectedExercise.id,
+                    data: data,
+//                    property: 'exercises',
+                    message: 'Exercise updated',
+                    redirectTo: this.redirectTo,
+                    callback: function (response) {
+                        this.selectedExercise = response.data.data;
+                        store.update(response.data.data, 'exercises');
+                        this.showPopup = false;
+                        $("#exercise-step-number").val("");
+                    }.bind(this)
+                });
             },
 
             /**
-             *
-             */
+            *
+            */
             deleteExercise: function () {
-                helpers.delete('/api/exercises/' + this.selectedExercise.id, 'Exercise deleted', function (response) {
-                    store.delete(this.selectedExercise, 'exercises');
-                    this.showPopup = false;
-                    router.go(this.redirectTo);
-                }.bind(this));
+                helpers.delete({
+                    url: '/api/exercises/' + this.selectedExercise.id,
+                    array: 'exercises',
+                    itemToDelete: this.selectedExercise,
+                    message: 'Exercise deleted',
+                    redirectTo: this.redirectTo,
+                    callback: function () {
+                        this.showPopup = false;
+                    }.bind(this)
+                });
             },
 
             /**

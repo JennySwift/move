@@ -8,11 +8,13 @@ module.exports = {
 
     /**
      *
+     * @param data
+     * @param status
      * @param response
      */
-    handleResponseError: function (response) {
-        $.event.trigger('response-error', [response]);
-        store.hideLoading();
+    handleResponseError: function (data, status, response) {
+        $.event.trigger('response-error', [data, status, response]);
+        $.event.trigger('hide-loading');
     },
 
     /**
@@ -24,70 +26,100 @@ module.exports = {
     },
 
     /**
-     *
+     * storeProperty is the store property to set once the items are loaded.
+     * loadedProperty is the store property to set once the items are loaded, to indicate that the items are loaded.
+     * todo: allow for sending data: add {params:data} as second argument
      */
-    get: function (url, callback, propertyToSet) {
+    get: function (options) {
         store.showLoading();
-        Vue.http.get(url).then(function (response) {
-            if (callback) {
-                callback(response);
+        Vue.http.get(options.url).then(function (response) {
+            if (options.callback) {
+                options.callback(response.data);
             }
 
-            if (propertyToSet) {
-                store.set(response.data, propertyToSet);
+            if (options.storeProperty) {
+                store.set(response.data, options.storeProperty);
+            }
+
+            if (options.loadedProperty) {
+                store.set(true, options.loadedProperty);
             }
 
             store.hideLoading();
         }, function (response) {
-            helpers.handleResponseError(response);
+            helpers.handleResponseError(response.data, response.status);
+        });
+    },
+
+    /**
+     * options:
+     * array: store array to add to
+     */
+    post: function (options) {
+        store.showLoading();
+        Vue.http.post(options.url, options.data).then(function (response) {
+            if (options.callback) {
+                options.callback(response.data);
+            }
+
+            store.hideLoading();
+
+            if (options.message) {
+                $.event.trigger('provide-feedback', [options.message, 'success']);
+            }
+
+            if (options.array) {
+                store.add(response.data, options.array);
+            }
+
+            if (options.clearFields) {
+                options.clearFields();
+            }
+
+            if (options.redirectTo) {
+                router.go(options.redirectTo);
+            }
+        }, function (response) {
+            helpers.handleResponseError(response.data, response.status);
         });
     },
 
     /**
      *
      */
-    post: function (url, data, feedbackMessage, callback) {
+    put: function (options) {
         store.showLoading();
-        Vue.http.post(url, data).then(function (response) {
-            callback(response);
+        Vue.http.put(options.url, options.data).then(function (response) {
+            if (options.callback) {
+                options.callback(response.data);
+            }
+
             store.hideLoading();
 
-            if (feedbackMessage) {
-                $.event.trigger('provide-feedback', [feedbackMessage, 'success']);
+            if (options.message) {
+                $.event.trigger('provide-feedback', [options.message, 'success']);
             }
+
+            if (options.property) {
+                store.update(response.data, options.property);
+            }
+
+            if (options.redirectTo) {
+                router.go(options.redirectTo);
+            }
+
         }, function (response) {
-            helpers.handleResponseError(response);
+            helpers.handleResponseError(response.data, response.status);
         });
     },
 
     /**
      *
      */
-    put: function (url, data, feedbackMessage, callback) {
-        store.showLoading();
-        Vue.http.put(url, data).then(function (response) {
-            callback(response);
-            store.hideLoading();
-
-            if (feedbackMessage) {
-                $.event.trigger('provide-feedback', [feedbackMessage, 'success']);
-            }
-        }, function (response) {
-            helpers.handleResponseError(response);
-        });
-    },
-
-    /**
-     *
-     */
-    delete: function (url, feedbackMessage, callback) {
+    delete: function (options) {
         swal({
             title: 'Are you sure?',
-            // text: "",
-            // type: 'warning',
             showCancelButton: true,
-            // confirmButtonColor: '#3085d6',
-            // cancelButtonColor: '#d33',
             confirmButtonText: 'Yes',
             cancelButtonText: 'Cancel',
             confirmButtonClass: 'btn btn-danger',
@@ -97,25 +129,29 @@ module.exports = {
             showCloseButton: true
         }).then(function() {
             store.showLoading();
-            Vue.http.delete(url).then(function (response) {
-                callback(response);
+            Vue.http.delete(options.url).then(function (response) {
+                if (options.callback) {
+                    options.callback(response);
+                }
+
                 store.hideLoading();
 
-                if (feedbackMessage) {
-                    $.event.trigger('provide-feedback', [feedbackMessage, 'success']);
+                if (options.message) {
+                    $.event.trigger('provide-feedback', [options.message, 'success']);
+                }
+
+                if (options.array) {
+                    store.delete(options.itemToDelete, options.array);
+                }
+
+                if (options.redirectTo) {
+                    router.go(options.redirectTo);
                 }
             }, function (response) {
-                helpers.handleResponseError(response.data);
+                helpers.handleResponseError(response.data, response.status);
             });
         }, function(dismiss) {
-            // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-            // if (dismiss === 'cancel') {
-            //     swal(
-            //         'Cancelled',
-            //         'Your imaginary file is safe :)',
-            //         'error'
-            //     );
-            // }
+
         });
     },
 
@@ -125,8 +161,23 @@ module.exports = {
      * @param id
      * @returns {*}
      */
+    findById: function (array, id) {
+        var index = this.findIndexById(array, id);
+        return array[index];
+    },
+
+    /**
+     *
+     * @param array
+     * @param id
+     * @returns {*}
+     */
     findIndexById: function (array, id) {
-        return _.indexOf(array, _.findWhere(array, {id: id}));
+        // return _.indexOf(array, _.findWhere(array, {id: id}));
+        //So it still work if id is a string
+        return _.indexOf(array, _.find(array, function (item) {
+            return item.id == id;
+        }));
     },
 
     /**

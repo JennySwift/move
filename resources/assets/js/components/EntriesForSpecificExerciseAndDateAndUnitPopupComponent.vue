@@ -50,54 +50,61 @@
         methods: {
 
             /**
-             * Get all the the user's entries for a particular exercise
+            * Get all the the user's entries for a particular exercise
              * with a particular unit on a particular date.
-             * @param entry
-             */
+            */
             getEntriesForSpecificExerciseAndDateAndUnit: function (entry) {
-                store.showLoading();
-
                 var data = {
                     date: this.date.sql,
                     exercise_id: entry.exercise.data.id,
                     exercise_unit_id: entry.unit.id
                 };
 
-                this.$http.get('api/exerciseEntries/specificExerciseAndDateAndUnit', {params:data}).then(function (response) {
-                    this.entries = response.data;
-                    this.showPopup = true;
-                    store.hideLoading();
-                }, function (response) {
-                    helpers.handleResponseError(response);
-                });
+
+                helpers.get({
+                    url: 'api/exerciseEntries/specificExerciseAndDateAndUnit',
+                    storeProperty: 'entries',
+                    loadedProperty: 'entriesLoaded',
+                    callback: function (response) {
+                        this.entries = response;
+                    }
+                }.bind(this));
             },
 
             /**
-             *
-             */
+            *
+            */
             updateExerciseEntry: function (entry) {
-                $.event.trigger('show-loading');
-
                 var data = {
                     quantity: entry.quantity
                 };
 
-                helpers.put('/api/exerciseEntries/' + entry.id, data, 'Entry updated', function (response) {
-
-                }.bind(this));
+                helpers.put({
+                    url: '/api/exerciseEntries/' + entry.id,
+                    data: data,
+                    message: 'Entry updated',
+                    redirectTo: this.redirectTo
+                });
             },
 
             /**
-             *
-             */
+            *
+            */
             deleteExerciseEntry: function (entry) {
-                helpers.delete('/api/exerciseEntries/' + entry.id, 'Entry deleted', function (response) {
-                    this.entries = _.without(this.entries, entry);
-                    //This might be unnecessary to do each time, and it fetches a lot
-                    //of data for just deleting one entry.
-                    //Perhaps do it when the popup closes instead?
-                    store.getExerciseEntriesForTheDay();
-                }.bind(this));
+                helpers.delete({
+                    url: '/api/exerciseEntries/' + entry.id,
+                    array: 'exerciseEntrys',
+//                    itemToDelete: this.exerciseEntry,
+                    message: 'Entry deleted',
+                    redirectTo: this.redirectTo,
+                    callback: function () {
+                        this.entries = _.without(this.entries, entry);
+                        //This might be unnecessary to do each time, and it fetches a lot
+                        //of data for just deleting one entry.
+                        //Perhaps do it when the popup closes instead?
+                        store.getExerciseEntriesForTheDay();
+                    }.bind(this)
+                });
             },
 
             /**

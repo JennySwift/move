@@ -196,15 +196,23 @@
         methods: {
 
             /**
-             *
-             */
+            *
+            */
             insertExercise: function () {
                 var data = ExercisesRepository.setData(this.newExercise);
 
-                helpers.post('/api/exercises', data, 'Exercise created', function (response) {
-                    store.add(response.data, 'exercises');
-                }.bind(this));
-            },
+                helpers.post({
+                    url: '/api/exercises',
+                    data: data,
+                    array: 'exercises',
+                    message: 'Exercise created',
+//                    clearFields: this.clearFields,
+                    redirectTo: this.redirectTo,
+                    callback: function () {
+                        this.showPopup = false;
+                    }.bind(this)
+                });
+            }
         },
         props: [
             'showNewExerciseFields'

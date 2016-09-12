@@ -63,8 +63,8 @@
         methods: {
 
             /**
-             *
-             */
+            *
+            */
             insertEntry: function () {
                 var data = {
                     date: this.date.sql,
@@ -73,9 +73,16 @@
                     unit_id: this.newEntry.unit.id
                 };
 
-                helpers.post('/api/exerciseEntries', data, 'Entry created', function (response) {
-                    store.getExerciseEntriesForTheDay();
-                }.bind(this));
+                helpers.post({
+                    url: '/api/exerciseEntries',
+                    data: data,
+                    array: 'exerciseEntries',
+                    message: 'Entry created',
+                    redirectTo: this.redirectTo,
+                    callback: function () {
+                        store.getExerciseEntriesForTheDay();
+                    }.bind(this)
+                });
             }
         },
         props: [

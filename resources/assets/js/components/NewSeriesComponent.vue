@@ -42,17 +42,28 @@
         methods: {
 
             /**
-             *
-             */
+            *
+            */
             insertSeries: function () {
                 var data = {
                     name: this.newSeries.name
                 };
 
-                helpers.post('/api/exerciseSeries', data, 'Series created', function (response) {
-                    store.add(response.data.data, 'exerciseSeries');
-                    this.newSeries.name = '';
-                }.bind(this));
+                helpers.post({
+                    url: '/api/exerciseSeries',
+                    data: data,
+                    array: 'exerciseSeries',
+                    message: 'Series created',
+                    clearFields: this.clearFields,
+                    redirectTo: this.redirectTo
+                });
+            },
+
+            /**
+             *
+             */
+            clearFields: function () {
+                this.newSeries.name = '';
             }
         },
         props: [

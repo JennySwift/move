@@ -45,30 +45,39 @@
         methods: {
 
             /**
-             *
-             */
+            *
+            */
             updateSeries: function () {
-                $.event.trigger('show-loading');
-
                 var data = {
                     name: this.selectedSeries.name,
                     priority: this.selectedSeries.priority,
                     workout_ids: this.selectedSeries.workout_ids
                 };
 
-                helpers.put('/api/exerciseSeries/' + this.selectedSeries.id, data, 'Series updated', function (response) {
-                    store.update(response.data, 'exerciseSeries');
-                    this.showPopup = false;
-                }.bind(this));
+                helpers.put({
+                    url: '/api/exerciseSeries/' + this.selectedSeries.id,
+                    data: data,
+                    property: 'exerciseSeries',
+                    message: 'Series updated',
+                    redirectTo: this.redirectTo,
+                    callback: function (response) {
+                        store.update(response, 'exerciseSeries');
+                        router.go(this.redirectTo);
+                    }.bind(this)
+                });
             },
 
             /**
-             *
-             */
+            *
+            */
             deleteSeries: function () {
-                helpers.delete('/api/exerciseSeries/' + this.selectedSeries.id, 'Series deleted', function (response) {
-                    store.delete(this.selectedSeries, 'exerciseSeries');
-                }.bind(this));
+                helpers.delete({
+                    url: '/api/exerciseSeries/' + this.selectedSeries.id,
+                    array: 'exerciseSeries',
+                    itemToDelete: this.exerciseSeries,
+                    message: 'Series deleted',
+                    redirectTo: this.redirectTo
+                });
             },
 
             /**

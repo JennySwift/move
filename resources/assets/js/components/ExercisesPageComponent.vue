@@ -344,11 +344,16 @@
             },
 
             /**
-             *
-             */
+            *
+            */
             showExercisePopup: function (exercise) {
-                helpers.get('/api/exercises/' + exercise.id, function (response) {
-                    $.event.trigger('show-exercise-popup', response.data);
+                helpers.get({
+                    url: '/api/exercises/' + exercise.id,
+//                    storeProperty: 'exercises',
+//                    loadedProperty: 'exercisesLoaded',
+                    callback: function (response) {
+                        $.event.trigger('show-exercise-popup', response.data);
+                    }
                 }.bind(this));
             },
 
@@ -379,28 +384,38 @@
             },
 
             /**
-             *
-             */
+            *
+            */
             getExerciseSeriesHistory: function (key) {
                 //Find the series. The exercises were grouped according to series, so all we have is the series name (key).
                 var series = _.find(this.exerciseSeries, function (series) {
                     return series.name === key;
                 });
 
-                helpers.get('api/seriesEntries/' + series.id, function (response) {
-                    //For displaying the name of the series in the popup
-                    this.selectedSeries = series;
-                    this.exerciseSeriesHistory = response.data;
-                    $.event.trigger('show-series-history-popup');
+                helpers.get({
+                    url: 'api/seriesEntries/' + series.id,
+//                    storeProperty: 'exercises',
+//                    loadedProperty: 'exercisesLoaded',
+                    callback: function (response) {
+                        //For displaying the name of the series in the popup
+                        this.selectedSeries = series;
+                        this.exerciseSeriesHistory = response.data;
+                        $.event.trigger('show-series-history-popup');
+                    }
                 }.bind(this));
             },
 
             /**
-             *
-             */
+            *
+            */
             getExercisesInSeries: function (series) {
-                helpers.get('/api/exerciseSeries/' + series.id, function (response) {
-                    this.selectedSeries = response.data;
+                helpers.get({
+                    url: '/api/exerciseSeries/' + series.id,
+                    storeProperty: 'series',
+                    loadedProperty: 'seriesLoaded',
+                    callback: function (response) {
+                        this.selectedSeries = response;
+                    }
                 }.bind(this));
             },
 
@@ -413,9 +428,14 @@
                     return series.name === key;
                 });
 
-                helpers.get('/api/exerciseSeries/' + series.id, function (response) {
-                    this.selectedSeries = response.data;
-                    $.event.trigger('show-series-popup');
+                helpers.get({
+                    url: '/api/exerciseSeries/' + series.id,
+                    storeProperty: 'series',
+                    loadedProperty: 'seriesLoaded',
+                    callback: function (response) {
+                        this.selectedSeries = response;
+                        $.event.trigger('show-series-popup');
+                    }
                 }.bind(this));
             }
         },

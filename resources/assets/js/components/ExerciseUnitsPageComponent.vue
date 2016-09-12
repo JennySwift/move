@@ -60,17 +60,21 @@
         methods: {
 
             /**
-             *
-             */
+            *
+            */
             insertUnit: function () {
                 var data = {
                     name: this.newUnit.name
                 };
 
-                helpers.post('/api/exerciseUnits', data, 'Unit added', function (response) {
-                    store.add(response.data.data, 'exerciseUnits');
-                    this.clearFields();
-                }.bind(this));
+                helpers.post({
+                    url: '/api/exerciseUnits',
+                    data: data,
+                    array: 'exerciseUnits',
+                    message: 'Unit created',
+                    clearFields: this.clearFields,
+                    redirectTo: this.redirectTo
+                });
             },
 
             /**
@@ -81,14 +85,16 @@
             },
 
             /**
-             *
-             */
+            *
+            */
             deleteUnit: function (unit) {
-                helpers.delete('/api/exerciseUnits/' + unit.id, 'Unit deleted', function (response) {
-                    store.delete(unit, 'exerciseUnits');
-                    this.showPopup = false;
-                    router.go(this.redirectTo);
-                }.bind(this));
+                helpers.delete({
+                    url: '/api/exerciseUnits/' + unit.id,
+                    array: 'exerciseUnits',
+                    itemToDelete: unit,
+                    message: 'Unit deleted',
+                    redirectTo: this.redirectTo
+                });
             }
         },
         props: [

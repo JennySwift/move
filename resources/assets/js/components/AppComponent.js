@@ -3,6 +3,6 @@ module.exports = {
         store.getExercises();
         store.getExerciseUnits();
         store.getExercisePrograms();
-        store.getSeries();
+        store.getExerciseSeries();
     }
 };

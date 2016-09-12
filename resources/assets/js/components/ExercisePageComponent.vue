@@ -135,7 +135,8 @@
         template: '#exercise-popup-template',
         data: function () {
             return {
-                shared: store.state
+                shared: store.state,
+                redirectTo: '/exercises'
             };
         },
         computed: {
@@ -151,6 +152,19 @@
         },
         components: {},
         methods: {
+
+            /**
+            *
+            */
+            getExercise: function () {
+                var id = this.$route.params.id;
+
+                helpers.get({
+                    url: '/api/exercises/' + id,
+                    storeProperty: 'exercise',
+                    loadedProperty: 'exerciseLoaded',
+                });
+            },
 
             /**
             *
@@ -187,6 +201,11 @@
                         this.showPopup = false;
                     }.bind(this)
                 });
+            }
+        },
+        ready: function () {
+            if (!this.shared.exercise.id) {
+                this.getExercise();
             }
         }
     };

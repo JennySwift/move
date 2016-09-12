@@ -12,6 +12,10 @@ router.map({
     }
 });
 
+router.redirect({
+    '/': '/exercises'
+});
+
 var App = Vue.component('app', require('./components/AppComponent'));
 
 router.start(App, 'body');

@@ -22,7 +22,7 @@ module.exports = {
      * @param object
      */
     clone: function (object) {
-        return JSON.parse(JSON.stringify(object))
+        return JSON.parse(JSON.stringify(object));
     },
 
     /**

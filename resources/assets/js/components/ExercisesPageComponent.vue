@@ -154,16 +154,6 @@
 
             </div>
 
-            <exercise-popup
-                :selected-exercise="selectedExercise"
-                :exercises.sync="shared.exercises"
-                :exercise-series="exerciseSeries"
-                :programs="programs"
-                :units="units"
-            >
-            </exercise-popup>
-
-
             <table id="exercises-table" class="table table-bordered">
                 <tr>
                     <th class="big-screens">Step</th>
@@ -180,13 +170,13 @@
                     v-bind:class="{'stretch': exercise.stretch}"
                     class="hover pointer"
                 >
-                    <td v-on:click="showExercisePopup(exercise)" class="big-screens">{{ exercise.stepNumber }}</td>
-                    <td v-on:click="showExercisePopup(exercise)">{{ exercise.name }}</td>
-                    <td v-on:click="showExercisePopup(exercise)" class="big-screens">{{ exercise.priority }}</td>
-                    <td v-on:click="showExercisePopup(exercise)" class="big-screens">{{ exercise.target }}</td>
-                    <td v-on:click="showExercisePopup(exercise)">{{ exercise.lastDone }}</td>
-                    <td v-on:click="showExercisePopup(exercise)">{{ exercise.frequency }}</td>
-                    <td v-on:click="showExercisePopup(exercise)">{{ exercise.dueIn }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.stepNumber }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.name }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.priority }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.target }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.lastDone }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.frequency }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.dueIn }}</td>
                     <td>
                         <button
                             v-on:click="insertExerciseSet(exercise)"
@@ -206,6 +196,7 @@
 <script>
 
     var ExercisesRepository = require('../repositories/ExercisesRepository');
+    var $ = require('jquery');
 
     module.exports = {
         template: '#exercises-page-template',
@@ -339,22 +330,15 @@
             /**
              *
              */
-            insertExerciseSet: function (exercise) {
-                store.insertExerciseSet(exercise);
+            setExercise: function (exercise) {
+                store.set(exercise, 'exercise');
             },
 
             /**
-            *
-            */
-            showExercisePopup: function (exercise) {
-                helpers.get({
-                    url: '/api/exercises/' + exercise.id,
-//                    storeProperty: 'exercises',
-//                    loadedProperty: 'exercisesLoaded',
-                    callback: function (response) {
-                        $.event.trigger('show-exercise-popup', response.data);
-                    }
-                }.bind(this));
+             *
+             */
+            insertExerciseSet: function (exercise) {
+                store.insertExerciseSet(exercise);
             },
 
             /**

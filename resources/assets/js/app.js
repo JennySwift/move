@@ -35,7 +35,6 @@ Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('
 Vue.component('series-history-popup', require('./components/SeriesHistoryPopupComponent.vue'));
 Vue.component('series-popup', require('./components/SeriesPopupComponent.vue'));
 Vue.component('new-series', require('./components/NewSeriesComponent.vue'));
-Vue.component('exercise-popup', require('./components/ExercisePopupComponent.vue'));
 
 //Transitions
 Vue.transition('fade', require('./transitions/FadeTransition'));

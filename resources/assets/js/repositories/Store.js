@@ -11,6 +11,14 @@ module.exports = {
         me: {gravatar: ''},
         exercises: [],
         exercisesLoaded: false,
+        exercise: {
+            program: {},
+            series: {},
+            defaultUnit: {
+                data: {}
+            }
+        },
+        exerciseLoaded: false,
         exerciseSeries: [],
         exerciseSeriesLoaded: false,
         exerciseEntries: [],

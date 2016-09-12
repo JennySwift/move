@@ -7,6 +7,9 @@ router.map({
     '/exercises': {
         component: require('./components/ExercisesPageComponent.vue')
     },
+    '/exercises/:id': {
+        component: require('./components/ExercisePageComponent.vue')
+    },
     '/exercise-units': {
         component: require('./components/ExerciseUnitsPageComponent.vue')
     }

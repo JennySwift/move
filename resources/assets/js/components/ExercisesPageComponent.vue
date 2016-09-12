@@ -93,34 +93,6 @@
             </series-popup>
 
             <div>
-                <div class="top-buttons">
-
-                    <div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Add <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a
-                                        v-link="{path: '/series/#/add'}"
-                                    >
-                                        Series
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        v-link="{path: '/exercises/#/add'}"
-                                    >
-                                        Exercise
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-
                 <div>
                     <button v-on:click="showExerciseEntryInputs = !showExerciseEntryInputs" class="btn btn-sm btn-success">Add manual entry</button>
                     <div v-show="showExerciseEntryInputs">

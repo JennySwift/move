@@ -1,4 +1,5 @@
 var expect = require('chai').expect;
+var assert = require('chai').assert;
 var Vue = require('vue');
 global.store = require('../resources/assets/js/repositories/Store');
 global.FiltersRepository = require('../resources/assets/js/repositories/FiltersRepository.js');
@@ -6,11 +7,12 @@ global._ = require('underscore');
 
 describe('filters', function () {
     it('can show and hide the loading symbol', function () {
-        expect(store.state.loading).to.be.false;
-        store.showLoading();
-        expect(store.state.loading).to.be.true;
         store.hideLoading();
-        expect(store.state.loading).to.be.false;
+        assert.isFalse(store.state.loading);
+        store.showLoading();
+        assert.isTrue(store.state.loading);
+        store.hideLoading();
+        assert.isFalse(store.state.loading);
     });
 
     it('can update an item in an array', function () {

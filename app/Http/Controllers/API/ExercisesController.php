@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Http\Requests\ExerciseStoreRequest;
 use App\Http\Transformers\Exercises\ExerciseTransformer;
 use App\Models\Exercise;
 use App\Models\ExerciseProgram;
@@ -63,10 +64,10 @@ class ExercisesController extends Controller
 
     /**
      *
-     * @param Request $request
+     * @param ExerciseStoreRequest $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ExerciseStoreRequest $request)
     {
         $exercise = new Exercise($request->only(
             'name',

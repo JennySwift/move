@@ -125,6 +125,27 @@ class ExercisesTest extends TestCase {
     /**
      * @test
      */
+    public function it_cannot_create_an_exercise_without_the_required_fields()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $data = [];
+
+        $response = $this->apiCall('POST', '/api/exercises', $data);
+        $content = json_decode($response->getContent(), true);
+     // dd($content);
+
+        $this->assertArrayHasKey('name', $content);
+
+        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     * @test
+     */
     public function it_can_show_an_exercise()
     {
         $this->logInUser();

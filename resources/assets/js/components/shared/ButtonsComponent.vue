@@ -17,10 +17,10 @@
             Delete
         </button>
 
+        <!--Not adding the redirectTo here because that's done with the JS in case there is an error and we don't want to redirect-->
         <button
             v-if="save"
             v-on:click="save()"
-            v-link="{path: redirectTo}"
             class="btn btn-success"
         >
             Save

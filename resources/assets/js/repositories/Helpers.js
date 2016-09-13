@@ -13,6 +13,7 @@ module.exports = {
      * @param response
      */
     handleResponseError: function (data, status, response) {
+        store.hideLoading();
         $.event.trigger('response-error', [data, status, response]);
         $.event.trigger('hide-loading');
     },

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Http\Requests\SeriesStoreRequest;
 use App\Http\Transformers\Exercises\SeriesTransformer;
 use App\Models\Series;
 use App\Repositories\ExerciseSeriesRepository;
@@ -64,10 +65,10 @@ class ExerciseSeriesController extends Controller
 
     /**
      * POST /api/series
-     * @param Request $request
+     * @param SeriesStoreRequest $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(SeriesStoreRequest $request)
     {
         $series = new Series($request->only([
             'name',

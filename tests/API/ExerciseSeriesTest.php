@@ -175,6 +175,26 @@ class ExerciseSeriesTest extends TestCase {
      * @test
      * @return void
      */
+    public function it_cannot_add_a_new_series_without_the_required_fields()
+    {
+        $this->logInUser();
+
+        $series = [];
+
+        $response = $this->apiCall('POST', '/api/exerciseSeries', $series);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->assertArrayHasKey('name', $content);
+        $this->assertArrayHasKey('priority', $content);
+
+        $this->assertEquals(422, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_delete_a_series()
     {
         $this->logInUser();

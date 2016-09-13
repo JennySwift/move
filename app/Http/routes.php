@@ -16,7 +16,7 @@ Route::auth();
 Route::get('/', 'HomeController@index');
 
 // API
-Route::group(['middleware' => ['auth'], 'namespace' => 'API', 'prefix' => 'api'], function () {
+Route::group(['middleware' => ['auth', 'owner'], 'namespace' => 'API', 'prefix' => 'api'], function () {
 
     Route::resource('exercises', 'ExercisesController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
     Route::resource('exerciseSeries', 'ExerciseSeriesController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);

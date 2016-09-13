@@ -51,5 +51,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         //So that I don't have to remember to uncomment line 18 of kernel.php before pushing
         'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
+        'owner' => \App\Http\Middleware\OwnerMiddleware::class
     ];
 }

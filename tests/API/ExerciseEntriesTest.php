@@ -126,8 +126,8 @@ class ExerciseEntriesTest extends TestCase {
 
         $date = Carbon::today()->format('Y-m-d');
 
-//        $this->assertCount(19, $this->user->exerciseEntries);
-//        $this->assertCount(2, $this->getEntriesForTheDay($date));
+        $this->assertCount(19, $this->user->exerciseEntries);
+        $this->assertCount(2, $this->getEntriesForTheDay($date));
 
         $entry = [
             'date' => $date,
@@ -155,7 +155,7 @@ class ExerciseEntriesTest extends TestCase {
         $entriesForTheDay = $this->getEntriesForTheDay($date);
 
         $this->assertCount(20, $this->user->exerciseEntries()->get());
-        //The number shouldn't increase because it was an exericise/unit combination already done that day
+        //The number shouldn't increase because it was an exercise/unit combination already done that day
         $this->assertCount(2, $entriesForTheDay);
         $this->assertEquals(3, $entriesForTheDay[0]['sets']);
 

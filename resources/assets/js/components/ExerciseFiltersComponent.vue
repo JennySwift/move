@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label for="filter-by-name">Name</label>
                 <input
-                    v-model="filters.name"
+                    v-model="shared.exerciseFilters.name"
                     type="text"
                     id="filter-by-name"
                     name="filter-by-name"
@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="filter-by-description">Description</label>
                 <input
-                    v-model="filters.description"
+                    v-model="shared.exerciseFilters.description"
                     type="text"
                     id="filter-by-description"
                     name="filter-by-description"
@@ -30,7 +30,7 @@
                 <label for="filter-by-series">Series</label>
 
                 <select
-                    v-model="filters.series"
+                    v-model="shared.exerciseFilters.series"
                     id="filter-by-series"
                     class="form-control"
                 >
@@ -47,7 +47,7 @@
             <div class="form-group">
                 <label for="filter-by-priority">Priority</label>
                 <input
-                    v-model="filters.priority"
+                    v-model="shared.exerciseFilters.priority"
                     type="text"
                     id="filter-by-priority"
                     name="filter-by-priority"
@@ -59,7 +59,7 @@
             <div class="form-group">
                 <div class="checkbox-container">
                     <input
-                        v-model="filters.showStretches"
+                        v-model="shared.exerciseFilters.showStretches"
                         id="show-stretches"
                         type="checkbox"
                     >
@@ -87,9 +87,6 @@
             hideFilters: function () {
                 store.set(false, 'showFilters');
             }
-        },
-        props: [
-            'filters'
-        ]
+        }
     };
 </script>

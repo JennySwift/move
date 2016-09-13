@@ -1,7 +1,7 @@
 
 <template>
     <div id="exercises-page">
-        <filters :filters.sync="filters"></filters>
+        <filters></filters>
 
         <div v-show="!shared.showFilters" id="exercises-page">
 
@@ -91,14 +91,7 @@
                     }
                 },
                 showExerciseEntryInputs: false,
-                shared: store.state,
-                filters: {
-                    showStretches: false,
-                    name: '',
-                    description: '',
-                    priority: 1,
-                    series: '',
-                }
+                shared: store.state
             };
         },
         computed: {
@@ -113,6 +106,9 @@
             },
             exerciseSeries: function () {
                 return this.shared.exerciseSeries;
+            },
+            filters: function () {
+                return this.shared.exerciseFilters;
             }
         },
         components: {

@@ -12,6 +12,13 @@ module.exports = {
         exercises: [],
         exercisesLoaded: false,
         showFilters: false,
+        exerciseFilters: {
+            showStretches: false,
+            name: '',
+            description: '',
+            priority: 1,
+            series: '',
+        },
         showNewExerciseEntryFields: false,
         exercise: {
             program: {},

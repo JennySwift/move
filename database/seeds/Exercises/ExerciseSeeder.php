@@ -39,7 +39,8 @@ class ExerciseSeeder extends Seeder {
                 'name' => 'one-arm pushups',
                 'defaultQuantity' => 2,
                 'description' => 'free hand behind back',
-                'priority' => 1
+                'priority' => 1,
+                'frequency' => 3
             ]
         ];
 
@@ -61,7 +62,8 @@ class ExerciseSeeder extends Seeder {
                 'name' => 'one-legged-squats',
                 'defaultQuantity' => 5,
                 'description' => '',
-                'priority' => 1
+                'priority' => 1,
+                'frequency' => 5
             ]
         ];
 

@@ -39,7 +39,13 @@ module.exports = {
             }
 
             if (options.storeProperty) {
-                store.set(response.data, options.storeProperty);
+                if (options.updatingArray) {
+                    //Update the array the item is in
+                    store.update(response.data, options.storeProperty);
+                }
+                else {
+                    store.set(response.data, options.storeProperty);
+                }
             }
 
             if (options.loadedProperty) {

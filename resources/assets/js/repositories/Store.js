@@ -140,7 +140,20 @@ module.exports = {
             message: 'Set added',
             callback: function () {
                 store.getExerciseEntriesForTheDay();
+                store.getExercise(exercise);
             }
+        });
+    },
+
+    /**
+     * For keeping the exercises table up to date after an entry has been added,
+     * for example, the lastDone and dueIn properties
+     */
+    getExercise: function (exercise) {
+        helpers.get({
+            url: '/api/exercises/' + exercise.id,
+            storeProperty: 'exercises',
+            updatingArray: true
         });
     },
 

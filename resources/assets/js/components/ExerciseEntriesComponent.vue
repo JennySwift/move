@@ -35,7 +35,7 @@
                     </td>
                     <td>
                         <button
-                            v-if="entry.exercise.data.defaultUnit && entry.unit.id === entry.exercise.data.defaultUnit.data.id"
+                            v-if="entry.exercise.data.defaultUnit && entry.unit.data.id === entry.exercise.data.defaultUnit.data.id"
                             v-on:click="insertExerciseSet(entry.exercise)"
                             class="btn-xs">
                             <i class="fa fa-plus"></i> {{ entry.exercise.data.defaultQuantity }} {{ entry.exercise.data.defaultUnit.data.name }}

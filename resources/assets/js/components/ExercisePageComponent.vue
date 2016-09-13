@@ -1,8 +1,6 @@
 <template>
     <div>
         <h3 class="center">{{  shared.exercise.name }}</h3>
-        <pre>@{{$data.shared.exercise | json}}</pre>
-        <pre>@{{$data.shared.exercisePrograms[0] | json}}</pre>
 
         <div class="input-group-container">
             <input-group
@@ -63,7 +61,7 @@
 
             <input-group
                 label="Series:"
-                :model.sync="shared.exercise.series"
+                :model.sync="shared.exercise.series.data"
                 :enter="updateExercise"
                 id="exercise-series"
                 :options="shared.exerciseSeries"
@@ -73,7 +71,7 @@
 
             <input-group
                 label="Program:"
-                :model.sync="shared.exercise.program"
+                :model.sync="shared.exercise.program.data"
                 :enter="updateExercise"
                 id="exercise-program"
                 :options="shared.exercisePrograms"

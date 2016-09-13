@@ -231,6 +231,26 @@ class ExerciseEntriesTest extends TestCase {
     }
 
     /**
+     * The show route for entries doesn't exist yet
+     * @test
+     */
+//    public function it_cannot_show_an_entry_that_belongs_to_another_user()
+//    {
+//        $this->logInUser();
+//
+//        $entry = Entry::where('user_id', 2)->first();
+//
+//        $response = $this->call('GET', '/api/exerciseEntries/' . $entry->id);
+//        $content = json_decode($response->getContent(), true);
+//            dd($content);
+//
+//        $this->assertArrayHasKey('error', $content);
+//        $this->assertContains('Unauthorised', $content['error']);
+//
+//        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
+//    }
+
+    /**
      *
      * @param $date
      * @return mixed

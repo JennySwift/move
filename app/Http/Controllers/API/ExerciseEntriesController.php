@@ -83,7 +83,7 @@ class ExerciseEntriesController extends Controller
     public function store(Request $request)
     {
         $exercise = Exercise::find($request->get('exercise_id'));
-        Debugbar::info($request->all());
+
         if ($request->get('exerciseSet')) {
             // We are inserting an exercise set
             $quantity = $exercise->default_quantity;

@@ -9,7 +9,9 @@
         "laravel/framework": "5.2.*",
         "barryvdh/laravel-debugbar": "~2.0",
         "league/fractal": "^0.14.0",
-        "laracasts/utilities": "~2.0"
+        "laracasts/utilities": "~2.0",
+        "spatie/laravel-backup": "^3.10",
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

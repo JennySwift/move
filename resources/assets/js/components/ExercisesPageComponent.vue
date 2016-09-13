@@ -34,10 +34,10 @@
 
             <table id="exercises-table" class="table table-bordered">
                 <tr>
-                    <th class="big-screens">Step</th>
+                    <!--<th class="big-screens">Step</th>-->
                     <th>Name</th>
                     <th class="big-screens"><span class="fa fa-exclamation"></span></th>
-                    <th class="big-screens">Target</th>
+                    <!--<th class="big-screens">Target</th>-->
                     <th>Last</th>
                     <th>Frequency</th>
                     <th>Due</th>
@@ -48,10 +48,10 @@
                     v-bind:class="{'stretch': exercise.stretch}"
                     class="hover pointer"
                 >
-                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.stepNumber }}</td>
+                    <!--<td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.stepNumber }}</td>-->
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.name }}</td>
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.priority }}</td>
-                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.target }}</td>
+                    <!--<td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.target }}</td>-->
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.lastDone }}</td>
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.frequency }}</td>
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.dueIn }}</td>

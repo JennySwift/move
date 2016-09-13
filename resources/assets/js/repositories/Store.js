@@ -32,7 +32,8 @@ module.exports = {
         },
         exerciseUnits: [],
         exerciseUnitsLoaded: false,
-        programs: [],
+        exercisePrograms: [],
+        exerciseProgramsLoaded: false,
         loading: false
     },
 

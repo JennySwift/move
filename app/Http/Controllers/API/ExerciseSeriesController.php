@@ -44,19 +44,22 @@ class ExerciseSeriesController extends Controller
      */
     public function index(Request $request)
     {
-        $series = $this->transform($this->createCollection($this->exerciseSeriesRepository->getExerciseSeries(), new SeriesTransformer))['data'];
+        $series = Series::forCurrentUser('exercise_series')->orderBy('name', 'asc')->get();
+        $series = $this->transform($this->createCollection($series, new SeriesTransformer))['data'];
+
         return response($series, Response::HTTP_OK);
     }
 
-
     /**
-     * For the exercise series popup
+     * GET /api/series/{series}
+     * @param Request $request
      * @param Series $series
-     * @return array
+     * @return Response
      */
-    public function show(Series $series)
+    public function show(Request $request, Series $series)
     {
-        return transform(createItem($series, new SeriesTransformer))['data'];
+        $series = $this->transform($this->createItem($series, new SeriesTransformer))['data'];
+        return response($series, Response::HTTP_OK);
     }
 
     /**

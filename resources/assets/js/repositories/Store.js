@@ -4,6 +4,7 @@ Vue.use(VueResource);
 var helpers = require('./Helpers');
 var object = require('lodash/object');
 require('sugar');
+Date.setLocale('en-AU');
 
 module.exports = {
 

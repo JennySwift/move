@@ -2,4 +2,9 @@
 	td {
 		text-align: left;
 	}
+	@media (max-width: 320px) {
+	    .big-screens {
+			display: none;
+		}
+	}
 }

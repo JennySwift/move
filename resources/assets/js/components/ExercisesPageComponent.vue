@@ -3,7 +3,7 @@
     <div id="exercises-page">
         <filters></filters>
 
-        <div v-show="!shared.showFilters" id="exercises-page">
+        <div v-show="!shared.showFilters">
 
             <date-navigation
 
@@ -39,7 +39,7 @@
                     <th class="big-screens"><span class="fa fa-exclamation"></span></th>
                     <!--<th class="big-screens">Target</th>-->
                     <th>Last</th>
-                    <th>Frequency</th>
+                    <th class="big-screens">Frequency</th>
                     <th>Due</th>
                     <th>Add</th>
                 </tr>
@@ -53,7 +53,7 @@
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.priority }}</td>
                     <!--<td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.target }}</td>-->
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.lastDone }}</td>
-                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.frequency }}</td>
+                    <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.frequency }}</td>
                     <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.dueIn }}</td>
                     <td>
                         <button

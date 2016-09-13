@@ -230,6 +230,10 @@ li {
 #exercises-page td {
   text-align: left; }
 
+@media (max-width: 320px) {
+  #exercises-page .big-screens {
+    display: none; } }
+
 #exercise-series .new-exercise .flex {
   display: -ms-flexbox;
   display: flex;

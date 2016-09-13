@@ -33,10 +33,8 @@ class ExercisesTest extends TestCase {
         $this->assertEquals(20, $content[0]['defaultQuantity']);
         $this->assertEquals(7, $content[0]['frequency']);
 
-        $this->assertEquals([
-            'id' => 1,
-            'name' => 'pushup'
-        ], $content[0]['series']);
+        $this->assertEquals(1, $content[0]['series']['data']['id']);
+        $this->assertEquals('pushup', $content[0]['series']['data']['name']);
 
         $this->assertEquals(1, $content[0]['defaultUnit']['data']['id']);
         $this->assertEquals('reps', $content[0]['defaultUnit']['data']['name']);
@@ -112,8 +110,8 @@ class ExercisesTest extends TestCase {
         $this->assertEquals(2, $content['priority']);
         $this->assertEquals(1, $content['stretch']);
         $this->assertEquals(14, $content['frequency']);
-        $this->assertEquals(2, $content['program']['id']);
-        $this->assertEquals(2, $content['series']['id']);
+        $this->assertEquals(2, $content['program']['data']['id']);
+        $this->assertEquals(2, $content['series']['data']['id']);
         $this->assertEquals(2, $content['stepNumber']);
         $this->assertEquals(2, $content['defaultQuantity']);
         $this->assertEquals(2, $content['defaultUnit']['data']['id']);
@@ -162,10 +160,8 @@ class ExercisesTest extends TestCase {
         $this->assertEquals(1, $content['stepNumber']);
         $this->assertEquals(20, $content['defaultQuantity']);
 
-        $this->assertEquals([
-            'id' => 1,
-            'name' => 'pushup'
-        ], $content['series']);
+        $this->assertEquals(1, $content['series']['data']['id']);
+        $this->assertEquals('pushup', $content['series']['data']['name']);
 
         $this->assertEquals(1, $content['defaultUnit']['data']['id']);
         $this->assertEquals('reps', $content['defaultUnit']['data']['name']);
@@ -209,7 +205,7 @@ class ExercisesTest extends TestCase {
         $this->assertEquals(1, $content['id']);
         $this->assertEquals('numbat', $content['name']);
         $this->assertEquals(1, $content['stretch']);
-        $this->assertEquals(2, $content['program']['id']);
+        $this->assertEquals(2, $content['program']['data']['id']);
         $this->assertEquals('frog', $content['description']);
         $this->assertEquals(2, $content['stepNumber']);
         $this->assertEquals(6, $content['defaultQuantity']);
@@ -218,10 +214,8 @@ class ExercisesTest extends TestCase {
         $this->assertEquals(30, $content['frequency']);
         $this->assertEquals(30, $content['dueIn']);
 
-        $this->assertEquals([
-            'id' => 2,
-            'name' => 'pullup'
-        ], $content['series']);
+        $this->assertEquals(2, $content['series']['data']['id']);
+        $this->assertEquals('pullup', $content['series']['data']['name']);
 
         $this->assertEquals(2, $content['defaultUnit']['data']['id']);
         $this->assertEquals('minutes', $content['defaultUnit']['data']['name']);
@@ -279,10 +273,8 @@ class ExercisesTest extends TestCase {
         $this->assertEquals(1, $content['stepNumber']);
         $this->assertEquals(7, $content['defaultQuantity']);
 
-        $this->assertEquals([
-            'id' => 1,
-            'name' => 'pushup'
-        ], $content['series']);
+        $this->assertEquals(1, $content['series']['data']['id']);
+        $this->assertEquals('pushup', $content['series']['data']['name']);
 
         $this->assertEquals(1, $content['defaultUnit']['data']['id']);
         $this->assertEquals('reps', $content['defaultUnit']['data']['name']);

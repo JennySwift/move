@@ -64,11 +64,17 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     protected function checkExerciseKeysExist($exercise)
     {
-        $this->checkBasicExerciseKeysExist($exercise);
+//        dd($exercise);
+        $this->checkProgramKeysExist($exercise['program']['data']);
+        $this->checkSeriesKeysExist($exercise['series']['data']);
+        $this->checkUnitKeysExist($exercise['defaultUnit']['data']);
 
-        $this->assertArrayHasKey('series', $exercise);
+        $this->assertArrayHasKey('id', $exercise);
+        $this->assertArrayHasKey('name', $exercise);
+        $this->assertArrayHasKey('description', $exercise);
+        $this->assertArrayHasKey('stepNumber', $exercise);
+
         $this->assertArrayHasKey('defaultQuantity', $exercise);
-        $this->assertArrayHasKey('program', $exercise);
         $this->assertArrayHasKey('lastDone', $exercise);
         $this->assertArrayHasKey('priority', $exercise);
         $this->assertArrayHasKey('target', $exercise);
@@ -79,37 +85,12 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     /**
      *
-     * @param $exercise
-     */
-    private function checkBasicExerciseKeysExist($exercise)
-    {
-        $this->assertArrayHasKey('id', $exercise);
-        $this->assertArrayHasKey('name', $exercise);
-        $this->assertArrayHasKey('description', $exercise);
-        $this->assertArrayHasKey('stepNumber', $exercise);
-        $this->assertArrayHasKey('defaultUnit', $exercise);
-    }
-
-    /**
-     *
-     * @param $program
-     */
-    public function checkProgramKeysExist($program)
-    {
-        $this->assertArrayHasKey('id', $program);
-        $this->assertArrayHasKey('name', $program);
-    }
-
-    /**
-     *
      * @param $entry
      */
     protected function checkExerciseEntryKeysExist($entry)
     {
         $this->checkExerciseKeysExist($entry['exercise']['data']);
-        $this->checkExerciseUnitKeysExist($entry['unit']);
-
-        $this->assertArrayHasKey('exercise', $entry);
+        $this->checkUnitKeysExist($entry['unit']['data']);
 
         $this->assertArrayHasKey('id', $entry);
         $this->assertArrayHasKey('sets', $entry);
@@ -130,6 +111,16 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     /**
      *
+     * @param $program
+     */
+    public function checkProgramKeysExist($program)
+    {
+        $this->assertArrayHasKey('id', $program);
+        $this->assertArrayHasKey('name', $program);
+    }
+
+    /**
+     *
      * @param $series
      */
     protected function checkSeriesKeysExist($series)
@@ -137,7 +128,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('id', $series);
         $this->assertArrayHasKey('name', $series);
         $this->assertArrayHasKey('priority', $series);
-//        $this->assertArrayHasKey('workout_ids', $series);
         $this->assertArrayHasKey('lastDone', $series);
     }
 
@@ -145,7 +135,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @param $unit
      */
-    protected function checkExerciseUnitKeysExist($unit)
+    protected function checkUnitKeysExist($unit)
     {
         $this->assertArrayHasKey('id', $unit);
         $this->assertArrayHasKey('name', $unit);

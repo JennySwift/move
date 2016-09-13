@@ -33,8 +33,8 @@ class SeriesEntriesTest extends TestCase {
 //        dd($content);
         //Check the kneeling pushups done today with reps
         //Todo: This line fails sometimes, depending on the seeder
-        $this->assertEquals(1, $content[0]['unit']['id']);
-        $this->assertEquals('reps', $content[0]['unit']['name']);
+        $this->assertEquals(1, $content[0]['unit']['data']['id']);
+        $this->assertEquals('reps', $content[0]['unit']['data']['name']);
 
         $this->assertEquals(2, $content[0]['sets']);
         $this->assertEquals(10, $content[0]['total']);
@@ -43,8 +43,8 @@ class SeriesEntriesTest extends TestCase {
         $this->assertEquals(Carbon::today()->format('d/m/y'), $content[0]['date']);
 
         //Check the kneeling pushups done today with minutes
-        $this->assertEquals(2, $content[1]['unit']['id']);
-        $this->assertEquals('minutes', $content[1]['unit']['name']);
+        $this->assertEquals(2, $content[1]['unit']['data']['id']);
+        $this->assertEquals('minutes', $content[1]['unit']['data']['name']);
 
         $this->assertEquals(1, $content[1]['sets']);
         $this->assertEquals(10, $content[1]['total']);
@@ -57,15 +57,15 @@ class SeriesEntriesTest extends TestCase {
 //        $this->assertEquals(1, $content[2]['daysAgo']);
 
         $this->checkExerciseKeysExist($content[0]['exercise']['data']);
-        $this->checkExerciseUnitKeysExist($content[0]['unit']);
+        $this->checkUnitKeysExist($content[0]['unit']['data']);
 
         $this->assertEquals(1, $content[0]['exercise']['data']['id']);
         $this->assertEquals('kneeling pushups', $content[0]['exercise']['data']['name']);
         $this->assertEquals('1.00', $content[0]['exercise']['data']['stepNumber']);
         $this->assertEquals(1, $content[0]['exercise']['data']['defaultUnit']['data']['id']);
 
-        $this->assertEquals(1, $content[0]['unit']['id']);
-        $this->assertEquals('reps', $content[0]['unit']['name']);
+        $this->assertEquals(1, $content[0]['unit']['data']['id']);
+        $this->assertEquals('reps', $content[0]['unit']['data']['name']);
 
         $this->assertEquals(Carbon::today()->format('d/m/y'), $content[0]['date']);
         $this->assertEquals(0, $content[0]['daysAgo']);

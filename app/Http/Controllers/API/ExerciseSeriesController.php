@@ -59,7 +59,13 @@ class ExerciseSeriesController extends Controller
      */
     public function show(Request $request, Series $series)
     {
-        $series = $this->transform($this->createItem($series, new SeriesTransformer))['data'];
+        if ($request->get('include') === 'exercises') {
+            $series = $this->transform($this->createItem($series, new SeriesTransformer), ['exercises'])['data'];
+        }
+        else {
+            $series = $this->transform($this->createItem($series, new SeriesTransformer))['data'];
+        }
+
         return response($series, Response::HTTP_OK);
     }
 

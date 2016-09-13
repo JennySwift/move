@@ -2,6 +2,7 @@
 
 namespace App\Http\Transformers\Exercises;
 
+use App\Http\Transformers\UnitTransformer;
 use App\Models\Entry;
 use League\Fractal\TransformerAbstract;
 
@@ -13,7 +14,7 @@ class ExerciseEntryTransformer extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['exercise'];
+    protected $defaultIncludes = ['exercise', 'unit'];
 
     /**
      * @VP:
@@ -33,6 +34,16 @@ class ExerciseEntryTransformer extends TransformerAbstract
     }
 
     /**
+     *
+     * @param Entry $entry
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeUnit(Entry $entry)
+    {
+        return $this->item($entry->unit, new UnitTransformer);
+    }
+
+    /**
      * @param Entry $entry
      * @return array
      */
@@ -46,10 +57,6 @@ class ExerciseEntryTransformer extends TransformerAbstract
             'date' => $entry->date,
             //Todo: is this needed on the entry? Isn't it for the exercise?
             'daysAgo' => $entry->days_ago,
-            'unit' => [
-                'id' => $entry->unit->id,
-                'name' => $entry->unit->name
-            ],
             'sets' => $sets,
             'total' => $total,
             'quantity' => $entry->quantity,

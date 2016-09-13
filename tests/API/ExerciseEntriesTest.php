@@ -46,10 +46,8 @@ class ExerciseEntriesTest extends TestCase {
 //            'step_number' => '1.00'
 //        ], $content[0]['exercise']);
 
-        $this->assertEquals([
-            'id' => 1,
-            'name' => 'reps'
-        ], $content[0]['unit']);
+        $this->assertEquals(1, $content[0]['unit']['data']['id']);
+        $this->assertEquals('reps', $content[0]['unit']['data']['name']);
 
         $this->assertEquals(2, $content[0]['sets']);
         $this->assertEquals(10, $content[0]['total']);
@@ -74,7 +72,7 @@ class ExerciseEntriesTest extends TestCase {
         
         foreach ($content as $entry) {
             $this->assertEquals($date, $entry['date']);
-            $this->assertEquals(1, $entry['unit']['id']);
+            $this->assertEquals(1, $entry['unit']['data']['id']);
             $this->assertEquals(1, $entry['exercise']['data']['id']);
         }
 
@@ -108,7 +106,7 @@ class ExerciseEntriesTest extends TestCase {
         $this->assertEquals($date, $content['date']);
         $this->assertEquals(1, $content['exercise']['data']['id']);
 //        $this->assertEquals(20, $content['daysAgo']);
-        $this->assertEquals(1, $content['unit']['id']);
+        $this->assertEquals(1, $content['unit']['data']['id']);
 //        $this->assertEquals(20, $content['sets']);
 //        $this->assertEquals(20, $content['total']);
         $this->assertEquals(5, $content['quantity']);
@@ -147,7 +145,7 @@ class ExerciseEntriesTest extends TestCase {
         $this->assertEquals($date, $content['date']);
         $this->assertEquals(1, $content['exercise']['data']['id']);
 //        $this->assertEquals(20, $content['daysAgo']);
-        $this->assertEquals(1, $content['unit']['id']);
+        $this->assertEquals(1, $content['unit']['data']['id']);
         $this->assertEquals(3, $content['sets']);
 //        $this->assertEquals(20, $content['total']);
         $this->assertEquals(20, $content['quantity']);

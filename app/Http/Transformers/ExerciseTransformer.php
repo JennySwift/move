@@ -13,7 +13,7 @@ class ExerciseTransformer extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['defaultUnit'];
+    protected $defaultIncludes = ['defaultUnit', 'program', 'series'];
 
     /**
      * @var array
@@ -44,19 +44,11 @@ class ExerciseTransformer extends TransformerAbstract
 //            'tag_ids' => $exercise->tags()->lists('id'),
             'target' => $exercise->target,
             'priority' => $exercise->priority,
-            'program' => $exercise->program,
             'lastDone' => $exercise->lastDone,
             'stretch' => $exercise->stretch,
             'frequency' => $exercise->frequency,
             'dueIn' => $exercise->dueIn,
         ];
-
-        if ($exercise->series) {
-            $array['series'] = [
-                'id' => $exercise->series->id,
-                'name' => $exercise->series->name
-            ];
-        }
 
         return $array;
     }
@@ -70,6 +62,30 @@ class ExerciseTransformer extends TransformerAbstract
     {
         if ($exercise->defaultUnit) {
             return createItem($exercise->defaultUnit, new UnitTransformer);
+        }
+    }
+
+    /**
+     *
+     * @param Exercise $exercise
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeProgram(Exercise $exercise)
+    {
+        if ($exercise->program) {
+            return createItem($exercise->program, new ExerciseProgramTransformer);
+        }
+    }
+
+    /**
+     *
+     * @param Exercise $exercise
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeSeries(Exercise $exercise)
+    {
+        if ($exercise->series) {
+            return createItem($exercise->series, new SeriesTransformer);
         }
     }
 

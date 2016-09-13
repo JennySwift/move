@@ -14,9 +14,10 @@ class SeriesTransformer extends TransformerAbstract
      * Todo: This isn't needed all the time
      * @var array
      */
-    protected $defaultIncludes = ['exercises'];
+    protected $availableIncludes = ['exercises'];
 
     /**
+     * @param Series $series
      * @return array
      */
     public function transform(Series $series)
@@ -25,7 +26,6 @@ class SeriesTransformer extends TransformerAbstract
             'id' => $series->id,
             'name' => $series->name,
             'priority' => $series->priority,
-            'workout_ids' => $series->workouts()->pluck('id'),
             'lastDone' => $series->lastDone
         ];
 

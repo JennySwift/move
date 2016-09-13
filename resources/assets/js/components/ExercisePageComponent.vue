@@ -1,6 +1,8 @@
 <template>
     <div>
         <h3 class="center">{{  shared.exercise.name }}</h3>
+        <pre>@{{$data.shared.exercise | json}}</pre>
+        <pre>@{{$data.shared.exercisePrograms[0] | json}}</pre>
 
         <div class="input-group-container">
             <input-group
@@ -81,7 +83,7 @@
 
             <input-group
                 label="Default Unit:"
-                :model.sync="shared.exercise.defaultUnit"
+                :model.sync="shared.exercise.defaultUnit.data"
                 :enter="updateExercise"
                 id="exercise-default-unit"
                 :options="shared.exerciseUnits"

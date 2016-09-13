@@ -21,9 +21,8 @@ class ExerciseSeriesTest extends TestCase {
     {
         $this->logInUser();
 
-        $response = $this->apiCall('GET', '/api/exerciseSeries/1');
+        $response = $this->apiCall('GET', '/api/exerciseSeries/1?include=exercises');
         $content = json_decode($response->getContent(), true);
-
         $this->assertArrayHasKey('exercises', $content);
 //        dd($content);
 
@@ -93,7 +92,6 @@ class ExerciseSeriesTest extends TestCase {
         $this->assertEquals(1, $content['id']);
         $this->assertEquals('numbat', $content['name']);
         $this->assertEquals('8', $content['priority']);
-        $this->assertEquals([1], $content['workout_ids']);
 
         $this->assertEquals(200, $response->getStatusCode());
     }

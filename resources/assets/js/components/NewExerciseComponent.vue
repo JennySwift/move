@@ -104,7 +104,11 @@
         template: '#new-exercise-template',
         data: function () {
             return {
-                newExercise: {},
+                newExercise: {
+                    series: {},
+                    defaultUnit: {},
+                    program: {}
+                },
                 shared: store.state,
                 redirectTo: '/exercises'
             };
@@ -132,10 +136,29 @@
                         this.showPopup = false;
                     }.bind(this)
                 });
+            },
+
+            /**
+             *
+             */
+            setDefaults: function () {
+                var that = this;
+                setTimeout(function () {
+                    if (that.shared.exerciseSeriesLoaded && that.shared.exerciseUnitsLoaded && that.shared.exerciseProgramsLoaded) {
+                        that.newExercise.series = that.shared.exerciseSeries[0];
+                        that.newExercise.defaultUnit = that.shared.exerciseUnits[0];
+                        that.newExercise.program = that.shared.exercisePrograms[0];
+                    }
+                    else {
+                        //We still need to wait for things to load
+                        that.setDefaults();
+                    }
+                }, 500);
+
             }
         },
         ready: function () {
-
+            this.setDefaults();
         }
     };
 

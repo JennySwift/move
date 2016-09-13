@@ -121,7 +121,7 @@
                 //Sort
                 exercises = _.chain(exercises)
                     .sortBy(function (exercise) {return exercise.stepNumber})
-                    .sortBy(function (exercise) {return exercise.series.id})
+                    .sortBy(function (exercise) {return exercise.series.data.id})
                     .sortBy('priority')
                     .sortBy(function (exercise) {
                         return exercise.lastDone * -1
@@ -162,7 +162,7 @@
                     }
 
                     //Series filter
-                    if (that.filters.series && exercise.series.name != that.filters.series && that.filters.series !== 'all') {
+                    if (that.filters.series && exercise.series.data.name != that.filters.series && that.filters.series !== 'all') {
                         filteredIn = false;
                     }
 

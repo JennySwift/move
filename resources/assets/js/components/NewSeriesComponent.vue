@@ -1,30 +1,28 @@
 <template>
     <div>
-        <div>
-            <input
-                v-model="newSeries.name"
-                v-on:keyup.13="insertSeries()"
-                type="text"
-                placeholder="Add a new series"
-                id="exercise-series"
-                class="form-control"
+        <div class="input-group-container">
+            <input-group
+                label="Name:"
+                :model.sync="newSeries.name"
+                :enter="insertSeries"
+                id="new-series-name"
             >
+            </input-group>
+
+            <input-group
+                label="Priority:"
+                :model.sync="newSeries.priority"
+                :enter="insertSeries"
+                id="new-series-priority"
+            >
+            </input-group>
         </div>
 
-        <div>
-            <button
-                v-on:click="showNewSeriesFields = false"
-                class="btn btn-default"
-            >
-                Close
-            </button>
-            <button
-                v-on:click="insertSeries()"
-                class="btn btn-success"
-            >
-                Add series
-            </button>
-        </div>
+        <buttons
+            :save="insertSeries"
+            :redirect-to="redirectTo"
+        >
+        </buttons>
 
     </div>
 
@@ -35,7 +33,8 @@
         template: '#new-series-template',
         data: function () {
             return {
-                newSeries: {}
+                newSeries: {},
+                redirectTo: '/exercises'
             };
         },
         components: {},
@@ -46,7 +45,8 @@
             */
             insertSeries: function () {
                 var data = {
-                    name: this.newSeries.name
+                    name: this.newSeries.name,
+                    priority: this.newSeries.priority
                 };
 
                 helpers.post({

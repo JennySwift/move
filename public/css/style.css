@@ -659,6 +659,12 @@ li {
   100% {
     transform: scale(1); } }
 
+.input-group-container {
+  margin-bottom: 7px; }
+
+label.input-group-addon {
+  min-width: 135px; }
+
 #login {
   padding-top: 85px; }
   #login .flex {

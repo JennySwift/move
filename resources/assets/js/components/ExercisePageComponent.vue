@@ -1,127 +1,101 @@
 <template>
     <div>
-        <div>
-            <h3 class="center">{{  shared.exercise.name }}</h3>
+        <h3 class="center">{{  shared.exercise.name }}</h3>
 
-            <div class="flex">
+        <div class="input-group-container">
+            <input-group
+                label="Name:"
+                :model.sync="shared.exercise.name"
+                :enter="updateExercise"
+                id="exercise-name"
+            >
+            </input-group>
 
-                <div>
-                    <h5 class="center">name</h5>
-                    <input
-                        v-model="shared.exercise.name"
-                        type="text"
-                        placeholder="name"
-                        class="form-control">
-                </div>
+            <input-group
+                label="Description:"
+                :model.sync="shared.exercise.description"
+                :enter="updateExercise"
+                id="exercise-description"
+            >
+            </input-group>
 
-                <div>
-                    <h5 class="center">description</h5>
-                    <input
-                        v-model="shared.exercise.description"
-                        type="text"
-                        placeholder="description"
-                        class="form-control">
-                </div>
+            <input-group
+                label="Step Number:"
+                :model.sync="shared.exercise.stepNumber"
+                :enter="updateExercise"
+                id="exercise-step-number"
+            >
+            </input-group>
 
-                <div class="step">
-                    <h5 class="center">step</h5>
-                    <input
-                        v-model="shared.exercise.stepNumber"
-                        type="text"
-                        placeholder="step number"
-                        class="form-control">
-                </div>
+            <input-group
+                label="Priority:"
+                :model.sync="shared.exercise.priority"
+                :enter="updateExercise"
+                id="exercise-priority"
+            >
+            </input-group>
 
-                <div class="priority">
-                    <h5 class="center">priority</h5>
-                    <input
-                        v-model=" shared.exercise.priority"
-                        type="text"
-                        placeholder="priority"
-                        class="form-control">
-                </div>
+            <input-group
+                label="Target:"
+                :model.sync="shared.exercise.target"
+                :enter="updateExercise"
+                id="exercise-target"
+            >
+            </input-group>
 
-                <div>
-                    <h5 class="center">target</h5>
-                    <input
-                        v-model="shared.exercise.target"
-                        type="text"
-                        placeholder="target"
-                        class="form-control">
-                </div>
+            <input-group
+                label="Default Quantity:"
+                :model.sync="shared.exercise.defaultQuantity"
+                :enter="updateExercise"
+                id="exercise-default-quantity"
+            >
+            </input-group>
 
-                <div class="default-quantity">
-                    <h5 class="center tooltipster" title="This figure will be used, along with the default unit, when using the feature to quickly log a set of your exercise">default quantity</h5>
+            <input-group
+                label="Frequency:"
+                :model.sync="shared.exercise.frequency"
+                :enter="updateExercise"
+                id="exercise-frequency"
+            >
+            </input-group>
 
-                    <input
-                        v-model=" shared.exercise.defaultQuantity"
-                        type="text"
-                        placeholder="enter quantity"
-                        class="form-control">
-                </div>
+            <input-group
+                label="Series:"
+                :model.sync="shared.exercise.series"
+                :enter="updateExercise"
+                id="exercise-series"
+                :options="shared.exerciseSeries"
+                options-prop="name"
+            >
+            </input-group>
 
-                <div>
-                    <h5 class="center">Stretch</h5>
-                    <input
-                        v-model="shared.exercise.stretch"
-                        type="checkbox"
-                        class="form-control">
-                </div>
+            <input-group
+                label="Program:"
+                :model.sync="shared.exercise.program"
+                :enter="updateExercise"
+                id="exercise-program"
+                :options="shared.exercisePrograms"
+                options-prop="name"
+            >
+            </input-group>
 
-            </div>
+            <input-group
+                label="Default Unit:"
+                :model.sync="shared.exercise.defaultUnit"
+                :enter="updateExercise"
+                id="exercise-default-unit"
+                :options="shared.exerciseUnits"
+                options-prop="name"
+            >
+            </input-group>
 
-            <div class="form-group">
-                <label for="selected-exercise-frequency">Frequency</label>
-                <input
-                    v-model="shared.exercise.frequency"
-                    type="text"
-                    id="selected-exercise-frequency"
-                    name="selected-exercise-frequency"
-                    placeholder="frequency"
-                    class="form-control"
-                >
-            </div>
+            <checkbox-group
+                label="Stretch:"
+                :model.sync="shared.exercise.stretch"
+                id="exercise-stretch"
+            >
+            </checkbox-group>
 
-            <div class="flex">
-
-                <div>
-                    <h5 class="center">series</h5>
-
-                    <li
-                        v-for="series in exerciseSeries"
-                        class="list-group-item hover pointer"
-                        v-bind:class="{'selected': series.id ===  shared.exercise.series.id}"
-                        v-on:click=" shared.exercise.series.id = series.id">
-                        {{ series.name }}
-                    </li>
-
-                </div>
-
-                <div>
-                    <h5 class="center">program</h5>
-
-                    <li
-                        v-for="program in programs"
-                        class="list-group-item hover pointer"
-                        v-bind:class="{'selected': program.id ===  shared.exercise.program.id}"
-                        v-on:click=" shared.exercise.program.id = program.id">
-                        {{ program.name }}
-                    </li>
-
-                </div>
-
-                <div>
-                    <h5 class="center">default unit</h5>
-                    <li
-                        v-for="unit in units"
-                        class="list-group-item hover pointer"
-                        v-bind:class="{'selected': unit.id ===  shared.exercise.defaultUnit.data.id}"
-                        v-on:click=" shared.exercise.defaultUnit.data.id = unit.id">
-                        {{ unit.name }}
-                    </li>
-                </div>
-
-            </div>
         </div>
         
         <buttons

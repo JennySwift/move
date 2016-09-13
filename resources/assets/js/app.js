@@ -28,6 +28,7 @@ Vue.component('autocomplete', require('./components/shared/AutocompleteComponent
 Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
 Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
 Vue.component('input-group', require('./components/shared/InputGroupComponent.vue'));
+Vue.component('checkbox-group', require('./components/shared/CheckboxGroupComponent.vue'));
 
 //Components
 Vue.component('exercise-entries', require('./components/ExerciseEntriesComponent.vue'));

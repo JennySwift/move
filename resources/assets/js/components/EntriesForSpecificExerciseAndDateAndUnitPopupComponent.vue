@@ -96,8 +96,6 @@
             deleteExerciseEntry: function (entry) {
                 helpers.delete({
                     url: '/api/exerciseEntries/' + entry.id,
-                    array: 'exerciseEntrys',
-//                    itemToDelete: this.exerciseEntry,
                     message: 'Entry deleted',
                     redirectTo: this.redirectTo,
                     callback: function () {

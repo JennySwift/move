@@ -54,6 +54,7 @@
 </template>
 
 <script>
+    var $ = require('jquery');
     module.exports = {
         template: '#popup-template',
         data: function () {

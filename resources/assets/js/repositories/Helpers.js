@@ -33,7 +33,7 @@ module.exports = {
      */
     get: function (options) {
         store.showLoading();
-        Vue.http.get(options.url).then(function (response) {
+        Vue.http.get(options.url, {params: options.data}).then(function (response) {
             if (options.callback) {
                 options.callback(response.data);
             }

@@ -7,7 +7,7 @@
         >
             <div slot="content">
                 <table class="table table-bordered">
-                    <caption class="bg-blue">Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.name }} on {{ date.typed }}</caption>
+                    <caption class="bg-blue">Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.name }} on {{ shared.date.typed }}</caption>
                     <tr>
                         <th>exercise</th>
                         <th>quantity</th>
@@ -43,7 +43,8 @@
         data: function () {
             return {
                 showPopup: false,
-                entries: {}
+                entries: {},
+                shared: store.state
             };
         },
         components: {},
@@ -55,20 +56,22 @@
             */
             getEntriesForSpecificExerciseAndDateAndUnit: function (entry) {
                 var data = {
-                    date: this.date.sql,
+                    date: this.shared.date.sql,
                     exercise_id: entry.exercise.data.id,
-                    exercise_unit_id: entry.unit.id
+                    exercise_unit_id: entry.unit.data.id
                 };
 
 
                 helpers.get({
                     url: 'api/exerciseEntries/specificExerciseAndDateAndUnit',
+                    data: data,
                     storeProperty: 'entries',
                     loadedProperty: 'entriesLoaded',
                     callback: function (response) {
                         this.entries = response;
-                    }
-                }.bind(this));
+                        this.showPopup = true;
+                    }.bind(this)
+                });
             },
 
             /**
@@ -117,9 +120,6 @@
                 });
             }
         },
-        props: [
-            'date'
-        ],
         ready: function () {
             this.listen();
         }

@@ -11,5 +11,11 @@ class UnitUnauthorizedTest extends TestCase
 {
     use DatabaseTransactions;
 
-
+    /**
+     * @test
+     */
+    public function something()
+    {
+        $this->markTestIncomplete();
+    }
 }

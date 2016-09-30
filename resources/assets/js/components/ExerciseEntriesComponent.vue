@@ -1,9 +1,6 @@
 <template>
     <div>
-        <entries-for-specific-exercise-and-date-and-unit-popup
-            :date="date"
-        >
-        </entries-for-specific-exercise-and-date-and-unit-popup>
+        <entries-for-specific-exercise-and-date-and-unit-popup></entries-for-specific-exercise-and-date-and-unit-popup>
 
         <div>
             <table class="table table-bordered">

@@ -16,7 +16,8 @@ html, body {
 
 body {
   padding-top: 60px;
-  color: #777; }
+  color: #777;
+  font-family: "Annie Use Your Telescope"; }
   body .container {
     padding-bottom: 25px;
     min-height: 100%; }
@@ -45,6 +46,9 @@ body {
       display: flex;
       -ms-flex-align: center;
       align-items: center; }
+
+h1, h2, h3, h4, h5 {
+  color: #a8e063; }
 
 h1, h2, h3, h4, h5 {
   text-align: center; }

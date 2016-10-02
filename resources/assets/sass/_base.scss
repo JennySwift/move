@@ -26,6 +26,7 @@ $footerHeight: 25px;
 body {
     padding-top: 60px;
     color: #777;
+	@include characterFont;
     .container {
         padding-bottom: $footerHeight;
         min-height: 100%;
@@ -45,6 +46,10 @@ body {
         }
 
     }
+}
+
+h1,h2,h3,h4,h5 {
+	color: $base2;
 }
 
 

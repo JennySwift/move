@@ -12,6 +12,14 @@
 	}
 }
 
+@mixin baseFont {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+@mixin characterFont {
+	font-family: "Annie Use Your Telescope"
+}
+
 @mixin header {
 	background: $header_background;
 	color: $header_color;

@@ -217,6 +217,10 @@ td.add {
   #exercises-page .big-screens {
     display: none; } }
 
+#exercises-page table {
+  width: auto;
+  margin: auto; }
+
 #exercise-series .new-exercise .flex {
   display: -ms-flexbox;
   display: flex;

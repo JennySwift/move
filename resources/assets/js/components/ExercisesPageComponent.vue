@@ -5,10 +5,7 @@
 
         <div v-show="!shared.showFilters">
 
-            <date-navigation
-
-            >
-            </date-navigation>
+            <date-navigation></date-navigation>
 
             <series-history-popup
                 :exercise-series-history="exerciseSeriesHistory"
@@ -22,16 +19,12 @@
             >
             </series-popup>
 
-            <div>
-                <exercise-entries
-                    :date="date"
-                >
-                </exercise-entries>
-            </div>
+            <exercise-entries></exercise-entries>
 
-            <h3>Exercises</h3>
-            <table id="exercises-table" class="table table-bordered">
-                <thead>
+            <div id="exercises">
+                <h3>Exercises</h3>
+                <table id="exercises-table" class="table table-bordered">
+                    <thead>
                     <tr>
                         <!--<th class="big-screens">Step</th>-->
                         <th>Name</th>
@@ -42,8 +35,8 @@
                         <th>Due</th>
                         <th>Add</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr
                         v-for="exercise in shared.exercises | filterExercises"
                         v-bind:class="{'stretch': exercise.stretch}"
@@ -70,9 +63,12 @@
                             </button>
                         </td>
                     </tr>
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
+
+
 
         </div>
     </div>

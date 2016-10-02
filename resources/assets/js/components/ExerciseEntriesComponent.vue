@@ -104,9 +104,6 @@
                 });
             }
         },
-        props: [
-
-        ],
         ready: function () {
             this.listen();
             store.getExerciseEntriesForTheDay();

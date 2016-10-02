@@ -154,7 +154,8 @@ li {
   margin-bottom: 15px; }
 
 .hover:hover {
-  background: #b5b5b5; }
+  background: #a8e063;
+  color: white; }
 
 .checkbox-container {
   display: -ms-flexbox;

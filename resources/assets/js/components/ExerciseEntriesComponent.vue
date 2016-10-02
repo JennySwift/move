@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="entry in exerciseEntries">
+                    <tr v-for="entry in exerciseEntries" class="hover pointer">
                         <td
                             v-on:click="showEntriesForSpecificExerciseAndDateAndUnitPopup(entry)"
                             class="pointer"

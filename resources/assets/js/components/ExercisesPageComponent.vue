@@ -56,14 +56,17 @@
                         <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.lastDone }}</td>
                         <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.frequency }}</td>
                         <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.dueIn }}</td>
-                        <td>
+                        <td class="add">
                             <button
                                 v-on:click="insertExerciseSet(exercise)"
-                                class="btn btn-default btn-xs"
+                                class="btn btn-success btn-sm"
                             >
                                 <i class="fa fa-plus"></i>
-                                {{ exercise.defaultQuantity }}
-                                {{ exercise.defaultUnit.data.name }}
+                                <span>
+                                    {{ exercise.defaultQuantity }}
+                                    {{ exercise.defaultUnit.data.name }}
+                                </span>
+
                             </button>
                         </td>
                     </tr>

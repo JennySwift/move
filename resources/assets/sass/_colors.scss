@@ -1,5 +1,6 @@
 $success: #5cb85c;
-$danger: #d9534f;
+//$danger: #d9534f;
+$danger: #F77238;
 $warning: #fca700;
 $info: #5bc0de;
 $primary: #337ab7;
@@ -7,11 +8,12 @@ $primary: #337ab7;
 $infoLight: #d9edf7;
 $infoDark: #31708f;
 
-$successLight: #dff0d8;
-$successDark: #3c763d;
-
 $warningLight: #fcf8e3;
 $warningDark: #8a6d3b;
 
 $base1: #56ab2f;
 $base2: #a8e063;
+
+$successLight: #E8F761;
+$successDark: #EDE25D;
+$success: $base2;

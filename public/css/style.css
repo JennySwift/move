@@ -146,7 +146,7 @@ li {
 
 .fa-times {
   cursor: pointer;
-  color: #d9534f; }
+  color: #F77238; }
 
 .margin-bottom {
   margin-bottom: 15px; }
@@ -655,6 +655,20 @@ label.input-group-addon {
   .my-btn-group button {
     display: block;
     width: 100%; }
+
+.btn-success {
+  background: #a8e063;
+  border-color: #b4e478; }
+  .btn-success:hover {
+    background: #b4e478;
+    border-color: #a8e063; }
+
+.btn-danger {
+  background: #F77238;
+  border-color: #f88351; }
+  .btn-danger:hover {
+    background: #f88351;
+    border-color: #F77238; }
 
 #login {
   padding-top: 85px; }

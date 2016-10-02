@@ -6,8 +6,8 @@
             :redirect-to="redirectTo"
         >
             <div slot="content">
+                <h2>Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.data.name }} on {{ shared.date.typed }}</h2>
                 <table class="table table-bordered">
-                    <caption class="bg-blue">Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.name }} on {{ shared.date.typed }}</caption>
                     <thead>
                         <tr>
                             <th>Exercise</th>

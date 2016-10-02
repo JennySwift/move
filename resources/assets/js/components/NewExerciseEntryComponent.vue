@@ -1,43 +1,33 @@
 <template>
     <div>
-        <autocomplete
-            :insert-item-function="insertEntry"
-            url="/api/exercises"
-            autocomplete-field="exercise"
-            id-to-focus-after-autocomplete="new-exercise-entry-quantity"
-            autocomplete-field-id="new-exercise-entry-exercise"
-        >
-        </autocomplete>
-
-        <div class="form-group">
-            <label for="new-ingredient-quantity">Quantity</label>
-            <input
-                v-model="newEntry.quantity"
-                v-on:keyup.13="insertEntry()"
-                type="text"
-                id="new-exercise-entry-quantity"
-                name="new-exercise-entry-quantity"
-                placeholder="quantity"
-                class="form-control"
+        <div class="input-group-container">
+            <input-group
+                label="Exercise:"
+                :model.sync="newEntry.exercise"
+                :enter="insertEntry"
+                id="new-entry-exercise"
+                :options="shared.exercises"
+                options-prop="name"
             >
-        </div>
+            </input-group>
 
-        <div class="form-group">
-            <label for="new-ingredient-unit-name">Unit</label>
-
-            <select
-                v-model="newEntry.unit"
-                v-on:keyup.13="insertEntry()"
-                id="new-exercise-entry-unit"
-                class="form-control"
+            <input-group
+                label="Quantity:"
+                :model.sync="newEntry.quantity"
+                :enter="insertEntry"
+                id="new-entry-quantity"
             >
-                <option
-                    v-for="unit in units"
-                    v-bind:value="unit"
-                >
-                    {{ unit.name }}
-                </option>
-            </select>
+            </input-group>
+
+            <input-group
+                label="Unit:"
+                :model.sync="newEntry.unit"
+                :enter="insertEntry"
+                id="new-entry-unit"
+                :options="shared.exerciseUnits"
+                options-prop="name"
+            >
+            </input-group>
         </div>
 
         <buttons
@@ -60,11 +50,6 @@
             };
         },
         components: {},
-        computed: {
-            units: function () {
-                return this.shared.exerciseUnits;
-            }
-        },
         methods: {
 
             /**
@@ -73,7 +58,7 @@
             insertEntry: function () {
                 var data = {
                     date: this.shared.date.sql,
-                    exercise_id: this.newEntry.id,
+                    exercise_id: this.newEntry.exercise.id,
                     quantity: this.newEntry.quantity,
                     unit_id: this.newEntry.unit.id
                 };
@@ -90,18 +75,12 @@
                 });
             }
         },
-        props: [
-
-        ],
         events: {
             'option-chosen': function (option) {
                 this.newEntry = option;
                 this.newEntry.unit = option.defaultUnit.data;
                 this.newEntry.quantity = option.defaultQuantity;
             }
-        },
-        ready: function () {
-
         }
     };
 </script>

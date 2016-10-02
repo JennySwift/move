@@ -150,22 +150,8 @@ li {
   cursor: pointer;
   color: #d9534f; }
 
-.vertical-center {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-  justify-content: center; }
-
 .margin-bottom {
   margin-bottom: 15px; }
-
-.margin-bottom-md {
-  margin-bottom: 39px; }
-
-.margin-bottom-lg {
-  margin-bottom: 140px; }
 
 .hover:hover {
   background: #b5b5b5; }
@@ -182,49 +168,8 @@ li {
   .checkbox-container input {
     margin-right: 5px; }
 
-.my-btn {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-  color: #555;
-  font-size: 14px;
-  height: 34px;
-  padding: 6px 12px; }
-  .my-btn:active {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
-    border: 1px solid black; }
-  .my-btn:focus {
-    outline: thin dotted;
-    outline-offset: -2px; }
-  .my-btn:hover, .my-btn:focus, .my-btn:active {
-    background-color: #e6e6e6;
-    border-color: #adadad;
-    color: #333; }
-
-.my-input-group input, .my-input-group button {
-  display: block;
-  width: 100%; }
-
-.my-btn-group {
-  display: -ms-flexbox;
-  display: flex;
-  display: -webkit-flex; }
-  .my-btn-group button {
-    display: block;
-    width: 100%; }
-
 .fa {
   font-size: 19px; }
-
-.min-width-md {
-  min-width: 40px; }
-
-.max-width-md {
-  max-width: 40px; }
-
-.max-width-lg {
-  max-width: 80px; }
 
 @media (max-width: 480px) {
   .my-input-group input {
@@ -700,6 +645,34 @@ li {
 
 label.input-group-addon {
   min-width: 135px; }
+
+.my-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  color: #555;
+  font-size: 14px;
+  height: 34px;
+  padding: 6px 12px; }
+  .my-btn:active {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
+    border: 1px solid black; }
+  .my-btn:focus {
+    outline: thin dotted;
+    outline-offset: -2px; }
+  .my-btn:hover, .my-btn:focus, .my-btn:active {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333; }
+
+.my-btn-group {
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-flex; }
+  .my-btn-group button {
+    display: block;
+    width: 100%; }
 
 #login {
   padding-top: 85px; }

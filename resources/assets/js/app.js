@@ -21,9 +21,9 @@ Date.setLocale('en-AU');
 //Shared components
 Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
 Vue.component('feedback', require('@jennyswift/feedback'));
+Vue.component('autocomplete', require('@jennyswift/vue-autocomplete'));
 Vue.component('loading', require('./components/shared/LoadingComponent.vue'));
 Vue.component('popup', require('./components/shared/PopupComponent.vue'));
-Vue.component('autocomplete', require('./components/shared/AutocompleteComponent.vue'));
 // Vue.component('date-picker', require('./components/Shared/DatePickerComponent.vue'));
 Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
 Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));

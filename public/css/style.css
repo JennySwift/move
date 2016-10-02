@@ -649,7 +649,9 @@ li {
   margin-bottom: 7px; }
 
 label.input-group-addon {
-  min-width: 135px; }
+  min-width: 135px;
+  background: #56ab2f;
+  color: white; }
 
 .my-btn {
   background: #fff;

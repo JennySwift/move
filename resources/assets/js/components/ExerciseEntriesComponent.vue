@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="entry in exerciseEntries" class="hover pointer">
+                    <tr v-for="entry in exerciseEntries" class="pointer">
                         <td
                             v-on:click="showEntriesForSpecificExerciseAndDateAndUnitPopup(entry)"
                             class="pointer"
@@ -33,12 +33,15 @@
                         >
                             {{ entry.total }} {{ entry.unit.name }}
                         </td>
-                        <td>
+                        <td class="add">
                             <button
                                 v-if="entry.exercise.data.defaultUnit && entry.unit.data.id === entry.exercise.data.defaultUnit.data.id"
                                 v-on:click="insertExerciseSet(entry.exercise)"
-                                class="btn-xs">
-                                <i class="fa fa-plus"></i> {{ entry.exercise.data.defaultQuantity }} {{ entry.exercise.data.defaultUnit.data.name }}
+                                class="btn-sm btn-success">
+                                <i class="fa fa-plus"></i>
+                                <span>
+                                    {{ entry.exercise.data.defaultQuantity }} {{ entry.exercise.data.defaultUnit.data.name }}
+                                </span>
                             </button>
                         </td>
                     </tr>

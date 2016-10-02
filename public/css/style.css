@@ -171,6 +171,22 @@ li {
 .fa {
   font-size: 19px; }
 
+td.add {
+  padding: 2px 2px; }
+  td.add button {
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 30px; }
+    td.add button .fa-plus {
+      margin-right: 5px;
+      font-size: 10px;
+      margin-top: 4px; }
+    td.add button span {
+      padding-top: 1px; }
+
 @media (max-width: 480px) {
   .my-input-group input {
     padding-left: 0;
@@ -196,21 +212,6 @@ li {
 
 #exercises-page td {
   text-align: left; }
-  #exercises-page td.add {
-    padding: 2px 2px; }
-    #exercises-page td.add button {
-      width: 100%;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-pack: justify;
-      justify-content: space-between;
-      height: 30px; }
-      #exercises-page td.add button .fa-plus {
-        margin-right: 5px;
-        font-size: 10px;
-        margin-top: 4px; }
-      #exercises-page td.add button span {
-        padding-top: 1px; }
 
 @media (max-width: 320px) {
   #exercises-page .big-screens {

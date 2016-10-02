@@ -47,7 +47,7 @@
                     <tr
                         v-for="exercise in shared.exercises | filterExercises"
                         v-bind:class="{'stretch': exercise.stretch}"
-                        class="hover pointer"
+                        class="pointer"
                     >
                         <!--<td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.stepNumber }}</td>-->
                         <td v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.name }}</td>

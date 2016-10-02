@@ -42,3 +42,22 @@
 .fa {
 	font-size: 19px;
 }
+
+td.add {
+	padding: 2px 2px;
+	button {
+		width: 100%;
+		display: flex;
+		//align-items: center;
+		justify-content: space-between;
+		height: 30px;
+		.fa-plus {
+			margin-right: 5px;
+			font-size: 10px;
+			margin-top: 4px;
+		}
+		span {
+			padding-top: 1px;
+		}
+	}
+}

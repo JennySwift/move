@@ -1,0 +1,10 @@
+.autocomplete {
+    .autocomplete-dropdown {
+        .autocomplete-option {
+            &.selected {
+                background: $base1 !important;
+                color: white;
+            }
+        }
+    }
+}

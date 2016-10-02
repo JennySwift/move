@@ -2,7 +2,7 @@
     <div>
         <entries-for-specific-exercise-and-date-and-unit-popup></entries-for-specific-exercise-and-date-and-unit-popup>
 
-        <div>
+        <div v-if="exerciseEntries.length > 0">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -42,9 +42,10 @@
                         </td>
                     </tr>
                 </tbody>
-
-
             </table>
+        </div>
+        <div v-else>
+            <h3>No entries here</h3>
         </div>
     </div>
 </template>

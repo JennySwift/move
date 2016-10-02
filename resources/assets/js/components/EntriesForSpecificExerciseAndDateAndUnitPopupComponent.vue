@@ -8,26 +8,31 @@
             <div slot="content">
                 <table class="table table-bordered">
                     <caption class="bg-blue">Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.name }} on {{ shared.date.typed }}</caption>
-                    <tr>
-                        <th>exercise</th>
-                        <th>quantity</th>
-                        <th>created at</th>
-                        <th>x</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Quantity</th>
+                            <th>Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="entry in entries"
+                        >
+                            <td>{{ entry.exercise.data.name }}</td>
+                            <td>
+                                <input
+                                    v-model="entry.quantity"
+                                    v-on:keyup.13="updateExerciseEntry(entry)"
+                                >
+                            </td>
+                            <td>{{ entry.createdAt }}</td>
+                            <td><i v-on:click="deleteExerciseEntry(entry)" class="delete-item fa fa-times"></i></td>
+                        </tr>
+                    </tbody>
 
-                    <tr
-                        v-for="entry in entries"
-                    >
-                        <td>{{ entry.exercise.data.name }}</td>
-                        <td>
-                            <input
-                                v-model="entry.quantity"
-                                v-on:keyup.13="updateExerciseEntry(entry)"
-                            >
-                        </td>
-                        <td>{{ entry.createdAt }}</td>
-                        <td><i v-on:click="deleteExerciseEntry(entry)" class="delete-item fa fa-times"></i></td>
-                    </tr>
+
                 </table>
             </div>
         </popup>

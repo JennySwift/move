@@ -6,7 +6,7 @@
     top: 0;
     width: 100%;
     color: #888;
-    background: black;
+    @include gradient;
     padding: 0;
     margin: 0;
     @media (max-width: 320px) {
@@ -18,6 +18,7 @@
         min-width: inherit;
         a {
             padding: 0 8px;
+            color: $base1;
         }
     }
     > li {
@@ -25,7 +26,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        height: 44px;
+        height: $navHeight;
         //min-width: 70px;
         > a {
             transition: all .5s ease;
@@ -40,7 +41,7 @@
         }
     }
     a {
-        color: #337ab7;
+        color: white;
     }
     .gravatar-li {
         //min-width: 160px;

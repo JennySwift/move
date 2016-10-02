@@ -19,9 +19,11 @@
 	margin-bottom: 15px;
 }
 
-.hover:hover {
-	background: $base2;
-	color: white;
+@media (min-width: 800px) {
+	.hover:hover {
+		background: $base2;
+		color: white;
+	}
 }
 
 .checkbox-container {

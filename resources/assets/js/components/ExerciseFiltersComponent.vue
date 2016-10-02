@@ -1,74 +1,50 @@
 <template>
     <div v-show="shared.showFilters" id="exercise-filters">
-        <div class="flex">
+        <div class="input-group-container">
+            <input-group
+                label="Name:"
+                :model.sync="shared.exerciseFilters.name"
+                :enter="hideFilters"
+                id="filter-by-name"
+            >
+            </input-group>
+
+            <input-group
+                label="Description:"
+                :model.sync="shared.exerciseFilters.description"
+                :enter="hideFilters"
+                id="filter-by-description"
+            >
+            </input-group>
+
+            <input-group
+                label="Series:"
+                :model.sync="shared.exerciseFilters.series"
+                :enter="hideFilters"
+                id="filter-by-series"
+                :options="exerciseSeriesOptions"
+                options-prop="name"
+            >
+            </input-group>
+
+            <input-group
+                label="Priority:"
+                :model.sync="shared.exerciseFilters.priority"
+                :enter="hideFilters"
+                id="filter-by-priority"
+            >
+            </input-group>
+
+            <checkbox-group
+                label="Show Stretches:"
+                :model.sync="shared.exerciseFilters.showStretches"
+                id="show-stretches"
+            >
+            </checkbox-group>
 
             <div class="form-group">
-                <label for="filter-by-name">Name</label>
-                <input
-                    v-model="shared.exerciseFilters.name"
-                    type="text"
-                    id="filter-by-name"
-                    name="filter-by-name"
-                    placeholder="name"
-                    class="form-control"
-                >
+                <button v-on:click="hideFilters()" class="btn btn-success">Done</button>
             </div>
-
-            <div class="form-group">
-                <label for="filter-by-description">Description</label>
-                <input
-                    v-model="shared.exerciseFilters.description"
-                    type="text"
-                    id="filter-by-description"
-                    name="filter-by-description"
-                    placeholder="description"
-                    class="form-control"
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="filter-by-series">Series</label>
-
-                <select
-                    v-model="shared.exerciseFilters.series"
-                    id="filter-by-series"
-                    class="form-control"
-                >
-                    <option value="all">All</option>
-                    <option
-                        v-for="series in shared.exerciseSeries"
-                        v-bind:value="series.name"
-                    >
-                        {{ series.name }}
-                    </option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="filter-by-priority">Priority</label>
-                <input
-                    v-model="shared.exerciseFilters.priority"
-                    type="text"
-                    id="filter-by-priority"
-                    name="filter-by-priority"
-                    placeholder="priority"
-                    class="form-control"
-                >
-            </div>
-
-            <div class="form-group">
-                <div class="checkbox-container">
-                    <input
-                        v-model="shared.exerciseFilters.showStretches"
-                        id="show-stretches"
-                        type="checkbox"
-                    >
-                    <label for="show-stretches-">Show stretches</label>
-                </div>
-            </div>
-
-            <button v-on:click="hideFilters()" class="btn btn-success">Done</button>
-
         </div>
     </div>
 </template>
@@ -78,6 +54,13 @@
         data: function () {
             return {
                 shared: store.state
+            }
+        },
+        computed: {
+            exerciseSeriesOptions: function () {
+                var options = this.shared.exerciseSeries;
+                options.unshift({name: 'Any', value: 'all'});
+                return options;
             }
         },
         methods: {

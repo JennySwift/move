@@ -164,7 +164,7 @@
                     }
 
                     //Series filter
-                    if (that.filters.series && exercise.series.data.name != that.filters.series && that.filters.series !== 'all') {
+                    if (that.filters.series && exercise.series.data.name != that.filters.series.name && that.filters.series.value !== 'all') {
                         filteredIn = false;
                     }
 

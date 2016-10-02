@@ -3,6 +3,7 @@
         <entries-for-specific-exercise-and-date-and-unit-popup></entries-for-specific-exercise-and-date-and-unit-popup>
 
         <div v-if="exerciseEntries.length > 0">
+            <h3>Entries</h3>
             <table class="table table-bordered">
                 <thead>
                     <tr>

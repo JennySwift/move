@@ -1,22 +1,8 @@
-#exercise-units-page {
-    .new-exercise-unit-container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        .new-exercise-unit {
-            display: flex;
-            justify-content: center;
-            width: 500px;
-            > * {
-                margin: 20px 2px;
-            }
+#units-page {
+    .new-unit {
+        button {
+            width: 100%;
         }
-    }
-    .exercise-units-container {
-        display: flex;
-        justify-content: center;
-        .exercise-units {
-            width: 500px;
-        }
+        margin-bottom: 25px;
     }
 }

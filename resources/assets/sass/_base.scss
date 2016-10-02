@@ -4,28 +4,18 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
     background: #fff;
-}
-
-body {
-	padding-top: 63px;
-    color: #777;
-	// padding-bottom: 50px;
-	@media (max-width: 600px) {
-		padding-top: 42px;
-	}
-}
-
-
-//for flexbox sticky footer
-html, body {
+	//for flexbox sticky footer
 	height: 100%;
 }
 
 $footerHeight: 25px;
 
 body {
-    padding-top: 60px;
-    color: #777;
+    padding-top: 40px;
+	color: #777;
+	@media (max-width: 600px) {
+		padding-top: 42px;
+	}
 	@include characterFont;
     .container {
         padding-bottom: $footerHeight;

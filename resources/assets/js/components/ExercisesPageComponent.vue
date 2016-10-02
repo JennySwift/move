@@ -23,15 +23,13 @@
             </series-popup>
 
             <div>
-                <div>
-                    <exercise-entries
-                        :date="date"
-                    >
-                    </exercise-entries>
-                </div>
-
+                <exercise-entries
+                    :date="date"
+                >
+                </exercise-entries>
             </div>
 
+            <h3>Exercises</h3>
             <table id="exercises-table" class="table table-bordered">
                 <thead>
                     <tr>

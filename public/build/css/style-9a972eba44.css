@@ -2,22 +2,16 @@
 html, body {
   max-width: 100%;
   overflow-x: hidden;
-  background: #fff; }
-
-body {
-  padding-top: 63px;
-  color: #777; }
-  @media (max-width: 600px) {
-    body {
-      padding-top: 42px; } }
-
-html, body {
+  background: #fff;
   height: 100%; }
 
 body {
-  padding-top: 60px;
+  padding-top: 40px;
   color: #777;
   font-family: "Annie Use Your Telescope"; }
+  @media (max-width: 600px) {
+    body {
+      padding-top: 42px; } }
   body .container {
     padding-bottom: 25px;
     min-height: 100%; }
@@ -294,29 +288,10 @@ li {
   justify-content: center;
   margin-bottom: 20px; }
 
-#exercise-units-page .new-exercise-unit-container {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-align: end;
-  align-items: flex-end; }
-  #exercise-units-page .new-exercise-unit-container .new-exercise-unit {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-    justify-content: center;
-    width: 500px; }
-    #exercise-units-page .new-exercise-unit-container .new-exercise-unit > * {
-      margin: 20px 2px; }
-
-#exercise-units-page .exercise-units-container {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-  justify-content: center; }
-  #exercise-units-page .exercise-units-container .exercise-units {
-    width: 500px; }
+#units-page .new-unit {
+  margin-bottom: 25px; }
+  #units-page .new-unit button {
+    width: 100%; }
 
 #series-history-popup h3 {
   margin: 0 0 17px 0; }

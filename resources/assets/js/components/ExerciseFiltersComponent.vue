@@ -58,7 +58,7 @@
         },
         computed: {
             exerciseSeriesOptions: function () {
-                var options = this.shared.exerciseSeries;
+                var options = helpers.clone(this.shared.exerciseSeries);
                 options.unshift({name: 'Any', value: 'all'});
                 return options;
             }

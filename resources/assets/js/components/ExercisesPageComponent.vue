@@ -124,12 +124,11 @@
                 exercises = _.chain(exercises)
                     .sortBy(function (exercise) {return exercise.stepNumber})
                     .sortBy(function (exercise) {
-                        return true;
-//                        return exercise.series.data.id
+                        return exercise.series.data.id;
                     })
                     .sortBy('priority')
                     .sortBy(function (exercise) {
-                        return exercise.lastDone * -1
+                        return exercise.lastDone * -1;
                     })
                     .partition(function (exercise) {
                         return exercise.lastDone === null;

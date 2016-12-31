@@ -135,6 +135,10 @@ class ExercisesTest extends TestCase {
      // dd($content);
 
         $this->assertArrayHasKey('name', $content);
+        $this->assertArrayHasKey('priority', $content);
+        $this->assertArrayHasKey('program_id', $content);
+        $this->assertArrayHasKey('series_id', $content);
+        $this->assertArrayHasKey('default_unit_id', $content);
 
         $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
 

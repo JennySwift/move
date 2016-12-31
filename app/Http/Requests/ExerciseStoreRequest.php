@@ -24,7 +24,11 @@ class ExerciseStoreRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'priority' => 'required',
+            'program_id' => 'required',
+            'series_id' => 'required',
+            'default_unit_id' => 'required'
         ];
     }
 }

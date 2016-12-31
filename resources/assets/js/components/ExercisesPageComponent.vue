@@ -123,7 +123,10 @@
                 //Sort
                 exercises = _.chain(exercises)
                     .sortBy(function (exercise) {return exercise.stepNumber})
-                    .sortBy(function (exercise) {return exercise.series.data.id})
+                    .sortBy(function (exercise) {
+                        return true;
+//                        return exercise.series.data.id
+                    })
                     .sortBy('priority')
                     .sortBy(function (exercise) {
                         return exercise.lastDone * -1

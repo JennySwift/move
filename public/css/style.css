@@ -210,6 +210,23 @@ td.add {
   .iphone {
     display: none; } }
 
+.popup-inner-transition {
+  animation-duration: 1s; }
+
+.popup-outer-transition {
+  animation-duration: 1s; }
+
+.fade-transition {
+  animation-duration: .5s; }
+
+.slide-up-down-transition {
+  animation-duration: .5s; }
+
+@keyframes slideOutRight {
+  to {
+    transform: translate3d(108%, 0, 0);
+    animation-timing-function: ease; } }
+
 #exercises-page td {
   text-align: left; }
 

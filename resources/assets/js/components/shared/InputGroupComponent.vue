@@ -27,6 +27,7 @@
             :function-on-enter="enter"
             :selected.sync="model"
             :option-partial="optionPartial"
+            dropdown-transition="fade"
         >
         </autocomplete>
 

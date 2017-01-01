@@ -38,6 +38,7 @@ Vue.component('series-popup', require('./components/SeriesPopupComponent.vue'));
 
 //Transitions
 Vue.transition('fade', require('./transitions/FadeTransition'));
+Vue.transition('popup-inner', require('./transitions/PopupInnerTransition'));
 
 require('./routes');
 

@@ -79,9 +79,12 @@ class ExerciseSeriesTest extends TestCase {
 
         $series = Series::forCurrentUser()->first();
 
+        $this->assertEquals("#FF530D", $series->color);
+
         $response = $this->call('PUT', '/api/exerciseSeries/'.$series->id, [
             'name' => 'numbat',
-            'priority' => 8
+            'priority' => 8,
+            'color' => 'black'
         ]);
 //        dd($response);
         $content = json_decode($response->getContent(), true);
@@ -92,6 +95,7 @@ class ExerciseSeriesTest extends TestCase {
         $this->assertEquals(1, $content['id']);
         $this->assertEquals('numbat', $content['name']);
         $this->assertEquals('8', $content['priority']);
+        $this->assertEquals('black', $content['color']);
 
         $this->assertEquals(200, $response->getStatusCode());
     }

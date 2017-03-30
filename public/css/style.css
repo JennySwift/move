@@ -348,6 +348,9 @@ td.add button {
 #series-page .series.has-color {
   color: white; }
 
+#series-page .card {
+  margin-bottom: 8px; }
+
 #workouts .flex {
   display: -ms-flexbox;
   display: flex;

@@ -241,7 +241,7 @@ td.add button {
 
 #exercises-page #exercises .exercise {
   margin-bottom: 8px; }
-  #exercises-page #exercises .exercise .card-header.no-color {
+  #exercises-page #exercises .exercise .card-header.has-color {
     color: white; }
   #exercises-page #exercises .exercise .add {
     display: -ms-flexbox;
@@ -344,6 +344,9 @@ td.add button {
 
 #series-history-popup h3 {
   margin: 0 0 17px 0; }
+
+#series-page .series.has-color {
+  color: white; }
 
 #workouts .flex {
   display: -ms-flexbox;

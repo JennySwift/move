@@ -19,6 +19,9 @@ router.map({
     '/series/#/add': {
         component: require('./components/NewSeriesComponent.vue')
     },
+    '/series': {
+        component: require('./components/SeriesComponent.vue')
+    },
     '/exercise-units': {
         component: require('./components/ExerciseUnitsPageComponent.vue')
     }

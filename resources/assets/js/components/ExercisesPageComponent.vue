@@ -30,7 +30,7 @@
                     class="pointer exercise card"
                 >
 
-                    <div v-bind:style="{background: exercise.series.data.color}" v-bind:class="{'no-color': exercise.series.data.color}" class="card-header">
+                    <div v-bind:style="{background: exercise.series.data.color}" v-bind:class="{'has-color': exercise.series.data.color}" class="card-header">
                         {{exercise.name}}
                     </div>
                     <div class="card-block">

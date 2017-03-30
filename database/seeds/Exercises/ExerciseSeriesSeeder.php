@@ -18,19 +18,22 @@ class ExerciseSeriesSeeder extends Seeder {
             DB::table('exercise_series')->insert([
                 'name' => 'pushup',
                 'user_id' => $user->id,
-                'priority' => 1
+                'priority' => 1,
+                'color' => '#FF530D'
             ]);
 
             DB::table('exercise_series')->insert([
                 'name' => 'pullup',
                 'user_id' => $user->id,
-                'priority' => 1
+                'priority' => 1,
+                'color' => '#73FF26'
             ]);
 
             DB::table('exercise_series')->insert([
                 'name' => 'squat',
                 'user_id' => $user->id,
-                'priority' => 2
+                'priority' => 2,
+                'color' => '#1F2FCC'
             ]);
 
             DB::table('exercise_series')->insert([

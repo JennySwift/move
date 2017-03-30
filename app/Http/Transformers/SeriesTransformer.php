@@ -26,7 +26,8 @@ class SeriesTransformer extends TransformerAbstract
             'id' => $series->id,
             'name' => $series->name,
             'priority' => $series->priority,
-            'lastDone' => $series->lastDone
+            'lastDone' => $series->lastDone,
+            'color' => $series->color
         ];
 
         return $array;

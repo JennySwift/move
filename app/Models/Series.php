@@ -16,7 +16,7 @@ class Series extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'priority'];
+    protected $fillable = ['name', 'priority', 'color'];
 
     /**
      * @var string

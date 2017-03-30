@@ -129,6 +129,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('name', $series);
         $this->assertArrayHasKey('priority', $series);
         $this->assertArrayHasKey('lastDone', $series);
+        $this->assertArrayHasKey('color', $series);
     }
 
     /**

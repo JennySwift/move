@@ -38,12 +38,23 @@
                         <!--<p class="card-text text-left"></p>-->
                         <div class="add">
                             <button
-                                v-on:click="insertExerciseSet(exercise)"
+                                v-on:click="insertDefaultExerciseSet(exercise)"
                                 class="btn btn-success btn-sm"
                             >
                                 <i class="fa fa-plus"></i>
                                 <span>
                                     {{ exercise.defaultQuantity }}
+                                    {{ exercise.defaultUnit.data.name }}
+                                </span>
+
+                            </button>
+
+                            <button
+                                v-on:click="insertExerciseSet(exercise)"
+                                class="btn btn-success btn-sm"
+                            >
+                                <i class="fa fa-plus"></i>
+                                <span>
                                     {{ exercise.defaultUnit.data.name }}
                                 </span>
 
@@ -211,8 +222,17 @@
             /**
              *
              */
+            insertDefaultExerciseSet: function (exercise) {
+                store.insertExerciseSet(exercise, true);
+            },
+
+            /**
+             *
+             */
             insertExerciseSet: function (exercise) {
-                store.insertExerciseSet(exercise);
+                console.log(exercise);
+                var quantity = prompt("How many " + exercise.defaultUnit.data.name + "?");
+                store.insertExerciseSet(exercise, false, quantity);
             },
 
             /**

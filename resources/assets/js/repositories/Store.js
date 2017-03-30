@@ -127,12 +127,17 @@ module.exports = {
     /**
     *
     */
-    insertExerciseSet: function (exercise) {
+    insertExerciseSet: function (exercise, useExerciseDefaults, quantity) {
         var data = {
             date: this.state.date.sql,
             exercise_id: exercise.id,
-            exerciseSet: true
+            useExerciseDefaults: useExerciseDefaults
         };
+
+        if (!useExerciseDefaults) {
+            data.quantity = quantity;
+            data.unit_id = exercise.defaultUnit.data.id;
+        }
 
         helpers.post({
             url: '/api/exerciseEntries',

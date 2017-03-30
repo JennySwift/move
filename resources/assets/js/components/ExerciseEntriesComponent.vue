@@ -36,7 +36,7 @@
                         <td class="add">
                             <button
                                 v-if="entry.exercise.data.defaultUnit && entry.unit.data.id === entry.exercise.data.defaultUnit.data.id"
-                                v-on:click="insertExerciseSet(entry.exercise)"
+                                v-on:click="insertDefaultExerciseSet(entry.exercise)"
                                 class="btn-sm btn-success">
                                 <i class="fa fa-plus"></i>
                                 <span>
@@ -91,8 +91,8 @@
              *
              * @param exercise
              */
-            insertExerciseSet: function (exercise) {
-                store.insertExerciseSet(exercise.data);
+            insertDefaultExerciseSet: function (exercise) {
+                store.insertExerciseSet(exercise.data, true);
             },
 
             /**

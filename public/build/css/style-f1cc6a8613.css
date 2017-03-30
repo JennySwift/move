@@ -243,6 +243,11 @@ td.add button {
   margin-bottom: 8px; }
   #exercises-page #exercises .exercise .card-header.no-color {
     color: white; }
+  #exercises-page #exercises .exercise .add {
+    display: -ms-flexbox;
+    display: flex; }
+    #exercises-page #exercises .exercise .add button {
+      margin-right: 5px; }
 
 #exercise-series .new-exercise .flex {
   display: -ms-flexbox;

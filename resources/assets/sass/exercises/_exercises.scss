@@ -11,4 +11,17 @@
 		width: auto;
 		margin: auto;
 	}
+
+	#exercises {
+		.exercise {
+			margin-bottom: 8px;
+			.card-header.no-color {
+				color: white;
+			}
+			.exercise-name {
+				//font-size: 18px;
+				//color: white;
+			}
+		}
+	}
 }

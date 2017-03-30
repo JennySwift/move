@@ -48,7 +48,6 @@ h1, h2, h3, h4, h5 {
   text-align: center; }
 
 p {
-  padding: 0 20px;
   text-align: center; }
 
 select {
@@ -171,21 +170,23 @@ li {
 .fa {
   font-size: 19px; }
 
-td.add {
+.add {
   padding: 2px 2px; }
-  td.add button {
-    width: 100%;
+  .add button {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: justify;
     justify-content: space-between;
     height: 30px; }
-    td.add button .fa-plus {
+    .add button .fa-plus {
       margin-right: 5px;
       font-size: 10px;
       margin-top: 4px; }
-    td.add button span {
+    .add button span {
       padding-top: 1px; }
+
+td.add button {
+  width: 100%; }
 
 @media (max-width: 480px) {
   .my-input-group input {
@@ -237,6 +238,11 @@ td.add {
 #exercises-page table {
   width: auto;
   margin: auto; }
+
+#exercises-page #exercises .exercise {
+  margin-bottom: 8px; }
+  #exercises-page #exercises .exercise .card-header.no-color {
+    color: white; }
 
 #exercise-series .new-exercise .flex {
   display: -ms-flexbox;

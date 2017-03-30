@@ -132,7 +132,7 @@ class ExerciseEntriesTest extends TestCase {
         $entry = [
             'date' => $date,
             'exercise_id' => 1,
-            'exerciseSet' => true
+            'useExerciseDefaults' => true
         ];
 
         $response = $this->call('POST', '/api/exerciseEntries', $entry);

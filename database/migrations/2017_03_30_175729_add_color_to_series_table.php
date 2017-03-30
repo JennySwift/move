@@ -13,7 +13,7 @@ class AddColorToSeriesTable extends Migration
     public function up()
     {
         Schema::table('exercise_series', function (Blueprint $table) {
-            $table->string('color', 30)->index();
+            $table->string('color', 30)->nullable()->index();
         });
     }
 

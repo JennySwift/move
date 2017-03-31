@@ -155,12 +155,6 @@ li {
     background: #a8e063;
     color: white; } }
 
-.card-header, .card button {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
-
-.card-header.has-color {
-  color: white; }
-
 .checkbox-container {
   display: -ms-flexbox;
   display: flex;
@@ -244,14 +238,6 @@ td.add button {
 #exercises-page table {
   width: auto;
   margin: auto; }
-
-#exercises-page #exercises .exercise {
-  margin-bottom: 8px; }
-  #exercises-page #exercises .exercise .add {
-    display: -ms-flexbox;
-    display: flex; }
-    #exercises-page #exercises .exercise .add button {
-      margin-right: 5px; }
 
 #exercise-series .new-exercise .flex {
   display: -ms-flexbox;
@@ -755,6 +741,20 @@ label.input-group-addon {
 .autocomplete .autocomplete-dropdown .autocomplete-option.selected {
   background: #56ab2f !important;
   color: white; }
+
+.card-header, .card button {
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
+
+.card-header.has-color {
+  color: white; }
+
+.card {
+  margin-bottom: 8px; }
+  .card .add {
+    display: -ms-flexbox;
+    display: flex; }
+    .card .add button {
+      margin-right: 5px; }
 
 #login {
   padding-top: 85px; }

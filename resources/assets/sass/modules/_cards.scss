@@ -1,0 +1,16 @@
+.card-header, .card button {
+    @include baseFont;
+}
+.card-header.has-color {
+    color: white;
+}
+
+.card {
+    margin-bottom: 8px;
+    .add {
+        display: flex;
+        button {
+            margin-right: 5px;
+        }
+    }
+}

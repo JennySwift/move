@@ -52,7 +52,7 @@
                                 <!--<i class="fa fa-plus"></i>-->
                                 <span>
                                     Add
-                                    {{ exercise.defaultQuantity }}
+                                    {{ exercise.defaultQuantity | removeUnnecessaryZeros }}
                                     {{ exercise.defaultUnit.data.name }}
                                 </span>
 
@@ -130,6 +130,10 @@
             'filters': require('./ExerciseFiltersComponent.vue')
         },
         filters: {
+            removeUnnecessaryZeros: function (number) {
+                return filters.removeUnnecessaryZeros(number);
+            },
+
             filterExercises: function (exercises) {
                 var that = this;
 

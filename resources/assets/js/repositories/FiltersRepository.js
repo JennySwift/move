@@ -36,5 +36,21 @@ module.exports = {
 
         var multiplyAndDivideBy = Math.pow(10, howManyDecimals);
         return Math.round(number * multiplyAndDivideBy) / multiplyAndDivideBy;
+    },
+
+    /**
+     *
+     * @param number
+     * @returns {*}
+     */
+    removeUnnecessaryZeros: function (number) {
+        if (number.substr(number.length-3, 3) === ".00")  {
+            //Remove the decimal and two zeros.
+            return number.slice(0, number.length - 3);
+        }
+        else if (number[number.length-1] === "0" && number.indexOf(".") !== -1)  {
+            return number.slice(0, number.length - 1);
+        }
+        return number;
     }
 };

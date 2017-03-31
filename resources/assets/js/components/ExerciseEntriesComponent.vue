@@ -37,7 +37,7 @@
                             <!--<i class="fa fa-plus"></i>-->
                             <span>
                                     Add
-                                    {{ entry.exercise.data.defaultQuantity }}
+                                    {{ entry.exercise.data.defaultQuantity | removeUnnecessaryZeros }}
                                     {{ entry.exercise.data.defaultUnit.data.name }}
                                 </span>
 
@@ -87,6 +87,11 @@
             }
         },
         components: {},
+        filters: {
+            removeUnnecessaryZeros: function (number) {
+                return filters.removeUnnecessaryZeros(number);
+            },
+        },
         methods: {
 
             /**

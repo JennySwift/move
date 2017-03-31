@@ -53,7 +53,7 @@
                 <button
                     type="button"
                     id="next-week"
-                    class="my-btn fa fa-angle-double-right"
+                    class="my-btn fa fa-angle-double-right border"
                     v-on:click="goToDate(7)"
                 >
                 </button>

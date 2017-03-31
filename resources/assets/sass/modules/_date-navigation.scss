@@ -6,6 +6,12 @@
 		max-width: 600px;
 		margin: auto;
 		margin-bottom: 23px;
+		input, button {
+			border-radius: 0;
+			&:not(.border) {
+				border-right: 0;
+			}
+		}
 		> div, button {
 			flex-grow: 2
 		}

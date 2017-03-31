@@ -29,6 +29,9 @@
 .card-header, .card button {
 	@include baseFont;
 }
+.card-header.has-color {
+	color: white;
+}
 
 .checkbox-container {
 	display: flex;

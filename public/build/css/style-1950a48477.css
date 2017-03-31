@@ -158,6 +158,9 @@ li {
 .card-header, .card button {
   font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
 
+.card-header.has-color {
+  color: white; }
+
 .checkbox-container {
   display: -ms-flexbox;
   display: flex;
@@ -244,8 +247,6 @@ td.add button {
 
 #exercises-page #exercises .exercise {
   margin-bottom: 8px; }
-  #exercises-page #exercises .exercise .card-header.has-color {
-    color: white; }
   #exercises-page #exercises .exercise .add {
     display: -ms-flexbox;
     display: flex; }

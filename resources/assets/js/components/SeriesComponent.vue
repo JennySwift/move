@@ -12,7 +12,7 @@
                 <!--<h4 class="card-title exercise-name">{{ exercise.name }}</h4>-->
                 <!--<p class="card-text text-left"></p>-->
 
-                <button class="btn btn-default" v-on:click="updateSeries(series)">Edit</button>
+                <button v-bind:style="{background: series.color}" v-bind:class="{'has-color': series.color}" class="btn btn-default btn-sm" v-on:click="updateSeries(series)">Edit</button>
             </div>
 
         </div>

@@ -3,9 +3,11 @@
 
         <li class="big-screens"><a href="http://jennyswiftcreations.com">jennyswiftcreations</a></li>
 
-        <li id="menu-dropdown" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown">
                 <span class="fa fa-heart"></span>
+            </a>
+            <a href="#" data-toggle="dropdown">
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
@@ -23,7 +25,7 @@
         </li>
 
         <!--User-->
-        <li id="menu-dropdown" class="dropdown gravatar-li">
+        <li class="dropdown gravatar-li">
             <a href="#" data-toggle="dropdown">
                 You
             </a>

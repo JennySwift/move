@@ -33,7 +33,7 @@ Vue.component('checkbox-group', require('./components/shared/CheckboxGroupCompon
 
 //Components
 Vue.component('exercise-entries', require('./components/ExerciseEntriesComponent.vue'));
-Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('./components/EntriesForSpecificExerciseAndDateAndUnitPopupComponent.vue'));
+// Vue.component('entries-for-specific-exercise-and-date-and-unit-popup', require('./components/EntriesForSpecificExerciseAndDateAndUnitPopupComponent.vue'));
 Vue.component('series-history-popup', require('./components/SeriesHistoryPopupComponent.vue'));
 Vue.component('series-popup', require('./components/SeriesPopupComponent.vue'));
 

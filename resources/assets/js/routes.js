@@ -16,6 +16,10 @@ router.map({
     '/entries/#/add': {
         component: require('./components/NewExerciseEntryComponent.vue')
     },
+    '/exercises/:exerciseId/units/:unitId/:date': {
+        name: 'entriesForSpecificExerciseAndDateAndUnit',
+        component: require('./components/EntriesForSpecificExerciseAndDateAndUnitComponent.vue')
+    },
     '/series/#/add': {
         component: require('./components/NewSeriesComponent.vue')
     },

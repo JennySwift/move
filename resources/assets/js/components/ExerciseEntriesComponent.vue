@@ -1,6 +1,6 @@
 <template>
     <div>
-        <entries-for-specific-exercise-and-date-and-unit-popup></entries-for-specific-exercise-and-date-and-unit-popup>
+        <!--<entries-for-specific-exercise-and-date-and-unit></entries-for-specific-exercise-and-date-and-unit>-->
 
         <div v-if="exerciseEntries.length > 0">
             <h3>Entries</h3>
@@ -13,7 +13,7 @@
                 <div
                     v-bind:style="{background: entry.exercise.data.series.data.color}"
                     v-bind:class="{'has-color': entry.exercise.data.series.data.color}"
-                    v-on:click="showEntriesForSpecificExerciseAndDateAndUnitPopup(entry)"
+                    v-link="{path: '/exercises/' + entry.exercise.data.id + '/units/' + entry.unit.data.id + '/' + this.shared.date.sql}"
                     class="card-header"
                 >
                     {{ entry.exercise.data.name }}
@@ -86,7 +86,9 @@
                 return this.shared.exerciseEntries;
             }
         },
-        components: {},
+        components: {
+//            'entries-for-specific-exercise-and-date-and-unit': require('./EntriesForSpecificExerciseAndDateAndUnitPopupComponent.vue')
+        },
         filters: {
             removeUnnecessaryZeros: function (number) {
                 return filters.removeUnnecessaryZeros(number);

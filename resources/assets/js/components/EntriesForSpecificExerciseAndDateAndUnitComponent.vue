@@ -1,40 +1,31 @@
 <template>
-    <div v-if="entries[0] && entries[0].exercise">
-        <popup
-            :show-popup.sync="showPopup"
-            id="entries-for-specific-exercise-and-date-and-unit-popup"
-            :redirect-to="redirectTo"
-        >
-            <div slot="content">
-                <h2>Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.data.name }} on {{ shared.date.typed }}</h2>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Quantity</th>
-                            <th>Created</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="entry in entries"
-                        >
-                            <td>
-                                <input
-                                    v-model="entry.quantity"
-                                    v-on:keyup.13="updateExerciseEntry(entry)"
-                                >
-                            </td>
-                            <td>{{ entry.createdAt }}</td>
-                            <td><i v-on:click="deleteExerciseEntry(entry)" class="delete-item fa fa-times"></i></td>
-                        </tr>
-                    </tbody>
+    <div v-if="entries[0] && entries[0].exercise" id="entries-for-specific-exercise-and-date-and-unit">
+        <h2>Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.data.name }} on {{ shared.date.typed }}</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-for="entry in entries"
+            >
+                <td>
+                    <input
+                        v-model="entry.quantity"
+                        v-on:keyup.13="updateExerciseEntry(entry)"
+                    >
+                </td>
+                <td>{{ entry.createdAt }}</td>
+                <td><i v-on:click="deleteExerciseEntry(entry)" class="delete-item fa fa-times"></i></td>
+            </tr>
+            </tbody>
 
 
-                </table>
-            </div>
-        </popup>
-
+        </table>
     </div>
 </template>
 
@@ -45,7 +36,6 @@
         template: '#entries-for-specific-exercise-and-date-and-unit-popup-template',
         data: function () {
             return {
-                showPopup: false,
                 entries: {},
                 shared: store.state
             };
@@ -57,11 +47,12 @@
             * Get all the the user's entries for a particular exercise
              * with a particular unit on a particular date.
             */
-            getEntriesForSpecificExerciseAndDateAndUnit: function (entry) {
+            getEntriesForSpecificExerciseAndDateAndUnit: function () {
+                var params = this.$route.params;
                 var data = {
-                    date: this.shared.date.sql,
-                    exercise_id: entry.exercise.data.id,
-                    exercise_unit_id: entry.unit.data.id
+                    date: params.date,
+                    exercise_id: params.exerciseId,
+                    exercise_unit_id: params.unitId
                 };
 
 
@@ -72,7 +63,6 @@
                     loadedProperty: 'entriesLoaded',
                     callback: function (response) {
                         this.entries = response;
-                        this.showPopup = true;
                     }.bind(this)
                 });
             },
@@ -109,20 +99,10 @@
                         store.getExerciseEntriesForTheDay();
                     }.bind(this)
                 });
-            },
-
-            /**
-             *
-             */
-            listen: function () {
-                var that = this;
-                $(document).on('show-entries-for-specific-exercise-and-date-and-unit-popup', function (event, entry) {
-                    that.getEntriesForSpecificExerciseAndDateAndUnit(entry);
-                });
             }
         },
         ready: function () {
-            this.listen();
+            this.getEntriesForSpecificExerciseAndDateAndUnit();
         }
     };
 </script>

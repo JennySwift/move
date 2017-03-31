@@ -1,7 +1,7 @@
 <template>
     <div id="date-navigation-container">
 
-        <h1 class="center">{{ shared.date.long }}</h1>
+        <h1 v-if="showDate" class="center">{{ shared.date.long }}</h1>
 
         <div id="date-navigation" class="margin-bottom">
 
@@ -110,6 +110,12 @@
                 var date = date || $("#date").val();
                 DatesRepository.changeDate(date);
             }
+        },
+        props: {
+            showDate: {
+                type: Boolean,
+                default: true
+            },
         },
         ready: function () {
 

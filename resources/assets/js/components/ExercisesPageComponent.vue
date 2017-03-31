@@ -5,7 +5,8 @@
 
         <div v-show="!shared.showFilters">
 
-            <date-navigation></date-navigation>
+            <div class="date">{{shared.date.long}}</div>
+            <date-navigation v-bind:show-date="false"></date-navigation>
 
             <series-history-popup
                 :exercise-series-history="exerciseSeriesHistory"
@@ -18,8 +19,6 @@
                 :exercise-series.sync="exerciseSeries"
             >
             </series-popup>
-
-            <exercise-entries></exercise-entries>
 
             <div id="exercises">
                 <h3>Exercises</h3>

@@ -11,7 +11,7 @@ body {
   font-family: "Annie Use Your Telescope"; }
   @media (max-width: 600px) {
     body {
-      padding-top: 42px; } }
+      padding-top: 41px; } }
   body .container {
     padding-bottom: 25px;
     min-height: 100%; }
@@ -556,6 +556,16 @@ td.add button {
       opacity: .2; }
   .cb-fa-wrapper input:checked + label i {
     opacity: 1; }
+
+.date {
+  background: #ECEEEF;
+  color: #56ab2f;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  padding: 6px 14px;
+  border-radius: 0px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: -1px; }
 
 #date-navigation-container {
   width: 100%; }

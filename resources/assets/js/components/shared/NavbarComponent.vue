@@ -11,6 +11,7 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
+                <li><a v-link="{path: '/entries'}" href="#">Entries</a></li>
                 <li><a v-link="{path: '/exercises'}" href="#">Exercises</a></li>
                 <li><a v-link="{path: '/exercise-units'}" href="#">Units</a></li>
                 <li><a v-link="{path: '/exercises/#/add'}" href="#">New Exercise</a></li>

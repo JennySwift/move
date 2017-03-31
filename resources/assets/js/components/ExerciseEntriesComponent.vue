@@ -1,9 +1,12 @@
 <template>
-    <div>
+    <div id="exercise-entries-page">
         <!--<entries-for-specific-exercise-and-date-and-unit></entries-for-specific-exercise-and-date-and-unit>-->
+        <div class="date">{{shared.date.long}}</div>
+        <date-navigation v-bind:show-date=false></date-navigation>
 
         <div v-if="exerciseEntries.length > 0">
-            <h3>Entries</h3>
+            <!--<h3>Entries:</h3>-->
+
 
             <div
                 v-for="entry in exerciseEntries"

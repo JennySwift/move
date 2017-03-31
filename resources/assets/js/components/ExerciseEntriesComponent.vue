@@ -4,49 +4,59 @@
 
         <div v-if="exerciseEntries.length > 0">
             <h3>Entries</h3>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Exercise</th>
-                        <th>Sets</th>
-                        <th>Total</th>
-                        <th>Add</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="entry in exerciseEntries" class="pointer">
-                        <td
-                            v-on:click="showEntriesForSpecificExerciseAndDateAndUnitPopup(entry)"
-                            class="pointer"
+
+            <div
+                v-for="entry in exerciseEntries"
+                class="pointer exercise card"
+            >
+
+                <div
+                    v-bind:style="{background: entry.exercise.data.series.data.color}"
+                    v-bind:class="{'has-color': entry.exercise.data.series.data.color}"
+                    v-on:click="showEntriesForSpecificExerciseAndDateAndUnitPopup(entry)"
+                    class="card-header"
+                >
+                    {{ entry.exercise.data.name }}
+                    {{ entry.sets }}
+                    <span v-if="entry.sets !== 1">sets,</span>
+                    <span v-else>set,</span>
+                    {{ entry.total }} {{ entry.unit.data.name }}
+                </div>
+
+                <div class="card-block">
+                    <!--<h4 class="card-title exercise-name">{{ exercise.name }}</h4>-->
+                    <!--<p class="card-text text-left"></p>-->
+                    <div class="add">
+                        <button
+                            v-if="entry.exercise.data.defaultUnit && entry.unit.data.id === entry.exercise.data.defaultUnit.data.id"
+                            v-on:click="insertDefaultExerciseSet(entry.exercise)"
+                            v-bind:style="{background: entry.exercise.data.series.data.color}"
+                            v-bind:class="{'has-color': entry.exercise.data.series.data.color}"
+                            class="btn btn-default btn-sm"
                         >
-                            {{ entry.exercise.data.name }}
-                        </td>
-                        <td
-                            v-on:click="showEntriesForSpecificExerciseAndDateAndUnitPopup(entry)"
-                            class="pointer"
-                        >
-                            {{ entry.sets }}
-                        </td>
-                        <td
-                            v-on:click="showEntriesForSpecificExerciseAndDateAndUnitPopup(entry)"
-                            class="pointer"
-                        >
-                            {{ entry.total }} {{ entry.unit.name }}
-                        </td>
-                        <td class="add">
-                            <button
-                                v-if="entry.exercise.data.defaultUnit && entry.unit.data.id === entry.exercise.data.defaultUnit.data.id"
-                                v-on:click="insertDefaultExerciseSet(entry.exercise)"
-                                class="btn-sm btn-success">
-                                <i class="fa fa-plus"></i>
-                                <span>
-                                    {{ entry.exercise.data.defaultQuantity }} {{ entry.exercise.data.defaultUnit.data.name }}
+                            <!--<i class="fa fa-plus"></i>-->
+                            <span>
+                                    Add
+                                    {{ entry.exercise.data.defaultQuantity }}
+                                    {{ entry.exercise.data.defaultUnit.data.name }}
                                 </span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+                        </button>
+
+                        <button
+                            v-on:click="insertExerciseSet(entry.exercise)"
+                            v-bind:style="{background: entry.exercise.data.series.data.color}"
+                            v-bind:class="{'has-color': entry.exercise.data.series.data.color}"
+                            class="btn btn-default btn-sm"
+                        >
+                                <span>
+                                    Add...
+                                </span>
+
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div v-else>
             <h3>No entries here</h3>

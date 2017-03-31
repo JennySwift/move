@@ -240,9 +240,10 @@
              *
              */
             insertExerciseSet: function (exercise) {
-                console.log(exercise);
                 var quantity = prompt("How many " + exercise.defaultUnit.data.name + "?");
-                store.insertExerciseSet(exercise, false, quantity);
+                if (quantity) {
+                    store.insertExerciseSet(exercise, false, quantity);
+                }
             },
 
             /**

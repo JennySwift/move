@@ -127,7 +127,7 @@ module.exports = {
     /**
     *
     */
-    insertExerciseSet: function (exercise, useExerciseDefaults, quantity) {
+    insertExerciseSet: function (exercise, useExerciseDefaults, quantity, unit) {
         var data = {
             date: this.state.date.sql,
             exercise_id: exercise.id,
@@ -136,7 +136,13 @@ module.exports = {
 
         if (!useExerciseDefaults) {
             data.quantity = quantity;
-            data.unit_id = exercise.defaultUnit.data.id;
+
+            if (!unit) {
+                data.unit_id = exercise.defaultUnit.data.id;
+            }
+            else {
+                data.unit_id = unit.id;
+            }
         }
 
         helpers.post({

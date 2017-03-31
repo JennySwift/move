@@ -44,13 +44,13 @@
                         </button>
 
                         <button
-                            v-on:click="insertExerciseSet(entry.exercise)"
+                            v-on:click="insertExerciseSet(entry)"
                             v-bind:style="{background: entry.exercise.data.series.data.color}"
                             v-bind:class="{'has-color': entry.exercise.data.series.data.color}"
                             class="btn btn-default btn-sm"
                         >
                                 <span>
-                                    Add...
+                                    Add {{entry.unit.data.name}}
                                 </span>
 
                         </button>
@@ -103,6 +103,16 @@
              */
             insertDefaultExerciseSet: function (exercise) {
                 store.insertExerciseSet(exercise.data, true);
+            },
+
+            /**
+             *
+             */
+            insertExerciseSet: function (entry) {
+                var quantity = prompt("How many " + entry.unit.data.name + "?");
+                if (quantity) {
+                    store.insertExerciseSet(entry.exercise.data, false, quantity, entry.unit.data);
+                }
             },
 
             /**

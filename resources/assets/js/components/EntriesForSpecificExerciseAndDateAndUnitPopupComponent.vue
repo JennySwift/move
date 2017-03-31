@@ -10,7 +10,6 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Exercise</th>
                             <th>Quantity</th>
                             <th>Created</th>
                             <th></th>
@@ -20,7 +19,6 @@
                         <tr
                             v-for="entry in entries"
                         >
-                            <td>{{ entry.exercise.data.name }}</td>
                             <td>
                                 <input
                                     v-model="entry.quantity"

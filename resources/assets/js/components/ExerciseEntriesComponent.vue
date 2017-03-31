@@ -64,6 +64,10 @@
         <div v-else>
             <h3>No entries here</h3>
         </div>
+        <button v-link="{path: '/exercises'}" class="btn btn-default">
+            <i class="fa fa-arrow-circle-left"></i>
+            <span>Exercises</span>
+        </button>
     </div>
 </template>
 

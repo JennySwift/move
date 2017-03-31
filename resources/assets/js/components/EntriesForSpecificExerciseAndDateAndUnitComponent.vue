@@ -28,7 +28,7 @@
         </table>
     </div>
 
-    <button v-link="{path: '/exercises'}" class="btn btn-default">
+    <button v-link="{path: '/entries'}" class="btn btn-default">
         <i class="fa fa-arrow-circle-left"></i>
         <span>Entries</span>
     </button>

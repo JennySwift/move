@@ -8,20 +8,26 @@
             <div class="date">{{shared.date.long}}</div>
             <date-navigation v-bind:show-date="false"></date-navigation>
 
-            <series-history-popup
-                :exercise-series-history="exerciseSeriesHistory"
-                :selected-series="selectedSeries"
-            >
-            </series-history-popup>
+            <!--<series-history-popup-->
+                <!--:exercise-series-history="exerciseSeriesHistory"-->
+                <!--:selected-series="selectedSeries"-->
+            <!--&gt;-->
+            <!--</series-history-popup>-->
 
-            <series-popup
-                :selected-series="selectedSeries"
-                :exercise-series.sync="exerciseSeries"
-            >
-            </series-popup>
+            <!--<series-popup-->
+                <!--:selected-series="selectedSeries"-->
+                <!--:exercise-series.sync="exerciseSeries"-->
+            <!--&gt;-->
+            <!--</series-popup>-->
 
             <div id="exercises">
-                <h3>Exercises</h3>
+                <!--<h3>Exercises</h3>-->
+                <div class="btn-container">
+                    <button v-link="{path: '/entries'}" class="btn btn-default btn-sm">
+                        <i class="fa fa-arrow-circle-right"></i>
+                        <span>Entries</span>
+                    </button>
+                </div>
 
                 <div
                     v-for="exercise in shared.exercises | filterExercises"

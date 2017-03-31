@@ -239,6 +239,13 @@ td.add button {
   width: auto;
   margin: auto; }
 
+#exercises-page .btn-container {
+  margin-bottom: 5px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+
 #exercise-series .new-exercise .flex {
   display: -ms-flexbox;
   display: flex;
@@ -575,7 +582,7 @@ td.add button {
     display: -webkit-flex;
     max-width: 600px;
     margin: auto;
-    margin-bottom: 23px; }
+    margin-bottom: 10px; }
     #date-navigation-container #date-navigation input, #date-navigation-container #date-navigation button {
       border-radius: 0; }
       #date-navigation-container #date-navigation input:not(.border), #date-navigation-container #date-navigation button:not(.border) {
@@ -723,7 +730,7 @@ label.input-group-addon {
     border-color: #adadad;
     color: #333; }
 
-button .fa-arrow-circle-left {
+button .fa-arrow-circle-left, button .fa-arrow-circle-right {
   position: relative;
   top: 2px; }
 

@@ -37,8 +37,8 @@
                 id="today"
                 class="my-btn"
             >
-                <span class="hidden-xs">today</span>
-                <span class="fa fa-star visible-xs"></span>
+                <span>Today</span>
+                <!--<span class="fa fa-star visible-xs"></span>-->
             </button>
 
             <div class="my-btn-group">

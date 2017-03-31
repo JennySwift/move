@@ -13,7 +13,8 @@
 }
 
 @mixin baseFont {
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	//font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 
 @mixin characterFont {

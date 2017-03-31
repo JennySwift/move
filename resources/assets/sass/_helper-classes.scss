@@ -26,6 +26,10 @@
 	}
 }
 
+.card-header, .card button {
+	@include baseFont;
+}
+
 .checkbox-container {
 	display: flex;
 	align-items: center;

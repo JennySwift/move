@@ -155,6 +155,9 @@ li {
     background: #a8e063;
     color: white; } }
 
+.card-header, .card button {
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
+
 .checkbox-container {
   display: -ms-flexbox;
   display: flex;
@@ -702,6 +705,9 @@ label.input-group-addon {
     background-color: #e6e6e6;
     border-color: #adadad;
     color: #333; }
+
+.btn.has-color {
+  color: white; }
 
 .my-btn-group {
   display: -ms-flexbox;

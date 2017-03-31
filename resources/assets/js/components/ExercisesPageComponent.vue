@@ -45,10 +45,13 @@
                         <div class="add">
                             <button
                                 v-on:click="insertDefaultExerciseSet(exercise)"
-                                class="btn btn-success btn-sm"
+                                v-bind:style="{background: exercise.series.data.color}"
+                                v-bind:class="{'has-color': exercise.series.data.color}"
+                                class="btn btn-default btn-sm"
                             >
-                                <i class="fa fa-plus"></i>
+                                <!--<i class="fa fa-plus"></i>-->
                                 <span>
+                                    Add
                                     {{ exercise.defaultQuantity }}
                                     {{ exercise.defaultUnit.data.name }}
                                 </span>
@@ -57,11 +60,12 @@
 
                             <button
                                 v-on:click="insertExerciseSet(exercise)"
-                                class="btn btn-success btn-sm"
+                                v-bind:style="{background: exercise.series.data.color}"
+                                v-bind:class="{'has-color': exercise.series.data.color}"
+                                class="btn btn-default btn-sm"
                             >
-                                <i class="fa fa-plus"></i>
                                 <span>
-                                    {{ exercise.defaultUnit.data.name }}
+                                    Add...
                                 </span>
 
                             </button>

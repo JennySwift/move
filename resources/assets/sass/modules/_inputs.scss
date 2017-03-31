@@ -1,10 +1,38 @@
 .input-group-container {
     margin-bottom: 7px;
+    .input-group {
+        &:not(:first-child) {
+            input {
+                border-top: none;
+                &:focus {
+                    border: 1px solid #66afe9;
+                }
+            }
+            label {
+                border-top: none;
+            }
+        }
+        input {
+            border-radius: 0;
+            &:not(':first-child') {
+                border-top: 0;
+            }
+
+        }
+        &.top-border {
+            border-top: 1px solid #ccc;
+        }
+    }
 }
 
 label.input-group-addon {
     min-width: 135px;
     background: $base1;
     color: white;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    &:not('first-child') {
+        border-top: 0;
+    }
 }
 

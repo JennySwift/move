@@ -685,11 +685,27 @@ td.add button {
 
 .input-group-container {
   margin-bottom: 7px; }
+  .input-group-container .input-group:not(:first-child) input {
+    border-top: none; }
+    .input-group-container .input-group:not(:first-child) input:focus {
+      border: 1px solid #66afe9; }
+  .input-group-container .input-group:not(:first-child) label {
+    border-top: none; }
+  .input-group-container .input-group input {
+    border-radius: 0; }
+    .input-group-container .input-group input:not(':first-child') {
+      border-top: 0; }
+  .input-group-container .input-group.top-border {
+    border-top: 1px solid #ccc; }
 
 label.input-group-addon {
   min-width: 135px;
   background: #56ab2f;
-  color: white; }
+  color: white;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+  label.input-group-addon:not('first-child') {
+    border-top: 0; }
 
 .my-btn {
   background: #fff;

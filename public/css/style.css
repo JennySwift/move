@@ -713,6 +713,10 @@ label.input-group-addon {
     border-color: #adadad;
     color: #333; }
 
+button .fa-arrow-circle-left {
+  position: relative;
+  top: 2px; }
+
 .btn.has-color {
   color: white; }
 

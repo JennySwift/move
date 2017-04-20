@@ -44,7 +44,7 @@ module.exports = {
      * @returns {*}
      */
     removeUnnecessaryZeros: function (number) {
-        if (number.substr(number.length-3, 3) === ".00")  {
+        if (number && number.substr(number.length-3, 3) === ".00")  {
             //Remove the decimal and two zeros.
             return number.slice(0, number.length - 3);
         }

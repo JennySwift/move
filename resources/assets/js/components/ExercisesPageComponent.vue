@@ -136,7 +136,10 @@
         },
         filters: {
             removeUnnecessaryZeros: function (number) {
-                return filters.removeUnnecessaryZeros(number);
+                if (number) {
+                    return filters.removeUnnecessaryZeros(number);
+                }
+                return false;
             },
 
             filterExercises: function (exercises) {

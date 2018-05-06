@@ -40,8 +40,7 @@
 </template>
 
 <script>
-    module.exports = {
-        template: '#new-exercise-entry-template',
+    export default {
         data: function () {
             return {
                 newEntry: {},
@@ -53,8 +52,8 @@
         methods: {
 
             /**
-            *
-            */
+             *
+             */
             insertEntry: function () {
                 var data = {
                     date: this.shared.date.sql,
@@ -82,6 +81,9 @@
                 this.newEntry.quantity = option.defaultQuantity;
             }
         }
-    };
+    }
 </script>
 
+<style lang="scss" type="text/scss">
+
+</style>

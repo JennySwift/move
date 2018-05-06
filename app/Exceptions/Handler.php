@@ -3,13 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Http\Exception\HttpResponseException;
-use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -20,10 +18,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        AuthorizationException::class,
-        HttpException::class,
-        ModelNotFoundException::class,
-        ValidationException::class,
+        \Illuminate\Auth\AuthenticationException::class,
+        \Illuminate\Auth\Access\AuthorizationException::class,
+        \Symfony\Component\HttpKernel\Exception\HttpException::class,
+        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        \Illuminate\Session\TokenMismatchException::class,
+        \Illuminate\Validation\ValidationException::class,
     ];
 
     /**
@@ -31,25 +31,26 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $e)
+    public function report(Exception $exception)
     {
-        parent::report($e);
+        parent::report($exception);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render($request, Exception $exception)
     {
-        if ($e instanceof ModelNotFoundException) {
-            $model = (new \ReflectionClass($e->getModel()))->getShortName();
+//        dd($exception);
+        if ($exception instanceof ModelNotFoundException) {
+            $model = (new \ReflectionClass($exception->getModel()))->getShortName();
 
             return response([
                 'error' => "{$model} not found.",
@@ -57,15 +58,15 @@ class Handler extends ExceptionHandler
             ], Response::HTTP_NOT_FOUND);
         }
 
-        else if ($e instanceof \InvalidArgumentException) {
+        else if ($exception instanceof \InvalidArgumentException) {
             return response([
-                'error' => $e->getMessage(),
+                'error' => $exception->getMessage(),
                 'status' => Response::HTTP_BAD_REQUEST
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        else if ($e instanceof HttpResponseException) {
-            if ($e->getResponse()->getStatusCode() === Response::HTTP_FORBIDDEN) {
+        else if ($exception instanceof HttpResponseException) {
+            if ($exception->getResponse()->getStatusCode() === Response::HTTP_FORBIDDEN) {
                 return response([
                     'error' => 'Forbidden',
                     'status' => Response::HTTP_FORBIDDEN
@@ -73,24 +74,28 @@ class Handler extends ExceptionHandler
             }
         }
 
-        else if ($e instanceof NotFoundHttpException) {
+        else if ($exception instanceof NotFoundHttpException) {
             return response([
                 'error' => 'Not found',
                 'status' => Response::HTTP_NOT_FOUND
             ], Response::HTTP_NOT_FOUND);
         }
 
-        else if ($e instanceof Exception) {
-            if (!method_exists($e, 'getResponse') || !$e->getResponse()->getContent()) {
-                if ($e->getCode() > 0) {
+        else if ($exception instanceof AuthenticationException) {
+            return parent::render($request, $exception);
+        }
+
+        else if ($exception instanceof Exception) {
+            if (!method_exists($exception, 'getResponse') || !$exception->getResponse()->getContent()) {
+                if ($exception->getCode() > 0) {
                     return response([
                         'error' => $e->getMessage(),
                         'status' => $e->getCode()
-                    ], $e->getCode());
+                    ], $exception->getCode());
                 }
             }
             return response ([
-                'error' => $e->getMessage()
+                'error' => $exception->getMessage()
             ]);
         }
 
@@ -107,6 +112,22 @@ class Handler extends ExceptionHandler
 //            ], Response::HTTP_BAD_REQUEST);
 //        }
 
-        return parent::render($request, $e);
+        return parent::render($request, $exception);
+    }
+
+    /**
+     * Convert an authentication exception into an unauthenticated response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        return redirect()->guest(route('login'));
     }
 }

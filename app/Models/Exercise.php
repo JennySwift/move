@@ -86,7 +86,7 @@ class Exercise extends Model
      */
     public function getPathAttribute()
     {
-        return route('api.exercises.show', $this->id);
+        return route('exercises.show', $this->id);
     }
 
     /**

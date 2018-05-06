@@ -16,9 +16,9 @@
                 <div
                     v-bind:style="{background: entry.exercise.data.series.data.color}"
                     v-bind:class="{'has-color': entry.exercise.data.series.data.color}"
-                    v-link="{path: '/exercises/' + entry.exercise.data.id + '/units/' + entry.unit.data.id + '/' + this.shared.date.sql}"
                     class="card-header"
                 >
+                    <router-link to="/exercises/' + entry.exercise.data.id + '/units/' + entry.unit.data.id + '/' + this.shared.date.sql"></router-link>
                     {{ entry.exercise.data.name }}
                     {{ entry.sets }}
                     <span v-if="entry.sets !== 1">sets,</span>
@@ -64,18 +64,12 @@
         <div v-else>
             <h3>No entries here</h3>
         </div>
-        <button v-link="{path: '/exercises'}" class="btn btn-default">
-            <i class="fa fa-arrow-circle-left"></i>
-            <span>Exercises</span>
-        </button>
+        <router-link to="/exercises"><span>Exercises</span> <i class="fa fa-arrow-circle-left"></i></router-link>
     </div>
 </template>
 
 <script>
-    var $ = require('jquery');
-
-    module.exports = {
-        template: '#exercise-entries-template',
+    export default {
         data: function () {
             return {
                 showExerciseEntryInputs: false,
@@ -138,9 +132,13 @@
                 });
             }
         },
-        ready: function () {
+        mounted: function () {
             this.listen();
             store.getExerciseEntriesForTheDay();
         }
-    };
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+
+</style>

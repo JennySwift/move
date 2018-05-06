@@ -1,12 +1,9 @@
-var Vue = require('vue');
-var VueResource = require('vue-resource');
-Vue.use(VueResource);
-var helpers = require('./Helpers');
+import helpers from './Helpers'
 var object = require('lodash/object');
 require('sugar');
 Date.setLocale('en-AU');
 
-module.exports = {
+export default {
 
     state: {
         me: {gravatar: ''},
@@ -35,8 +32,9 @@ module.exports = {
         exerciseEntriesLoaded: false,
         date: {
             typed: Date.create('today').format('{dd}/{MM}/{yyyy}'),
-            long: helpers.formatDateToLong('today'),
-            sql: helpers.formatDateToSql('today')
+            //Todo:
+            // long: helpers.formatDateToLong('today'),
+            // sql: helpers.formatDateToSql('today')
         },
         exerciseUnits: [],
         exerciseUnitsLoaded: false,
@@ -96,7 +94,7 @@ module.exports = {
      */
     getExerciseSeries: function () {
         helpers.get({
-            url: '/api/exerciseSeries',
+            url: '/api/series',
             storeProperty: 'exerciseSeries',
             loadedProperty: 'exerciseSeriesLoaded'
         });
@@ -107,7 +105,7 @@ module.exports = {
      */
     getExerciseUnits: function () {
         helpers.get({
-            url: '/api/exerciseUnits',
+            url: '/api/units',
             storeProperty: 'exerciseUnits',
             loadedProperty: 'exerciseUnitsLoaded'
         });
@@ -207,4 +205,4 @@ module.exports = {
     delete: function (itemToDelete, path) {
         object.set(this.state, path, helpers.deleteById(object.get(this.state, path), itemToDelete.id));
     }
-};
+}

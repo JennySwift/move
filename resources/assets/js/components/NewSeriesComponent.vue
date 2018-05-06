@@ -25,24 +25,23 @@
         </buttons>
 
     </div>
-
 </template>
 
 <script>
-    module.exports = {
-        template: '#new-series-template',
+    export default {
         data: function () {
             return {
                 newSeries: {},
-                redirectTo: '/exercises'
+                redirectTo: '/exercises',
+                baseUrl: 'api/series'
             };
         },
         components: {},
         methods: {
 
             /**
-            *
-            */
+             *
+             */
             insertSeries: function () {
                 var data = {
                     name: this.newSeries.name,
@@ -50,7 +49,7 @@
                 };
 
                 helpers.post({
-                    url: '/api/exerciseSeries',
+                    url: this.baseUrl,
                     data: data,
                     array: 'exerciseSeries',
                     message: 'Series created',
@@ -66,9 +65,10 @@
                 this.newSeries.name = '';
             }
         },
-        ready: function () {
-
-        }
-    };
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+
+</style>
 

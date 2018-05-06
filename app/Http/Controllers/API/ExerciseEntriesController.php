@@ -66,7 +66,7 @@ class ExerciseEntriesController extends Controller
         $exercise = Exercise::find($request->get('exercise_id'));
         $entries = Entry::where('exercise_id', $exercise->id)
             ->where('date', $request->get('date'))
-            ->where('exercise_unit_id', $request->get('exercise_unit_id'))
+            ->where('unit_id', $request->get('unit_id'))
             ->with('exercise')
             ->get();
 

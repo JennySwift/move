@@ -1,43 +1,55 @@
-var Vue = require('vue');
-var VueRouter = require('vue-router');
-Vue.use(VueRouter);
-global.router = new VueRouter({hashbang: false});
+import ExercisesPage from './components/ExercisesPageComponent.vue'
+import ExercisePage from './components/ExercisePageComponent.vue'
+import NewExercisePage from './components/NewExerciseComponent.vue'
+import EntriesPage from './components/ExerciseEntriesComponent.vue'
+import NewEntryPage from './components/NewExerciseEntryComponent.vue'
+import EntriesForSpecificExerciseAndDateAndUnit from './components/EntriesForSpecificExerciseAndDateAndUnitComponent.vue'
+import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
+import SeriesPage from './components/SeriesComponent.vue'
+import NewSeriesPage from './components/NewSeriesComponent.vue'
 
-router.map({
-    '/exercises': {
-        component: require('./components/ExercisesPageComponent.vue')
+export default [
+    {
+        path: '/',
+        component: ExercisesPage
     },
-    '/exercises/:id': {
-        component: require('./components/ExercisePageComponent.vue')
+    {
+        path: '/exercises',
+        component: ExercisesPage
     },
-    '/exercises/#/add': {
-        component: require('./components/NewExerciseComponent.vue')
+    {
+        path: '/exercises/:id',
+        component: ExercisePage
     },
-    '/entries': {
-        component: require('./components/ExerciseEntriesComponent.vue')
+    {
+        path: '/exercises/#/add',
+        component: NewExercisePage
     },
-    '/entries/#/add': {
-        component: require('./components/NewExerciseEntryComponent.vue')
+    {
+        path: '/entries',
+        component: EntriesPage
     },
-    '/exercises/:exerciseId/units/:unitId/:date': {
+    {
+        path: '/entries/#/add',
+        component: NewEntryPage
+    },
+    {
+        path: '/exercises/:exerciseId/units/:unitId/:date',
+        component: EntriesForSpecificExerciseAndDateAndUnit,
         name: 'entriesForSpecificExerciseAndDateAndUnit',
-        component: require('./components/EntriesForSpecificExerciseAndDateAndUnitComponent.vue')
     },
-    '/series/#/add': {
-        component: require('./components/NewSeriesComponent.vue')
+    {
+        path:  '/series/#/add',
+        component: NewSeriesPage
     },
-    '/series': {
-        component: require('./components/SeriesComponent.vue')
+    {
+        path: '/series',
+        component: SeriesPage
     },
-    '/exercise-units': {
-        component: require('./components/ExerciseUnitsPageComponent.vue')
-    }
-});
+    {
+        path: '/units',
+        component: UnitsPage
+    },
 
-router.redirect({
-    '/': '/exercises'
-});
 
-var App = Vue.component('app', require('./components/AppComponent'));
-
-router.start(App, 'body');
+]

@@ -62,17 +62,11 @@
         </div>
 
     </div>
-
 </template>
 
 <script>
     var DatesRepository = require('../../repositories/DatesRepository');
-    var $ = require('jquery');
-
-    // require('sugar');
-
-    module.exports = {
-        template: '#date-navigation-template',
+    export default {
         data: function () {
             return {
                 shared: store.state
@@ -117,11 +111,16 @@
                 default: true
             },
         },
-        ready: function () {
-
-        }
-
-    };
-
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+
+</style>
+
+
+<template>
+
+
+</template>
 

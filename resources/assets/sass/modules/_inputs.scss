@@ -14,7 +14,7 @@
         }
         input {
             border-radius: 0;
-            &:not(':first-child') {
+            &:not(:first-child) {
                 border-top: 0;
             }
 
@@ -31,7 +31,7 @@ label.input-group-addon {
     color: white;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    &:not('first-child') {
+    &:not(:first-child) {
         border-top: 0;
     }
 }

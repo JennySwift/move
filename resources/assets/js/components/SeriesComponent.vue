@@ -18,16 +18,15 @@
         </div>
 
     </div>
-
 </template>
 
 <script>
-    module.exports = {
-        template: 'series-template',
+    export default {
         data: function () {
             return {
                 shared: store.state,
-                selectedSeries: {}
+                selectedSeries: {},
+                baseurl: 'api/series'
             };
         },
         components: {},
@@ -35,8 +34,8 @@
 
 
             /**
-            *
-            */
+             *
+             */
             updateSeries: function (series) {
                 this.selectedSeries = series;
                 var data = {
@@ -44,7 +43,7 @@
                 };
 
                 helpers.put({
-                    url: '/api/exerciseSeries/' + this.selectedSeries.id,
+                    url: this.baseUrl + '/' + this.selectedSeries.id,
                     data: data,
                     property: 'exerciseSeries',
                     message: 'Series updated',
@@ -55,9 +54,18 @@
                 });
             }
         },
-        ready: function () {
-
-        }
-    };
+    }
 </script>
+
+
+<style lang="scss" type="text/scss">
+    #series-page {
+        .series.has-color {
+            color: white;
+        }
+        .card {
+            margin-bottom: 8px;
+        }
+    }
+</style>
 

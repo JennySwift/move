@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      *
@@ -28,4 +28,4 @@ module.exports = {
 
         return data;
     }
-};
+}

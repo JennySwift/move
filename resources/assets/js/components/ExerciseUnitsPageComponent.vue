@@ -23,8 +23,7 @@
         <div class="units">
             <h2>Units</h2>
             <li
-                v-for="unit in units
-                        | orderBy 'name'"
+                v-for="unit in units"
                 class="list-group-item"
             >
                 {{ unit.name }}
@@ -36,12 +35,12 @@
 </template>
 
 <script>
-    module.exports = {
-        template: '#exercise-units-page-template',
+    export default {
         data: function () {
             return {
                 newUnit: {},
-                shared: store.state
+                shared: store.state,
+                baseUrl: 'api/units'
             };
         },
         computed: {
@@ -53,15 +52,15 @@
         methods: {
 
             /**
-            *
-            */
+             *
+             */
             insertUnit: function () {
                 var data = {
                     name: this.newUnit.name
                 };
 
                 helpers.post({
-                    url: '/api/exerciseUnits',
+                    url: this.baseUrl,
                     data: data,
                     array: 'exerciseUnits',
                     message: 'Unit created',
@@ -78,11 +77,11 @@
             },
 
             /**
-            *
-            */
+             *
+             */
             deleteUnit: function (unit) {
                 helpers.delete({
-                    url: '/api/exerciseUnits/' + unit.id,
+                    url: this.baseUrl + unit.id,
                     array: 'exerciseUnits',
                     itemToDelete: unit,
                     message: 'Unit deleted',
@@ -92,10 +91,17 @@
         },
         props: [
             //data to be received from parent
-        ],
-        ready: function () {
-
-        }
-    };
+        ]
+    }
 </script>
 
+<style lang="scss" type="text/scss">
+    #units-page {
+        .new-unit {
+        button {
+            width: 100%;
+        }
+        margin-bottom: 25px;
+        }
+    }
+</style>

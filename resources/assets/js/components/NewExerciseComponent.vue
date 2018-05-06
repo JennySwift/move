@@ -98,10 +98,8 @@
 </template>
 
 <script>
-    var ExercisesRepository = require('../repositories/ExercisesRepository');
-
-    module.exports = {
-        template: '#new-exercise-template',
+    import ExercisesRepository from '../repositories/ExercisesRepository'
+    export default {
         data: function () {
             return {
                 newExercise: {
@@ -120,8 +118,8 @@
         methods: {
 
             /**
-            *
-            */
+             *
+             */
             insertExercise: function () {
                 var data = ExercisesRepository.setData(this.newExercise);
 
@@ -157,10 +155,12 @@
 
             }
         },
-        ready: function () {
+        mounted: function () {
             this.setDefaults();
         }
-    };
-
+    }
 </script>
 
+<style lang="scss" type="text/scss">
+
+</style>

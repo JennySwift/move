@@ -97,7 +97,7 @@
             </checkbox-group>
 
         </div>
-        
+
         <buttons
             :save="updateExercise"
             :destroy="deleteExercise"
@@ -105,15 +105,11 @@
         >
         </buttons>
     </div>
-
 </template>
 
 <script>
-    var ExercisesRepository = require('../repositories/ExercisesRepository');
-    var $ = require('jquery');
-
-    module.exports = {
-        template: '#exercise-popup-template',
+    import ExercisesRepository from '../repositories/ExercisesRepository'
+    export default {
         data: function () {
             return {
                 shared: store.state,
@@ -135,8 +131,8 @@
         methods: {
 
             /**
-            *
-            */
+             *
+             */
             getExercise: function () {
                 var id = this.$route.params.id;
 
@@ -148,8 +144,8 @@
             },
 
             /**
-            *
-            */
+             *
+             */
             updateExercise: function () {
                 var data = ExercisesRepository.setData(this.shared.exercise);
 
@@ -163,8 +159,8 @@
             },
 
             /**
-            *
-            */
+             *
+             */
             deleteExercise: function () {
                 helpers.delete({
                     url: '/api/exercises/' + this.shared.exercise.id,
@@ -183,6 +179,115 @@
                 this.getExercise();
             }
         }
-    };
-
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+    @import '../../sass/shared/index';
+    #exercise-popup {
+        h3 {
+            &:first-child {
+                margin-top: 0;
+                margin-bottom: 25px;
+            }
+        }
+        .flex {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        input {
+            background: #FEE6BE;
+        }
+        .step, .priority, .default-quantity {
+            input {
+                width: 70px;
+            }
+        }
+    }
+
+    #exercise-series {
+        @include newExercise;
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            > * {
+                margin: 0 5px;
+            }
+        }
+        .dropdown-menu {
+            a {
+                cursor: pointer;
+            }
+        }
+        .series-name {
+            background: black;
+            color: white;
+            font-weight: bold;
+            td {
+                text-align: center;
+            }
+        }
+        td {
+            text-align: left;
+        }
+        .stretch {
+            background: lighten(coral, 20%);
+        }
+        .series-exercises-container {
+            display: flex;
+            justify-content: center;
+            > * {
+                margin: 0 50px;
+            }
+            #series-table {
+                .name {
+                    cursor: pointer;
+                }
+                .actions {
+                    text-align: left;
+                }
+            }
+            #exercises-table {
+                td, th {
+                    text-align: left;
+                    padding: 10px 15px;
+                }
+                td {
+                    border-top: none;
+                    cursor: pointer;
+                    //&:first-child {
+                    //    border-left: 1px solid #ddd;
+                    //}
+                    //&:last-child {
+                    //    border-right: 1px solid #ddd;
+                    //}
+                }
+                tr {
+                    border: 1px solid #ddd;
+                    &:first-child {
+                        border-top-left-radius: 4px;
+                        border-top-right-radius: 4px;
+                    }
+                }
+                //tr:last-child {
+                //    border-bottom: 1px solid #ddd;
+                //}
+            }
+        }
+
+        @media (max-width: $breakpoint1) {
+            .series-name {
+                td {
+                    padding: 3px 0;
+                }
+            }
+            td {
+                padding: 1px 0;
+            }
+            .big-screens {
+                display: none;
+            }
+        }
+    }
+</style>

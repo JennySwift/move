@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      *
@@ -52,5 +52,102 @@ module.exports = {
             return number.slice(0, number.length - 1);
         }
         return number;
-    }
-};
+    },
+
+    removeUnnecessaryZeros: function (number) {
+        if (number) {
+            return filters.removeUnnecessaryZeros(number);
+        }
+        return false;
+    },
+
+    filterExercises: function (exercises) {
+        var that = this;
+
+        //Sort
+        exercises = _.chain(exercises)
+            .sortBy(function (exercise) {return exercise.stepNumber})
+            .sortBy(function (exercise) {
+                return exercise.series.data.id;
+            })
+            .sortBy('priority')
+            .sortBy(function (exercise) {
+                return exercise.lastDone * -1;
+            })
+            .partition(function (exercise) {
+                return exercise.lastDone === null;
+            })
+            .flatten()
+            .sortBy('dueIn')
+            .value();
+
+        //Filter
+        return exercises.filter(function (exercise) {
+            var filteredIn = true;
+
+            //Priority filter
+            if (that.filters.priority && exercise.priority != that.filters.priority) {
+                filteredIn = false;
+            }
+
+            //Name filter
+            if (that.filters.name && exercise.name.indexOf(that.filters.name) === -1) {
+                filteredIn = false;
+            }
+
+            //Description filter
+            if (exercise.description && exercise.description.indexOf(that.filters.description) === -1) {
+                filteredIn = false;
+            }
+
+            else if (!exercise.description && that.filters.description !== '') {
+                filteredIn = false;
+            }
+
+            //Stretches files
+            if (!that.filters.showStretches && exercise.stretch) {
+                filteredIn = false;
+            }
+
+            //Series filter
+            if (that.filters.series && exercise.series.data.name != that.filters.series.name && that.filters.series.value !== 'all') {
+                filteredIn = false;
+            }
+
+            return filteredIn;
+        });
+    },
+
+    filterSeries: function (series) {
+        var that = this;
+
+        //Sort
+        series = _.chain(series)
+            .sortBy('priority')
+            .sortBy('lastDone')
+            .value();
+
+        /**
+         * @VP:
+         * This method feels like a lot of code for just
+         * a simple thing-ordering series by their lastDone value,
+         * putting those with a null lastDone value on the end.
+         * I tried underscore.js _.partition with _.flatten,
+         * but it put 0 values on the end,
+         * (I had trouble getting the predicate parameter of the _.partition method to work.)
+         */
+        series = this.moveLastDoneNullToEnd(series);
+
+        //Filter
+        return series.filter(function (thisSeries) {
+            var filteredIn = true;
+
+            //Priority filter
+            if (that.priorityFilter && thisSeries.priority != that.priorityFilter) {
+                filteredIn = false;
+            }
+
+            return filteredIn;
+        });
+    },
+}

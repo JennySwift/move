@@ -46,7 +46,7 @@ class Entry extends Model {
      */
     public function unit()
 	{
-	    return $this->belongsTo('App\Models\Unit', 'exercise_unit_id');
+	    return $this->belongsTo('App\Models\Unit', 'unit_id');
 	}
 
     /**
@@ -68,7 +68,7 @@ class Entry extends Model {
         return $this->sets = Entry::forCurrentUser()
             ->where('date', $date)
             ->where('exercise_id', $this->exercise->id)
-            ->where('exercise_unit_id', $this->unit->id)
+            ->where('unit_id', $this->unit->id)
             ->count();
     }
 
@@ -82,7 +82,7 @@ class Entry extends Model {
         return $this->total = Entry::forCurrentUser()
             ->where('date', $date)
             ->where('exercise_id', $this->exercise->id)
-            ->where('exercise_unit_id', $this->unit->id)
+            ->where('unit_id', $this->unit->id)
             ->sum('quantity');
     }
 }

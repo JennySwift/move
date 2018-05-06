@@ -21,7 +21,7 @@ class CreateExercisesTable extends Migration {
 			$table->string('name')->index();
 			$table->decimal('step_number', 10, 2)->nullable();
 			$table->integer('series_id')->nullable()->unsigned();
-			$table->decimal('default_quantity', 10, 2)->nullable();
+			$table->integer('default_quantity')->nullable();
 			$table->string('description')->nullable();
 			$table->integer('default_unit_id')->nullable()->unsigned();
             $table->string('target')->nullable();

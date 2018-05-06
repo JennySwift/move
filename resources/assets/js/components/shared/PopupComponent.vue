@@ -1,66 +1,45 @@
 <template>
     <div
-        v-show="showPopup"
+        v-show="shared.showPopup"
         transition="popup-outer"
         v-on:click="closePopup($event)"
         class="popup-outer animate"
     >
 
         <div
-            v-show="showPopup"
+            v-show="shared.showPopup"
             transition="popup-inner"
             :id="id"
-            class="popup-inner scrollbar-container animate"
+            class="popup-inner animate"
         >
 
-            <div class="content">
-                <slot name="content"></slot>
-            </div>
+            <div class="flex-container">
+                <div class="content">
+                    <slot name="content"></slot>
+                </div>
 
-            <div class="buttons">
-                <slot name="buttons">
-                    <button
-                        v-on:click="showPopup = false"
-                        v-link="{path: redirectTo}"
-                        class="btn btn-default"
-                    >
-                        <span v-if="!update && !destroy">Close</span>
-                        <span v-else>Cancel</span>
-                    </button>
+                <div class="buttons">
+                    <slot name="buttons">
 
-                    <button
-                        v-if="destroy"
-                        v-on:click="destroy()"
-                        v-link="{path: redirectTo}"
-                        class="btn btn-danger"
-                    >
-                        Delete
-                    </button>
-
-                    <button
-                        v-if="update"
-                        v-on:click="update()"
-                        v-link="{path: redirectTo}"
-                        class="btn btn-success"
-                    >
-                        Save
-                    </button>
-                </slot>
+                    </slot>
+                </div>
             </div>
 
         </div>
     </div>
-
 </template>
 
 <script>
-    var $ = require('jquery');
-    module.exports = {
-        template: '#popup-template',
+    import helpers from '../../repositories/Helpers'
+    import store from '../../repositories/Store'
+    export default {
         data: function () {
             return {
-
+                shared: store.state
             };
+        },
+        computed: {
+
         },
         components: {},
         methods: {
@@ -68,22 +47,15 @@
              *
              */
             closePopup: function ($event) {
-                if ($($event.target).hasClass('popup-outer')) {
-                    this.showPopup = false;
-                    router.go(this.redirectTo);
-                }
-            },
+                helpers.closePopup($event, this, this.redirectTo);
+            }
         },
         props: [
             'showPopup',
             'id',
-            'redirectTo',
-            'update',
-            'destroy'
-        ],
-        ready: function () {
-            // helpers.scrollbars();
-        }
-    };
+            'redirectTo'
+        ]
+    }
+
 </script>
 

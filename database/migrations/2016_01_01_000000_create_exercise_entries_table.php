@@ -19,10 +19,9 @@ class CreateExerciseEntriesTable extends Migration {
             $table->date('date')->index();
             $table->integer('exercise_id')->unsigned()->index();
             $table->integer('quantity');
-            $table->integer('exercise_unit_id')->unsigned()->index();
+            $table->integer('unit_id')->unsigned()->index();
             $table->timestamps();
 
-            $table->foreign('exercise_unit_id')->references('id')->on('units')->onDelete('cascade');
             $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

@@ -50,7 +50,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         data: function () {
             return {
                 shared: store.state
@@ -71,5 +71,9 @@
                 store.set(false, 'showFilters');
             }
         }
-    };
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+
+</style>

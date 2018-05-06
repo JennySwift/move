@@ -58,7 +58,7 @@ class ExerciseUnitsController extends Controller
     }
 
     /**
-    * UPDATE /api/exerciseUnits/{exerciseUnits}
+    * UPDATE /api/units/{unit}
     * @param Request $request
     * @param Unit $unit
     * @return Response
@@ -70,6 +70,7 @@ class ExerciseUnitsController extends Controller
             'name'
         ]));
 
+
         $unit->update($data);
 
         $unit = $this->transform($this->createItem($unit, new UnitTransformer))['data'];
@@ -77,30 +78,14 @@ class ExerciseUnitsController extends Controller
     }
 
     /**
-     * DELETE /api/exerciseUnits/{exerciseUnits}
+     * DELETE /api/exerciseUnits/{exerciseUnit}
      * @param Request $request
      * @param Unit $unit
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function destroy(Request $request, Unit $unit)
     {
-        try {
-            $unit->delete();
-            return response([], Response::HTTP_NO_CONTENT);
-        }
-        catch (\Exception $e) {
-            //Integrity constraint violation
-            if ($e->getCode() === '23000') {
-                $message = 'Unit could not be deleted. It is in use.';
-            }
-            else {
-                $message = 'There was an error';
-            }
-            return response([
-                'error' => $message,
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_BAD_REQUEST);
-        }
+        return $this->destroyModel($unit);
     }
 
 }

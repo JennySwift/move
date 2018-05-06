@@ -11,13 +11,13 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a v-link="{path: '/entries'}" href="#">Entries</a></li>
-                <li><a v-link="{path: '/exercises'}" href="#">Exercises</a></li>
-                <li><a v-link="{path: '/exercise-units'}" href="#">Units</a></li>
-                <li><a v-link="{path: '/exercises/#/add'}" href="#">New Exercise</a></li>
-                <li><a v-link="{path: '/series/#/add'}" href="#">New Series</a></li>
-                <li><a v-link="{path: '/series'}" href="#">Series</a></li>
-                <li><a v-link="{path: '/entries/#/add'}" href="#">New Exercise Entry</a></li>
+                <li><router-link to="/entries">Entries</router-link></li>
+                <li><router-link to="/exercises">Exercises</router-link></li>
+                <li><router-link to="/units">Units</router-link></li>
+                <li><router-link to="/new-unit">New Unit</router-link></li>
+                <li><router-link to="/series/#/add">New Series</router-link></li>
+                <li><router-link to="/series">Series</router-link></li>
+                <li><router-link to="/entries/#/add">New Entry</router-link></li>
             </ul>
         </li>
 
@@ -44,10 +44,8 @@
 </template>
 
 <script>
-    require('bootstrap');
-
-    module.exports = {
-        template: '#navbar-template',
+//    import 'bootstrap'
+    export default {
         data: function () {
             return {
                 shared: store.state
@@ -62,13 +60,68 @@
                 store.set(true, 'showFilters')
             }
         },
-        props: [
-            //data to be received from parent
-        ],
-        ready: function () {
-
-        }
-    };
-
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+    @import '../../../sass/shared/index';
+    #navbar {
+        //    display: none;
+        display:flex;
+        justify-content: space-around;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        color: #888;
+        @include gradient;
+        padding: 0;
+        margin: 0;
+        @media (max-width: 320px) {
+            .big-screens {
+                display: none;
+            }
+        }
+        .dropdown-menu {
+            min-width: inherit;
+            a {
+                padding: 0 8px;
+                color: $base1;
+            }
+        }
+        > li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: $navHeight;
+            //min-width: 70px;
+            > a {
+                transition: all .5s ease;
+            }
+            &:hover {
+                > a {
+                    //font-size: 25px;
+                }
+            }
+            .fa-heart {
+                //color: red;
+            }
+        }
+        a {
+            color: white;
+        }
+        .gravatar-li {
+            //min-width: 160px;
+            .gravatar-container {
+                margin-left: 5px;
+                display: flex;
+                align-items: center;
+                .gravatar {
+                    border-radius: 8px;
+                    height: 32px;
+                }
+            }
+        }
+    }
+</style>
 

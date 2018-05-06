@@ -10,11 +10,15 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         props: [
             'label',
             'model',
             'id'
         ]
-    };
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+
+</style>

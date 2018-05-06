@@ -47,10 +47,7 @@
 </template>
 
 <script>
-    var $ = require('jquery');
-
-    module.exports = {
-        template: '#series-history-popup-template',
+    export default {
         data: function () {
             return {
                 showPopup: false,
@@ -92,10 +89,19 @@
             'exerciseSeriesHistory',
             'selectedSeries'
         ],
-        ready: function () {
+        mounted: function () {
             this.listen();
         }
-    };
-
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+    #series-history-popup {
+        .filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    }
+</style>
 

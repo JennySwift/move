@@ -78,7 +78,8 @@ class ExerciseSeriesController extends Controller
     {
         $series = new Series($request->only([
             'name',
-            'priority'
+            'priority',
+            'color'
         ]));
         $series->user()->associate(Auth::user());
 
@@ -96,16 +97,16 @@ class ExerciseSeriesController extends Controller
     */
     public function update(Request $request, Series $series)
     {
+//        $data = $this->getData($series, $request->only($this->fields));
         // Create an array with the new fields merged
         $data = array_compare($series->toArray(), $request->only([
             'name',
             'priority',
             'color'
         ]));
-//        dd($data);
+
 
         $series->update($data);
-
         if ($request->has('workout_ids')) {
             $series->workouts()->sync($request->get('workout_ids'));
 //            $series->save();

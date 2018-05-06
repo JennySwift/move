@@ -1,44 +1,40 @@
 <template>
-    <div v-if="entries[0] && entries[0].exercise" id="entries-for-specific-exercise-and-date-and-unit">
-        <h2>Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.data.name }} on {{ shared.date.typed }}</h2>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Quantity</th>
-                <th>Created</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr
-                v-for="entry in entries"
-            >
-                <td>
-                    <input
-                        v-model="entry.quantity"
-                        v-on:keyup.13="updateExerciseEntry(entry)"
-                    >
-                </td>
-                <td>{{ entry.createdAt }}</td>
-                <td><i v-on:click="deleteExerciseEntry(entry)" class="delete-item fa fa-times"></i></td>
-            </tr>
-            </tbody>
+    <div id="entries-for-specific-exercise-and-date-and-unit">
+        <div v-if="entries[0] && entries[0].exercise">
+            <h2>Entries for {{ entries[0].exercise.data.name }} with {{ entries[0].unit.data.name }} on {{ shared.date.typed }}</h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Created</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                    v-for="entry in entries"
+                >
+                    <td>
+                        <input
+                            v-model="entry.quantity"
+                            v-on:keyup.13="updateExerciseEntry(entry)"
+                        >
+                    </td>
+                    <td>{{ entry.createdAt }}</td>
+                    <td><i v-on:click="deleteExerciseEntry(entry)" class="delete-item fa fa-times"></i></td>
+                </tr>
+                </tbody>
 
 
-        </table>
+            </table>
+        </div>
+
+        <router-link to="/entries"><i class="fa fa-arrow-circle-left"></i><span>Entries</span></router-link>
     </div>
-
-    <button v-link="{path: '/entries'}" class="btn btn-default">
-        <i class="fa fa-arrow-circle-left"></i>
-        <span>Entries</span>
-    </button>
 </template>
 
 <script>
-    var $ = require('jquery');
-
-    module.exports = {
-        template: '#entries-for-specific-exercise-and-date-and-unit-popup-template',
+    export default {
         data: function () {
             return {
                 entries: {},
@@ -49,9 +45,9 @@
         methods: {
 
             /**
-            * Get all the the user's entries for a particular exercise
+             * Get all the the user's entries for a particular exercise
              * with a particular unit on a particular date.
-            */
+             */
             getEntriesForSpecificExerciseAndDateAndUnit: function () {
                 var params = this.$route.params;
                 var data = {
@@ -73,8 +69,8 @@
             },
 
             /**
-            *
-            */
+             *
+             */
             updateExerciseEntry: function (entry) {
                 var data = {
                     quantity: entry.quantity
@@ -89,8 +85,8 @@
             },
 
             /**
-            *
-            */
+             *
+             */
             deleteExerciseEntry: function (entry) {
                 helpers.delete({
                     url: '/api/exerciseEntries/' + entry.id,
@@ -106,8 +102,12 @@
                 });
             }
         },
-        ready: function () {
+        mounted: function () {
             this.getEntriesForSpecificExerciseAndDateAndUnit();
         }
-    };
+    }
 </script>
+
+<style lang="scss" type="text/scss">
+
+</style>

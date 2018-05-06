@@ -31,22 +31,20 @@
 </template>
 
 <script>
-    var $ = require('jquery');
-
-    module.exports = {
-        template: '#series-popup-template',
+    export default {
         data: function () {
             return {
                 showPopup: false,
-                selectedSeries: {}
+                selectedSeries: {},
+                baseUrl: 'api/series'
             };
         },
         components: {},
         methods: {
 
             /**
-            *
-            */
+             *
+             */
             updateSeries: function () {
                 var data = {
                     name: this.selectedSeries.name,
@@ -55,7 +53,7 @@
                 };
 
                 helpers.put({
-                    url: '/api/exerciseSeries/' + this.selectedSeries.id,
+                    url: this.baseUrl + '/' + this.selectedSeries.id,
                     data: data,
                     property: 'exerciseSeries',
                     message: 'Series updated',
@@ -68,11 +66,11 @@
             },
 
             /**
-            *
-            */
+             *
+             */
             deleteSeries: function () {
                 helpers.delete({
-                    url: '/api/exerciseSeries/' + this.selectedSeries.id,
+                    url: this.baseUrl + '/' + this.selectedSeries.id,
                     array: 'exerciseSeries',
                     itemToDelete: this.exerciseSeries,
                     message: 'Series deleted',
@@ -103,9 +101,12 @@
         props: [
 
         ],
-        ready: function () {
+        mounted: function () {
             this.listen();
         }
-    };
+    }
 </script>
 
+<style lang="scss" type="text/scss">
+
+</style>

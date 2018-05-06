@@ -39,13 +39,15 @@ class ExerciseSeriesSeeder extends Seeder {
             DB::table('exercise_series')->insert([
                 'name' => 'gymnastic rings',
                 'user_id' => $user->id,
-                'priority' => 1
+                'priority' => 1,
+                'color' => '#1F2FCE'
             ]);
 
             DB::table('exercise_series')->insert([
                 'name' => 'flexibility',
                 'user_id' => $user->id,
-                'priority' => 1
+                'priority' => 1,
+                'color' => '#1F2FCD'
             ]);
         }
 

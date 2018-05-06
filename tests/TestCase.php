@@ -1,10 +1,15 @@
 <?php
 
+namespace Tests;
+
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends BaseTestCase
 {
+    use CreatesApplication;
+
     /**
      * The base URL to use while testing the application.
      *
@@ -12,19 +17,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     protected $baseUrl = 'http://localhost';
 
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function createApplication()
-    {
-        $app = require __DIR__.'/../bootstrap/app.php';
-
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-
-        return $app;
-    }
+    protected $validationErrorMessage = 'The given data failed to pass validation.';
 
     /**
      * Make an API call
@@ -56,6 +49,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $user = User::find($id);
         $this->be($user);
         $this->user = $user;
+        $this->actingAs($user, 'api');
     }
 
     /**
@@ -141,5 +135,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('id', $unit);
         $this->assertArrayHasKey('name', $unit);
         $this->assertArrayNotHasKey('created_at', $unit);
+    }
+
+    /**
+     *
+     * @param $response
+     * @return mixed
+     */
+    protected function getContent($response)
+    {
+        return json_decode($response->getContent(), true);
     }
 }

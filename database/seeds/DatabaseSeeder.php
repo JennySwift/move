@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,22 +11,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //Code from old app
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        Model::unguard();
+//        Model::unguard();
+        // $this->call(UsersTableSeeder::class);
 
-        $this->call('UserSeeder');
+        $this->call(UserSeeder::class);
 
-        $this->call('UnitSeeder');
+        $this->call(UnitSeeder::class);
 
         //exercises
-        $this->call('ExerciseSeriesSeeder');
-        $this->call('ExerciseProgramSeeder');
+        $this->call(ExerciseSeriesSeeder::class);
+        $this->call(ExerciseProgramSeeder::class);
 
-        $this->call('ExerciseSeeder');
+        $this->call(ExerciseSeeder::class);
 
-        $this->call('ExerciseEntrySeeder');
+        $this->call(ExerciseEntrySeeder::class);
 
-        $this->call('WorkoutSeeder');
+        $this->call(WorkoutSeeder::class);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }

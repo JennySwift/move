@@ -89,13 +89,11 @@ class ExercisesTest extends TestCase {
             'name' => 'kangaroo',
             'description' => 'koala',
             'priority' => 2,
-            'program_id' => 2,
             'series_id' => 2,
             'step_number' => 2,
             'default_quantity' => 2,
             'default_unit_id' => 2,
             'target' => '2 reps',
-            'stretch' => 1,
             'frequency' => 14
         ];
 
@@ -111,9 +109,7 @@ class ExercisesTest extends TestCase {
         $this->assertEquals('kangaroo', $content['name']);
         $this->assertEquals('koala', $content['description']);
         $this->assertEquals(2, $content['priority']);
-        $this->assertEquals(1, $content['stretch']);
         $this->assertEquals(14, $content['frequency']);
-        $this->assertEquals(2, $content['program']['data']['id']);
         $this->assertEquals(2, $content['series']['data']['id']);
         $this->assertEquals(2, $content['stepNumber']);
         $this->assertEquals(2, $content['defaultQuantity']);
@@ -199,10 +195,8 @@ class ExercisesTest extends TestCase {
             'description' => 'frog',
             'series_id' => 2,
             'default_unit_id' => 2,
-            'program_id' => 2,
             'target' => 'something else',
             'priority' => 9,
-            'stretch' => 1,
             'frequency' => 30
         ]);
 //        dd($response);
@@ -213,8 +207,6 @@ class ExercisesTest extends TestCase {
 
         $this->assertEquals(1, $content['id']);
         $this->assertEquals('numbat', $content['name']);
-        $this->assertEquals(1, $content['stretch']);
-        $this->assertEquals(2, $content['program']['data']['id']);
         $this->assertEquals('frog', $content['description']);
         $this->assertEquals(2, $content['stepNumber']);
         $this->assertEquals(6, $content['defaultQuantity']);
@@ -233,31 +225,6 @@ class ExercisesTest extends TestCase {
 
         $this->assertEquals(200, $response->getStatusCode());
     }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function it_can_set_stretch_to_false_for_an_exercise()
-    {
-        $this->logInUser();
-
-        $exercise = Exercise::forCurrentUser()->where('stretch', 1)->first();
-
-        $response = $this->call('PUT', $this->url . $exercise->id, [
-            'stretch' => 0
-        ]);
-//        dd($response);
-        $content = json_decode($response->getContent(), true);
-//        dd($content);
-
-        $this->checkExerciseKeysExist($content);
-
-        $this->assertEquals(0, $content['stretch']);
-
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
 
     /**
      * @test

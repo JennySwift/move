@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('unit', function($id)
         {
-            return Unit::forCurrentUser()->where('for', 'exercise')->findOrFail($id);
+            return Unit::forCurrentUser()->findOrFail($id);
         });
 
         Route::bind('entry', function ($id) {

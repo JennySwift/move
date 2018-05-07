@@ -30,7 +30,6 @@ class UnitsController extends Controller
     public function index(Request $request)
     {
         $units = Unit::forCurrentUser()
-            ->where('for', 'exercise')
             ->orderBy('name', 'asc')
             ->get();
 
@@ -47,7 +46,6 @@ class UnitsController extends Controller
     {
         $unit = new Unit([
             'name' => $request->get('name'),
-            'for' => 'exercise'
         ]);
 
         $unit->user()->associate(Auth::user());

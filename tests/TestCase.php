@@ -59,7 +59,6 @@ abstract class TestCase extends BaseTestCase
     protected function checkExerciseKeysExist($exercise)
     {
 //        dd($exercise);
-        $this->checkProgramKeysExist($exercise['program']['data']);
         $this->checkSeriesKeysExist($exercise['series']['data']);
         $this->checkUnitKeysExist($exercise['defaultUnit']['data']);
 
@@ -72,7 +71,6 @@ abstract class TestCase extends BaseTestCase
         $this->assertArrayHasKey('lastDone', $exercise);
         $this->assertArrayHasKey('priority', $exercise);
         $this->assertArrayHasKey('target', $exercise);
-        $this->assertArrayHasKey('stretch', $exercise);
         $this->assertArrayHasKey('frequency', $exercise);
         $this->assertArrayHasKey('dueIn', $exercise);
     }
@@ -101,16 +99,6 @@ abstract class TestCase extends BaseTestCase
          * Is there a nicer way to test this? Like $this->assertDateFormat()?
          */
         Carbon::createFromFormat('h:ia', $entry['createdAt']);
-    }
-
-    /**
-     *
-     * @param $program
-     */
-    public function checkProgramKeysExist($program)
-    {
-        $this->assertArrayHasKey('id', $program);
-        $this->assertArrayHasKey('name', $program);
     }
 
     /**

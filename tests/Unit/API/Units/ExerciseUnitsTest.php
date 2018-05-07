@@ -24,7 +24,7 @@ class ExerciseUnitsTest extends TestCase {
 
         $response = $this->apiCall('GET', $this->url);
         $content = json_decode($response->getContent(), true);
-
+//dd($content);
         $this->checkUnitKeysExist($content[0]);
 
         $this->assertEquals(2, $content[0]['id']);
@@ -52,16 +52,14 @@ class ExerciseUnitsTest extends TestCase {
     {
         $this->logInUser();
 
-        $unit = Unit::forCurrentUser()->where('for', 'exercise')->first();
+        $unit = Unit::forCurrentUser()->first();
 
         $response = $this->call('PUT', $this->url . $unit->id, [
             'name' => 'numbat'
         ]);
         $content = $this->getContent($response);
-
-        $this->assertArrayHasKey('id', $content);
-        $this->assertArrayHasKey('name', $content);
-        $this->assertArrayHasKey('for', $content);
+//dd($content);
+        $this->checkUnitKeysExist($content);
 
         $this->assertEquals('numbat', $content['name']);
 
@@ -96,7 +94,7 @@ class ExerciseUnitsTest extends TestCase {
         DB::beginTransaction();
         $this->logInUser();
 
-        $unit = Unit::where('for', 'exercise')->first();
+        $unit = Unit::first();
 
         $response = $this->call('DELETE', $this->url . $unit->id);
         $content = $this->getContent($response);
@@ -120,10 +118,6 @@ class ExerciseUnitsTest extends TestCase {
 
         $response = $this->call('POST', $this->url, $unit);
         $content = $this->getContent($response);
-
-        $this->assertArrayHasKey('id', $content);
-        $this->assertArrayHasKey('name', $content);
-        $this->assertArrayHasKey('for', $content);
 
         $this->assertContains($unit['name'], $content);
 

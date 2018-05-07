@@ -122,7 +122,7 @@ class ExercisesController extends Controller
         }
 
         if ($request->has('default_unit_id')) {
-            $unit = Unit::where('for', 'exercise')->findOrFail($request->get('default_unit_id'));
+            $unit = Unit::findOrFail($request->get('default_unit_id'));
             $exercise->defaultUnit()->associate($unit);
             $exercise->save();
         }

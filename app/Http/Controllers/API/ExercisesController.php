@@ -75,7 +75,6 @@ class ExercisesController extends Controller
             'default_quantity',
             'target',
             'priority',
-            'stretch',
             'frequency'
         ));
         $exercise->user()->associate(Auth::user());
@@ -115,11 +114,6 @@ class ExercisesController extends Controller
         ]));
 
         $exercise->update($data);
-
-        if ($request->has('stretch')) {
-            $exercise->stretch = $request->get('stretch');
-            $exercise->save();
-        }
 
         if ($request->has('series_id')) {
             $series = Series::findOrFail($request->get('series_id'));

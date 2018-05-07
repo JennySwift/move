@@ -25,7 +25,6 @@ class Exercise extends Model
         'series_id',
         'target',
         'priority',
-        'stretch',
         'frequency'
     ];
 

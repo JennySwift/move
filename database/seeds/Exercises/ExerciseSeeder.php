@@ -83,7 +83,6 @@ class ExerciseSeeder extends Seeder {
                 'defaultQuantity' => 20,
                 'description' => '',
                 'priority' => 2,
-                'stretch' => 1,
                 'frequency' => 7
             ],
             [
@@ -91,7 +90,6 @@ class ExerciseSeeder extends Seeder {
                 'defaultQuantity' => 10,
                 'description' => 'great stretch',
                 'priority' => 1,
-                'stretch' => 1
             ]
         ];
 
@@ -146,7 +144,6 @@ class ExerciseSeeder extends Seeder {
 
         foreach ($exercises as $exercise) {
             $index++;
-            $stretch = isset($exercise['stretch']) ? 1 : 0;
             $temp = new Exercise([
                 'name' => $exercise['name'],
                 'description' => $exercise['description'],
@@ -154,7 +151,6 @@ class ExerciseSeeder extends Seeder {
                 'step_number' => $index,
                 'target' => '3 * 10',
                 'priority' => $exercise['priority'],
-                'stretch' => $stretch
             ]);
 
             if (isset($exercise['frequency'])) $temp['frequency'] = $exercise['frequency'];

@@ -76,6 +76,16 @@ abstract class TestCase extends BaseTestCase
 
     /**
      *
+     * @param $workout
+     */
+    protected function checkWorkoutKeysExist($workout)
+    {
+        $this->assertArrayHasKey('id', $workout);
+        $this->assertArrayHasKey('name', $workout);
+    }
+
+    /**
+     *
      * @param $entry
      */
     protected function checkExerciseEntryKeysExist($entry)

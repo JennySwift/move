@@ -24,6 +24,17 @@ class Controller extends BaseController
 
     /**
      *
+     * @param Model $model
+     * @param array $fields
+     * @return array
+     */
+    public function getData(Model $model, array $fields)
+    {
+        return array_compare($model->toArray(), $fields);
+    }
+
+    /**
+     *
      * @param $resource
      * @param TransformerAbstract $transformer
      * @param $responseCode

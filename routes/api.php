@@ -28,6 +28,8 @@ Route::group(['namespace' => 'API', 'middleware' => 'auth:api'], function () {
 
     Route::resource('units', 'UnitsController', ['only' => ['index', 'store', 'update', 'destroy']]);
 
+    Route::resource('workouts', 'WorkoutsController');
+
 
     Route::resource('seriesEntries', 'SeriesEntriesController', ['only' => ['show']]);
 

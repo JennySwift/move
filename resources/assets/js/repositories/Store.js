@@ -112,17 +112,6 @@ export default {
     },
 
     /**
-     *
-     */
-    getExercisePrograms: function () {
-        helpers.get({
-            url: '/api/exercisePrograms',
-            storeProperty: 'exercisePrograms',
-            loadedProperty: 'exerciseProgramsLoaded'
-        });
-    },
-
-    /**
     *
     */
     insertExerciseSet: function (exercise, useExerciseDefaults, quantity, unit) {

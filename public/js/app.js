@@ -5812,17 +5812,6 @@ Date.setLocale('en-AU');
     },
 
     /**
-     *
-     */
-    getExercisePrograms: function getExercisePrograms() {
-        __WEBPACK_IMPORTED_MODULE_0__Helpers__["a" /* default */].get({
-            url: '/api/exercisePrograms',
-            storeProperty: 'exercisePrograms',
-            loadedProperty: 'exerciseProgramsLoaded'
-        });
-    },
-
-    /**
     *
     */
     insertExerciseSet: function insertExerciseSet(exercise, useExerciseDefaults, quantity, unit) {
@@ -57760,7 +57749,6 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     mounted: function mounted() {
         __WEBPACK_IMPORTED_MODULE_2__repositories_Store__["a" /* default */].getExercises();
         __WEBPACK_IMPORTED_MODULE_2__repositories_Store__["a" /* default */].getExerciseUnits();
-        __WEBPACK_IMPORTED_MODULE_2__repositories_Store__["a" /* default */].getExercisePrograms();
         __WEBPACK_IMPORTED_MODULE_2__repositories_Store__["a" /* default */].getExerciseSeries();
     }
 });

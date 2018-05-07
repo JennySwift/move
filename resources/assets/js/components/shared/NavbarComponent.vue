@@ -5,8 +5,7 @@
 
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">
-                <i class="fas fa-bars"></i>
-                <span class="caret"></span>
+                <i class="fas fa-bars fa-2x"></i>
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li><router-link to="/entries">Entries</router-link></li>

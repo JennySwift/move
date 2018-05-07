@@ -89536,7 +89536,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 //    import 'bootstrap'
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -89680,9 +89679,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#", "data-toggle": "dropdown" } }, [
-      _c("i", { staticClass: "fas fa-bars" }),
-      _vm._v(" "),
-      _c("span", { staticClass: "caret" })
+      _c("i", { staticClass: "fas fa-bars fa-2x" })
     ])
   },
   function() {

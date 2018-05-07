@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="new-exercise-page">
         <div class="input-group-container">
             <input-group
                 label="Name:"
@@ -30,24 +30,6 @@
                 :model.sync="newExercise.priority"
                 :enter="insertExercise"
                 id="new-exercise-priority"
-            >
-            </input-group>
-
-            <input-group
-                label="Target:"
-                :model.sync="newExercise.target"
-                :enter="insertExercise"
-                id="new-exercise-target"
-            >
-            </input-group>
-
-            <input-group
-                label="Program:"
-                :model.sync="newExercise.program"
-                :enter="insertExercise"
-                id="new-exercise-program"
-                :options="shared.exercisePrograms"
-                options-prop="name"
             >
             </input-group>
 
@@ -105,7 +87,6 @@
                 newExercise: {
                     series: {},
                     defaultUnit: {},
-                    program: {}
                 },
                 shared: store.state,
                 redirectTo: '/exercises'
@@ -145,7 +126,6 @@
                     if (that.shared.exerciseSeriesLoaded && that.shared.exerciseUnitsLoaded && that.shared.exerciseProgramsLoaded) {
                         that.newExercise.series = that.shared.exerciseSeries[0];
                         that.newExercise.defaultUnit = that.shared.exerciseUnits[0];
-                        that.newExercise.program = that.shared.exercisePrograms[0];
                     }
                     else {
                         //We still need to wait for things to load

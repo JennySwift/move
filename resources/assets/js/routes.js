@@ -22,7 +22,7 @@ export default [
         component: ExercisePage
     },
     {
-        path: '/exercises/#/add',
+        path: '/add-exercise',
         component: NewExercisePage
     },
     {

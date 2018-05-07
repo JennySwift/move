@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -48,7 +49,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-//        dd($exception);
         if ($exception instanceof ModelNotFoundException) {
             $model = (new \ReflectionClass($exception->getModel()))->getShortName();
 
@@ -56,6 +56,13 @@ class Handler extends ExceptionHandler
                 'error' => "{$model} not found.",
                 'status' => Response::HTTP_NOT_FOUND
             ], Response::HTTP_NOT_FOUND);
+        }
+
+        else if ($exception instanceof ValidationException) {
+            return response([
+                'error' => $exception->getMessage(),
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         else if ($exception instanceof \InvalidArgumentException) {
@@ -89,8 +96,8 @@ class Handler extends ExceptionHandler
             if (!method_exists($exception, 'getResponse') || !$exception->getResponse()->getContent()) {
                 if ($exception->getCode() > 0) {
                     return response([
-                        'error' => $e->getMessage(),
-                        'status' => $e->getCode()
+                        'error' => $exception->getMessage(),
+                        'status' => $exception->getCode()
                     ], $exception->getCode());
                 }
             }

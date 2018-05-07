@@ -5,6 +5,8 @@
 
         <div v-show="!shared.showFilters">
 
+            <router-link to="/add-exercise" tag="button" id="add-exercise-btn" class="btn btn-default">Add Exercise</router-link>
+
             <div id="exercises">
                 <div
                     v-for="exercise in shared.exercises"
@@ -230,6 +232,9 @@
             margin-bottom: 5px;
             display: flex;
             justify-content: flex-end;
+        }
+        #add-exercise-btn {
+            width: 100%;
         }
     }
 </style>

@@ -139,7 +139,7 @@ class ExercisesTest extends TestCase {
 //        $this->assertArrayHasKey('series_id', $content);
 //        $this->assertArrayHasKey('default_unit_id', $content);
 
-        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
 
         DB::rollBack();
     }

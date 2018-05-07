@@ -18,30 +18,32 @@ export default {
      */
     get: function (options) {
         store.showLoading();
-        axios.get(options.url).then(function (response) {
-            if (options.storeProperty) {
-                if (options.updatingArray) {
-                    //Update the array the item is in
-                    store.update(response.data, options.storeProperty);
+        axios.get(options.url)
+            .then(function (response) {
+                if (options.storeProperty) {
+                    if (options.updatingArray) {
+                        //Update the array the item is in
+                        store.update(response.data, options.storeProperty);
+                    }
+                    else {
+                        //Allow for pagination
+                        var data = response.data.data ? response.data.data : response.data;
+                        store.set(data, options.storeProperty);
+                    }
                 }
-                else {
-                    //Allow for pagination
-                    var data = response.data.data ? response.data.data : response.data;
-                    store.set(data, options.storeProperty);
+
+                if (options.callback) {
+                    options.callback(response.data);
                 }
-            }
 
-            if (options.callback) {
-                options.callback(response.data);
-            }
+                if (options.loadedProperty) {
+                    store.set(true, options.loadedProperty);
+                }
 
-            if (options.loadedProperty) {
-                store.set(true, options.loadedProperty);
-            }
-
-            store.hideLoading();
-        }, function (response) {
-            helpers.handleResponseError(response);
+                store.hideLoading();
+        })
+        .catch(function (error) {
+            helpers.handleResponseError(error.response);
         });
     },
 
@@ -52,30 +54,32 @@ export default {
     post: function (options) {
         store.showLoading();
         var that = this;
-        axios.post(options.url, options.data).then(function (response) {
-            if (options.callback) {
-                options.callback(response.data);
-            }
+        axios.post(options.url, options.data)
+            .then(function (response) {
+                if (options.callback) {
+                    options.callback(response.data);
+                }
 
-            store.hideLoading();
+                store.hideLoading();
 
-            if (options.message) {
-                app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
-            }
+                if (options.message) {
+                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
+                }
 
-            if (options.array) {
-                store.add(response.data, options.array);
-            }
+                if (options.array) {
+                    store.add(response.data, options.array);
+                }
 
-            if (options.clearFields) {
-                options.clearFields();
-            }
+                if (options.clearFields) {
+                    options.clearFields();
+                }
 
-            if (options.redirectTo) {
-                that.getRouter().push(options.redirectTo);
-            }
-        }, function (response) {
-            helpers.handleResponseError(response);
+                if (options.redirectTo) {
+                    that.getRouter().push(options.redirectTo);
+                }
+        })
+        .catch(function (error) {
+            helpers.handleResponseError(error.response);
         });
     },
 
@@ -85,29 +89,31 @@ export default {
     put: function (options) {
         store.showLoading();
         var that = this;
-        axios.put(options.url, options.data).then(function (response) {
-            if (options.callback) {
-                options.callback(response.data);
-            }
+        axios.put(options.url, options.data)
+            .then(function (response) {
+                if (options.callback) {
+                    options.callback(response.data);
+                }
 
-            store.hideLoading();
+                store.hideLoading();
 
-            if (options.message) {
-                app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
-            }
+                if (options.message) {
+                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
+                }
 
-            if (options.property) {
-                store.update(response.data, options.property);
-            }
+                if (options.property) {
+                    store.update(response.data, options.property);
+                }
 
-            if (options.redirectTo) {
-                that.getRouter().push(options.redirectTo);
-            }
-            helpers.hidePopup();
+                if (options.redirectTo) {
+                    that.getRouter().push(options.redirectTo);
+                }
+                helpers.hidePopup();
 
-        }, function (response) {
-            helpers.handleResponseError(response);
-        });
+            })
+            .catch(function (error) {
+                helpers.handleResponseError(error.response);
+            })
     },
 
     /**
@@ -149,29 +155,31 @@ export default {
             options.beforeDelete();
         }
 
-        axios.delete(options.url).then(function (response) {
-            if (options.callback) {
-                options.callback(response);
-            }
+        axios.delete(options.url)
+            .then(function (response) {
+                if (options.callback) {
+                    options.callback(response);
+                }
 
-            store.hideLoading();
+                store.hideLoading();
 
-            if (options.message) {
-                app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
-            }
+                if (options.message) {
+                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
+                }
 
-            if (options.array) {
-                store.delete(options.itemToDelete, options.array);
-            }
+                if (options.array) {
+                    store.delete(options.itemToDelete, options.array);
+                }
 
-            if (options.redirectTo) {
-                helpers.getRouter().push(options.redirectTo);
-            }
-        }, function (response) {
-            if (options.onFail) {
-                options.onFail();
-            }
-            helpers.handleResponseError(response);
-        });
+                if (options.redirectTo) {
+                    helpers.getRouter().push(options.redirectTo);
+                }
+            })
+            .catch(function (error) {
+                if (options.onFail) {
+                    options.onFail();
+                }
+                helpers.handleResponseError(error.response);
+            });
     }
 }

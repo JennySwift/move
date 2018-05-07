@@ -5,9 +5,7 @@
 
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">
-                <span class="fa fa-heart"></span>
-            </a>
-            <a href="#" data-toggle="dropdown">
+                <i class="fas fa-bars"></i>
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">

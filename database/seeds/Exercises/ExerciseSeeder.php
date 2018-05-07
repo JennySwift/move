@@ -101,7 +101,6 @@ class ExerciseSeeder extends Seeder {
             $this->user = $user;
 
             $exercise_unit_ids = Unit::where('user_id', $this->user->id)
-                ->where('for', 'exercise')
                 ->pluck('id')
                 ->all();
 

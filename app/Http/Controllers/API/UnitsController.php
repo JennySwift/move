@@ -20,7 +20,7 @@ use Illuminate\Http\Response;
  * Class ExerciseUnitsController
  * @package App\Http\Controllers\Exercises
  */
-class ExerciseUnitsController extends Controller
+class UnitsController extends Controller
 {
     /**
      * GET /api/units

@@ -26,7 +26,7 @@ Route::group(['namespace' => 'API', 'middleware' => 'auth:api'], function () {
     Route::get('entries/{date}', ['as' => 'api.exerciseEntries.index', 'uses' => 'ExerciseEntriesController@index']);
     Route::resource('entries', 'ExerciseEntriesController', ['only' => ['store', 'update', 'destroy']]);
 
-    Route::resource('units', 'ExerciseUnitsController', ['only' => ['index', 'store', 'update', 'destroy']]);
+    Route::resource('units', 'UnitsController', ['only' => ['index', 'store', 'update', 'destroy']]);
 
 
     Route::resource('exercisePrograms', 'ExerciseProgramsController', ['except' => ['create', 'edit']]);

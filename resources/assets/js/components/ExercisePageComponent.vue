@@ -139,7 +139,7 @@
              */
             deleteExercise: function () {
                 helpers.delete({
-                    url: '/api/exercises/' + this.shared.exercise.id,
+                    url: this.baseUrl + '/' + this.shared.exercise.id,
                     array: 'exercises',
                     itemToDelete: this.shared.exercise,
                     message: 'Exercise deleted',

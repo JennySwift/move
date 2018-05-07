@@ -165,7 +165,7 @@ export default {
             }
 
             if (options.redirectTo) {
-                that.getRouter().push(options.redirectTo);
+                helpers.getRouter().push(options.redirectTo);
             }
         }, function (response) {
             if (options.onFail) {

@@ -8,6 +8,8 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+@import "node_modules/sweetalert2/dist/sweetalert2.min";
+
 @import "shared/index";
 @import "base";
 @import "helper-classes";

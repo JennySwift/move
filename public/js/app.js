@@ -86155,36 +86155,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -86335,11 +86305,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }.bind(this));
         }
-    },
-    props: [
-        //data to be received from parent
-    ],
-    ready: function ready() {}
+    }
 });
 
 /***/ }),
@@ -86668,116 +86634,86 @@ var render = function() {
           ]
         },
         [
-          _c("div", { staticClass: "date" }, [
-            _vm._v(_vm._s(_vm.shared.date.long))
-          ]),
-          _vm._v(" "),
-          _c("date-navigation", { attrs: { "show-date": false } }),
-          _vm._v(" "),
           _c(
             "div",
             { attrs: { id: "exercises" } },
-            [
-              _c(
-                "div",
-                { staticClass: "btn-container" },
-                [
-                  _c("router-link", { attrs: { to: "/entries" } }, [
-                    _c("span", [_vm._v("Entries")]),
-                    _vm._v(" "),
-                    _c("i", { staticClass: "fa fa-arrow-circle-right" })
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.shared.exercises, function(exercise) {
-                return _c(
+            _vm._l(_vm.shared.exercises, function(exercise) {
+              return _c("div", { staticClass: "pointer exercise card" }, [
+                _c(
                   "div",
                   {
-                    staticClass: "pointer exercise card",
-                    class: { stretch: exercise.stretch }
+                    staticClass: "card-header",
+                    class: { "has-color": exercise.series.data.color },
+                    style: { background: exercise.series.data.color },
+                    on: {
+                      click: function($event) {
+                        _vm.setExercise(exercise)
+                      }
+                    }
                   },
                   [
                     _c(
-                      "div",
+                      "router-link",
+                      { attrs: { to: "/exercises/" + exercise.id } },
+                      [_vm._v(_vm._s(exercise.name))]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-block" }, [
+                  _c("div", { staticClass: "add" }, [
+                    _c(
+                      "button",
                       {
-                        staticClass: "card-header",
+                        staticClass: "btn btn-default btn-sm",
                         class: { "has-color": exercise.series.data.color },
                         style: { background: exercise.series.data.color },
                         on: {
                           click: function($event) {
-                            _vm.setExercise(exercise)
+                            _vm.insertDefaultExerciseSet(exercise)
                           }
                         }
                       },
                       [
-                        _c(
-                          "router-link",
-                          { attrs: { to: "/exercises/" + exercise.id } },
-                          [_vm._v(_vm._s(exercise.name))]
-                        )
-                      ],
-                      1
+                        _c("span", [
+                          _vm._v(
+                            "\n                                Add\n                                " +
+                              _vm._s(exercise.defaultQuantity) +
+                              "\n                                " +
+                              _vm._s(exercise.defaultUnit.data.name) +
+                              "\n                            "
+                          )
+                        ])
+                      ]
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-block" }, [
-                      _c("div", { staticClass: "add" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            class: { "has-color": exercise.series.data.color },
-                            style: { background: exercise.series.data.color },
-                            on: {
-                              click: function($event) {
-                                _vm.insertDefaultExerciseSet(exercise)
-                              }
-                            }
-                          },
-                          [
-                            _c("span", [
-                              _vm._v(
-                                "\n                                Add\n                                " +
-                                  _vm._s(exercise.defaultQuantity) +
-                                  "\n                                " +
-                                  _vm._s(exercise.defaultUnit.data.name) +
-                                  "\n                            "
-                              )
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            class: { "has-color": exercise.series.data.color },
-                            style: { background: exercise.series.data.color },
-                            on: {
-                              click: function($event) {
-                                _vm.insertExerciseSet(exercise)
-                              }
-                            }
-                          },
-                          [
-                            _c("span", [
-                              _vm._v(
-                                "\n                                Add...\n                            "
-                              )
-                            ])
-                          ]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              })
-            ],
-            2
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default btn-sm",
+                        class: { "has-color": exercise.series.data.color },
+                        style: { background: exercise.series.data.color },
+                        on: {
+                          click: function($event) {
+                            _vm.insertExerciseSet(exercise)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", [
+                          _vm._v(
+                            "\n                                Add...\n                            "
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            })
           )
-        ],
-        1
+        ]
       )
     ],
     1
@@ -86891,23 +86827,6 @@ exports.push([module.i, "\n#exercise-popup h3:first-child {\n  margin-top: 0;\n 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__repositories_ExercisesRepository__ = __webpack_require__(69);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -87209,22 +87128,6 @@ var render = function() {
           _vm._v(" "),
           _c("input-group", {
             attrs: {
-              label: "Program:",
-              model: _vm.shared.exercise.program.data,
-              enter: _vm.updateExercise,
-              id: "exercise-program",
-              options: _vm.shared.exercisePrograms,
-              "options-prop": "name"
-            },
-            on: {
-              "update:model": function($event) {
-                _vm.$set(_vm.shared.exercise.program, "data", $event)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("input-group", {
-            attrs: {
               label: "Default Unit:",
               model: _vm.shared.exercise.defaultUnit.data,
               enter: _vm.updateExercise,
@@ -87235,19 +87138,6 @@ var render = function() {
             on: {
               "update:model": function($event) {
                 _vm.$set(_vm.shared.exercise.defaultUnit, "data", $event)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("checkbox-group", {
-            attrs: {
-              label: "Stretch:",
-              model: _vm.shared.exercise.stretch,
-              id: "exercise-stretch"
-            },
-            on: {
-              "update:model": function($event) {
-                _vm.$set(_vm.shared.exercise, "stretch", $event)
               }
             }
           })

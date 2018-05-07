@@ -5,30 +5,9 @@
 
         <div v-show="!shared.showFilters">
 
-            <div class="date">{{shared.date.long}}</div>
-            <date-navigation v-bind:show-date="false"></date-navigation>
-
-            <!--<series-history-popup-->
-                <!--:exercise-series-history="exerciseSeriesHistory"-->
-                <!--:selected-series="selectedSeries"-->
-            <!--&gt;-->
-            <!--</series-history-popup>-->
-
-            <!--<series-popup-->
-                <!--:selected-series="selectedSeries"-->
-                <!--:exercise-series.sync="exerciseSeries"-->
-            <!--&gt;-->
-            <!--</series-popup>-->
-
             <div id="exercises">
-                <!--<h3>Exercises</h3>-->
-                <div class="btn-container">
-                    <router-link to="/entries"><span>Entries</span> <i class="fa fa-arrow-circle-right"></i></router-link>
-                </div>
-
                 <div
                     v-for="exercise in shared.exercises"
-                    v-bind:class="{'stretch': exercise.stretch}"
                     class="pointer exercise card"
                 >
 
@@ -41,8 +20,6 @@
                         <router-link :to="'/exercises/' + exercise.id">{{exercise.name}}</router-link>
                     </div>
                     <div class="card-block">
-                        <!--<h4 class="card-title exercise-name">{{ exercise.name }}</h4>-->
-                        <!--<p class="card-text text-left"></p>-->
                         <div class="add">
                             <button
                                 v-on:click="insertDefaultExerciseSet(exercise)"
@@ -50,7 +27,6 @@
                                 v-bind:class="{'has-color': exercise.series.data.color}"
                                 class="btn btn-default btn-sm"
                             >
-                                <!--<i class="fa fa-plus"></i>-->
                                 <span>
                                     Add
                                     {{ exercise.defaultQuantity }}
@@ -72,12 +48,6 @@
                             </button>
                         </div>
                     </div>
-
-
-                    <!--<div v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.priority }}</div>-->
-                    <!--<div v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.lastDone }}</div>-->
-                    <!--<div v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}" class="big-screens">{{ exercise.frequency }}</div>-->
-                    <!--<div v-on:click="setExercise(exercise)" v-link="{path: '/exercises/' + exercise.id}">{{ exercise.dueIn }}</div>-->
 
                 </div>
             </div>
@@ -238,12 +208,6 @@
                     }
                 }.bind(this));
             }
-        },
-        props: [
-            //data to be received from parent
-        ],
-        ready: function () {
-
         }
     }
 </script>

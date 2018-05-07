@@ -70,16 +70,6 @@
             </input-group>
 
             <input-group
-                label="Program:"
-                :model.sync="shared.exercise.program.data"
-                :enter="updateExercise"
-                id="exercise-program"
-                :options="shared.exercisePrograms"
-                options-prop="name"
-            >
-            </input-group>
-
-            <input-group
                 label="Default Unit:"
                 :model.sync="shared.exercise.defaultUnit.data"
                 :enter="updateExercise"
@@ -88,13 +78,6 @@
                 options-prop="name"
             >
             </input-group>
-
-            <checkbox-group
-                label="Stretch:"
-                :model.sync="shared.exercise.stretch"
-                id="exercise-stretch"
-            >
-            </checkbox-group>
 
         </div>
 

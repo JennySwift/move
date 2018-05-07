@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\ExerciseProgram;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -21,74 +20,55 @@ class ExerciseSeeder extends Seeder {
 		Exercise::truncate();
         $this->faker = Faker::create();
 
-		$pushups = [
+		$exercises= [
             [
-                'name' => 'kneeling pushups',
-                'defaultQuantity' => 20,
+                'name' => 'inverted rows',
                 'description' => '',
                 'priority' => 2,
-                'frequency' => 7
+            ],
+            [
+                'name' => 'kneeling pushups',
+                'description' => '',
+                'priority' => 2,
             ],
             [
                 'name' => 'pushups',
-                'defaultQuantity' => 10,
                 'description' => 'hands shoulder width',
                 'priority' => 1
             ],
             [
                 'name' => 'one-arm pushups',
-                'defaultQuantity' => 2,
                 'description' => 'free hand behind back',
                 'priority' => 1,
-                'frequency' => 3
-            ]
-        ];
-
-		$squats = [
+            ],
             [
                 'name' => 'assisted squats',
-                'defaultQuantity' => 50,
                 'description' => 'hold onto something',
                 'priority' => 3,
-                'frequency' => 3
             ],
             [
                 'name' => 'squats',
-                'defaultQuantity' => 30,
                 'description' => 'feet shoulder width',
                 'priority' => 2
             ],
             [
+                'name' => 'box squats',
+                'description' => '',
+                'priority' => 1,
+            ],
+            [
                 'name' => 'one-legged-squats',
-                'defaultQuantity' => 5,
                 'description' => '',
                 'priority' => 1,
-                'frequency' => 5
-            ]
-        ];
-
-        $gymnasticRings = [
+            ],
             [
-                'name' => 'back lever',
-                'defaultQuantity' => 30,
+                'name' => 'bar hang (overhand)',
                 'description' => '',
                 'priority' => 1,
-                'frequency' => 4
             ],
-        ];
-
-        $flexibility = [
             [
-                'name' => 'hamstrings',
-                'defaultQuantity' => 20,
+                'name' => 'bar hang (underhand)',
                 'description' => '',
-                'priority' => 2,
-                'frequency' => 7
-            ],
-            [
-                'name' => 'calves',
-                'defaultQuantity' => 10,
-                'description' => 'great stretch',
                 'priority' => 1,
             ]
         ];
@@ -98,34 +78,7 @@ class ExerciseSeeder extends Seeder {
         foreach($users as $user) {
             $this->user = $user;
 
-            $exercise_unit_ids = Unit::where('user_id', $this->user->id)
-                ->pluck('id')
-                ->all();
-
-            $this->insertExercisesInSeries(
-                $pushups,
-                Unit::find($exercise_unit_ids[0]),
-                Series::where('user_id', $this->user->id)->where('name', 'pushup')->first()
-            );
-
-            $this->insertExercisesInSeries(
-                $squats,
-                Unit::find($exercise_unit_ids[1]),
-                Series::where('user_id', $this->user->id)->where('name', 'squat')->first()
-            );
-
-            $this->insertExercisesInSeries(
-                $gymnasticRings,
-                Unit::find($exercise_unit_ids[1]),
-                Series::where('user_id', $this->user->id)->where('name', 'gymnastic rings')->first()
-            );
-
-            $this->insertExercisesInSeries(
-                $flexibility,
-                Unit::find($exercise_unit_ids[1]),
-                Series::where('user_id', $this->user->id)->where('name', 'flexibility')->first()
-            );
-
+            $this->insertExercises($exercises);
         }
 
 	}
@@ -133,31 +86,22 @@ class ExerciseSeeder extends Seeder {
     /**
      *
      * @param $exercises
-     * @param Unit $unit
-     * @param Series $series
      */
-    private function insertExercisesInSeries($exercises, Unit $unit, Series $series)
+    private function insertExercises($exercises)
     {
         $index = 0;
-
-//        $series_ids = Series::where('user_id', $this->user->id)->lists('id')->all();
 
         foreach ($exercises as $exercise) {
             $index++;
             $temp = new Exercise([
                 'name' => $exercise['name'],
                 'description' => $exercise['description'],
-                'default_quantity' => $exercise['defaultQuantity'],
-                'step_number' => $index,
                 'priority' => $exercise['priority'],
             ]);
 
-            if (isset($exercise['frequency'])) $temp['frequency'] = $exercise['frequency'];
 
             $temp->user()->associate($this->user);
-            $temp->defaultUnit()->associate($unit);
 
-            $temp->series()->associate($series);
             $temp->save();
 
         }

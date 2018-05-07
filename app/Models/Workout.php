@@ -3,7 +3,6 @@
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Models\Relationships\OwnedByUser;
 use Auth;
-use App\Models\Workouts\Series as WorkoutSeries;
 
 /**
  * Class Workout
@@ -27,12 +26,13 @@ class Workout extends Model {
 		return $this->belongsTo('App\User');
 	}
 
+
     /**
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function series()
-	{
-	  return $this->belongsToMany('App\Models\Series');
-	}
+    public function exercises()
+    {
+        return $this->belongsToMany('App\Models\Exercise');
+    }
 }

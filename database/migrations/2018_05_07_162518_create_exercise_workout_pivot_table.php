@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExerciseEntriesTable extends Migration {
-
+class CreateExerciseWorkoutPivotTable extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,20 +13,18 @@ class CreateExerciseEntriesTable extends Migration {
      */
     public function up()
     {
-        Schema::create('exercise_entries', function(Blueprint $table)
-        {
-            $table->increments('id')->index();
-            $table->integer('user_id')->unsigned()->index();
-            $table->date('date')->index();
+        Schema::create('exercise_workout', function (Blueprint $table) {
             $table->integer('exercise_id')->unsigned()->index();
-            $table->integer('quantity');
-            $table->integer('level');
+            $table->integer('workout_id')->unsigned()->index();
             $table->integer('unit_id')->unsigned()->index();
-            $table->timestamps();
+
+            $table->integer('level');
+            $table->integer('quantity');
 
             $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
+            $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -36,7 +35,6 @@ class CreateExerciseEntriesTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('exercise_entries');
+        Schema::dropIfExists('exercise_workout_pivot_table');
     }
-
 }

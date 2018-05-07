@@ -15,7 +15,7 @@ class Entry extends Model {
     /**
      * @var array
      */
-    protected $fillable = ['date', 'quantity'];
+    protected $fillable = ['date', 'quantity', 'level'];
 
     /**
      * @var string

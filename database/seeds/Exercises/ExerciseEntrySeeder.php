@@ -22,21 +22,82 @@ class ExerciseEntrySeeder extends Seeder {
 	{
         ExerciseEntry::truncate();
         $this->faker = Faker::create();
-        $users = User::all();
 
-        foreach ($users as $user) {
+        foreach (User::all() as $user) {
             $this->user = $user;
+            $exerciseIds = Exercise::where('user_id', $this->user->id)->pluck('id')->all();
+            $unitIds = Unit::where('user_id', $this->user->id)->pluck('id')->all();
+            $dates = [];
+            $date = Carbon::today();
+            $level = 6;
+            foreach (range(0, 4) as $index) {
+                $date->subDays(1);
+                $dates[] = $date->copy()->format('Y-m-d');
+                $level-=1;
+                $formattedDate = $date->copy()->format('Y-m-d');
 
-            $this->unit_ids = Unit::where('user_id', $this->user->id)
-                ->pluck('id')
-                ->all();
+                $entries = [
+                    //Exercise 1
+                    [
+                        'date' => $formattedDate,
+                        'level' => $level,
+                        'exercise_id' => $exerciseIds[0],
+                        'quantity' => 50,
+                        'unit_id' => $unitIds[0]
+                    ],
+                    [
+                        'date' => $formattedDate,
+                        'level' => $level,
+                        'exercise_id' => $exerciseIds[0],
+                        'quantity' => 50,
+                        'unit_id' => $unitIds[0]
+                    ],
+                    [
+                        'date' => $formattedDate,
+                        'level' => $level,
+                        'exercise_id' => $exerciseIds[0],
+                        'quantity' => 100,
+                        'unit_id' => $unitIds[0]
+                    ],
+                    //Exercise 2
+                    [
+                        'date' => $formattedDate,
+                        'level' => $level,
+                        'exercise_id' => $exerciseIds[1],
+                        'quantity' => 100,
+                        'unit_id' => $unitIds[0]
+                    ],
+                    [
+                        'date' => $formattedDate,
+                        'level' => $level,
+                        'exercise_id' => $exerciseIds[1],
+                        'quantity' => 100,
+                        'unit_id' => $unitIds[0]
+                    ]
+                ];
+                $this->createControlledEntriesForOneDay($entries);
+            }
+//            dd($dates);
 
-            $this->exercise_ids = Exercise::where('user_id', $this->user->id)
-                ->pluck('id')
-                ->all();
-
-            $this->createEntriesForTheLastFiveDays();
+//            $this->createEntriesForTheLastFiveDays();
         }
+    }
+
+    private function createControlledEntriesForOneDay($entries)
+    {
+        foreach($entries as $entry) {
+            $temp = new Entry([
+                'date' => $entry['date'],
+                'quantity' => $entry['quantity'],
+                'level' => $entry['level'],
+            ]);
+
+            $temp->user()->associate($this->user);
+            $temp->unit()->associate(Unit::find($entry['unit_id']));
+            $temp->exercise()->associate(Exercise::find($entry['exercise_id']));
+            $temp->save();
+        }
+
     }
 
     /**
@@ -142,4 +203,7 @@ class ExerciseEntrySeeder extends Seeder {
         $this->createEntry(5, $exercise, Unit::find($this->unit_ids[0]), $date);
         $this->createEntry(10, $exercise, Unit::find($this->unit_ids[1]), $date);
     }
+
+
+
 }

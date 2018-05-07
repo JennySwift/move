@@ -43,29 +43,20 @@ class Exercise extends Model
 
     /**
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function defaultUnit()
-    {
-        return $this->belongsTo('App\Models\Unit', 'default_unit_id', 'id');
-    }
-
-    /**
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function series()
-    {
-        return $this->belongsTo('App\Models\Series');
-    }
-
-    /**
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function entries()
     {
         return $this->hasMany('App\Models\Entry');
+    }
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function workouts()
+    {
+        return $this->belongsToMany('App\Models\Workout');
     }
 
     /**

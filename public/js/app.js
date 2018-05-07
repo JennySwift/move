@@ -89596,16 +89596,6 @@ var render = function() {
           _c(
             "li",
             [
-              _c("router-link", { attrs: { to: "/series/#/add" } }, [
-                _vm._v("New Series")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
               _c("router-link", { attrs: { to: "/series" } }, [
                 _vm._v("Series")
               ])

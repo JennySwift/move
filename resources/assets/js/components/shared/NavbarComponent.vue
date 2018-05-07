@@ -12,7 +12,7 @@
                 <li><router-link to="/exercises">Exercises</router-link></li>
                 <!--<li><router-link to="/units">Units</router-link></li>-->
                 <!--<li><router-link to="/new-unit">New Unit</router-link></li>-->
-                <li><router-link to="/series/#/add">New Series</router-link></li>
+                <!--<li><router-link to="/series/#/add">New Series</router-link></li>-->
                 <li><router-link to="/series">Series</router-link></li>
                 <li><router-link to="/entries/#/add">New Entry</router-link></li>
             </ul>

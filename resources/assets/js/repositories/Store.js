@@ -9,6 +9,10 @@ export default {
     state: {
         me: {gravatar: ''},
         exercises: [],
+        workouts: [],
+        workout: {
+            name: ''
+        },
         exercisesLoaded: false,
         showFilters: false,
         exerciseFilters: {
@@ -30,8 +34,6 @@ export default {
             }
         },
         exerciseLoaded: false,
-        exerciseSeries: [],
-        exerciseSeriesLoaded: false,
         exerciseEntries: [],
         exerciseEntriesLoaded: false,
         date: {
@@ -42,7 +44,6 @@ export default {
         },
         exerciseUnits: [],
         exerciseUnitsLoaded: false,
-        exercisePrograms: [],
         exerciseProgramsLoaded: false,
         loading: false
     },
@@ -79,6 +80,17 @@ export default {
             url: '/api/exercises',
             storeProperty: 'exercises',
             loadedProperty: 'exercisesLoaded'
+        });
+    },
+
+    /**
+     *
+     */
+    getWorkouts: function () {
+        helpers.get({
+            url: '/api/workouts',
+            storeProperty: 'workouts',
+            loadedProperty: 'workoutsLoaded'
         });
     },
 

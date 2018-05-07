@@ -67,47 +67,6 @@ class ExerciseUnitsTest extends TestCase {
     }
 
     /**
-     * @test
-     */
-    public function it_can_delete_an_exercise_unit()
-    {
-        DB::beginTransaction();
-        $this->logInUser();
-
-        $unit = $this->createUnit();
-
-        $response = $this->call('DELETE', $this->url . $unit->id);
-        $this->assertEquals(204, $response->getStatusCode());
-
-        $response = $this->call('DELETE', $this->url . $unit->id);
-        $this->assertEquals(404, $response->getStatusCode());
-
-        DB::rollBack();
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function it_cannot_delete_an_exercise_unit_that_is_in_use()
-    {
-        DB::beginTransaction();
-        $this->logInUser();
-
-        $unit = Unit::first();
-
-        $response = $this->call('DELETE', $this->url . $unit->id);
-        $content = $this->getContent($response);
-
-        $this->assertArrayHasKey('error', $content);
-
-        $this->assertEquals('Unit could not be deleted. It is in use.', $content['error']);
-        $this->assertEquals(400, $response->getStatusCode());
-
-        DB::rollBack();
-    }
-
-    /**
      *
      */
     private function createUnit()

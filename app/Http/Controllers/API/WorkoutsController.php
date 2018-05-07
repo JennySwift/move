@@ -47,6 +47,19 @@ class WorkoutsController extends Controller
     }
 
     /**
+     * GET /api/workouts/{workouts}
+     * @param Request $request
+     * @param Workout $workout
+     * @return Response
+     */
+    public function show(Request $request, Workout $workout)
+    {
+        $workout = $this->transform($this->createItem($workout, new WorkoutTransformer))['data'];
+
+        return response($workout, Response::HTTP_OK);
+    }
+
+    /**
     * UPDATE /api/workouts/{workouts}
     * @param Request $request
     * @param Workout $workout

@@ -33,7 +33,7 @@ const app = new Vue({
     mounted: function () {
         store.getExercises();
         store.getExerciseUnits();
-        store.getExerciseSeries();
+        store.getWorkouts();
     }
 });
 

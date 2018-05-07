@@ -8,13 +8,10 @@
                 <i class="fas fa-bars fa-2x"></i>
             </a>
             <ul class="dropdown-menu" role="menu">
+                <li><router-link to="/">Start Workout</router-link></li>
                 <li><router-link to="/entries">Entries</router-link></li>
                 <li><router-link to="/exercises">Exercises</router-link></li>
-                <!--<li><router-link to="/units">Units</router-link></li>-->
-                <!--<li><router-link to="/new-unit">New Unit</router-link></li>-->
-                <!--<li><router-link to="/series/#/add">New Series</router-link></li>-->
-                <li><router-link to="/series">Series</router-link></li>
-                <li><router-link to="/entries/#/add">New Entry</router-link></li>
+                <li><router-link to="/workouts">Workouts</router-link></li>
             </ul>
         </li>
 
@@ -81,8 +78,9 @@
         .dropdown-menu {
             min-width: inherit;
             a {
-                padding: 0 8px;
+                padding: 5px 30px;
                 color: $base1;
+                font-size: 20px;
             }
         }
         > li {

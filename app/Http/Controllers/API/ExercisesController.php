@@ -21,6 +21,13 @@ use JavaScript;
  */
 class ExercisesController extends Controller
 {
+
+    private $fields = [
+        'name',
+        'description',
+        'priority',
+    ];
+
     /**
      * GET /api/exercises
      * Get all exercises for the current user,
@@ -39,9 +46,7 @@ class ExercisesController extends Controller
         }
         else {
             $exercises = Exercise::forCurrentUser('exercises')
-                ->with('defaultUnit')
-                ->orderBy('step_number')
-                ->with('series')
+                ->orderBy('name')
                 ->get();
         }
 
@@ -71,14 +76,9 @@ class ExercisesController extends Controller
         $exercise = new Exercise($request->only(
             'name',
             'description',
-            'step_number',
-            'default_quantity',
-            'priority',
-            'frequency'
+            'priority'
         ));
         $exercise->user()->associate(Auth::user());
-        $exercise->series()->associate(Series::find($request->get('series_id')));
-        $exercise->defaultUnit()->associate(Unit::find($request->get('default_unit_id')));
         $exercise->save();
 
         $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
@@ -102,28 +102,9 @@ class ExercisesController extends Controller
         $exercise->update($data);
 
         // Create an array with the new fields merged
-        $data = array_compare($exercise->toArray(), $request->only([
-            'name',
-            'step_number',
-            'default_quantity',
-            'description',
-            'priority',
-            'frequency'
-        ]));
+        $data = array_compare($exercise->toArray(), $request->only($this->fields));
 
         $exercise->update($data);
-
-        if ($request->has('series_id')) {
-            $series = Series::findOrFail($request->get('series_id'));
-            $exercise->series()->associate($series);
-            $exercise->save();
-        }
-
-        if ($request->has('default_unit_id')) {
-            $unit = Unit::findOrFail($request->get('default_unit_id'));
-            $exercise->defaultUnit()->associate($unit);
-            $exercise->save();
-        }
 
         $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
         return response($exercise, Response::HTTP_OK);

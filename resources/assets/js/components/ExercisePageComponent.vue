@@ -19,14 +19,6 @@
 
         <div class="input-group-container">
             <input-group
-                label="Step Number:"
-                :model.sync="shared.exercise.stepNumber"
-                :enter="updateExercise"
-                id="exercise-step-number"
-            >
-            </input-group>
-
-            <input-group
                 label="Priority:"
                 :model.sync="shared.exercise.priority"
                 :enter="updateExercise"
@@ -34,41 +26,6 @@
             >
             </input-group>
 
-            <input-group
-                label="Default Quantity:"
-                :model.sync="shared.exercise.defaultQuantity"
-                :enter="updateExercise"
-                id="exercise-default-quantity"
-            >
-            </input-group>
-
-            <input-group
-                label="Frequency:"
-                :model.sync="shared.exercise.frequency"
-                :enter="updateExercise"
-                id="exercise-frequency"
-            >
-            </input-group>
-
-            <input-group
-                label="Series:"
-                :model.sync="shared.exercise.series.data"
-                :enter="updateExercise"
-                id="exercise-series"
-                :options="shared.exerciseSeries"
-                options-prop="name"
-            >
-            </input-group>
-
-            <input-group
-                label="Default Unit:"
-                :model.sync="shared.exercise.defaultUnit.data"
-                :enter="updateExercise"
-                id="exercise-default-unit"
-                :options="shared.exerciseUnits"
-                options-prop="name"
-            >
-            </input-group>
 
         </div>
 
@@ -94,12 +51,6 @@
         computed: {
             units: function () {
                 return this.shared.exerciseUnits;
-            },
-            programs: function () {
-                return this.shared.programs;
-            },
-            exerciseSeries: function () {
-                return this.shared.exerciseSeries;
             }
         },
         components: {},

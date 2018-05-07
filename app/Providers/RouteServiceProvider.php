@@ -37,11 +37,6 @@ class RouteServiceProvider extends ServiceProvider
             return Exercise::forCurrentUser()->findOrFail($id);
         });
 
-        Route::bind('series', function($id)
-        {
-            return Series::forCurrentUser()->findOrFail($id);
-        });
-
         Route::bind('unit', function($id)
         {
             return Unit::forCurrentUser()->findOrFail($id);

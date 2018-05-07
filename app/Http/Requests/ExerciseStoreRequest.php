@@ -26,8 +26,6 @@ class ExerciseStoreRequest extends Request
         return [
             'name' => 'required',
             'priority' => 'required',
-            'series_id' => 'required',
-            'default_unit_id' => 'required'
         ];
     }
 }

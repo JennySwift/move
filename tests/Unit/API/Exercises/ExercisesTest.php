@@ -12,11 +12,9 @@ class ExercisesTest extends TestCase {
 
     use DatabaseTransactions;
 
-    private $url = '/api/exercises/';
+    private $url = '/api/exercises';
 
     /**
-     * Todo: finish
-     * It lists the exercises for the user
      * @test
      * @return void
      */
@@ -25,30 +23,10 @@ class ExercisesTest extends TestCase {
         $this->logInUser();
 
         $response = $this->apiCall('GET', $this->url);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkExerciseKeysExist($content[0]);
-
-        $this->assertEquals(1, $content[0]['id']);
-        $this->assertEquals('kneeling pushups', $content[0]['name']);
-        $this->assertEquals(1, $content[0]['stepNumber']);
-        $this->assertEquals(20, $content[0]['defaultQuantity']);
-        $this->assertEquals(7, $content[0]['frequency']);
-
-        $this->assertEquals(1, $content[0]['series']['data']['id']);
-        $this->assertEquals('pushup', $content[0]['series']['data']['name']);
-
-        $this->assertEquals(1, $content[0]['defaultUnit']['data']['id']);
-        $this->assertEquals('reps', $content[0]['defaultUnit']['data']['name']);
-
-        $this->assertEquals(1, $content[1]['lastDone']);
-        $this->assertEquals(3, $content[1]['frequency']);
-        $this->assertEquals(2, $content[1]['dueIn']);
-
-        $this->assertEquals(2, $content[2]['lastDone']);
-        $this->assertEquals(4, $content[2]['frequency']);
-        $this->assertEquals(2, $content[2]['dueIn']);
 
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -61,13 +39,12 @@ class ExercisesTest extends TestCase {
     {
         $this->logInUser();
 
-        $response = $this->apiCall('GET', '/api/exercises?typing=p');
+        $response = $this->apiCall('GET', $this->url . '?typing=p');
         $content = json_decode($response->getContent(), true);
 //        dd($content);
 
         $this->checkExerciseKeysExist($content[0]);
 
-        $this->assertEquals(1, $content[0]['defaultUnit']['data']['id']);
 
         foreach ($content as $exercise) {
             $this->assertContains('p', $exercise['name']);
@@ -88,31 +65,18 @@ class ExercisesTest extends TestCase {
         $exercise = [
             'name' => 'kangaroo',
             'description' => 'koala',
-            'priority' => 2,
-            'series_id' => 2,
-            'step_number' => 2,
-            'default_quantity' => 2,
-            'default_unit_id' => 2,
-            'frequency' => 14
+            'priority' => 2
         ];
 
         $response = $this->call('POST', $this->url, $exercise);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
-        $this->assertArrayHasKey('id', $content);
-        $this->assertArrayHasKey('name', $content);
-//        $this->assertArrayHasKey('step_number', $content);
-        $this->assertArrayHasKey('description', $content);
+        $this->checkExerciseKeysExist($content);
 
         $this->assertEquals('kangaroo', $content['name']);
         $this->assertEquals('koala', $content['description']);
         $this->assertEquals(2, $content['priority']);
-        $this->assertEquals(14, $content['frequency']);
-        $this->assertEquals(2, $content['series']['data']['id']);
-        $this->assertEquals(2, $content['stepNumber']);
-        $this->assertEquals(2, $content['defaultQuantity']);
-        $this->assertEquals(2, $content['defaultUnit']['data']['id']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }
@@ -132,13 +96,6 @@ class ExercisesTest extends TestCase {
 
       $this->assertContains($content['error'], $this->validationErrorMessage);
 
-      //Stopped working after upgrading
-//        $this->assertArrayHasKey('name', $content);
-//        $this->assertArrayHasKey('priority', $content);
-//        $this->assertArrayHasKey('program_id', $content);
-//        $this->assertArrayHasKey('series_id', $content);
-//        $this->assertArrayHasKey('default_unit_id', $content);
-
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
 
         DB::rollBack();
@@ -153,24 +110,10 @@ class ExercisesTest extends TestCase {
 
         $exercise = Exercise::forCurrentUser()->first();
 
-        $response = $this->call('GET', $this->url . $exercise->id);
-        $content = json_decode($response->getContent(), true);
+        $response = $this->call('GET', $this->url . '/' . $exercise->id);
+        $content = $this->getContent($response);
 
         $this->checkExerciseKeysExist($content);
-
-        $this->assertEquals(1, $content['id']);
-        $this->assertEquals('kneeling pushups', $content['name']);
-        $this->assertEquals(1, $content['stepNumber']);
-        $this->assertEquals(20, $content['defaultQuantity']);
-
-        $this->assertEquals(1, $content['series']['data']['id']);
-        $this->assertEquals('pushup', $content['series']['data']['name']);
-
-        $this->assertEquals(1, $content['defaultUnit']['data']['id']);
-        $this->assertEquals('reps', $content['defaultUnit']['data']['name']);
-
-        //Todo: make seeder static for this
-//        $this->assertEquals('kneeling pushups', $content['tag_ids']);
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
 
@@ -186,15 +129,10 @@ class ExercisesTest extends TestCase {
 
         $exercise = Exercise::forCurrentUser()->first();
 
-        $response = $this->call('PUT', $this->url . $exercise->id, [
+        $response = $this->call('PUT', $this->url . '/' . $exercise->id, [
             'name' => 'numbat',
-            'step_number' => 2,
-            'default_quantity' => 6,
             'description' => 'frog',
-            'series_id' => 2,
-            'default_unit_id' => 2,
             'priority' => 9,
-            'frequency' => 30
         ]);
 //        dd($response);
         $content = $this->getContent($response);
@@ -202,54 +140,9 @@ class ExercisesTest extends TestCase {
 
         $this->checkExerciseKeysExist($content);
 
-        $this->assertEquals(1, $content['id']);
         $this->assertEquals('numbat', $content['name']);
         $this->assertEquals('frog', $content['description']);
-        $this->assertEquals(2, $content['stepNumber']);
-        $this->assertEquals(6, $content['defaultQuantity']);
         $this->assertEquals(9, $content['priority']);
-        $this->assertEquals(30, $content['frequency']);
-        $this->assertEquals(30, $content['dueIn']);
-
-        $this->assertEquals(2, $content['series']['data']['id']);
-        $this->assertEquals('pullup', $content['series']['data']['name']);
-
-        $this->assertEquals(2, $content['defaultUnit']['data']['id']);
-        $this->assertEquals('minutes', $content['defaultUnit']['data']['name']);
-
-        //Todo: check tags
-
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function it_can_update_an_exercise_default_quantity()
-    {
-        $this->logInUser();
-
-        $exercise = Exercise::forCurrentUser()->first();
-
-        $response = $this->call('PUT', $this->url . $exercise->id, [
-            'default_quantity' => 7,
-        ]);
-        $content = json_decode($response->getContent(), true);
-//        dd($content);
-
-        $this->checkExerciseKeysExist($content);
-
-        $this->assertEquals(1, $content['id']);
-        $this->assertEquals('kneeling pushups', $content['name']);
-        $this->assertEquals(1, $content['stepNumber']);
-        $this->assertEquals(7, $content['defaultQuantity']);
-
-        $this->assertEquals(1, $content['series']['data']['id']);
-        $this->assertEquals('pushup', $content['series']['data']['name']);
-
-        $this->assertEquals(1, $content['defaultUnit']['data']['id']);
-        $this->assertEquals('reps', $content['defaultUnit']['data']['name']);
 
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -263,11 +156,12 @@ class ExercisesTest extends TestCase {
         $this->logInUser();
 
         $exercise = Exercise::forCurrentUser()->first();
+        $url = $this->url . '/' . $exercise->id;
 
-        $response = $this->call('DELETE', $this->url . $exercise->id);
+        $response = $this->call('DELETE', $url);
         $this->assertEquals(204, $response->getStatusCode());
 
-        $response = $this->call('DELETE', $this->url . $exercise->id);
+        $response = $this->call('DELETE', $url);
         $this->assertEquals(404, $response->getStatusCode());
 
         DB::rollBack();

@@ -5,51 +5,22 @@
 
         <div v-show="!shared.showFilters">
 
-            <router-link to="/add-exercise" tag="button" id="add-exercise-btn" class="btn btn-default">Add Exercise</router-link>
+            <router-link to="/add-exercise" tag="button" id="add-exercise-btn" class="new-btn btn btn-default">Add Exercise</router-link>
 
             <div id="exercises">
-                <div
-                    v-for="exercise in shared.exercises"
-                    class="pointer exercise card"
-                >
-
-                    <div
-                        v-bind:style="{background: exercise.series.data.color}"
-                        v-bind:class="{'has-color': exercise.series.data.color}"
+                <ul class="list-group">
+                    <router-link
+                        v-for="exercise in shared.exercises"
+                        :to="'/exercises/' + exercise.id"
+                        tag="li"
+                        class="list-group-item pointer"
                         v-on:click="setExercise(exercise)"
-                        class="card-header"
+                        v-bind:key="exercise.id"
                     >
-                        <router-link :to="'/exercises/' + exercise.id">{{exercise.name}}</router-link>
-                    </div>
-                    <div class="card-block">
-                        <div class="add">
-                            <button
-                                v-on:click="insertDefaultExerciseSet(exercise)"
-                                v-bind:style="{background: exercise.series.data.color}"
-                                v-bind:class="{'has-color': exercise.series.data.color}"
-                                class="btn btn-default btn-sm"
-                            >
-                                <span>
-                                    Add
-                                    {{ exercise.defaultQuantity }}
-                                    {{ exercise.defaultUnit.data.name }}
-                                </span>
+                        {{exercise.name}}
+                    </router-link>
+                </ul>
 
-                            </button>
-
-                            <button
-                                v-on:click="insertExerciseSet(exercise)"
-                                v-bind:style="{background: exercise.series.data.color}"
-                                v-bind:class="{'has-color': exercise.series.data.color}"
-                                class="btn btn-default btn-sm"
-                            >
-                                <span>
-                                    Add...
-                                </span>
-
-                            </button>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -215,6 +186,7 @@
 </script>
 
 <style lang="scss" type="text/scss">
+    @import '../../sass/shared/index';
     #exercises-page {
         td {
             text-align: left;
@@ -232,9 +204,6 @@
             margin-bottom: 5px;
             display: flex;
             justify-content: flex-end;
-        }
-        #add-exercise-btn {
-            width: 100%;
         }
     }
 </style>

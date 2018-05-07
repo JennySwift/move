@@ -20,7 +20,7 @@ body {
 	@media (max-width: 600px) {
 		padding-top: 41px;
 	}
-	@include characterFont;
+	//@include characterFont;
     .container {
         padding-bottom: $footerHeight;
         min-height: 100%;

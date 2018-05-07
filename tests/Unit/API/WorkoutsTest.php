@@ -78,6 +78,24 @@ class WorkoutsTest extends TestCase
         $this->assertEquals(404, $response->getStatusCode());
     }
 
+    /**
+     * @test
+     */
+    public function it_can_show_a_workout()
+    {
+        $this->logInUser();
+
+        $workout = Workout::forCurrentUser()->first();
+
+        $response = $this->call('GET', $this->url . $workout->id);
+        $content = $this->getContent($response);
+        //dd($content);
+
+        $this->checkWorkoutKeysExist($content);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
     private function createWorkout()
     {
         $this->logInUser();

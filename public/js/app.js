@@ -89612,22 +89612,6 @@ var render = function() {
           _vm._v(" "),
           _c(
             "li",
-            [_c("router-link", { attrs: { to: "/units" } }, [_vm._v("Units")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c("router-link", { attrs: { to: "/new-unit" } }, [
-                _vm._v("New Unit")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
             [
               _c("router-link", { attrs: { to: "/series/#/add" } }, [
                 _vm._v("New Series")

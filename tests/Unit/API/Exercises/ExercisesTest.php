@@ -93,7 +93,6 @@ class ExercisesTest extends TestCase {
             'step_number' => 2,
             'default_quantity' => 2,
             'default_unit_id' => 2,
-            'target' => '2 reps',
             'frequency' => 14
         ];
 
@@ -114,7 +113,6 @@ class ExercisesTest extends TestCase {
         $this->assertEquals(2, $content['stepNumber']);
         $this->assertEquals(2, $content['defaultQuantity']);
         $this->assertEquals(2, $content['defaultUnit']['data']['id']);
-        $this->assertEquals('2 reps', $content['target']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }
@@ -195,7 +193,6 @@ class ExercisesTest extends TestCase {
             'description' => 'frog',
             'series_id' => 2,
             'default_unit_id' => 2,
-            'target' => 'something else',
             'priority' => 9,
             'frequency' => 30
         ]);
@@ -210,7 +207,6 @@ class ExercisesTest extends TestCase {
         $this->assertEquals('frog', $content['description']);
         $this->assertEquals(2, $content['stepNumber']);
         $this->assertEquals(6, $content['defaultQuantity']);
-        $this->assertEquals('something else', $content['target']);
         $this->assertEquals(9, $content['priority']);
         $this->assertEquals(30, $content['frequency']);
         $this->assertEquals(30, $content['dueIn']);

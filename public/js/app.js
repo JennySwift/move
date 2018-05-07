@@ -86911,14 +86911,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -87064,20 +87056,6 @@ var render = function() {
             on: {
               "update:model": function($event) {
                 _vm.$set(_vm.shared.exercise, "priority", $event)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("input-group", {
-            attrs: {
-              label: "Target:",
-              model: _vm.shared.exercise.target,
-              enter: _vm.updateExercise,
-              id: "exercise-target"
-            },
-            on: {
-              "update:model": function($event) {
-                _vm.$set(_vm.shared.exercise, "target", $event)
               }
             }
           }),

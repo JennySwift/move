@@ -149,7 +149,6 @@ class ExerciseSeeder extends Seeder {
                 'description' => $exercise['description'],
                 'default_quantity' => $exercise['defaultQuantity'],
                 'step_number' => $index,
-                'target' => '3 * 10',
                 'priority' => $exercise['priority'],
             ]);
 

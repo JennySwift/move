@@ -23,7 +23,6 @@ class Exercise extends Model
         'default_quantity',
         'step_number',
         'series_id',
-        'target',
         'priority',
         'frequency'
     ];

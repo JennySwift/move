@@ -70,7 +70,6 @@ abstract class TestCase extends BaseTestCase
         $this->assertArrayHasKey('defaultQuantity', $exercise);
         $this->assertArrayHasKey('lastDone', $exercise);
         $this->assertArrayHasKey('priority', $exercise);
-        $this->assertArrayHasKey('target', $exercise);
         $this->assertArrayHasKey('frequency', $exercise);
         $this->assertArrayHasKey('dueIn', $exercise);
     }

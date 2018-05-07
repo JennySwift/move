@@ -22,7 +22,6 @@ class CreateExercisesTable extends Migration {
 			$table->integer('default_quantity')->nullable();
 			$table->string('description')->nullable();
 			$table->integer('default_unit_id')->nullable()->unsigned();
-            $table->string('target')->nullable();
             $table->integer('priority')->nullable();
             $table->integer('frequency')->nullable()->index();
 			$table->timestamps();

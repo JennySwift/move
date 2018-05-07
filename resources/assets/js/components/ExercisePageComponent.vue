@@ -36,14 +36,6 @@
             </input-group>
 
             <input-group
-                label="Target:"
-                :model.sync="shared.exercise.target"
-                :enter="updateExercise"
-                id="exercise-target"
-            >
-            </input-group>
-
-            <input-group
                 label="Default Quantity:"
                 :model.sync="shared.exercise.defaultQuantity"
                 :enter="updateExercise"

@@ -73,7 +73,6 @@ class ExercisesController extends Controller
             'description',
             'step_number',
             'default_quantity',
-            'target',
             'priority',
             'frequency'
         ));
@@ -108,7 +107,6 @@ class ExercisesController extends Controller
             'step_number',
             'default_quantity',
             'description',
-            'target',
             'priority',
             'frequency'
         ]));

@@ -2,6 +2,7 @@ import helpers from './Helpers'
 var object = require('lodash/object');
 require('sugar');
 Date.setLocale('en-AU');
+import Vue from 'vue'
 
 export default {
 
@@ -19,7 +20,10 @@ export default {
         },
         showNewExerciseEntryFields: false,
         exercise: {
-            program: {},
+            name: '',
+            description: '',
+            stepNumber: '',
+            priority: '',
             series: {},
             defaultUnit: {
                 data: {}
@@ -165,18 +169,18 @@ export default {
     },
 
     /**
-     * Update an item that is in an array
+     * Update an item that is in an array that is in the store
      * @param item
      * @param path
      */
     update: function (item, path) {
         var index = helpers.findIndexById(object.get(this.state, path), item.id);
 
-        object.get(this.state, path).$set(index, item);
+        Vue.set(object.get(this.state, path), index, item);
     },
 
     /**
-     * Set a property (can be nested)
+     * Set a property that is in the store (can be nested)
      * @param data
      * @param path
      */
@@ -185,13 +189,23 @@ export default {
     },
 
     /**
-     * Delete an item from an array
+     * Toggle a property that is in the store (can be nested)
+     * @param path
+     */
+    toggle: function (path) {
+        object.set(this.state, path, !object.get(this.state, path));
+    },
+
+    /**
+     * Delete an item from an array in the store
      * To delete a nested property of store.state, for example a class in store.state.classes.data:
      * store.delete(itemToDelete, 'student.classes.data');
      * @param itemToDelete
      * @param path
      */
     delete: function (itemToDelete, path) {
+        // console.log('\n\n get: ' + JSON.stringify(object.get(this.state, path), null, 4) + '\n\n');
+        // console.log('\n\n item to delete: ' + JSON.stringify(itemToDelete, null, 4) + '\n\n');
         object.set(this.state, path, helpers.deleteById(object.get(this.state, path), itemToDelete.id));
     }
 }

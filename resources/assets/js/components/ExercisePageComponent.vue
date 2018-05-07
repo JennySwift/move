@@ -1,24 +1,23 @@
 <template>
-    <div>
-        <h3 class="center">{{  shared.exercise.name }}</h3>
+    <div id="exercise-page">
+        <input
+            class="center"
+            v-model="shared.exercise.name"
+            id="exercise-name-input"
+            v-on:enter="updateExercise"
+        >
+        </input>
+
+        <label for="exercise-description">Description</label>
+        <div      id="exercise-description"
+                  contenteditable="true"
+                  v-model="shared.exercise.description"
+                  v-on:enter="updateExercise"
+        >
+            {{shared.exercise.description}}
+        </div>
 
         <div class="input-group-container">
-            <input-group
-                label="Name:"
-                :model.sync="shared.exercise.name"
-                :enter="updateExercise"
-                id="exercise-name"
-            >
-            </input-group>
-
-            <input-group
-                label="Description:"
-                :model.sync="shared.exercise.description"
-                :enter="updateExercise"
-                id="exercise-description"
-            >
-            </input-group>
-
             <input-group
                 label="Step Number:"
                 :model.sync="shared.exercise.stepNumber"
@@ -88,7 +87,8 @@
         data: function () {
             return {
                 shared: store.state,
-                redirectTo: '/exercises'
+                redirectTo: '/exercises',
+                baseUrl: 'api/exercises'
             };
         },
         computed: {
@@ -112,7 +112,7 @@
                 var id = this.$route.params.id;
 
                 helpers.get({
-                    url: '/api/exercises/' + id,
+                    url: this.baseUrl + '/' + id,
                     storeProperty: 'exercise',
                     loadedProperty: 'exerciseLoaded',
                 });
@@ -122,10 +122,11 @@
              *
              */
             updateExercise: function () {
+                store.set($('#exercise-description').text(), 'exercise.description');
                 var data = ExercisesRepository.setData(this.shared.exercise);
 
                 helpers.put({
-                    url: '/api/exercises/' + this.shared.exercise.id,
+                    url: this.baseUrl + '/' + this.shared.exercise.id,
                     data: data,
                     property: 'exercises',
                     message: 'Exercise updated',
@@ -149,7 +150,7 @@
                 });
             }
         },
-        ready: function () {
+        mounted: function () {
             if (!this.shared.exercise.id) {
                 this.getExercise();
             }
@@ -159,6 +160,16 @@
 
 <style lang="scss" type="text/scss">
     @import '../../sass/shared/index';
+    #exercise-page {
+        #exercise-name-input {
+            width: 100%;
+            border: none;
+            box-shadow: none;
+        }
+        #exercise-description {
+            width: 100%;
+        }
+    }
     #exercise-popup {
         h3 {
             &:first-child {

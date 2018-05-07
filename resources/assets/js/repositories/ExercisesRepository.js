@@ -12,10 +12,7 @@ export default {
             priority: exercise.priority,
             step_number: exercise.stepNumber,
             default_quantity: exercise.defaultQuantity,
-            target: exercise.target,
-            program_id: exercise.program.id,
             series_id: exercise.series.id,
-            stretch: helpers.convertBooleanToInteger(exercise.stretch),
             frequency: exercise.frequency
         };
 

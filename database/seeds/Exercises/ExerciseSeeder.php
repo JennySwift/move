@@ -161,7 +161,6 @@ class ExerciseSeeder extends Seeder {
 
             $temp->user()->associate($this->user);
             $temp->defaultUnit()->associate($unit);
-            $temp->program()->associate(ExerciseProgram::first());
 
             $temp->series()->associate($series);
             $temp->save();

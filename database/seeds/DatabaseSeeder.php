@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
 
         //exercises
         $this->call(ExerciseSeriesSeeder::class);
-        $this->call(ExerciseProgramSeeder::class);
 
         $this->call(ExerciseSeeder::class);
 

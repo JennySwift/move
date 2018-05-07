@@ -5,7 +5,6 @@ use App\Http\Requests;
 use App\Http\Requests\ExerciseStoreRequest;
 use App\Http\Transformers\Exercises\ExerciseTransformer;
 use App\Models\Exercise;
-use App\Models\ExerciseProgram;
 use App\Models\Series;
 use App\Models\Unit;
 use Auth;
@@ -80,7 +79,6 @@ class ExercisesController extends Controller
             'frequency'
         ));
         $exercise->user()->associate(Auth::user());
-        $exercise->program()->associate(ExerciseProgram::find($request->get('program_id')));
         $exercise->series()->associate(Series::find($request->get('series_id')));
         $exercise->defaultUnit()->associate(Unit::find($request->get('default_unit_id')));
         $exercise->save();
@@ -126,12 +124,6 @@ class ExercisesController extends Controller
         if ($request->has('series_id')) {
             $series = Series::findOrFail($request->get('series_id'));
             $exercise->series()->associate($series);
-            $exercise->save();
-        }
-
-        if ($request->has('program_id')) {
-            $program = ExerciseProgram::findOrFail($request->get('program_id'));
-            $exercise->program()->associate($program);
             $exercise->save();
         }
 

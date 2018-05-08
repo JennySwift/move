@@ -96,6 +96,27 @@ class WorkoutsTest extends TestCase
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
 
+    /**
+     * @test
+     */
+    public function it_can_show_a_workout_with_its_exercises()
+    {
+        $this->logInUser();
+
+        $workout = Workout::forCurrentUser()->first();
+
+        $response = $this->call('GET', $this->url . $workout->id . '?include=exercises');
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkWorkoutKeysExist($content);
+
+        $this->assertArrayHasKey('exercises', $content);
+        $this->checkExerciseWorkoutKeysExist($content['exercises']['data'][0]);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
     private function createWorkout()
     {
         $this->logInUser();
@@ -106,7 +127,7 @@ class WorkoutsTest extends TestCase
 
         $response = $this->call('POST', $this->url, $workout);
         $content = $this->getContent($response);
-        // dd($content);
+//         dd($content);
 
         $this->checkWorkoutKeysExist($content);
 
@@ -115,6 +136,19 @@ class WorkoutsTest extends TestCase
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
 
         return Workout::find($content['id']);
+    }
+
+    /**
+     *
+     * @param $exercise
+     */
+    private function checkExerciseWorkoutKeysExist($exercise)
+    {
+        $this->assertArrayHasKey('id', $exercise);
+        $this->assertArrayHasKey('name', $exercise);
+        $this->assertArrayHasKey('level', $exercise);
+        $this->assertArrayHasKey('quantity', $exercise);
+        $this->checkUnitKeysExist($exercise['unit']['data']);
     }
 
 

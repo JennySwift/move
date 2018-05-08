@@ -16,6 +16,21 @@ class WorkoutTransformer extends TransformerAbstract
     private $params;
 
     /**
+     * @var array
+     */
+    protected $availableIncludes = ['exercises'];
+
+    /**
+     *
+     * @param Workout $workout
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeExercises(Workout $workout)
+    {
+        return $this->collection($workout->exercises, new ExerciseWorkoutTransformer);
+    }
+
+    /**
      * ExerciseTransformer constructor.
      * @param array $params
      */
@@ -31,6 +46,9 @@ class WorkoutTransformer extends TransformerAbstract
      */
     public function transform(Workout $workout)
     {
+//        foreach ($workout->exercises as $exercise) {
+//            dd($exercise->pivot->quantity);
+//        }
         $array = [
             'id' => $workout->id,
             'name' => $workout->name,

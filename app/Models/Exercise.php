@@ -18,13 +18,8 @@ class Exercise extends Model
      */
     protected $fillable = [
         'name',
-        'default_unit_id',
         'description',
-        'default_quantity',
-        'step_number',
-        'series_id',
         'priority',
-        'frequency'
     ];
 
     /**

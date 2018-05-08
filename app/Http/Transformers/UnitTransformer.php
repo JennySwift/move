@@ -18,7 +18,6 @@ class UnitTransformer extends TransformerAbstract
         return [
             'id' => $unit->id,
             'name' => $unit->name,
-            'for' => $unit->for
         ];
     }
 

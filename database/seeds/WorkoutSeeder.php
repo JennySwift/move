@@ -18,6 +18,7 @@ class WorkoutSeeder extends Seeder {
     public function run()
 	{
 		Workout::truncate();
+        DB::table('exercise_workout')->truncate();
         $this->faker = Faker::create();
 
         foreach(User::all() as $user) {
@@ -26,47 +27,6 @@ class WorkoutSeeder extends Seeder {
             $unitIds = Unit::where('user_id', $this->user->id)->pluck('id')->all();
 
             $workouts = [
-                [
-                    'name' => 'Upper Body',
-                    'exercises' => [
-                        [
-                            'exercise_id' => $exerciseIds[0],
-                            'unit_id' => $unitIds[0],
-                            'level' => 1,
-                            'quantity' => 50
-                        ],
-                        [
-                            'exercise_id' => $exerciseIds[0],
-                            'unit_id' => $unitIds[0],
-                            'level' => 1,
-                            'quantity' => 50
-                        ],
-                        [
-                            'exercise_id' => $exerciseIds[0],
-                            'unit_id' => $unitIds[0],
-                            'level' => 1,
-                            'quantity' => 50
-                        ],
-                        [
-                            'exercise_id' => $exerciseIds[1],
-                            'unit_id' => $unitIds[0],
-                            'level' => 1,
-                            'quantity' => 100
-                        ],
-                        [
-                            'exercise_id' => $exerciseIds[2],
-                            'unit_id' => $unitIds[0],
-                            'level' => 1,
-                            'quantity' => 100
-                        ],
-                        [
-                            'exercise_id' => $exerciseIds[2],
-                            'unit_id' => $unitIds[0],
-                            'level' => 1,
-                            'quantity' => 100
-                        ]
-                    ]
-                ],
                 [
                     'name' => 'Lower Body',
                     'exercises' => [
@@ -178,13 +138,13 @@ class WorkoutSeeder extends Seeder {
                     'name' => 'Hanging',
                     'exercises' => [
                         [
-                            'exercise_id' => $this->getExercise('Bar Hang (Overhand'),
+                            'exercise_id' => $this->getExercise('Bar Hang (Overhand)'),
                             'unit_id' => $unitIds[1],
                             'level' => 1,
                             'quantity' => 300
                         ],
                         [
-                            'exercise_id' => $this->getExercise('Bar Hang (Underhand'),
+                            'exercise_id' => $this->getExercise('Bar Hang (Underhand)'),
                             'unit_id' => $unitIds[1],
                             'level' => 1,
                             'quantity' => 180
@@ -195,19 +155,19 @@ class WorkoutSeeder extends Seeder {
                     'name' => 'Pulling',
                     'exercises' => [
                         [
-                            'exercise_id' => $this->getExercise('Inverted Row (Underhand'),
+                            'exercise_id' => $this->getExercise('Inverted Row (Underhand)'),
                             'unit_id' => $unitIds[0],
                             'level' => 4,
                             'quantity' => 100
                         ],
                         [
-                            'exercise_id' => $this->getExercise('Inverted Row (Overhand'),
+                            'exercise_id' => $this->getExercise('Inverted Row (Overhand)'),
                             'unit_id' => $unitIds[0],
                             'level' => 3,
                             'quantity' => 100
                         ],
                         [
-                            'exercise_id' => $this->getExercise('Inverted Row (Wide Grip'),
+                            'exercise_id' => $this->getExercise('Inverted Row (Wide Grip)'),
                             'unit_id' => $unitIds[0],
                             'level' => 3,
                             'quantity' => 100
@@ -283,19 +243,19 @@ class WorkoutSeeder extends Seeder {
                             'quantity' => 50
                         ],
                         [
-                            'exercise_id' => $this->getExercise('Inverted Row (Underhand'),
+                            'exercise_id' => $this->getExercise('Inverted Row (Underhand)'),
                             'unit_id' => $unitIds[0],
                             'level' => 4,
                             'quantity' => 100
                         ],
                         [
-                            'exercise_id' => $this->getExercise('Inverted Row (Overhand'),
+                            'exercise_id' => $this->getExercise('Inverted Row (Overhand)'),
                             'unit_id' => $unitIds[0],
                             'level' => 3,
                             'quantity' => 100
                         ],
                         [
-                            'exercise_id' => $this->getExercise('Inverted Row (Wide Grip'),
+                            'exercise_id' => $this->getExercise('Inverted Row (Wide Grip)'),
                             'unit_id' => $unitIds[0],
                             'level' => 3,
                             'quantity' => 100
@@ -310,9 +270,7 @@ class WorkoutSeeder extends Seeder {
                 ],
             ];
 
-            $index = 0;
             foreach($workouts as $workout) {
-                $index++;
                 $temp = new Workout([
                     'name' => $workout['name'],
                 ]);
@@ -322,7 +280,11 @@ class WorkoutSeeder extends Seeder {
 
                 $temp->save();
 
+//                $index = 0;
+//                var_dump('user_id: ' . $this->user->id);
                 foreach ($workout['exercises'] as $exercise) {
+//                    $index++;
+//                    var_dump($index);
                     $temp->exercises()->attach($exercise['exercise_id'],
                         [
                             'level' => $exercise['level'],
@@ -343,6 +305,8 @@ class WorkoutSeeder extends Seeder {
      */
     private function getExercise($string)
     {
-        return Exercise::forCurrentUser()->where('name', $string)->get();
+        $exercise = Exercise::where('user_id', $this->user->id)->where('name', $string)->firstOrFail();
+
+        return $exercise->id;
     }
 }

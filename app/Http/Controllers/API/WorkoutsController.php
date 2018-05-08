@@ -43,6 +43,7 @@ class WorkoutsController extends Controller
 
         $workout = $this->transform($this->createItem($workout, new WorkoutTransformer))['data'];
 
+
         return response($workout, Response::HTTP_CREATED);
     }
 
@@ -54,7 +55,13 @@ class WorkoutsController extends Controller
      */
     public function show(Request $request, Workout $workout)
     {
-        $workout = $this->transform($this->createItem($workout, new WorkoutTransformer))['data'];
+        if ($request->get('include') === 'exercises') {
+            $workout = $this->transform($this->createItem($workout, new WorkoutTransformer), ['exercises'])['data'];
+        }
+        else {
+            $workout = $this->transform($this->createItem($workout, new WorkoutTransformer))['data'];
+        }
+
 
         return response($workout, Response::HTTP_OK);
     }

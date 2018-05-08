@@ -22,55 +22,105 @@ class ExerciseSeeder extends Seeder {
 
 		$exercises= [
             [
-                'name' => 'inverted rows',
+                'name' => 'L-Sit',
                 'description' => '',
                 'priority' => 2,
             ],
             [
-                'name' => 'kneeling pushups',
+                'name' => 'Hanging Knee Raise',
                 'description' => '',
                 'priority' => 2,
             ],
             [
-                'name' => 'pushups',
-                'description' => 'hands shoulder width',
+                'name' => 'Hollow Body Hold',
+                'description' => '',
+                'priority' => 2,
+            ],
+            [
+                'name' => 'Hyperextension',
+                'description' => '',
+                'priority' => 2,
+            ],
+            [
+                'name' => 'Reverse Hyperextension',
+                'description' => '',
+                'priority' => 2,
+            ],
+            [
+                'name' => 'Short Bridge',
+                'description' => '',
                 'priority' => 1
             ],
             [
-                'name' => 'one-arm pushups',
-                'description' => 'free hand behind back',
+                'name' => 'Tabletop Bridge',
+                'description' => '',
                 'priority' => 1,
             ],
             [
-                'name' => 'assisted squats',
-                'description' => 'hold onto something',
+                'name' => 'Narrow Stance Full Squat',
+                'description' => '',
                 'priority' => 3,
             ],
             [
-                'name' => 'squats',
-                'description' => 'feet shoulder width',
+                'name' => 'Box Squat',
+                'description' => '',
                 'priority' => 2
             ],
             [
-                'name' => 'box squats',
+                'name' => 'Plank',
                 'description' => '',
                 'priority' => 1,
             ],
             [
-                'name' => 'one-legged-squats',
+                'name' => 'Bar Hang (Overhand)',
                 'description' => '',
                 'priority' => 1,
             ],
             [
-                'name' => 'bar hang (overhand)',
+                'name' => 'Bar Hang (Underhand)',
                 'description' => '',
                 'priority' => 1,
             ],
             [
-                'name' => 'bar hang (underhand)',
+                'name' => 'Inverted Row (Underhand)',
                 'description' => '',
                 'priority' => 1,
-            ]
+            ],
+            [
+                'name' => 'Inverted Row (Overhand)',
+                'description' => '',
+                'priority' => 1,
+            ],
+            [
+                'name' => 'Inverted Row (Wide Grip)',
+                'description' => '',
+                'priority' => 1,
+            ],
+            [
+                'name' => 'Scapular Row',
+                'description' => '',
+                'priority' => 1,
+            ],
+            [
+                'name' => 'Incline Pushup',
+                'description' => '',
+                'priority' => 1,
+            ],
+            [
+                'name' => 'Incline Pushup (Reverse Grip)',
+                'description' => '',
+                'priority' => 1,
+            ],
+            [
+                'name' => 'Incline Pushup (Wide Grip)',
+                'description' => '',
+                'priority' => 1,
+            ],
+            [
+                'name' => 'Scapular Pushup',
+                'description' => '',
+                'priority' => 1,
+            ],
         ];
 
         $users = User::all();

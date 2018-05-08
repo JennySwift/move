@@ -22,7 +22,8 @@ class ExerciseWorkoutTransformer extends TransformerAbstract
     public function transform(Exercise $exercise)
     {
         $array = [
-            'id' => $exercise->id,
+            'id' => $exercise->pivot->id,
+            'exercise_id' => $exercise->id,
             'name' => $exercise->name,
             'level' => $exercise->pivot->level,
             'quantity' => $exercise->pivot->quantity,

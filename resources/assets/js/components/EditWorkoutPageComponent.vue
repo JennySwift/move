@@ -22,7 +22,13 @@
                 <tbody>
                 <tr v-for="row in exercise">
                     <td>{{row.level}}</td>
-                    <td>{{row.quantity}}</td>
+                    <td>{{row.quantity}}
+                        <i
+                            class="fas fa-trash-alt"
+                            v-on:click="removeSet(row)"
+                        >
+                        </i>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2" v-on:click="addSet(exercise[0])">Add Set</td>
@@ -41,6 +47,7 @@
 
 <script>
     import Vue from 'vue'
+    var object = require('lodash/object');
     export default {
         data: function () {
             return {
@@ -49,6 +56,7 @@
                 clonedExercises: [
                     {
                         id: '',
+                        exercise_id: '',
                         level: '',
                         quantity: 0,
                         unit: {
@@ -68,6 +76,7 @@
              "L-Sit": [
                  {
                      "id": 1,
+                     "exercise_id": 1
                      "name": "L-Sit",
                      "level": 52,
                      "quantity": 60,
@@ -88,9 +97,14 @@
                 this.clonedExercises = helpers.clone(this.shared.workout.exercises.data);
 
             },
+            removeSet: function (row) {
+                console.log(row);
+                this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
+                console.log(this.clonedExercises);
+            },
             addSet: function (row) {
                 var newSet = {
-                    id: row.id,
+                    exercise_id: row.exercise_id,
                     level: row.level,
                     name: row.name,
                     quantity: row.quantity,
@@ -106,7 +120,7 @@
                 _.forEach(this.clonedExercises, function (value, index) {
                     data.push(
                         {
-                            id: value.id,
+                            exercise_id: value.exercise_id,
                             level: value.level,
                             quantity: value.quantity,
                             unit_id: value.unit.data.id

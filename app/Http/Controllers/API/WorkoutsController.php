@@ -85,7 +85,7 @@ class WorkoutsController extends Controller
                 $workout->exercises()->detach();
 
                 foreach ($request->get('exercises') as $exercise) {
-                    $workout->exercises()->attach($exercise['id'], [
+                    $workout->exercises()->attach($exercise['exercise_id'], [
                         'level' => $exercise['level'],
                         'quantity' => $exercise['quantity'],
                         'unit_id' => $exercise['unit_id'],

@@ -1,12 +1,14 @@
 require('sugar');
 var moment = require('moment');
 require('sweetalert2');
+var object = require('lodash/object');
 
 require('jquery');
 require('tooltipster');
 import requests from './Requests'
 import arrays from './Arrays'
 import store from './Store'
+import Vue from 'vue'
 
 export default {
 
@@ -21,6 +23,13 @@ export default {
     findById: arrays.findById,
     findIndexById: arrays.findIndexById,
     deleteById: arrays.deleteById,
+
+    deleteFromArray: function (itemToDelete, array) {
+        var updatedArray = helpers.deleteById(array, itemToDelete.id);
+        // object.set(array, '', updatedArray);
+        // return object;
+        return updatedArray;
+    },
 
     /**
      *

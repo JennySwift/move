@@ -14,6 +14,7 @@ class CreateExerciseWorkoutPivotTable extends Migration
     public function up()
     {
         Schema::create('exercise_workout', function (Blueprint $table) {
+            $table->increments('id')->index();
             $table->integer('exercise_id')->unsigned()->index();
             $table->integer('workout_id')->unsigned()->index();
             $table->integer('unit_id')->unsigned()->index();

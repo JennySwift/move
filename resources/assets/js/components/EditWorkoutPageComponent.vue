@@ -40,6 +40,16 @@
             </table>
         </div>
 
+        <autocomplete
+            input-id="add-exercise-to-workout-input"
+            prop="name"
+            :unfiltered-options="shared.exercises"
+            input-placeholder="Add an exercise..."
+        >
+        </autocomplete>
+
+
+
         <buttons
             :save="updateWorkout"
         >
@@ -115,7 +125,6 @@
                 };
 
                 Vue.set(this.clonedExercises, this.clonedExercises.length, newSet);
-                console.log(this.clonedExercises);
             },
             formatExerciseDataForSyncing: function () {
                 var data = [];
@@ -131,7 +140,6 @@
                     );
                 });
 
-console.log(data);
                 return data;
             },
 
@@ -171,6 +179,35 @@ console.log(data);
                     }.bind(this)
                 });
             },
+
+            optionChosen: function (option, inputId) {
+                if (inputId === 'add-exercise-to-workout-input') {
+                    option.exercise_id = option.id;
+                    option.level = 1;
+                    option.quantity = '';
+                    var unit = prompt("Enter 'reps' or 'time'");
+                    if (unit === 'reps') {
+                        option.unit = {
+                            data: {
+                                id: 1,
+                                name: 'REPS'
+                            }
+                        }
+                    }
+                    else {
+                        option.unit = {
+                            data: {
+                                id: 2,
+                                name: 'TIME'
+                            }
+                        }
+                    }
+                    this.addSet(option);
+                }
+            },
+        },
+        created: function () {
+            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
         },
         mounted: function () {
             this.getWorkout();

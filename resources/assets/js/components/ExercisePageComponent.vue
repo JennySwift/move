@@ -1,9 +1,8 @@
 <template>
     <div id="exercise-page">
         <input
-            class="center"
+            class="center invisible-input"
             v-model="shared.exercise.name"
-            id="exercise-name-input"
             v-on:enter="updateExercise"
         >
         </input>
@@ -112,11 +111,6 @@
 <style lang="scss" type="text/scss">
     @import '../../sass/shared/index';
     #exercise-page {
-        #exercise-name-input {
-            width: 100%;
-            border: none;
-            box-shadow: none;
-        }
         #exercise-description {
             width: 100%;
         }

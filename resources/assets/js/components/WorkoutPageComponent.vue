@@ -1,6 +1,7 @@
 <template>
     <div id="workout-page">
         <router-link to="/workouts" tag="i" class="far fa-times-circle fa-2x"></router-link>
+        <router-link :to="'/workouts/' + shared.workout.id + '/edit'" tag="button" id="edit-workout-btn" class="new-btn btn btn-default">Edit Workout</router-link>
         <!--{{sortedExercises}}-->
         {{shared.workout.name}}
 

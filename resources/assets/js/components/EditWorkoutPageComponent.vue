@@ -48,6 +48,14 @@
         >
         </autocomplete>
 
+        <!--<autocomplete-->
+            <!--input-id="choose-unit-for-exercise-input"-->
+            <!--prop="name"-->
+            <!--:unfiltered-options="shared.exerciseUnits"-->
+            <!--input-placeholder="Choose a unit..."-->
+        <!--&gt;-->
+        <!--</autocomplete>-->
+
 
 
         <buttons
@@ -106,6 +114,13 @@
             }
         },
         methods: {
+            getUnitOptions: function () {
+                var options = {};
+                _.forEach(this.shared.exerciseUnits, function (value, index) {
+                    options[value.id] = value.name;
+                });
+                return options;
+            },
             setClonedExercises: function () {
                 this.clonedExercises = helpers.clone(this.shared.workout.exercises.data);
 
@@ -181,29 +196,50 @@
             },
 
             optionChosen: function (option, inputId) {
+                var that = this;
                 if (inputId === 'add-exercise-to-workout-input') {
                     option.exercise_id = option.id;
                     option.level = 1;
                     option.quantity = '';
-                    var unit = prompt("Enter 'reps' or 'time'");
-                    if (unit === 'reps') {
+//                    option.unit = {
+//                        data: this.shared.exerciseUnits[0]
+//                    };
+                    swal({
+                        title: "Choose a Unit",
+                        input: 'radio',
+                        inputOptions: this.getUnitOptions(),
+//                        text: options.confirmText,
+//                        showCancelButton: true,
+//                        confirmButtonText: 'Yes',
+//                        cancelButtonText: 'Cancel',
+//                        confirmButtonClass: 'btn btn-danger',
+//                        cancelButtonClass: 'btn btn-default',
+//                        buttonsStyling: false,
+//                        reverseButtons: true,
+                        showCloseButton: true
+                    }).then(function (result) {
+                        result = parseInt(result);
                         option.unit = {
-                            data: {
-                                id: 1,
-                                name: 'REPS'
-                            }
-                        }
-                    }
-                    else {
-                        option.unit = {
-                            data: {
-                                id: 2,
-                                name: 'TIME'
-                            }
-                        }
-                    }
-                    this.addSet(option);
+                            data: helpers.findById(that.shared.exerciseUnits, result)
+                        };
+                        that.addSet(option);
+                    });
+
+//                    var unit = prompt("Enter 1 for reps or 2 for time");
+//                    if (unit === '1') {
+//                        option.unit = {
+//                            data: this.shared.exerciseUnits[0]
+//                        }
+//                    }
+//                    else {
+//                        option.unit = {
+//                            data: this.shared.exerciseUnits[1]
+//                        }
+//                    }
                 }
+//                else if (inputId === 'choose-unit-for-exercise-input') {
+//
+//                }
             },
         },
         created: function () {

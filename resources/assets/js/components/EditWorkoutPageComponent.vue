@@ -21,8 +21,11 @@
                 </thead>
                 <tbody>
                 <tr v-for="row in exercise">
-                    <td>{{row.level}}</td>
-                    <td>{{row.quantity}}
+                    <td>
+                        <input v-model="row.level" type="text"/>
+                    </td>
+                    <td>
+                        <input v-model="row.quantity" type="text"/>
                         <i
                             class="fas fa-trash-alt"
                             v-on:click="removeSet(row)"
@@ -179,9 +182,12 @@ console.log(data);
 </script>
 
 <style lang="scss" type="text/scss">
-    #workout-page {
+    #edit-workout-page {
         th {
             text-align:center;
+        }
+        input {
+            width: 85%;
         }
     }
 </style>

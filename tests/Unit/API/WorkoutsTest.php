@@ -65,6 +65,56 @@ class WorkoutsTest extends TestCase
     /**
      * @test
      */
+    public function it_can_update_the_exercises_for_a_workout()
+    {
+        $this->logInUser();
+
+        $workout = Workout::forCurrentUser()->first();
+
+        $response = $this->call('PUT', $this->url . $workout->id . '?include=exercises', [
+            'name' => 'numbat',
+            'exercises' => [
+                1 => [
+                    'level' => 52,
+                    'quantity' => 60,
+                    'unit_id' => 1
+                ],
+                6 => [
+                    'level' => 15,
+                    'quantity' => 140,
+                    'unit_id' => 2
+                ]
+            ]
+        ]);
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkWorkoutKeysExist($content);
+        $this->assertArrayHasKey('exercises', $content);
+        $exercises = $content['exercises']['data'];
+        $this->checkExerciseWorkoutKeysExist($exercises[0]);
+
+        //Check the exercises are as expected
+        $this->assertEquals(1, $exercises[0]['id']);
+        $this->assertEquals(52, $exercises[0]['level']);
+        $this->assertEquals(60, $exercises[0]['quantity']);
+        $this->assertEquals(1, $exercises[0]['unit']['data']['id']);
+
+        $this->assertEquals(6, $exercises[1]['id']);
+        $this->assertEquals(15, $exercises[1]['level']);
+        $this->assertEquals(140, $exercises[1]['quantity']);
+        $this->assertEquals(2, $exercises[1]['unit']['data']['id']);
+
+        $this->assertCount(2, $exercises);
+
+        $this->assertEquals('numbat', $content['name']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
     public function it_can_delete_a_workout()
     {
         $this->logInUser();

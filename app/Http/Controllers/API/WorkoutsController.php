@@ -77,6 +77,20 @@ class WorkoutsController extends Controller
         $data = $this->getData($workout, $request->only($this->fields));
         $workout->update($data);
 
+        if ($request->get('include') === 'exercises') {
+            if ($request->has('exercises')) {
+                //I need to detach before syncing, otherwise if there is more than one set of an exercise
+                //in the workout, it syncs all sets, which is not the behaviour I want.
+                $workout->exercises()->detach();
+                $workout->exercises()->sync($request->get('exercises'));
+            }
+
+//            dd($workout->exercises);
+
+            $workout = $this->transform($this->createItem($workout, new WorkoutTransformer), ['exercises'])['data'];
+            return response($workout, Response::HTTP_OK);
+        }
+
         return $this->respond($workout, new WorkoutTransformer, 200);
     }
 

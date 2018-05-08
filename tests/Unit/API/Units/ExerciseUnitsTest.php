@@ -23,12 +23,12 @@ class ExerciseUnitsTest extends TestCase {
         $this->logInUser();
 
         $response = $this->apiCall('GET', $this->url);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //dd($content);
         $this->checkUnitKeysExist($content[0]);
 
-        $this->assertEquals(2, $content[0]['id']);
-        $this->assertEquals('minutes', $content[0]['name']);
+        $this->assertEquals(1, $content[0]['id']);
+        $this->assertEquals('REPS', $content[0]['name']);
 
         $this->assertEquals(200, $response->getStatusCode());
     }

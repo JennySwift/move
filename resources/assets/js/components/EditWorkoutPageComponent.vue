@@ -1,69 +1,75 @@
 <template>
     <div id="edit-workout-page">
-        <router-link :to="'/workouts/' + shared.workout.id" tag="i" class="far fa-times-circle fa-2x"></router-link>
-
-        <input
-            class="center invisible-input"
-            v-model="shared.workout.name"
-        >
-        </input>
-
-        <!--{{clonedExercises}}-->
-
-        <div v-for="exercise in clonedAndSortedExercises">
-            {{exercise[0].name}}
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>LEVEL</th>
-                    <th>{{exercise[0].unit.data.name}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="row in exercise">
-                    <td>
-                        <input v-model="row.level" type="text"/>
-                    </td>
-                    <td>
-                        <input v-model="row.quantity" type="text"/>
-                        <i
-                            class="fas fa-trash-alt"
-                            v-on:click="removeSet(row)"
-                        >
-                        </i>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" v-on:click="addSet(exercise[0])">Add Set</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="top-bar">
+            <input
+                class="center invisible-input"
+                v-model="shared.workout.name"
+            >
+            </input>
+            <router-link :to="'/workouts/' + shared.workout.id" tag="i" class="close far fa-times-circle fa-2x"></router-link>
         </div>
 
-        <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
+       <div class="container">
 
-        <!--<autocomplete-->
-            <!--input-id="add-exercise-to-workout-input"-->
-            <!--prop="name"-->
-            <!--:unfiltered-options="shared.exercises"-->
-            <!--input-placeholder="Add an exercise..."-->
-        <!--&gt;-->
-        <!--</autocomplete>-->
+           <div v-for="exercise in clonedAndSortedExercises">
+               {{exercise[0].name}}
+               <table class="table table-striped table-bordered">
+                   <thead>
+                   <tr>
+                       <th>LEVEL</th>
+                       <th>{{exercise[0].unit.data.name}}</th>
+                       <th></th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <tr v-for="row in exercise">
+                       <td>
+                           <input v-model="row.level" class="invisible-input" type="text"/>
+                       </td>
+                       <td>
+                           <input v-model="row.quantity" class="invisible-input" type="text"/>
+                       </td>
+                       <td>
+                           <i
+                               class="fas fa-trash-alt"
+                               v-on:click="removeSet(row)"
+                           >
+                           </i>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
+                   </tr>
+                   </tbody>
+               </table>
+           </div>
 
-        <!--<autocomplete-->
-            <!--input-id="choose-unit-for-exercise-input"-->
-            <!--prop="name"-->
-            <!--:unfiltered-options="shared.exerciseUnits"-->
-            <!--input-placeholder="Choose a unit..."-->
-        <!--&gt;-->
-        <!--</autocomplete>-->
+           <!--<autocomplete-->
+           <!--input-id="add-exercise-to-workout-input"-->
+           <!--prop="name"-->
+           <!--:unfiltered-options="shared.exercises"-->
+           <!--input-placeholder="Add an exercise..."-->
+           <!--&gt;-->
+           <!--</autocomplete>-->
 
+           <!--<autocomplete-->
+           <!--input-id="choose-unit-for-exercise-input"-->
+           <!--prop="name"-->
+           <!--:unfiltered-options="shared.exerciseUnits"-->
+           <!--input-placeholder="Choose a unit..."-->
+           <!--&gt;-->
+           <!--</autocomplete>-->
 
+           <div class="btn-container">
+               <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
 
-        <buttons
-            :save="updateWorkout"
-        >
-        </buttons>
+               <buttons
+                   :save="updateWorkout"
+               >
+               </buttons>
+           </div>
+
+       </div>
 
     </div>
 </template>
@@ -226,6 +232,7 @@
                         inputOptions: this.getUnitOptions(),
                     },
                 ]).then(function (result) {
+                    if (result.value) {
                         var exercise = helpers.findById(that.shared.exercises, result.value[0]);
                         var row = {
                             exercise_id: exercise.id,
@@ -238,6 +245,7 @@
                         };
 
                         that.addSet(row);
+                    }
                     })
             },
 
@@ -279,8 +287,20 @@
         th {
             text-align:center;
         }
-        input {
-            width: 85%;
+        td {
+            padding: 0 8px;
+            input {
+                width: 85%;
+                text-align: center;
+            }
+        }
+        .add-set-td {
+            padding: 4px;
+        }
+        .btn-container {
+            :first-child {
+                margin-bottom: 4px;
+            }
         }
     }
 </style>

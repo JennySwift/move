@@ -10,6 +10,21 @@
 	text-align: center;
 }
 
+.top-bar {
+	//border-bottom: 1px solid $base1;
+	padding: 8px 0;
+	position: relative;
+	//@include gradient;
+	.close {
+		position: absolute;
+		top: 10px;
+		right: 15px;
+	}
+	input {
+		text-align: center;
+	}
+}
+
 .list-group {
 	margin-top: 15px;
 	.list-group-item {

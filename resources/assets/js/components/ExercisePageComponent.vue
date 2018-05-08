@@ -1,39 +1,43 @@
 <template>
     <div id="exercise-page">
-        <input
-            class="center invisible-input"
-            v-model="shared.exercise.name"
-            v-on:enter="updateExercise"
-        >
-        </input>
 
-        <label for="exercise-description">Description</label>
-        <div      id="exercise-description"
-                  contenteditable="true"
-                  v-model="shared.exercise.description"
-                  v-on:enter="updateExercise"
-        >
-            {{shared.exercise.description}}
-        </div>
-
-        <div class="input-group-container">
-            <input-group
-                label="Priority:"
-                :model.sync="shared.exercise.priority"
-                :enter="updateExercise"
-                id="exercise-priority"
+        <div class="container">
+            <input
+                class="center invisible-input"
+                v-model="shared.exercise.name"
+                v-on:enter="updateExercise"
             >
-            </input-group>
+            </input>
+
+            <label for="exercise-description">Description</label>
+            <div      id="exercise-description"
+                      contenteditable="true"
+                      v-model="shared.exercise.description"
+                      v-on:enter="updateExercise"
+            >
+                {{shared.exercise.description}}
+            </div>
+
+            <div class="input-group-container">
+                <input-group
+                    label="Priority:"
+                    :model.sync="shared.exercise.priority"
+                    :enter="updateExercise"
+                    id="exercise-priority"
+                >
+                </input-group>
 
 
+            </div>
+
+            <buttons
+                :save="updateExercise"
+                :destroy="deleteExercise"
+                :redirect-to="redirectTo"
+            >
+            </buttons>
         </div>
 
-        <buttons
-            :save="updateExercise"
-            :destroy="deleteExercise"
-            :redirect-to="redirectTo"
-        >
-        </buttons>
     </div>
 </template>
 

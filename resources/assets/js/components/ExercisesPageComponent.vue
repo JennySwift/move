@@ -3,7 +3,7 @@
     <div id="exercises-page">
         <filters></filters>
 
-        <div v-show="!shared.showFilters">
+        <div v-show="!shared.showFilters" class="container">
 
             <router-link to="/add-exercise" tag="button" id="add-exercise-btn" class="new-btn btn btn-default">Add Exercise</router-link>
 
@@ -204,6 +204,9 @@
             margin-bottom: 5px;
             display: flex;
             justify-content: flex-end;
+        }
+        #add-exercise-btn {
+            margin-top: 17px;
         }
     }
 </style>

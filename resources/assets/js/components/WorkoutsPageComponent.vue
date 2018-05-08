@@ -1,19 +1,24 @@
 <template>
     <div id="workouts-page">
-        <router-link to="/add-workout" tag="button" id="add-workout-btn" class="new-btn btn btn-default">Add Workout</router-link>
 
-        <ul class="list-group">
-            <router-link
-                v-for="workout in shared.workouts"
-                :to="'/workouts/' + workout.id"
-                tag="li"
-                class="list-group-item pointer"
-                v-on:click="setWorkout(workout)"
-                v-bind:key="workout.id"
-            >
-                {{workout.name}}
-            </router-link>
-        </ul>
+        <div class="container">
+
+            <ul class="list-group">
+                <router-link
+                    v-for="workout in shared.workouts"
+                    :to="'/workouts/' + workout.id"
+                    tag="li"
+                    class="list-group-item pointer"
+                    v-on:click="setWorkout(workout)"
+                    v-bind:key="workout.id"
+                >
+                    {{workout.name}}
+                </router-link>
+            </ul>
+
+            <router-link to="/add-workout" tag="button" id="add-workout-btn" class="new-btn btn btn-default">Add Workout</router-link>
+        </div>
+
 
     </div>
 </template>

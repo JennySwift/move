@@ -74,12 +74,20 @@ class WorkoutsTest extends TestCase
         $response = $this->call('PUT', $this->url . $workout->id . '?include=exercises', [
             'name' => 'numbat',
             'exercises' => [
-                1 => [
+                [
+                    'id' => 1,
                     'level' => 52,
                     'quantity' => 60,
                     'unit_id' => 1
                 ],
-                6 => [
+                [
+                    'id' => 6,
+                    'level' => 15,
+                    'quantity' => 140,
+                    'unit_id' => 2
+                ],
+                [
+                    'id' => 6,
                     'level' => 15,
                     'quantity' => 140,
                     'unit_id' => 2
@@ -105,7 +113,12 @@ class WorkoutsTest extends TestCase
         $this->assertEquals(140, $exercises[1]['quantity']);
         $this->assertEquals(2, $exercises[1]['unit']['data']['id']);
 
-        $this->assertCount(2, $exercises);
+        $this->assertEquals(6, $exercises[2]['id']);
+        $this->assertEquals(15, $exercises[2]['level']);
+        $this->assertEquals(140, $exercises[2]['quantity']);
+        $this->assertEquals(2, $exercises[2]['unit']['data']['id']);
+
+        $this->assertCount(3, $exercises);
 
         $this->assertEquals('numbat', $content['name']);
 

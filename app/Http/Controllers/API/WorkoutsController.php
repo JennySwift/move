@@ -83,7 +83,15 @@ class WorkoutsController extends Controller
                 //I need to detach before syncing, otherwise if there is more than one set of an exercise
                 //in the workout, it syncs all sets, which is not the behaviour I want.
                 $workout->exercises()->detach();
-                $workout->exercises()->sync($request->get('exercises'));
+
+                foreach ($request->get('exercises') as $exercise) {
+                    $workout->exercises()->attach($exercise['id'], [
+                        'level' => $exercise['level'],
+                        'quantity' => $exercise['quantity'],
+                        'unit_id' => $exercise['unit_id'],
+                    ]);
+                }
+
             }
 
 //            dd($workout->exercises);

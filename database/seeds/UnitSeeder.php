@@ -15,12 +15,12 @@ class UnitSeeder extends Seeder {
 
         foreach($users as $user) {
             Unit::create([
-                'name' => 'reps',
+                'name' => 'REPS',
                 'user_id' => $user->id
             ]);
 
             Unit::create([
-                'name' => 'minutes',
+                'name' => 'TIME',
                 'user_id' => $user->id
             ]);
         }

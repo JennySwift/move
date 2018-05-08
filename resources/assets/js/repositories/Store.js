@@ -11,7 +11,20 @@ export default {
         exercises: [],
         workouts: [],
         workout: {
-            name: ''
+            name: '',
+            exercises: {
+                data: [
+                    {
+                        id: '',
+                        level: '',
+                        quantity: 0,
+                        unit: {
+                            data: {}
+                        }
+                    }
+
+                ]
+            }
         },
         exercisesLoaded: false,
         showFilters: false,

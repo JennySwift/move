@@ -1,7 +1,27 @@
 <template>
     <div id="workout-page">
         <router-link to="/workouts" tag="i" class="far fa-times-circle fa-2x"></router-link>
+        <!--{{sortedExercises}}-->
         {{shared.workout.name}}
+
+        <div v-for="exercise in sortedExercises">
+            {{exercise[0].name}}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>LEVEL</th>
+                    <th>{{exercise[0].unit.data.name}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="row in exercise">
+                    <td>{{row.level}}</td>
+                    <td>{{row.quantity}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </template>
 
@@ -13,6 +33,13 @@
                 baseUrl: 'api/workouts'
             }
         },
+        computed: {
+            sortedExercises: function () {
+              var sorted = _.groupBy(this.shared.workout.exercises.data, 'name');
+              console.log(sorted);
+              return sorted;
+            }
+        },
         methods: {
             /**
              *
@@ -21,19 +48,24 @@
                 var id = this.$route.params.id;
 
                 helpers.get({
-                    url: this.baseUrl + '/' + id,
+                    url: this.baseUrl + '/' + id + '?include=exercises',
                     storeProperty: 'workout'
                 });
             },
         },
         mounted: function () {
-            if (!this.shared.workout.id) {
-                this.getWorkout();
-            }
+            this.getWorkout();
+//            if (!this.shared.workout.exercises) {
+//                this.getWorkout();
+//            }
         }
     }
 </script>
 
 <style lang="scss" type="text/scss">
-
+    #workout-page {
+        th {
+            text-align:center;
+        }
+    }
 </style>

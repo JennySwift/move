@@ -40,13 +40,15 @@
             </table>
         </div>
 
-        <autocomplete
-            input-id="add-exercise-to-workout-input"
-            prop="name"
-            :unfiltered-options="shared.exercises"
-            input-placeholder="Add an exercise..."
-        >
-        </autocomplete>
+        <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
+
+        <!--<autocomplete-->
+            <!--input-id="add-exercise-to-workout-input"-->
+            <!--prop="name"-->
+            <!--:unfiltered-options="shared.exercises"-->
+            <!--input-placeholder="Add an exercise..."-->
+        <!--&gt;-->
+        <!--</autocomplete>-->
 
         <!--<autocomplete-->
             <!--input-id="choose-unit-for-exercise-input"-->
@@ -68,6 +70,7 @@
 
 <script>
     import Vue from 'vue'
+    import swal from 'sweetalert2'
     var object = require('lodash/object');
     export default {
         data: function () {
@@ -117,6 +120,13 @@
             getUnitOptions: function () {
                 var options = {};
                 _.forEach(this.shared.exerciseUnits, function (value, index) {
+                    options[value.id] = value.name;
+                });
+                return options;
+            },
+            getExerciseOptions: function () {
+                var options = {};
+                _.forEach(this.shared.exercises, function (value, index) {
                     options[value.id] = value.name;
                 });
                 return options;
@@ -195,61 +205,71 @@
                 });
             },
 
-            optionChosen: function (option, inputId) {
+            addExerciseToWorkout: function () {
                 var that = this;
-                if (inputId === 'add-exercise-to-workout-input') {
-                    option.exercise_id = option.id;
-                    option.level = 1;
-                    option.quantity = '';
-//                    option.unit = {
-//                        data: this.shared.exerciseUnits[0]
-//                    };
-                    swal({
+                swal.mixin({
+                    showCloseButton: true,
+                    animation: false,
+//                    customClass: 'animated zoomIn',
+                    progressSteps: ['1', '2'],
+//                    grow: 'fullscreen'
+                }).queue([
+                    {
+                        title: "Choose an Exercise",
+                        input: 'select',
+                        inputOptions: this.getExerciseOptions(),
+
+                    },
+                    {
                         title: "Choose a Unit",
                         input: 'radio',
                         inputOptions: this.getUnitOptions(),
-//                        text: options.confirmText,
-//                        showCancelButton: true,
-//                        confirmButtonText: 'Yes',
-//                        cancelButtonText: 'Cancel',
-//                        confirmButtonClass: 'btn btn-danger',
-//                        cancelButtonClass: 'btn btn-default',
-//                        buttonsStyling: false,
-//                        reverseButtons: true,
-                        showCloseButton: true
-                    }).then(function (result) {
-                        result = parseInt(result);
-                        option.unit = {
-                            data: helpers.findById(that.shared.exerciseUnits, result)
+                    },
+                ]).then(function (result) {
+                        var exercise = helpers.findById(that.shared.exercises, result.value[0]);
+                        var row = {
+                            exercise_id: exercise.id,
+                            name: exercise.name,
+                            level: 1,
+                            quantity: '',
+                            unit: {
+                                data: helpers.findById(that.shared.exerciseUnits, result.value[1])
+                            }
                         };
-                        that.addSet(option);
-                    });
 
-//                    var unit = prompt("Enter 1 for reps or 2 for time");
-//                    if (unit === '1') {
-//                        option.unit = {
-//                            data: this.shared.exerciseUnits[0]
-//                        }
-//                    }
-//                    else {
-//                        option.unit = {
-//                            data: this.shared.exerciseUnits[1]
-//                        }
-//                    }
-                }
-//                else if (inputId === 'choose-unit-for-exercise-input') {
-//
-//                }
+                        that.addSet(row);
+                    })
             },
+
+//            optionChosen: function (option, inputId) {
+//                var that = this;
+//                if (inputId === 'add-exercise-to-workout-input') {
+//                    option.exercise_id = option.id;
+//                    option.level = 1;
+//                    option.quantity = '';
+////                    option.unit = {
+////                        data: this.shared.exerciseUnits[0]
+////                    };
+//                    swal({
+//                        title: "Choose a Unit",
+//                        input: 'radio',
+//                        inputOptions: this.getUnitOptions(),
+//                        showCloseButton: true
+//                    }).then(function (result) {
+//                        result = parseInt(result);
+//                        option.unit = {
+//                            data: helpers.findById(that.shared.exerciseUnits, result)
+//                        };
+//                        that.addSet(option);
+//                    });
+//                }
+//            },
         },
         created: function () {
-            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
+//            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
         },
         mounted: function () {
             this.getWorkout();
-//            if (!this.shared.workout.exercises) {
-//                this.getWorkout();
-//            }
         }
     }
 </script>

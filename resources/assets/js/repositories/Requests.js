@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
-const swal = require('sweetalert2');
+import swal from 'sweetalert2'
 // var store = require('./Store');
 import store from './Store'
 import helpers from './Helpers'
@@ -140,7 +140,8 @@ export default {
                 cancelButtonClass: 'btn btn-default',
                 buttonsStyling: false,
                 reverseButtons: true,
-                showCloseButton: true
+                showCloseButton: true,
+                animation: false
             }).then(function() {
                 that.requests.proceedWithDelete(options);
             });

@@ -24,7 +24,7 @@
     "moment": "^2.13.0",
     "mousetrap": "^1.6.0",
     "sugar": "^1.4.1",
-    "sweetalert2": "^4.1.9",
+    "sweetalert2": "^7.19.3",
     "tooltipster": "^4.1.4",
     "vue-resource": "^0.9.3",
     "vue-router": "^3.0.1"

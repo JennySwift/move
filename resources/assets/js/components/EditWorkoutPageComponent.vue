@@ -8,7 +8,9 @@
         >
         </input>
 
-        <div v-for="exercise in sortedExercises">
+        <!--{{clonedExercises}}-->
+
+        <div v-for="exercise in clonedAndSortedExercises">
             {{exercise[0].name}}
             <table class="table table-striped">
                 <thead>
@@ -21,6 +23,9 @@
                 <tr v-for="row in exercise">
                     <td>{{row.level}}</td>
                     <td>{{row.quantity}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" v-on:click="addSet(exercise[0])">Add Set</td>
                 </tr>
                 </tbody>
             </table>
@@ -35,30 +40,100 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     export default {
         data: function () {
             return {
                 shared: store.state,
                 baseUrl: 'api/workouts',
+                clonedExercises: [
+                    {
+                        id: '',
+                        level: '',
+                        quantity: 0,
+                        unit: {
+                            data: {}
+                        }
+                    }
+
+                ],
             }
         },
         computed: {
-            sortedExercises: function () {
-              var sorted = _.groupBy(this.shared.workout.exercises.data, 'name');
-              console.log(sorted);
-              return sorted;
-            },
             redirectTo: function () {
                 return '/workouts/' + this.shared.workout.id;
+            },
+            /**
+             * Format is like this:
+             "L-Sit": [
+                 {
+                     "id": 1,
+                     "name": "L-Sit",
+                     "level": 52,
+                     "quantity": 60,
+                     "unit": {
+                         "data": { "id": 1, "name": "REPS" }
+                     }
+                 }
+             ]
+             */
+            clonedAndSortedExercises: function () {
+                var sorted = _.groupBy(this.clonedExercises, 'name');
+                console.log(sorted);
+               return sorted;
             }
         },
         methods: {
+            setClonedExercises: function () {
+                this.clonedExercises = helpers.clone(this.shared.workout.exercises.data);
+
+            },
+            addSet: function (row) {
+                var newSet = {
+                    id: row.id,
+                    level: row.level,
+                    name: row.name,
+                    quantity: row.quantity,
+                    unit: row.unit
+                };
+
+                Vue.set(this.clonedExercises, this.clonedExercises.length, newSet);
+                console.log(this.clonedExercises);
+            },
+            formatExerciseDataForSyncing: function () {
+                var data = {
+//                    1: {
+//                        level: 52,
+//                        quantity: 60,
+//                        unit_id: 1
+//                    },
+//                    6: {
+//                        level: 15,
+//                        quantity: 140,
+//                        unit_id: 2
+//                    }
+                };
+
+                _.forEach(this.clonedExercises, function (value, index) {
+                    data[value.id] = {
+                        level: value.level,
+                        quantity: value.quantity,
+                        unit_id: value.unit.data.id
+                    }
+                });
+
+console.log(data);
+                return data;
+            },
+
             /**
             *
             */
             updateWorkout: function () {
                 var data = {
-                    name: this.shared.workout.name
+                    name: this.shared.workout.name,
+                    exercises: this.formatExerciseDataForSyncing()
+
                 };
 
                 helpers.put({
@@ -81,7 +156,10 @@
 
                 helpers.get({
                     url: this.baseUrl + '/' + id + '?include=exercises',
-                    storeProperty: 'workout'
+                    storeProperty: 'workout',
+                    callback: function (response) {
+                        this.setClonedExercises();
+                    }.bind(this)
                 });
             },
         },

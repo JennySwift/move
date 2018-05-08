@@ -71,6 +71,7 @@ class WorkoutsController extends Controller
     * @param Request $request
     * @param Workout $workout
     * @return Response
+     * @Todo: check unit ids are foreign keys belonging to user before syncing?
     */
     public function update(Request $request, Workout $workout)
     {

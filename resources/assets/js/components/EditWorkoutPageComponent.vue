@@ -101,25 +101,17 @@
                 console.log(this.clonedExercises);
             },
             formatExerciseDataForSyncing: function () {
-                var data = {
-//                    1: {
-//                        level: 52,
-//                        quantity: 60,
-//                        unit_id: 1
-//                    },
-//                    6: {
-//                        level: 15,
-//                        quantity: 140,
-//                        unit_id: 2
-//                    }
-                };
+                var data = [];
 
                 _.forEach(this.clonedExercises, function (value, index) {
-                    data[value.id] = {
-                        level: value.level,
-                        quantity: value.quantity,
-                        unit_id: value.unit.data.id
-                    }
+                    data.push(
+                        {
+                            id: value.id,
+                            level: value.level,
+                            quantity: value.quantity,
+                            unit_id: value.unit.data.id
+                        }
+                    );
                 });
 
 console.log(data);

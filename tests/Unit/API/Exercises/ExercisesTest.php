@@ -47,7 +47,7 @@ class ExercisesTest extends TestCase {
 
 
         foreach ($content as $exercise) {
-            $this->assertContains('p', $exercise['name']);
+            $this->assertContains('p', strtolower($exercise['name']));
         }
 
         $this->assertEquals(200, $response->getStatusCode());

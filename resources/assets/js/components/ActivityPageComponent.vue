@@ -79,6 +79,9 @@
             justify-content: space-between;
             font-family: $font3;
         }
+        .new-btn {
+            margin-top: 15px;
+        }
     }
 </style>
 

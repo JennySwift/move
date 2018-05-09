@@ -17,7 +17,8 @@ class SessionTransformer extends TransformerAbstract
     /**
      * @var array
      */
-    protected $availableIncludes = [''];
+    protected $availableIncludes = ['exercises'];
+
 
     /**
      * ExerciseTransformer constructor.
@@ -26,6 +27,16 @@ class SessionTransformer extends TransformerAbstract
     public function __construct($params = [])
     {
         $this->params = $params;
+    }
+
+    /**
+     *
+     * @param Session $session
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeExercises(Session $session)
+    {
+        return $this->collection($session->exercises, new ExerciseSessionTransformer);
     }
 
     /**

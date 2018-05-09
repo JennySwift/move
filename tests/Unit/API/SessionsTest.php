@@ -74,6 +74,28 @@ class SessionsTest extends TestCase
     /**
      * @test
      */
+    public function it_can_show_a_session_with_its_exercises()
+    {
+        $this->logInUser();
+
+        $session = Session::forCurrentUser()->first();
+
+        $response = $this->call('GET', $this->url . $session->id . '?include=exercises');
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkSessionKeysExist($content);
+
+        $this->assertArrayHasKey('exercises', $content);
+        $this->checkExerciseSessionKeysExist($content['exercises']['data'][0]);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+
+    /**
+     * @test
+     */
     public function it_can_delete_a_session()
     {
         $this->logInUser();
@@ -100,6 +122,20 @@ class SessionsTest extends TestCase
         $this->assertArrayHasKey('prev_page_url', $pagination);
         $this->assertArrayHasKey('from', $pagination);
         $this->assertArrayHasKey('to', $pagination);
+    }
+
+    /**
+     *
+     * @param $exercise
+     */
+    private function checkExerciseSessionKeysExist($exercise)
+    {
+        $this->assertArrayHasKey('id', $exercise);
+        $this->assertArrayHasKey('exercise_id', $exercise);
+        $this->assertArrayHasKey('name', $exercise);
+        $this->assertArrayHasKey('level', $exercise);
+        $this->assertArrayHasKey('quantity', $exercise);
+        $this->checkUnitKeysExist($exercise['unit']['data']);
     }
 
 }

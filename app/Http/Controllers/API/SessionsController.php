@@ -36,6 +36,26 @@ class SessionsController extends Controller
         );
     }
 
+    /**
+     *
+     * @param Request $request
+     * @param Session $session
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function show(Request $request, Session $session)
+    {
+        if ($request->get('include') === 'exercises') {
+            $session = $this->transform($this->createItem($session, new SessionTransformer), ['exercises'])['data'];
+        }
+        else {
+            $session = $this->transform($this->createItem($session, new SessionTransformer))['data'];
+        }
+
+
+        return response($session, Response::HTTP_OK);
+    }
+
+
 
     /**
      *

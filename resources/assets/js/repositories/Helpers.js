@@ -38,6 +38,19 @@ export default {
 
     /**
      *
+     * @param item
+     * @param array
+     * @returns {*}
+     */
+    updateItemInArray: function (item, array) {
+        var index = helpers.findIndexById(array, item.id);
+        array[index] = item;
+        //array should now be updated
+        return array;
+    },
+
+    /**
+     *
      * @param data
      * @param status
      * @param response

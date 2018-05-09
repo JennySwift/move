@@ -30,16 +30,21 @@
                         <td>
                             <input v-model="row.quantity" class="invisible-input" type="text"/>
                         </td>
-                        <td>
+
+                        <!--Complete td-->
+                        <td v-on:click="row.complete = !row.complete" v-if="!showTrashIcons">
                             <i
-                                v-if="showTrashIcons"
-                                class="fas fa-trash-alt"
-                                v-on:click="removeSet(row)"
+                                v-if="row.complete"
+                                class="fas fa-check"
                             >
                             </i>
+                        </td>
+
+                        <!--Trash td-->
+                        <td v-if="showTrashIcons">
                             <i
-                                v-if="!showTrashIcons && row.complete"
-                                class="fas fa-check"
+                                class="fas fa-trash-alt"
+                                v-on:click="removeSet(row)"
                             >
                             </i>
                         </td>
@@ -96,6 +101,7 @@
                         exercise_id: '',
                         level: '',
                         quantity: 0,
+                        complete: 0,
                         unit: {
                             data: {}
                         }
@@ -115,6 +121,7 @@
                  "name": "L-Sit",
                  "level": 52,
                  "quantity": 60,
+                 "complete": 0,
                  "unit": {
                      "data": { "id": 1, "name": "REPS" }
                  }
@@ -123,7 +130,7 @@
              */
             clonedAndSortedExercises: function () {
                 var sorted = _.groupBy(this.clonedExercises, 'name');
-                console.log(sorted);
+
                 return sorted;
             }
         },
@@ -147,16 +154,20 @@
 
             },
             removeSet: function (row) {
-                console.log(row);
                 this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
-                console.log(this.clonedExercises);
             },
+//            toggleCompletion: function (row) {
+//                if (!row.complete)
+//                row.complete = 1;
+//                this.clonedExercises = helpers.updateItemInArray(row, this.clonedExercises);
+//            },
             addSet: function (row) {
                 var newSet = {
                     exercise_id: row.exercise_id,
                     level: row.level,
                     name: row.name,
                     quantity: row.quantity,
+                    complete: 0,
                     unit: row.unit
                 };
 
@@ -171,6 +182,7 @@
                             exercise_id: value.exercise_id,
                             level: value.level,
                             quantity: value.quantity,
+                            complete: value.complete,
                             unit_id: value.unit.data.id
                         }
                     );
@@ -243,6 +255,7 @@
                             name: exercise.name,
                             level: 1,
                             quantity: '',
+                            complete: 0,
                             unit: {
                                 data: helpers.findById(that.shared.exerciseUnits, result.value[1])
                             }

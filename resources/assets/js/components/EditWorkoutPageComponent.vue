@@ -11,7 +11,7 @@
 
        <div class="container">
 
-           <div v-for="exercise in clonedAndSortedExercises">
+           <div v-if="clonedAndSortedExercises.length > 0" v-for="exercise in clonedAndSortedExercises">
                {{exercise[0].name}}
                <table class="table table-striped table-bordered">
                    <thead>

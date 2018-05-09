@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SessionStoreRequest;
 use App\Http\Transformers\SessionTransformer;
 use App\Models\Session;
+use App\Models\Workout;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -64,14 +65,36 @@ class SessionsController extends Controller
      */
     public function store(SessionStoreRequest $request)
     {
-        $session = new Session($request->only($this->fields));
-        $session->user()->associate(Auth::user());
-        $session->save();
+        if (!$request->has('workout_id')) {
+            $session = new Session($request->only($this->fields));
+            $session->user()->associate(Auth::user());
+            $session->save();
 
-        $session = $this->transform($this->createItem($session, new SessionTransformer))['data'];
+            $session = $this->transform($this->createItem($session, new SessionTransformer))['data'];
 
+            return response($session, Response::HTTP_CREATED);
+        }
+        else {
+            //Start an session from a saved workout
+            $workout = Workout::forCurrentUser()->findOrFail($request->get('workout_id'));
 
-        return response($session, Response::HTTP_CREATED);
+            $session = new Session(['name' => $workout->name]);
+            $session->user()->associate(Auth::user());
+            $session->save();
+
+            foreach ($workout->exercises as $exercise) {
+                $session->exercises()->attach($exercise->id, [
+                    'level' => $exercise->pivot->level,
+                    'quantity' => $exercise->pivot->quantity,
+                    'complete' => 0,
+                    'unit_id' => $exercise->pivot->unit_id,
+                ]);
+            }
+
+            $session = $this->transform($this->createItem($session, new SessionTransformer), ['exercises'])['data'];
+            return response($session, Response::HTTP_CREATED);
+        }
+
     }
 
     /**

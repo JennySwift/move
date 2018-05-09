@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Session;
+use App\Models\Workout;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
@@ -67,6 +68,39 @@ class SessionsTest extends TestCase
         $this->checkSessionKeysExist($content);
 
         $this->assertEquals('koala', $content['name']);
+
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_create_a_session_from_a_saved_workout()
+    {
+        $this->logInUser();
+
+        $workout = Workout::where('user_id', $this->user->id)->first();
+        $session = [
+            'workout_id' => $workout->id
+        ];
+
+        $response = $this->call('POST', $this->url, $session);
+        $content = $this->getContent($response);
+//         dd($content);
+
+        $this->checkSessionKeysExist($content);
+
+        $exercises = $content['exercises']['data'];
+        $this->checkExerciseSessionKeysExist($exercises[0]);
+
+        //Check the exercises are as expected
+        $this->assertEquals($workout->exercises[0]->pivot->exercise_id, $exercises[0]['exercise_id']);
+        $this->assertEquals($workout->exercises[0]->pivot->level, $exercises[0]['level']);
+        $this->assertEquals($workout->exercises[0]->pivot->quantity, $exercises[0]['quantity']);
+        $this->assertEquals(0, $exercises[0]['complete']);
+        $this->assertEquals($workout->exercises[0]->pivot->unit_id, $exercises[0]['unit']['data']['id']);
+
+        $this->assertCount(count($workout->exercises), $exercises);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }

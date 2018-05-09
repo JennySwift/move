@@ -22,7 +22,7 @@ class SessionStoreRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required_without:workout_id',
         ];
     }
 }

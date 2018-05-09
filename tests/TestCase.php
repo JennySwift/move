@@ -114,6 +114,17 @@ abstract class TestCase extends BaseTestCase
 
     /**
      *
+     * @param $session
+     */
+    protected function checkSessionKeysExist($session)
+    {
+        $this->assertArrayHasKey('id', $session);
+        $this->assertArrayHasKey('name', $session);
+        $this->assertArrayHasKey('created_at', $session);
+    }
+
+    /**
+     *
      * @param $response
      * @return mixed
      */

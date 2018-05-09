@@ -21,15 +21,11 @@
                     </router-link>
                 </ul>
 
-
-                </div>
             </div>
-
-
-
         </div>
+
     </div>
-    </template>
+</template>
 
 <script>
 

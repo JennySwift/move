@@ -52,7 +52,7 @@
 
                 setTimeout(function () {
                     that.feedbackMessages = _.without(that.feedbackMessages, feedback);
-                }, 1000);
+                }, 2000);
             },
 
             /**

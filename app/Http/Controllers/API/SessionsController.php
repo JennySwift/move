@@ -96,6 +96,7 @@ class SessionsController extends Controller
                     $session->exercises()->attach($exercise['exercise_id'], [
                         'level' => $exercise['level'],
                         'quantity' => $exercise['quantity'],
+                        'complete' => $exercise['complete'],
                         'unit_id' => $exercise['unit_id'],
                     ]);
                 }

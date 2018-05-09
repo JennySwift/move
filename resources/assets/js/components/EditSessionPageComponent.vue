@@ -38,7 +38,7 @@
                             >
                             </i>
                             <i
-                                v-if="!showTrashIcons"
+                                v-if="!showTrashIcons && row.complete"
                                 class="fas fa-check"
                             >
                             </i>

@@ -39,13 +39,15 @@ class SessionSeeder extends Seeder
                             'exercise_id' => $this->getExercise('Box Squat'),
                             'unit_id' => $unitIds[0],
                             'level' => 15,
-                            'quantity' => 30
+                            'quantity' => 30,
+                            'complete' => 0
                         ],
                         [
                             'exercise_id' => $this->getExercise('Box Squat'),
                             'unit_id' => $unitIds[0],
                             'level' => 15,
-                            'quantity' => 30
+                            'quantity' => 30,
+                            'complete' => 0
                         ],
                     ]
                 ],
@@ -445,11 +447,18 @@ class SessionSeeder extends Seeder
                 $temp->save();
 
                 foreach ($session['exercises'] as $exercise) {
-                    $temp->exercises()->attach($exercise['exercise_id'],
+                    if (!isset($exercise['complete'])) {
+                        $complete = 1;
+                    }
+                    else {
+                        $complete = $exercise['complete'];
+                    }
+                     $temp->exercises()->attach($exercise['exercise_id'],
                         [
                             'level' => $exercise['level'],
                             'unit_id' => $exercise['unit_id'],
-                            'quantity' => $exercise['quantity']
+                            'quantity' => $exercise['quantity'],
+                            'complete' => $complete
                         ]);
                 }
             }

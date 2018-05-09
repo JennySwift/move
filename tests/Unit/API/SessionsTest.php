@@ -101,6 +101,9 @@ class SessionsTest extends TestCase
 
         $session = Session::forCurrentUser()->first();
 
+        $this->assertEquals(1, $session->exercises[0]->pivot->complete);
+        $this->assertEquals(0, $session->exercises[1]['complete']);
+
         $response = $this->call('PUT', $this->url . $session->id . '?include=exercises', [
             'name' => 'numbat',
             'exercises' => [
@@ -108,19 +111,22 @@ class SessionsTest extends TestCase
                     'exercise_id' => 1,
                     'level' => 52,
                     'quantity' => 60,
-                    'unit_id' => 1
+                    'unit_id' => 1,
+                    'complete' => 0
                 ],
                 [
                     'exercise_id' => 6,
                     'level' => 15,
                     'quantity' => 140,
-                    'unit_id' => 2
+                    'unit_id' => 2,
+                    'complete' => 1
                 ],
                 [
                     'exercise_id' => 6,
                     'level' => 15,
                     'quantity' => 140,
-                    'unit_id' => 2
+                    'unit_id' => 2,
+                    'complete' => 1
                 ]
             ]
         ]);
@@ -136,11 +142,13 @@ class SessionsTest extends TestCase
         $this->assertEquals(1, $exercises[0]['exercise_id']);
         $this->assertEquals(52, $exercises[0]['level']);
         $this->assertEquals(60, $exercises[0]['quantity']);
+        $this->assertEquals(0, $exercises[0]['complete']);
         $this->assertEquals(1, $exercises[0]['unit']['data']['id']);
 
         $this->assertEquals(6, $exercises[1]['exercise_id']);
         $this->assertEquals(15, $exercises[1]['level']);
         $this->assertEquals(140, $exercises[1]['quantity']);
+        $this->assertEquals(1, $exercises[1]['complete']);
         $this->assertEquals(2, $exercises[1]['unit']['data']['id']);
 
         $this->assertEquals(6, $exercises[2]['exercise_id']);
@@ -198,6 +206,7 @@ class SessionsTest extends TestCase
         $this->assertArrayHasKey('name', $exercise);
         $this->assertArrayHasKey('level', $exercise);
         $this->assertArrayHasKey('quantity', $exercise);
+        $this->assertArrayHasKey('complete', $exercise);
         $this->checkUnitKeysExist($exercise['unit']['data']);
     }
 

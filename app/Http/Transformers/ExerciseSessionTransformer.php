@@ -27,6 +27,7 @@ class ExerciseSessionTransformer extends TransformerAbstract
             'name' => $exercise->name,
             'level' => $exercise->pivot->level,
             'quantity' => $exercise->pivot->quantity,
+            'complete' => $exercise->pivot->complete,
         ];
 
         return $array;

@@ -33,6 +33,6 @@ class Session extends Model
      */
     public function exercises()
     {
-        return $this->belongsToMany('App\Models\Exercise')->withPivot('level', 'quantity', 'unit_id', 'id');
+        return $this->belongsToMany('App\Models\Exercise')->withPivot('level', 'quantity', 'complete', 'unit_id', 'id');
     }
 }

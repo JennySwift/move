@@ -41,6 +41,7 @@ export default {
                         exercise_id: '',
                         level: '',
                         quantity: 0,
+                        complete: 0,
                         unit: {
                             data: {}
                         }

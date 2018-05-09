@@ -21,6 +21,7 @@ class CreateExerciseSessionPivotTable extends Migration
 
             $table->integer('level');
             $table->integer('quantity');
+            $table->boolean('complete');
 
             $table->timestamps();
 

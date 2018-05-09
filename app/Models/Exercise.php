@@ -60,7 +60,7 @@ class Exercise extends Model
      */
     public function sessions()
     {
-        return $this->belongsToMany('App\Models\Session');
+        return $this->belongsToMany('App\Models\Session')->withTimestamps();
     }
 
     /**

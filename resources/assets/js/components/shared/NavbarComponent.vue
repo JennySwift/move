@@ -9,7 +9,7 @@
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li><router-link to="/">Start Workout</router-link></li>
-                <li><router-link to="/entries">Entries</router-link></li>
+                <li><router-link to="/activity">Activity</router-link></li>
                 <li><router-link to="/exercises">Exercises</router-link></li>
                 <li><router-link to="/workouts">Workouts</router-link></li>
             </ul>

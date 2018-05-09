@@ -10,6 +10,7 @@ export default {
         me: {gravatar: ''},
         exercises: [],
         workouts: [],
+        sessions: [],
         workout: {
             name: '',
             exercises: {
@@ -137,6 +138,16 @@ export default {
             url: '/api/units',
             storeProperty: 'exerciseUnits',
             loadedProperty: 'exerciseUnitsLoaded'
+        });
+    },
+
+    /**
+     *
+     */
+    getSessions: function () {
+        helpers.get({
+            url: '/api/sessions',
+            storeProperty: 'sessions',
         });
     },
 

@@ -30,6 +30,25 @@ export default {
                 ]
             }
         },
+        session: {
+            id: '',
+            name: '',
+            created_at: '',
+            exercises: {
+                data: [
+                    {
+                        id: '',
+                        exercise_id: '',
+                        level: '',
+                        quantity: 0,
+                        unit: {
+                            data: {}
+                        }
+                    }
+
+                ]
+            }
+        },
         exercisesLoaded: false,
         showFilters: false,
         exerciseFilters: {

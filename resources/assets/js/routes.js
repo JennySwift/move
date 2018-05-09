@@ -6,7 +6,8 @@ import WorkoutsPage from './components/WorkoutsPageComponent.vue'
 import WorkoutPage from './components/WorkoutPageComponent.vue'
 import EditWorkoutPage from './components/EditWorkoutPageComponent.vue'
 // import EntriesPage from './components/ExerciseEntriesComponent.vue'
-import ActivityPage from './components/ActivityPageComponent.vue'
+import SessionsPage from './components/SessionsPageComponent.vue'
+import SessionPage from './components/SessionPageComponent.vue'
 import NewEntryPage from './components/NewExerciseEntryComponent.vue'
 import EntriesForSpecificExerciseAndDateAndUnit from './components/EntriesForSpecificExerciseAndDateAndUnitComponent.vue'
 import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
@@ -31,8 +32,8 @@ export default [
         component: NewExercisePage
     },
     {
-        path: '/activity',
-        component: ActivityPage
+        path: '/sessions',
+        component: SessionsPage
     },
     {
         path: '/entries/#/add',
@@ -62,6 +63,10 @@ export default [
     {
         path: '/workouts/:id',
         component: WorkoutPage
+    },
+    {
+        path: '/sessions/:id',
+        component: SessionPage
     },
     {
         path: '/add-workout',

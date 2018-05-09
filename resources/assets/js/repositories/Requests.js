@@ -28,6 +28,9 @@ export default {
                     else if (options.pagination) {
                         store.set(response.data, options.storeProperty);
                     }
+                    else {
+                        store.set(response.data, options.storeProperty);
+                    }
                     // else {
                     //     //Allow for pagination
                     //     var data = response.data.data ? response.data.data : response.data;

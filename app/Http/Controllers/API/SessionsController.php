@@ -75,6 +75,43 @@ class SessionsController extends Controller
     }
 
     /**
+     * UPDATE /api/sessions/{sessions}
+     * @param Request $request
+     * @param Session $session
+     * @return Response
+     * @Todo: check unit ids are foreign keys belonging to user before syncing?
+     */
+    public function update(Request $request, Session $session)
+    {
+        $data = $this->getData($session, $request->only($this->fields));
+        $session->update($data);
+
+        if ($request->get('include') === 'exercises') {
+            if ($request->has('exercises')) {
+                //I need to detach before syncing, otherwise if there is more than one set of an exercise
+                //in the session, it syncs all sets, which is not the behaviour I want.
+                $session->exercises()->detach();
+
+                foreach ($request->get('exercises') as $exercise) {
+                    $session->exercises()->attach($exercise['exercise_id'], [
+                        'level' => $exercise['level'],
+                        'quantity' => $exercise['quantity'],
+                        'unit_id' => $exercise['unit_id'],
+                    ]);
+                }
+
+            }
+
+//            dd($session->exercises);
+
+            $session = $this->transform($this->createItem($session, new SessionTransformer), ['exercises'])['data'];
+            return response($session, Response::HTTP_OK);
+        }
+
+        return $this->respond($session, new SessionTransformer, 200);
+    }
+
+    /**
      *
      * @param Request $request
      * @param Session $session

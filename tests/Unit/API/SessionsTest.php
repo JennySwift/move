@@ -92,6 +92,69 @@ class SessionsTest extends TestCase
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
 
+    /**
+     * @test
+     */
+    public function it_can_update_the_exercises_for_a_session()
+    {
+        $this->logInUser();
+
+        $session = Session::forCurrentUser()->first();
+
+        $response = $this->call('PUT', $this->url . $session->id . '?include=exercises', [
+            'name' => 'numbat',
+            'exercises' => [
+                [
+                    'exercise_id' => 1,
+                    'level' => 52,
+                    'quantity' => 60,
+                    'unit_id' => 1
+                ],
+                [
+                    'exercise_id' => 6,
+                    'level' => 15,
+                    'quantity' => 140,
+                    'unit_id' => 2
+                ],
+                [
+                    'exercise_id' => 6,
+                    'level' => 15,
+                    'quantity' => 140,
+                    'unit_id' => 2
+                ]
+            ]
+        ]);
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkSessionKeysExist($content);
+        $this->assertArrayHasKey('exercises', $content);
+        $exercises = $content['exercises']['data'];
+        $this->checkExerciseSessionKeysExist($exercises[0]);
+
+        //Check the exercises are as expected
+        $this->assertEquals(1, $exercises[0]['exercise_id']);
+        $this->assertEquals(52, $exercises[0]['level']);
+        $this->assertEquals(60, $exercises[0]['quantity']);
+        $this->assertEquals(1, $exercises[0]['unit']['data']['id']);
+
+        $this->assertEquals(6, $exercises[1]['exercise_id']);
+        $this->assertEquals(15, $exercises[1]['level']);
+        $this->assertEquals(140, $exercises[1]['quantity']);
+        $this->assertEquals(2, $exercises[1]['unit']['data']['id']);
+
+        $this->assertEquals(6, $exercises[2]['exercise_id']);
+        $this->assertEquals(15, $exercises[2]['level']);
+        $this->assertEquals(140, $exercises[2]['quantity']);
+        $this->assertEquals(2, $exercises[2]['unit']['data']['id']);
+
+        $this->assertCount(3, $exercises);
+
+        $this->assertEquals('numbat', $content['name']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
 
     /**
      * @test

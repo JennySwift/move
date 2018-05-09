@@ -36,6 +36,24 @@
 	}
 }
 
+.list-group-div {
+	margin-top: 15px;
+	.list-group-item-div-container {
+		margin: 15px 0;
+		.list-group-item-div {
+			background: $base1;
+			color: white;
+			padding: 10px 15px;
+			border: 1px solid $lightGrey;
+		}
+		&:nth-child(2n) {
+			.list-group-item-div {
+				background: $base2;
+			}
+		}
+	}
+}
+
 .new-btn {
 	width: 100%;
 }

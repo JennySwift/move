@@ -24,7 +24,7 @@ class SessionsTest extends TestCase
         $this->logInUser();
         $response = $this->call('GET', $this->url);
         $content = $this->getContent($response);
-//      dd($content);
+      dd($content);
 
         $this->checkSessionKeysExist($content[0]);
 
@@ -44,7 +44,7 @@ class SessionsTest extends TestCase
 
         $response = $this->call('POST', $this->url, $session);
         $content = $this->getContent($response);
-        // dd($content);
+//         dd($content);
 
         $this->checkSessionKeysExist($content);
 

@@ -3,20 +3,27 @@
         <div class="container">
 
             <router-link to="/" tag="button" class="new-btn btn btn-default">Start Workout</router-link>
-
+<!--{{sortedSessions}}-->
             <div>
-                <ul class="list-group">
-                    <router-link
-                        v-for="session in shared.sessions"
-                        :to="'/sessions/' + session.id"
-                        tag="li"
-                        class="list-group-item pointer"
-                        v-on:click="setSession(session)"
-                        v-bind:key="session.id"
-                    >
-                        {{session.name}}
-                    </router-link>
-                </ul>
+                <div class="list-group-div">
+                    <div class="list-group-item-div-container" v-for="session in shared.sessions">
+                        <div class="dates-container">
+                            <span>{{session.created_at | formatDate}}</span>
+                            <span>{{session.created_at | getDaysAgo}}</span>
+                        </div>
+                        <router-link
+
+                            :to="'/sessions/' + session.id"
+                            tag="div"
+                            class="pointer list-group-item-div"
+                            v-on:click="setSession(session)"
+                            v-bind:key="session.id"
+                        >
+                            {{session.name}}
+                        </router-link>
+                    </div>
+
+                </div>
 
             </div>
         </div>
@@ -32,6 +39,20 @@
                 baseUrl: 'api/sessions'
             };
         },
+        filters: {
+            formatDate: function (date) {
+                return helpers.formatDateForUser(date);
+            },
+            getDaysAgo: function (date) {
+                return helpers.getDaysAgo(date);
+            }
+        },
+//        computed: {
+//            sortedSessions: function () {
+//                console.log(_.groupBy(this.shared.sessions, 'created_at'));
+//              return _.groupBy(this.shared.sessions, 'created_at');
+//            }
+//        },
         methods: {
 
             /**
@@ -49,26 +70,14 @@
 
 <style lang="scss" type="text/scss">
     @import '../../sass/shared/index';
-    #exercises-page {
-        td {
-            text-align: left;
+    #activity-page {
+        .list-group-item {
+            margin: 15px 0;
         }
-        @media (max-width: 320px) {
-            .big-screens {
-                display: none;
-            }
-        }
-        table {
-            width: auto;
-            margin: auto;
-        }
-        .btn-container {
-            margin-bottom: 5px;
+        .dates-container {
             display: flex;
-            justify-content: flex-end;
-        }
-        #add-exercise-btn {
-            margin-top: 17px;
+            justify-content: space-between;
+            font-family: $font3;
         }
     }
 </style>

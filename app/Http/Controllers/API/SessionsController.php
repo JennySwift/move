@@ -24,7 +24,7 @@ class SessionsController extends Controller
      */
     public function index(Request $request)
     {
-        $sessions = Session::forCurrentUser()->get();
+        $sessions = Session::forCurrentUser()->orderBy('created_at', 'desc')->get();
 
         $sessions = $this->transform($this->createCollection($sessions, new SessionTransformer))['data'];
 

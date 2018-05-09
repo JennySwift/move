@@ -9,6 +9,7 @@ import requests from './Requests'
 import arrays from './Arrays'
 import store from './Store'
 import Vue from 'vue'
+import dates from './DatesRepository'
 
 export default {
 
@@ -23,6 +24,10 @@ export default {
     findById: arrays.findById,
     findIndexById: arrays.findIndexById,
     deleteById: arrays.deleteById,
+
+    //Date methods
+    formatDateForUser: dates.formatForUser,
+    getDaysAgo: dates.getDaysAgo,
 
     deleteFromArray: function (itemToDelete, array) {
         var updatedArray = helpers.deleteById(array, itemToDelete.id);

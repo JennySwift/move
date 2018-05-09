@@ -38,7 +38,7 @@ class SessionTransformer extends TransformerAbstract
         $array = [
             'id' => $session->id,
             'name' => $session->name,
-            'created_at' => $session->created_at,
+            'created_at' => $session->created_at->format('Y-m-d'),
         ];
 
         return $array;

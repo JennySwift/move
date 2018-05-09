@@ -14,7 +14,7 @@ class CreateExercisesTable extends Migration {
 	{
 		Schema::create('exercises', function(Blueprint $table)
 		{
-			$table->increments('id')->index();
+			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
 			$table->string('name')->index();
 			$table->string('description')->nullable();

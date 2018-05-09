@@ -14,7 +14,7 @@ class CreateUnitsTable extends Migration {
 	{
 		Schema::create('units', function(Blueprint $table)
 		{
-			$table->increments('id')->index();
+			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
 			$table->string('name')->index();
 			$table->timestamps();

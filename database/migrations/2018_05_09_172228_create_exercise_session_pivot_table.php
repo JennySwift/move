@@ -14,7 +14,7 @@ class CreateExerciseSessionPivotTable extends Migration
     public function up()
     {
         Schema::create('exercise_session', function (Blueprint $table) {
-            $table->increments('id')->index();
+            $table->increments('id');
             $table->integer('session_id')->unsigned()->index();
             $table->integer('exercise_id')->unsigned()->index();
             $table->integer('unit_id')->unsigned()->index();

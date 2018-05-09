@@ -56,6 +56,10 @@ export default {
         var that = this;
         axios.post(options.url, options.data)
             .then(function (response) {
+                if (options.property) {
+                    store.set(response.data, options.property);
+                }
+
                 if (options.callback) {
                     options.callback(response.data);
                 }

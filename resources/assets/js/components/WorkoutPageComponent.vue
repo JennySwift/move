@@ -42,9 +42,11 @@
         },
         computed: {
             sortedExercises: function () {
-              var sorted = _.groupBy(this.shared.workout.exercises.data, 'name');
-              console.log(sorted);
-              return sorted;
+                if (this.shared.workout.exercises) {
+                    var sorted = _.groupBy(this.shared.workout.exercises.data, 'name');
+                    console.log(sorted);
+                    return sorted;
+                }
             }
         },
         methods: {

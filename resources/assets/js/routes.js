@@ -63,7 +63,7 @@ export default [
         component: WorkoutPage
     },
     {
-        path: 'add-workout',
+        path: '/add-workout',
         component: NewWorkoutPage
     },
     {

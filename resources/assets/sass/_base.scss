@@ -8,6 +8,11 @@ html, body {
 	height: 100%;
 }
 
+//Try to fix rendering problem when scrolling on iOS
+*:not(html) {
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
 $footerHeight: 25px;
 
 $paddingTop: 36px;

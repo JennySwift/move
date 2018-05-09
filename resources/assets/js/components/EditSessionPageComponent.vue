@@ -244,7 +244,7 @@
                     },
                     {
                         title: "Choose a Unit",
-                        input: 'radio',
+                        input: 'select',
                         inputOptions: this.getUnitOptions(),
                     },
                 ]).then(function (result) {
@@ -277,7 +277,7 @@
 ////                    };
 //                    swal({
 //                        title: "Choose a Unit",
-//                        input: 'radio',
+//                        input: 'select',
 //                        inputOptions: this.getUnitOptions(),
 //                        showCloseButton: true
 //                    }).then(function (result) {

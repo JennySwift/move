@@ -228,7 +228,7 @@
                     },
                     {
                         title: "Choose a Unit",
-                        input: 'radio',
+                        input: 'select',
                         inputOptions: this.getUnitOptions(),
                     },
                 ]).then(function (result) {

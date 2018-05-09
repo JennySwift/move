@@ -21,7 +21,12 @@
         template: "#feedback-template",
         data: function () {
             return {
-                feedbackMessages: []
+                feedbackMessages: [
+//                    {
+//                        messages: ['Something was created!'],
+//                        type: 'success'
+//                    }
+                ]
             };
         },
         methods: {
@@ -47,7 +52,7 @@
 
                 setTimeout(function () {
                     that.feedbackMessages = _.without(that.feedbackMessages, feedback);
-                }, 4000);
+                }, 1000);
             },
 
             /**
@@ -121,26 +126,23 @@
     @import '../../../sass/shared/index';
     #feedback {
         position: fixed;
-        right: 11px;
-        top: 44px;
         z-index: $zIndex4;
+        text-align: center;
+        width: 100%;
+        top: 0;
         .feedback-message {
             min-height: 25px;
             background: white;
             color: #777;
             line-height:40px;
-            margin-bottom: 20px;
-            padding: 10px 10px;
-            border-radius: 4px;
             position: relative;
-            border: 1px solid #777;
-            box-shadow: 3px 3px 5px #777, inset 0 0 5px #777;
+            padding: 7px 0;
             &.error {
-                background: #d9534f;
+                background: $danger;
                 color: white;
             }
             &.success {
-                background: #5cb85c;
+                @include gradient;
                 color: white;
             }
             ul {

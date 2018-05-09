@@ -7,7 +7,7 @@
             >
             </input>
             <i v-on:click="showTrashIcons = !showTrashIcons" class="edit fas fa-pencil-alt fa-2x"></i>
-            <router-link :to="'/sessions/' + shared.session.id" tag="i" class="close far fa-times-circle fa-2x"></router-link>
+            <router-link to="/sessions/" tag="i" class="close far fa-times-circle fa-2x"></router-link>
         </div>
 
         <div class="container">

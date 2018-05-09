@@ -12,7 +12,7 @@
                     </div>
                     <router-link
 
-                        :to="'/sessions/' + session.id"
+                        :to="'/sessions/' + session.id + '/edit'"
                         tag="div"
                         class="pointer list-group-item-div"
                         v-on:click="setSession(session)"
@@ -104,7 +104,7 @@
                             message: 'Enjoy your workout :)',
                             clearFields: that.clearFields,
                             callback: function (response) {
-                                helpers.goToRoute('/sessions/' + response.id);
+                                helpers.goToRoute('/sessions/' + response.id + '/edit');
                             }.bind(that)
                         });
                     }

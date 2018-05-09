@@ -106,9 +106,6 @@
             }
         },
         computed: {
-            redirectTo: function () {
-                return '/sessions/' + this.shared.session.id;
-            },
             /**
              * Format is like this:
              "L-Sit": [
@@ -197,7 +194,6 @@
                     data: data,
                     property: 'sessions',
                     message: 'Session updated',
-                    redirectTo: this.redirectTo,
                     callback: function (response) {
 
                     }.bind(this)

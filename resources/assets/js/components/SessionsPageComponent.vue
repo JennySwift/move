@@ -2,7 +2,7 @@
     <div id="activity-page">
         <div class="container">
 
-            <router-link to="/" tag="button" class="new-btn btn btn-default">Start Workout</router-link>
+            <button v-on:click="createSessionFromSavedWorkout()" class="btn new-btn btn-default">Start Workout</button>
 
             <div class="list-group-div">
                 <div class="list-group-item-div-container" v-for="session in shared.sessions.data">
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-
+    import swal from 'sweetalert2'
     export default {
         data: function () {
             return {
@@ -71,6 +71,46 @@
             setSession: function (session) {
                 store.set(session, 'session');
             },
+
+            getWorkoutOptions: function () {
+                var options = {};
+                _.forEach(this.shared.workouts, function (value, index) {
+                    options[value.id] = value.name;
+                });
+                return options;
+            },
+
+            /**
+            *
+            */
+            createSessionFromSavedWorkout: function () {
+                var that = this;
+                swal({
+                    showCloseButton: true,
+                    animation: false,
+                    title: "Choose a Workout",
+                    input: 'select',
+                    inputOptions: this.getWorkoutOptions(),
+                }).then(function (result) {
+                    if (result.value) {
+                        var data = {
+                            workout_id: result.value
+                        };
+
+                        helpers.post({
+                            url: that.baseUrl,
+                            data: data,
+//                            array: 'sessions',
+                            message: 'Enjoy your workout :)',
+                            clearFields: that.clearFields,
+                            callback: function (response) {
+                                helpers.goToRoute('/sessions/' + response.id);
+                            }.bind(that)
+                        });
+                    }
+                })
+
+            }
         },
         mounted: function () {
             store.getSessions();

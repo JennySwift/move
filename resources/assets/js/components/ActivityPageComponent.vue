@@ -24,8 +24,10 @@
 
             </div>
 
-            <button v-bind:disabled="!shared.sessions.pagination.prev_page_url" class="btn btn-default" v-on:click="prevPage()">Prev</button>
-            <button v-bind:disabled="!shared.sessions.pagination.next_page_url" class="btn btn-default" v-on:click="nextPage()">Next</button>
+            <div class="pagination-btns">
+                <button v-bind:disabled="!shared.sessions.pagination.prev_page_url" class="btn btn-default" v-on:click="prevPage()">Newer</button>
+                <button v-bind:disabled="!shared.sessions.pagination.next_page_url" class="btn btn-default" v-on:click="nextPage()">Older</button>
+            </div>
         </div>
     </div>
 </template>
@@ -89,6 +91,19 @@
         }
         .new-btn {
             margin-top: 15px;
+        }
+        .pagination-btns {
+            display: flex;
+            > * {
+                flex-grow: 1;
+                margin: 0 4px;
+                &:first-child {
+                    margin-left: 0;
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
     }
 </style>

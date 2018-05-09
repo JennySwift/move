@@ -6,6 +6,7 @@
                 v-model="shared.session.name"
             >
             </input>
+            <i v-on:click="showTrashIcons = !showTrashIcons" class="edit fas fa-pencil-alt fa-2x"></i>
             <router-link :to="'/sessions/' + shared.session.id" tag="i" class="close far fa-times-circle fa-2x"></router-link>
         </div>
 
@@ -31,8 +32,14 @@
                         </td>
                         <td>
                             <i
+                                v-if="showTrashIcons"
                                 class="fas fa-trash-alt"
                                 v-on:click="removeSet(row)"
+                            >
+                            </i>
+                            <i
+                                v-if="!showTrashIcons"
+                                class="fas fa-check"
                             >
                             </i>
                         </td>
@@ -95,6 +102,7 @@
                     }
 
                 ],
+                showTrashIcons: false
             }
         },
         computed: {
@@ -300,6 +308,11 @@
         .btn-container {
             :first-child {
                 margin-bottom: 4px;
+            }
+        }
+        th, td {
+            &:last-child {
+                width: 32px;
             }
         }
     }

@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(WorkoutSeeder::class);
 
+        $this->call(SessionSeeder::class);
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }

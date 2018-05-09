@@ -24,9 +24,27 @@ class SessionsTest extends TestCase
         $this->logInUser();
         $response = $this->call('GET', $this->url);
         $content = $this->getContent($response);
-      dd($content);
+//      dd($content);
 
-        $this->checkSessionKeysExist($content[0]);
+        $this->checkSessionKeysExist($content['data'][0]);
+        $this->checkPaginationKeysExist($content['pagination']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function it_gets_the_sessions_on_page_2()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', $this->url . '?page=2');
+        $content = $this->getContent($response);
+//      dd($content);
+
+        $this->checkSessionKeysExist($content['data'][0]);
+        $this->checkPaginationKeysExist($content['pagination']);
+        $this->assertEquals(2, $content['pagination']['current_page']);
 
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -68,6 +86,20 @@ class SessionsTest extends TestCase
 
         $response = $this->call('DELETE', $url);
         $this->assertEquals(404, $response->getStatusCode());
+    }
+
+    /**
+     *
+     * @param $pagination
+     */
+    private function checkPaginationKeysExist($pagination)
+    {
+        $this->assertArrayHasKey('per_page', $pagination);
+        $this->assertArrayHasKey('current_page', $pagination);
+        $this->assertArrayHasKey('next_page_url', $pagination);
+        $this->assertArrayHasKey('prev_page_url', $pagination);
+        $this->assertArrayHasKey('from', $pagination);
+        $this->assertArrayHasKey('to', $pagination);
     }
 
 }

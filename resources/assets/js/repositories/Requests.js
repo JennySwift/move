@@ -25,11 +25,14 @@ export default {
                         //Update the array the item is in
                         store.update(response.data, options.storeProperty);
                     }
-                    else {
-                        //Allow for pagination
-                        var data = response.data.data ? response.data.data : response.data;
-                        store.set(data, options.storeProperty);
+                    else if (options.pagination) {
+                        store.set(response.data, options.storeProperty);
                     }
+                    // else {
+                    //     //Allow for pagination
+                    //     var data = response.data.data ? response.data.data : response.data;
+                    //     store.set(data, options.storeProperty);
+                    // }
                 }
 
                 if (options.callback) {

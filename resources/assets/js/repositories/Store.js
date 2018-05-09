@@ -10,7 +10,10 @@ export default {
         me: {gravatar: ''},
         exercises: [],
         workouts: [],
-        sessions: [],
+        sessions: {
+            data: [],
+            pagination: {}
+        },
         workout: {
             name: '',
             exercises: {
@@ -142,12 +145,16 @@ export default {
     },
 
     /**
-     *
+     * url is for pagination
      */
-    getSessions: function () {
+    getSessions: function (url) {
+        if (!url) {
+            url = '/api/sessions';
+        }
         helpers.get({
-            url: '/api/sessions',
+            url: url,
             storeProperty: 'sessions',
+            pagination: true
         });
     },
 

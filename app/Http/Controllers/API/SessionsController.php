@@ -24,11 +24,16 @@ class SessionsController extends Controller
      */
     public function index(Request $request)
     {
-        $sessions = Session::forCurrentUser()->orderBy('created_at', 'desc')->get();
+        $max = $request->get('max') ? $request->get('max') : 14;
+        $sessions = Session::forCurrentUser()->orderBy('created_at', 'desc')->simplePaginate($max);
 
-        $sessions = $this->transform($this->createCollection($sessions, new SessionTransformer))['data'];
-
-        return response($sessions, Response::HTTP_OK);
+        return response(
+            [
+                'data' => $this->transform($this->createCollection($sessions, new SessionTransformer))['data'],
+                'pagination' => $this->getPaginationProperties($sessions)
+            ],
+            Response::HTTP_OK
+        );
     }
 
 

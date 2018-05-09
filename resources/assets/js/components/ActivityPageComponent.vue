@@ -3,29 +3,29 @@
         <div class="container">
 
             <router-link to="/" tag="button" class="new-btn btn btn-default">Start Workout</router-link>
-<!--{{sortedSessions}}-->
-            <div>
-                <div class="list-group-div">
-                    <div class="list-group-item-div-container" v-for="session in shared.sessions">
-                        <div class="dates-container">
-                            <span>{{session.created_at | formatDate}}</span>
-                            <span>{{session.created_at | getDaysAgo}}</span>
-                        </div>
-                        <router-link
 
-                            :to="'/sessions/' + session.id"
-                            tag="div"
-                            class="pointer list-group-item-div"
-                            v-on:click="setSession(session)"
-                            v-bind:key="session.id"
-                        >
-                            {{session.name}}
-                        </router-link>
+            <div class="list-group-div">
+                <div class="list-group-item-div-container" v-for="session in shared.sessions.data">
+                    <div class="dates-container">
+                        <span>{{session.created_at | formatDate}}</span>
+                        <span>{{session.created_at | getDaysAgo}}</span>
                     </div>
+                    <router-link
 
+                        :to="'/sessions/' + session.id"
+                        tag="div"
+                        class="pointer list-group-item-div"
+                        v-on:click="setSession(session)"
+                        v-bind:key="session.id"
+                    >
+                        {{session.name}}
+                    </router-link>
                 </div>
 
             </div>
+
+            <button v-bind:disabled="!shared.sessions.pagination.prev_page_url" class="btn btn-default" v-on:click="prevPage()">Prev</button>
+            <button v-bind:disabled="!shared.sessions.pagination.next_page_url" class="btn btn-default" v-on:click="nextPage()">Next</button>
         </div>
     </div>
 </template>
@@ -54,6 +54,14 @@
 //            }
 //        },
         methods: {
+
+            nextPage: function () {
+                store.getSessions(this.shared.sessions.pagination.next_page_url);
+            },
+
+            prevPage: function () {
+                store.getSessions(this.shared.sessions.pagination.prev_page_url);
+            },
 
             /**
              *

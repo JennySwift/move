@@ -26,4 +26,13 @@ class Session extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function exercises()
+    {
+        return $this->belongsToMany('App\Models\Exercise')->withPivot('level', 'quantity', 'unit_id', 'id');
+    }
 }

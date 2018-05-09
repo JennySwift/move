@@ -20,9 +20,14 @@ class ExerciseSeeder extends Seeder {
 		Exercise::truncate();
         $this->faker = Faker::create();
 
-		$exercises= [
+		$exercises = [
             [
                 'name' => 'L-Sit',
+                'description' => '',
+                'priority' => 2,
+            ],
+            [
+                'name' => 'Chinup',
                 'description' => '',
                 'priority' => 2,
             ],

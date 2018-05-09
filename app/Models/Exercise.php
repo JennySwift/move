@@ -55,6 +55,15 @@ class Exercise extends Model
     }
 
     /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sessions()
+    {
+        return $this->belongsToMany('App\Models\Session');
+    }
+
+    /**
      * Return the URL of the project
      * it needs to be called getFieldAttribute
      * @return string

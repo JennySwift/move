@@ -5,6 +5,8 @@
 
         <div v-show="!shared.showFilters" class="container">
 
+            <h1>Hello</h1>
+
             <router-link to="/add-exercise" tag="button" id="add-exercise-btn" class="new-btn btn btn-default">Add Exercise</router-link>
 
             <div id="exercises">

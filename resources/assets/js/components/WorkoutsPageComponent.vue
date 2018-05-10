@@ -1,40 +1,26 @@
 <template>
-    <f7-view>
-        <f7-page>
-            <f7-navbar title="Workouts" back-link="Back" back-link-url="/"></f7-navbar>
-            <div id="workouts-page">
+    <f7-page>
+        <f7-navbar back-link="Back">
+            <f7-nav-title>Workouts</f7-nav-title>
+            <f7-nav-right>
+                <f7-link href="/add-workout"><f7-icon f7="add"></f7-icon></f7-link>
+            </f7-nav-right>
+        </f7-navbar>
 
-                <div class="container">
+        <f7-list contacts-list>
+            <f7-list-group>
+                <f7-list-item
+                    v-for="workout in shared.workouts"
+                    :link="'/workouts/' + workout.id + '/edit'"
+                    v-bind:title="workout.name"
+                    v-on:click="setWorkout(workout)"
+                    v-bind:key="workout.id"
+                >
+                </f7-list-item>
+            </f7-list-group>
+        </f7-list>
 
-                    <ul class="list-group">
-                        <f7-list-item
-                            v-for="workout in shared.workouts"
-                            :link="'/workouts/' + workout.id + '/edit'"
-                            v-bind:title="workout.name"
-                            v-on:click="setWorkout(workout)"
-                            v-bind:key="workout.id"
-                        >
-                        </f7-list-item>
-                        <!--<router-link-->
-                        <!--v-for="workout in shared.workouts"-->
-                        <!--:to="'/workouts/' + workout.id + '/edit'"-->
-                        <!--tag="li"-->
-                        <!--class="list-group-item pointer"-->
-                        <!--v-on:click="setWorkout(workout)"-->
-                        <!--v-bind:key="workout.id"-->
-                        <!--&gt;-->
-                        <!--{{workout.name}}-->
-                        <!--</router-link>-->
-                    </ul>
-
-                    <f7-list-item link="/add-workout" title="Add Workout"></f7-list-item>
-                </div>
-
-
-            </div>
-        </f7-page>
-    </f7-view>
-
+    </f7-page>
 
 </template>
 

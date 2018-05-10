@@ -7,8 +7,7 @@
             </f7-nav-right>
         </f7-navbar>
 
-        <!-- Contacts list -->
-        <f7-list contacts-list id="contacts-list">
+        <f7-list contacts-list>
             <f7-list-group>
                 <f7-list-item
                     v-for="exercise in shared.exercises"

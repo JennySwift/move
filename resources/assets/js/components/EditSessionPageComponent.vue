@@ -96,16 +96,16 @@
                 shared: store.state,
                 baseUrl: 'api/sessions',
                 clonedExercises: [
-                    {
-                        id: '',
-                        exercise_id: '',
-                        level: '',
-                        quantity: 0,
-                        complete: 0,
-                        unit: {
-                            data: {}
-                        }
-                    }
+//                    {
+//                        id: '',
+//                        exercise_id: '',
+//                        level: '',
+//                        quantity: 0,
+//                        complete: 0,
+//                        unit: {
+//                            data: {}
+//                        }
+//                    }
 
                 ],
                 showTrashIcons: false

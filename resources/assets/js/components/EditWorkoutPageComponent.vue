@@ -11,7 +11,7 @@
 
        <div class="container">
 
-           <div v-if="clonedAndSortedExercises.length > 0" v-for="exercise in clonedAndSortedExercises">
+           <div v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
                {{exercise[0].name}}
                <table class="table table-striped table-bordered">
                    <thead>
@@ -84,15 +84,15 @@
                 shared: store.state,
                 baseUrl: 'api/workouts',
                 clonedExercises: [
-                    {
-                        id: '',
-                        exercise_id: '',
-                        level: '',
-                        quantity: 0,
-                        unit: {
-                            data: {}
-                        }
-                    }
+//                    {
+//                        id: '',
+//                        exercise_id: '',
+//                        level: '',
+//                        quantity: 0,
+//                        unit: {
+//                            data: {}
+//                        }
+//                    }
 
                 ],
             }
@@ -123,6 +123,9 @@
             }
         },
         methods: {
+            isEmpty: function (obj) {
+                return _.isEmpty(obj);
+            },
             getUnitOptions: function () {
                 var options = {};
                 _.forEach(this.shared.exerciseUnits, function (value, index) {

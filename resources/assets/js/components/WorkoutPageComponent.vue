@@ -8,7 +8,7 @@
 
         <div class="container">
 
-            <div v-if="sortedExercises.length > 0" v-for="exercise in sortedExercises">
+            <div v-for="exercise in sortedExercises">
                 {{exercise[0].name}}
                 <table class="table table-striped">
                     <thead>

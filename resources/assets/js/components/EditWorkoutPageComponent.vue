@@ -1,68 +1,67 @@
 <template>
-    <f7-view>
-        <f7-page>
-            <f7-navbar title="Edit Workout" back-link="Back" back-link-url="/workouts"></f7-navbar>
-            <div id="edit-workout-page">
-                <div class="top-bar">
-                    <input
-                        class="center invisible-input"
-                        v-model="shared.workout.name"
-                    />
-                </div>
+    <f7-page>
+        <f7-navbar back-link="Back">
+            <f7-nav-title>{{shared.workout.name}}</f7-nav-title>
+            <!--<f7-nav-right>-->
+                <!--<f7-link href="/add-workout"><f7-icon f7="add"></f7-icon></f7-link>-->
+            <!--</f7-nav-right>-->
+        </f7-navbar>
 
-                <div class="container">
-                    <div v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
+        <div>
 
-                        <div class="data-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="numeric-cell">LEVEL</th>
-                                        <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
-                                        <th class="numeric-cell"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="row in exercise">
-                                        <td class="numeric-cell">
-                                            <input v-model="row.level"/>
-                                        </td>
-                                        <td class="numeric-cell">
-                                            <input v-model="row.quantity"/>
-                                        </td>
-                                        <td class="numeric-cell">
-                                            <i
-                                                class="fas fa-trash-alt"
-                                                v-on:click="removeSet(row)"
-                                            >
-                                            </i>
-                                        </td>
+            <input
+                class="center invisible-input"
+                v-model="shared.workout.name"
+            />
 
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            <div v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
 
-                    </div>
+                <div class="data-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="numeric-cell">LEVEL</th>
+                            <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
+                            <th class="numeric-cell"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="row in exercise">
+                            <td class="numeric-cell">
+                                <input v-model="row.level"/>
+                            </td>
+                            <td class="numeric-cell">
+                                <input v-model="row.quantity"/>
+                            </td>
+                            <td class="numeric-cell">
+                                <i
+                                    class="fas fa-trash-alt"
+                                    v-on:click="removeSet(row)"
+                                >
+                                </i>
+                            </td>
 
-                    <div class="btn-container">
-                        <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
-
-                        <buttons
-                            :save="updateWorkout"
-                        >
-                        </buttons>
-                    </div>
-
+                        </tr>
+                        <tr>
+                            <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
-        </f7-page>
-    </f7-view>
 
+            <div class="btn-container">
+                <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
+
+                <buttons
+                    :save="updateWorkout"
+                >
+                </buttons>
+            </div>
+
+        </div>
+    </f7-page>
 
 </template>
 

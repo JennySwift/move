@@ -48,45 +48,35 @@
 
     <f7-view id="main-view" main>
 
-        <f7-page>
-            <f7-navbar>
-                <f7-nav-left>
-                    <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="left"></f7-link>
-                </f7-nav-left>
-                <f7-nav-title>My App</f7-nav-title>
-                <f7-nav-right>
-                    <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
-                </f7-nav-right>
-            </f7-navbar>
-            <f7-block strong>
-                <p>Content :)</p>
-            </f7-block>
-            <f7-block-title>Navigation</f7-block-title>
-            <f7-list>
-                <f7-list-item link="/sessions" title="Sessions"></f7-list-item>
-                <f7-list-item link="/workouts" title="Workouts"></f7-list-item>
-                <f7-list-item link="/exercises/" title="Exercises"></f7-list-item>
-            </f7-list>
-
-        </f7-page>
     </f7-view>
 
 
-    {{--<div class="view view-main">--}}
-    {{----}}
-    {{--</div>--}}
 
-    {{--<navbar></navbar>--}}
-    {{--<feedback></feedback>--}}
-    {{--<loading></loading>--}}
-
-
-    {{--<div>--}}
-    {{--<router-view></router-view>--}}
-    {{--</div>--}}
-
-   {{--<home-page></home-page>--}}
 </div>
+
+<template id="home-page">
+    <f7-page>
+        <f7-navbar>
+            <f7-nav-left>
+                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="left"></f7-link>
+            </f7-nav-left>
+            <f7-nav-title>My App</f7-nav-title>
+            <f7-nav-right>
+                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
+            </f7-nav-right>
+        </f7-navbar>
+        <f7-block strong>
+            <p>Content :)</p>
+        </f7-block>
+        <f7-block-title>Navigation</f7-block-title>
+        <f7-list>
+            <f7-list-item link="/sessions" title="Sessions"></f7-list-item>
+            <f7-list-item link="/workouts" title="Workouts"></f7-list-item>
+            <f7-list-item link="/exercises/" title="Exercises"></f7-list-item>
+        </f7-list>
+
+    </f7-page>
+</template>
 
 {{--@include('shared.footer.footer')--}}
 @include('shared.scripts')

@@ -8,7 +8,7 @@ import DateNavigation from './components/shared/DateNavigationComponent.vue'
 import Buttons from './components/shared/ButtonsComponent.vue'
 import InputGroup from './components/shared/InputGroupComponent.vue'
 import CheckboxGroup from './components/shared/CheckboxGroupComponent.vue'
-import HomePage from './components/HomePageComponent.vue'
+// import HomePage from './components/HomePageComponent.vue'
 
 //Shared components
 Vue.component('navbar', Navbar);
@@ -20,4 +20,4 @@ Vue.component('date-navigation', DateNavigation);
 Vue.component('buttons', Buttons);
 Vue.component('input-group', InputGroup);
 Vue.component('checkbox-group', CheckboxGroup);
-Vue.component('home-page', HomePage);
+// Vue.component('home-page', HomePage);

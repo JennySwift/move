@@ -10,14 +10,17 @@ import EditWorkoutPage from './components/EditWorkoutPageComponent.vue'
 import EditSessionPage from './components/EditSessionPageComponent.vue'
 import SessionsPage from './components/SessionsPageComponent.vue'
 import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
-import HomePage from './components/HomePageComponent.vue'
+// import HomePage from './components/HomePageComponent.vue'
 
+Vue.component('home-page', {
+    template: '#home-page'
+});
 
 export default [
     {
         name: 'home',
         path: '/',
-        component: HomePage,
+        component: 'home-page',
         options: {
             pushState: true
         }

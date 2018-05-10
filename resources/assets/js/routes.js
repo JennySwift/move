@@ -1,65 +1,74 @@
+
+import Vue from 'vue'
+
 import ExercisesPage from './components/ExercisesPageComponent.vue'
 import ExercisePage from './components/ExercisePageComponent.vue'
 import NewExercisePage from './components/NewExerciseComponent.vue'
 import NewWorkoutPage from './components/NewWorkoutPageComponent.vue'
 import WorkoutsPage from './components/WorkoutsPageComponent.vue'
-// import WorkoutPage from './components/WorkoutPageComponent.vue'
 import EditWorkoutPage from './components/EditWorkoutPageComponent.vue'
 import EditSessionPage from './components/EditSessionPageComponent.vue'
-// import EntriesPage from './components/ExerciseEntriesComponent.vue'
 import SessionsPage from './components/SessionsPageComponent.vue'
-// import SessionPage from './components/SessionPageComponent.vue'
-import NewEntryPage from './components/NewExerciseEntryComponent.vue'
-import EntriesForSpecificExerciseAndDateAndUnit from './components/EntriesForSpecificExerciseAndDateAndUnitComponent.vue'
 import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
-import SeriesPage from './components/SeriesComponent.vue'
-import NewSeriesPage from './components/NewSeriesComponent.vue'
+import HomePage from './components/HomePageComponent.vue'
+
 
 export default [
     {
+        name: 'home',
         path: '/',
-        component: ExercisesPage
+        component: HomePage,
+        options: {
+            pushState: true
+        }
     },
     {
+        name: 'exercises',
         path: '/exercises',
-        component: ExercisesPage
+        component: ExercisesPage,
+        options: {
+            pushState: true
+        }
     },
     {
+        name: 'exercise',
         path: '/exercises/:id',
-        component: ExercisePage
+        component: ExercisePage,
+        options: {
+            pushState: true
+        }
     },
     {
+        name: 'add exercise',
         path: '/add-exercise',
-        component: NewExercisePage
+        component: NewExercisePage,
+        options: {
+            pushState: true
+        }
     },
     {
+        name: 'sessions',
         path: '/sessions',
-        component: SessionsPage
+        component: SessionsPage,
+        options: {
+            pushState: true
+        }
     },
     {
-        path: '/entries/#/add',
-        component: NewEntryPage
-    },
-    {
-        path: '/exercises/:exerciseId/units/:unitId/:date',
-        component: EntriesForSpecificExerciseAndDateAndUnit,
-        name: 'entriesForSpecificExerciseAndDateAndUnit',
-    },
-    {
-        path:  '/series/#/add',
-        component: NewSeriesPage
-    },
-    {
-        path: '/series',
-        component: SeriesPage
-    },
-    {
+        name: 'units',
         path: '/units',
-        component: UnitsPage
+        component: UnitsPage,
+        options: {
+            pushState: true
+        }
     },
     {
+        name: 'workouts',
         path: '/workouts',
-        component: WorkoutsPage
+        component: WorkoutsPage,
+        options: {
+            pushState: true
+        }
     },
     // {
     //     path: '/workouts/:id',
@@ -70,17 +79,29 @@ export default [
     //     component: SessionPage
     // },
     {
+        name: 'add workout',
         path: '/add-workout',
-        component: NewWorkoutPage
+        component: NewWorkoutPage,
+        options: {
+            pushState: true
+        }
     },
     {
+        name: 'workout',
         path: '/workouts/:id/edit',
-        component: EditWorkoutPage
+        component: EditWorkoutPage,
+        options: {
+            pushState: true
+        }
     },
     {
+        name: 'session',
         path: '/sessions/:id/edit',
-        component: EditSessionPage
+        component: EditSessionPage,
+        options: {
+            pushState: true
+        }
     },
-
-
 ]
+
+

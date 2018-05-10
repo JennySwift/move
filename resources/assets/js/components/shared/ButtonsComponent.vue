@@ -1,13 +1,20 @@
 <template>
     <div class="buttons-container">
-        <router-link
+
+        <f7-list-item
             v-if="redirectTo"
-            :to="redirectTo"
-            tag="button"
-            class="btn btn-default"
+            :link="redirectTo"
+            title="Cancel"
         >
-            Cancel
-        </router-link>
+        </f7-list-item>
+        <!--<router-link-->
+            <!--v-if="redirectTo"-->
+            <!--:to="redirectTo"-->
+            <!--tag="button"-->
+            <!--class="btn btn-default"-->
+        <!--&gt;-->
+            <!--Cancel-->
+        <!--</router-link>-->
 
         <button
             v-if="destroy"

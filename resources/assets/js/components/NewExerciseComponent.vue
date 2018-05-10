@@ -1,41 +1,45 @@
 <template>
-    <div id="new-exercise-page">
-        <div class="container">
-            <div class="input-group-container">
-                <input-group
-                    label="Name:"
-                    :model.sync="newExercise.name"
-                    :enter="insertExercise"
-                    id="new-exercise-name"
-                >
-                </input-group>
+    <f7-page>
+        <f7-navbar title="New Exercise" back-link="Back"></f7-navbar>
+        <div id="new-exercise-page">
+            <div class="container">
+                <div class="input-group-container">
+                    <input-group
+                        label="Name:"
+                        :model.sync="newExercise.name"
+                        :enter="insertExercise"
+                        id="new-exercise-name"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="Description:"
-                    :model.sync="newExercise.description"
-                    :enter="insertExercise"
-                    id="new-exercise-description"
-                >
-                </input-group>
+                    <input-group
+                        label="Description:"
+                        :model.sync="newExercise.description"
+                        :enter="insertExercise"
+                        id="new-exercise-description"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="Priority:"
-                    :model.sync="newExercise.priority"
-                    :enter="insertExercise"
-                    id="new-exercise-priority"
+                    <input-group
+                        label="Priority:"
+                        :model.sync="newExercise.priority"
+                        :enter="insertExercise"
+                        id="new-exercise-priority"
+                    >
+                    </input-group>
+                </div>
+
+                <buttons
+                    :save="insertExercise"
+                    :redirect-to="redirectTo"
                 >
-                </input-group>
+                </buttons>
             </div>
 
-            <buttons
-                :save="insertExercise"
-                :redirect-to="redirectTo"
-            >
-            </buttons>
+
         </div>
+    </f7-page>
 
-
-    </div>
 </template>
 
 <script>

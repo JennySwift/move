@@ -1,32 +1,41 @@
-
 <template>
-    <div id="exercises-page">
-        <filters></filters>
+    <f7-page>
+        <f7-navbar title="Form" back-link="Back"></f7-navbar>
+        <h3>Exercises</h3>
 
-        <div v-show="!shared.showFilters" class="container">
+        <div id="exercises-page">
+            <div class="container">
 
-            <h1>Hello</h1>
+                <f7-list-item link="/add-exercise" title="Add Exercise"></f7-list-item>
 
-            <router-link to="/add-exercise" tag="button" id="add-exercise-btn" class="new-btn btn btn-default">Add Exercise</router-link>
+                <div id="exercises">
+                    <ul class="list-group">
+                        <f7-list-item
+                            v-for="exercise in shared.exercises"
+                            :link="'/exercises/' + exercise.id"
+                            v-bind:title="exercise.name"
+                            v-on:click="setExercise(exercise)"
+                            v-bind:key="exercise.id"
+                        >
 
-            <div id="exercises">
-                <ul class="list-group">
-                    <router-link
-                        v-for="exercise in shared.exercises"
-                        :to="'/exercises/' + exercise.id"
-                        tag="li"
-                        class="list-group-item pointer"
-                        v-on:click="setExercise(exercise)"
-                        v-bind:key="exercise.id"
-                    >
-                        {{exercise.name}}
-                    </router-link>
-                </ul>
+                        </f7-list-item>
+                        <!--<router-link-->
+                            <!--v-for="exercise in shared.exercises"-->
+                            <!--:to="'/exercises/' + exercise.id"-->
+                            <!--tag="li"-->
+                            <!--class="list-group-item pointer"-->
+                            <!--v-on:click="setExercise(exercise)"-->
+                            <!--v-bind:key="exercise.id"-->
+                        <!--&gt;-->
+                            <!--{{exercise.name}}-->
+                        <!--</router-link>-->
+                    </ul>
 
+                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
+    </f7-page>
 </template>
 
 <script>

@@ -1,89 +1,91 @@
 <template>
-    <div id="edit-session-page">
-        <div class="top-bar">
-            <input
-                class="center invisible-input"
-                v-model="shared.session.name"
-            >
-            </input>
-            <i v-on:click="showTrashIcons = !showTrashIcons" class="edit fas fa-pencil-alt fa-2x"></i>
-            <router-link to="/sessions/" tag="i" class="close far fa-times-circle fa-2x"></router-link>
-        </div>
-
-        <div class="container">
-
-            <div v-for="exercise in clonedAndSortedExercises">
-                {{exercise[0].name}}
-                <table class="table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>LEVEL</th>
-                        <th>{{exercise[0].unit.data.name}}</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="row in exercise">
-                        <td>
-                            <input v-model="row.level" class="invisible-input" type="text"/>
-                        </td>
-                        <td>
-                            <input v-model="row.quantity" class="invisible-input" type="text"/>
-                        </td>
-
-                        <!--Complete td-->
-                        <td v-on:click="row.complete = !row.complete" v-if="!showTrashIcons">
-                            <i
-                                v-if="row.complete"
-                                class="fas fa-check"
-                            >
-                            </i>
-                        </td>
-
-                        <!--Trash td-->
-                        <td v-if="showTrashIcons">
-                            <i
-                                class="fas fa-trash-alt"
-                                v-on:click="removeSet(row)"
-                            >
-                            </i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
-                    </tr>
-                    </tbody>
-                </table>
+    <f7-page>
+        <f7-navbar title="Edit Session" back-link="Back"></f7-navbar>
+        <div id="edit-session-page">
+            <div class="top-bar">
+                <input
+                    class="center invisible-input"
+                    v-model="shared.session.name"
+                />
+                <i v-on:click="showTrashIcons = !showTrashIcons" class="edit fas fa-pencil-alt fa-2x"></i>
             </div>
 
-            <!--<autocomplete-->
-            <!--input-id="add-exercise-to-session-input"-->
-            <!--prop="name"-->
-            <!--:unfiltered-options="shared.exercises"-->
-            <!--input-placeholder="Add an exercise..."-->
-            <!--&gt;-->
-            <!--</autocomplete>-->
+            <div class="container">
 
-            <!--<autocomplete-->
-            <!--input-id="choose-unit-for-exercise-input"-->
-            <!--prop="name"-->
-            <!--:unfiltered-options="shared.exerciseUnits"-->
-            <!--input-placeholder="Choose a unit..."-->
-            <!--&gt;-->
-            <!--</autocomplete>-->
+                <div v-for="exercise in clonedAndSortedExercises">
+                    {{exercise[0].name}}
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>LEVEL</th>
+                            <th>{{exercise[0].unit.data.name}}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="row in exercise">
+                            <td>
+                                <input v-model="row.level" class="invisible-input" type="text"/>
+                            </td>
+                            <td>
+                                <input v-model="row.quantity" class="invisible-input" type="text"/>
+                            </td>
 
-            <div class="btn-container">
-                <button class="btn btn-default new-btn" v-on:click="addExerciseToSession()">Add Exercise</button>
+                            <!--Complete td-->
+                            <td v-on:click="row.complete = !row.complete" v-if="!showTrashIcons">
+                                <i
+                                    v-if="row.complete"
+                                    class="fas fa-check"
+                                >
+                                </i>
+                            </td>
 
-                <buttons
-                    :save="updateSession"
-                >
-                </buttons>
+                            <!--Trash td-->
+                            <td v-if="showTrashIcons">
+                                <i
+                                    class="fas fa-trash-alt"
+                                    v-on:click="removeSet(row)"
+                                >
+                                </i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--<autocomplete-->
+                <!--input-id="add-exercise-to-session-input"-->
+                <!--prop="name"-->
+                <!--:unfiltered-options="shared.exercises"-->
+                <!--input-placeholder="Add an exercise..."-->
+                <!--&gt;-->
+                <!--</autocomplete>-->
+
+                <!--<autocomplete-->
+                <!--input-id="choose-unit-for-exercise-input"-->
+                <!--prop="name"-->
+                <!--:unfiltered-options="shared.exerciseUnits"-->
+                <!--input-placeholder="Choose a unit..."-->
+                <!--&gt;-->
+                <!--</autocomplete>-->
+
+                <div class="btn-container">
+                    <button class="btn btn-default new-btn" v-on:click="addExerciseToSession()">Add Exercise</button>
+
+                    <buttons
+                        :save="updateSession"
+                    >
+                    </buttons>
+                </div>
+
             </div>
 
         </div>
+    </f7-page>
 
-    </div>
 </template>
 
 <script>

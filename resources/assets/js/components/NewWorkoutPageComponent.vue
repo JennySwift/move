@@ -1,18 +1,22 @@
 <template>
-    <div id="new-workout-page">
+    <f7-page>
+        <f7-navbar title="New Workout" back-link="Back"></f7-navbar>
+        <div id="new-workout-page">
 
-        <div class="container">
-            <label for="new-workout-name">Enter a name for your new workout</label>
-            <input v-model="newWorkout.name" id="new-workout-name" type="text" class=""/>
+            <div class="container">
+                <label for="new-workout-name">Enter a name for your new workout</label>
+                <input v-model="newWorkout.name" id="new-workout-name" type="text" class=""/>
 
-            <buttons
-                :save="insertWorkout"
-            >
-            </buttons>
+                <buttons
+                    :save="insertWorkout"
+                >
+                </buttons>
+
+            </div>
 
         </div>
+    </f7-page>
 
-    </div>
 </template>
 
 <script>

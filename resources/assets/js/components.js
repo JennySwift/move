@@ -8,10 +8,7 @@ import DateNavigation from './components/shared/DateNavigationComponent.vue'
 import Buttons from './components/shared/ButtonsComponent.vue'
 import InputGroup from './components/shared/InputGroupComponent.vue'
 import CheckboxGroup from './components/shared/CheckboxGroupComponent.vue'
-import ExerciseEntries from './components/ExerciseEntriesComponent.vue'
-import SeriesHistoryPopup from './components/SeriesHistoryPopupComponent.vue'
-import SeriesPopup from './components/SeriesPopupComponent.vue'
-
+import HomePage from './components/HomePageComponent.vue'
 
 //Shared components
 Vue.component('navbar', Navbar);
@@ -23,8 +20,4 @@ Vue.component('date-navigation', DateNavigation);
 Vue.component('buttons', Buttons);
 Vue.component('input-group', InputGroup);
 Vue.component('checkbox-group', CheckboxGroup);
-
-//Components
-Vue.component('exercise-entries', ExerciseEntries);
-Vue.component('series-history-popup', SeriesHistoryPopup);
-Vue.component('series-popup', SeriesPopup);
+Vue.component('home-page', HomePage);

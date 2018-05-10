@@ -1,77 +1,66 @@
 <template>
-    <div id="edit-workout-page">
-        <div class="top-bar">
-            <input
-                class="center invisible-input"
-                v-model="shared.workout.name"
-            >
-            </input>
-            <router-link to="/workouts" tag="i" class="close far fa-times-circle fa-2x"></router-link>
-        </div>
+    <f7-view>
+        <f7-page>
+            <f7-navbar title="Edit Workout" back-link="Back" back-link-url="/workouts"></f7-navbar>
+            <div id="edit-workout-page">
+                <div class="top-bar">
+                    <input
+                        class="center invisible-input"
+                        v-model="shared.workout.name"
+                    />
+                </div>
 
-       <div class="container">
+                <div class="container">
 
-           <div v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
-               {{exercise[0].name}}
-               <table class="table table-striped table-bordered">
-                   <thead>
-                   <tr>
-                       <th>LEVEL</th>
-                       <th>{{exercise[0].unit.data.name}}</th>
-                       <th></th>
-                   </tr>
-                   </thead>
-                   <tbody>
-                   <tr v-for="row in exercise">
-                       <td>
-                           <input v-model="row.level" class="invisible-input" type="text"/>
-                       </td>
-                       <td>
-                           <input v-model="row.quantity" class="invisible-input" type="text"/>
-                       </td>
-                       <td>
-                           <i
-                               class="fas fa-trash-alt"
-                               v-on:click="removeSet(row)"
-                           >
-                           </i>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
-                   </tr>
-                   </tbody>
-               </table>
-           </div>
+                    <div v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
+                        {{exercise[0].name}}
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>LEVEL</th>
+                                <th>{{exercise[0].unit.data.name}}</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="row in exercise">
+                                <td>
+                                    <input v-model="row.level" class="invisible-input" type="text"/>
+                                </td>
+                                <td>
+                                    <input v-model="row.quantity" class="invisible-input" type="text"/>
+                                </td>
+                                <td>
+                                    <i
+                                        class="fas fa-trash-alt"
+                                        v-on:click="removeSet(row)"
+                                    >
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-           <!--<autocomplete-->
-           <!--input-id="add-exercise-to-workout-input"-->
-           <!--prop="name"-->
-           <!--:unfiltered-options="shared.exercises"-->
-           <!--input-placeholder="Add an exercise..."-->
-           <!--&gt;-->
-           <!--</autocomplete>-->
+                    <div class="btn-container">
+                        <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
 
-           <!--<autocomplete-->
-           <!--input-id="choose-unit-for-exercise-input"-->
-           <!--prop="name"-->
-           <!--:unfiltered-options="shared.exerciseUnits"-->
-           <!--input-placeholder="Choose a unit..."-->
-           <!--&gt;-->
-           <!--</autocomplete>-->
+                        <buttons
+                            :save="updateWorkout"
+                        >
+                        </buttons>
+                    </div>
 
-           <div class="btn-container">
-               <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
+                </div>
 
-               <buttons
-                   :save="updateWorkout"
-               >
-               </buttons>
-           </div>
+            </div>
+        </f7-page>
+    </f7-view>
 
-       </div>
 
-    </div>
 </template>
 
 <script>
@@ -200,7 +189,12 @@
              *
              */
             getWorkout: function () {
-                var id = this.$route.params.id;
+                // console.log(this.$f7);
+                // console.log(this.$route);
+                // console.log(this.$f7router);
+                // console.log(this.$f7.views.main.router);
+                console.log(this.$f7route.params.id);
+                var id = this.$f7route.params.id;
 
                 helpers.get({
                     url: this.baseUrl + '/' + id + '?include=exercises',
@@ -248,33 +242,6 @@
                     }
                     })
             },
-
-//            optionChosen: function (option, inputId) {
-//                var that = this;
-//                if (inputId === 'add-exercise-to-workout-input') {
-//                    option.exercise_id = option.id;
-//                    option.level = 1;
-//                    option.quantity = '';
-////                    option.unit = {
-////                        data: this.shared.exerciseUnits[0]
-////                    };
-//                    swal({
-//                        title: "Choose a Unit",
-//                        input: 'radio',
-//                        inputOptions: this.getUnitOptions(),
-//                        showCloseButton: true
-//                    }).then(function (result) {
-//                        result = parseInt(result);
-//                        option.unit = {
-//                            data: helpers.findById(that.shared.exerciseUnits, result)
-//                        };
-//                        that.addSet(option);
-//                    });
-//                }
-//            },
-        },
-        created: function () {
-//            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
         },
         mounted: function () {
             this.getWorkout();

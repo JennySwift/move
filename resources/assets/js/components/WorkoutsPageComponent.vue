@@ -1,26 +1,41 @@
 <template>
-    <div id="workouts-page">
+    <f7-view>
+        <f7-page>
+            <f7-navbar title="Workouts" back-link="Back" back-link-url="/"></f7-navbar>
+            <div id="workouts-page">
 
-        <div class="container">
+                <div class="container">
 
-            <ul class="list-group">
-                <router-link
-                    v-for="workout in shared.workouts"
-                    :to="'/workouts/' + workout.id + '/edit'"
-                    tag="li"
-                    class="list-group-item pointer"
-                    v-on:click="setWorkout(workout)"
-                    v-bind:key="workout.id"
-                >
-                    {{workout.name}}
-                </router-link>
-            </ul>
+                    <ul class="list-group">
+                        <f7-list-item
+                            v-for="workout in shared.workouts"
+                            :link="'/workouts/' + workout.id + '/edit'"
+                            v-bind:title="workout.name"
+                            v-on:click="setWorkout(workout)"
+                            v-bind:key="workout.id"
+                        >
+                        </f7-list-item>
+                        <!--<router-link-->
+                        <!--v-for="workout in shared.workouts"-->
+                        <!--:to="'/workouts/' + workout.id + '/edit'"-->
+                        <!--tag="li"-->
+                        <!--class="list-group-item pointer"-->
+                        <!--v-on:click="setWorkout(workout)"-->
+                        <!--v-bind:key="workout.id"-->
+                        <!--&gt;-->
+                        <!--{{workout.name}}-->
+                        <!--</router-link>-->
+                    </ul>
 
-            <router-link to="/add-workout" tag="button" id="add-workout-btn" class="new-btn btn btn-default">Add Workout</router-link>
-        </div>
+                    <f7-list-item link="/add-workout" title="Add Workout"></f7-list-item>
+                </div>
 
 
-    </div>
+            </div>
+        </f7-page>
+    </f7-view>
+
+
 </template>
 
 <script>

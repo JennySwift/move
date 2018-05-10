@@ -1,42 +1,57 @@
-
 require('./bootstrap');
 
-// window.Vue = require('vue');
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter);
+
+import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
+import Framework7Vue from 'framework7-vue/dist/framework7-vue.esm.bundle.js';
+import Framework7Styles from 'framework7/dist/css/framework7.css';
+Vue.use(Framework7Vue, Framework7)
+
 import store from './repositories/Store'
 import helpers from './repositories/Helpers'
 import filters from './repositories/FiltersRepository'
 import routes from './routes'
 
+
+// // import VueRouter from 'vue-router'
+// // Vue.use(VueRouter);
+
+
 window.Event = new Vue();
 
 require('./components');
 require('./config.js');
-// require('./transitions');
 
 global.store = store;
 global.helpers = helpers;
 global.filters = filters;
 
-const router = new VueRouter({
-    routes: routes
-})
 
 const bus = new Vue()
 Vue.prototype.$bus = bus
 
+
+
+
+// // const router = new VueRouter({
+// //     routes: routes
+// // })
+
 const app = new Vue({
     el: '#app',
-    router: router,
+    // router: router,
     mounted: function () {
         store.getExercises();
         store.getExerciseUnits();
         store.getWorkouts();
+    },
+    framework7: {
+        root: '#app',
+        id: 'move-app',
+        name: 'Move',
+        theme: 'auto',
+        routes: routes,
     }
 });
-
-
 
 

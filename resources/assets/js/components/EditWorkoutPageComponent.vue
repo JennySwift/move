@@ -118,7 +118,6 @@
              */
             clonedAndSortedExercises: function () {
                 var sorted = _.groupBy(this.clonedExercises, 'name');
-                console.log(sorted);
                return sorted;
             }
         },
@@ -145,9 +144,7 @@
 
             },
             removeSet: function (row) {
-                console.log(row);
                 this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
-                console.log(this.clonedExercises);
             },
             addSet: function (row) {
                 var newSet = {

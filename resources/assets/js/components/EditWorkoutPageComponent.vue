@@ -14,41 +14,45 @@
                 v-model="shared.workout.name"
             />
 
-            <div v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
-
-                <div class="data-table">
+            <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
+                <!-- Card Header -->
+                <div class="card-header">
+                    <!-- Table title -->
+                    <div class="data-table-title">{{exercise[0].name}}</div>
+                    <!-- Table actions -->
+                    <div class="data-table-actions">
+                        <f7-link><f7-icon f7="time"></f7-icon></f7-link>
+                        <f7-link v-on:click="addSet(exercise[0])"><f7-icon f7="add"></f7-icon></f7-link>
+                    </div>
+                </div>
+                <!-- Card Content -->
+                <div class="card-content">
                     <table>
                         <thead>
                         <tr>
                             <th class="numeric-cell">LEVEL</th>
                             <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
-                            <th class="numeric-cell"></th>
+                            <th class="actions-cell"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="row in exercise">
                             <td class="numeric-cell">
-                                <input v-model="row.level"/>
+                                8
+                                <!--<f7-input type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>-->
                             </td>
                             <td class="numeric-cell">
-                                <input v-model="row.quantity"/>
+                                7
+                                <!--<f7-input type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>-->
                             </td>
-                            <td class="numeric-cell">
-                                <i
-                                    class="fas fa-trash-alt"
-                                    v-on:click="removeSet(row)"
-                                >
-                                </i>
+                            <td class="actions-cell">
+                                <f7-icon f7="trash"  v-on:click="removeSet(row)"></f7-icon>
                             </td>
 
-                        </tr>
-                        <tr>
-                            <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
             </div>
 
             <div class="btn-container">

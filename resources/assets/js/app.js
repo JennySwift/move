@@ -4,7 +4,10 @@ import Vue from 'vue'
 
 import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
 import Framework7Vue from 'framework7-vue/dist/framework7-vue.esm.bundle.js';
-import Framework7Styles from 'framework7/dist/css/framework7.css';
+// import Framework7Styles from 'framework7/dist/css/framework7.css';
+
+
+import 'framework7-icons';
 Vue.use(Framework7Vue, Framework7)
 
 import store from './repositories/Store'
@@ -49,7 +52,7 @@ const app = new Vue({
         root: '#app',
         id: 'move-app',
         name: 'Move',
-        theme: 'auto',
+        theme: 'ios',
         routes: routes,
     }
 });

@@ -11,38 +11,41 @@
                 </div>
 
                 <div class="container">
-
                     <div v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
-                        {{exercise[0].name}}
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                            <tr>
-                                <th>LEVEL</th>
-                                <th>{{exercise[0].unit.data.name}}</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="row in exercise">
-                                <td>
-                                    <input v-model="row.level" class="invisible-input" type="text"/>
-                                </td>
-                                <td>
-                                    <input v-model="row.quantity" class="invisible-input" type="text"/>
-                                </td>
-                                <td>
-                                    <i
-                                        class="fas fa-trash-alt"
-                                        v-on:click="removeSet(row)"
-                                    >
-                                    </i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="numeric-cell">LEVEL</th>
+                                        <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
+                                        <th class="numeric-cell"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="row in exercise">
+                                        <td class="numeric-cell">
+                                            <input v-model="row.level"/>
+                                        </td>
+                                        <td class="numeric-cell">
+                                            <input v-model="row.quantity"/>
+                                        </td>
+                                        <td class="numeric-cell">
+                                            <i
+                                                class="fas fa-trash-alt"
+                                                v-on:click="removeSet(row)"
+                                            >
+                                            </i>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
 
                     <div class="btn-container">

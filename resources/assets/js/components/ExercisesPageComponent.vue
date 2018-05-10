@@ -1,40 +1,27 @@
 <template>
     <f7-page>
-        <f7-navbar title="Form" back-link="Back"></f7-navbar>
-        <h3>Exercises</h3>
+        <f7-navbar back-link="Back">
+            <f7-nav-title>Exercises</f7-nav-title>
+            <f7-nav-right>
+                <f7-link href="/add-exercise"><f7-icon f7="add"></f7-icon></f7-link>
+            </f7-nav-right>
+        </f7-navbar>
 
-        <div id="exercises-page">
-            <div class="container">
+        <!-- Contacts list -->
+        <f7-list contacts-list id="contacts-list">
+            <f7-list-group>
+                <f7-list-item
+                    v-for="exercise in shared.exercises"
+                    :link="'/exercises/' + exercise.id"
+                    v-bind:title="exercise.name"
+                    v-on:click="setExercise(exercise)"
+                    v-bind:key="exercise.id"
+                >
 
-                <f7-list-item link="/add-exercise" title="Add Exercise"></f7-list-item>
+                </f7-list-item>
+            </f7-list-group>
+        </f7-list>
 
-                <div id="exercises">
-                    <ul class="list-group">
-                        <f7-list-item
-                            v-for="exercise in shared.exercises"
-                            :link="'/exercises/' + exercise.id"
-                            v-bind:title="exercise.name"
-                            v-on:click="setExercise(exercise)"
-                            v-bind:key="exercise.id"
-                        >
-
-                        </f7-list-item>
-                        <!--<router-link-->
-                            <!--v-for="exercise in shared.exercises"-->
-                            <!--:to="'/exercises/' + exercise.id"-->
-                            <!--tag="li"-->
-                            <!--class="list-group-item pointer"-->
-                            <!--v-on:click="setExercise(exercise)"-->
-                            <!--v-bind:key="exercise.id"-->
-                        <!--&gt;-->
-                            <!--{{exercise.name}}-->
-                        <!--</router-link>-->
-                    </ul>
-
-                </div>
-            </div>
-
-        </div>
     </f7-page>
 </template>
 
@@ -81,8 +68,16 @@
         components: {
             'filters': ExerciseFiltersComponent
         },
+        // page events
+        on: {
+            pageInit(event, pageData) {
+                // do something on page init
+            },
+            pageAfterOut(event, pageData) {
+                // do something when page transitioned out of view
+            },
+        },
         methods: {
-
             /**
              *
              */

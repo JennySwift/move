@@ -46,7 +46,8 @@
         </f7-view>
     </f7-panel>
 
-    <f7-view id="main-view" class="view view-main" main>
+    <f7-view id="main-view" main>
+
         <f7-page>
             <f7-navbar>
                 <f7-nav-left>
@@ -66,6 +67,7 @@
                 <f7-list-item link="/workouts" title="Workouts"></f7-list-item>
                 <f7-list-item link="/exercises/" title="Exercises"></f7-list-item>
             </f7-list>
+
         </f7-page>
     </f7-view>
 

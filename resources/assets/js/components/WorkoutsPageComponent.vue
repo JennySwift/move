@@ -6,7 +6,7 @@
             <ul class="list-group">
                 <router-link
                     v-for="workout in shared.workouts"
-                    :to="'/workouts/' + workout.id"
+                    :to="'/workouts/' + workout.id + '/edit'"
                     tag="li"
                     class="list-group-item pointer"
                     v-on:click="setWorkout(workout)"

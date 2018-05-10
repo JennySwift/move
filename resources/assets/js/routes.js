@@ -3,7 +3,7 @@ import ExercisePage from './components/ExercisePageComponent.vue'
 import NewExercisePage from './components/NewExerciseComponent.vue'
 import NewWorkoutPage from './components/NewWorkoutPageComponent.vue'
 import WorkoutsPage from './components/WorkoutsPageComponent.vue'
-import WorkoutPage from './components/WorkoutPageComponent.vue'
+// import WorkoutPage from './components/WorkoutPageComponent.vue'
 import EditWorkoutPage from './components/EditWorkoutPageComponent.vue'
 import EditSessionPage from './components/EditSessionPageComponent.vue'
 // import EntriesPage from './components/ExerciseEntriesComponent.vue'
@@ -61,10 +61,10 @@ export default [
         path: '/workouts',
         component: WorkoutsPage
     },
-    {
-        path: '/workouts/:id',
-        component: WorkoutPage
-    },
+    // {
+    //     path: '/workouts/:id',
+    //     component: WorkoutPage
+    // },
     // {
     //     path: '/sessions/:id',
     //     component: SessionPage

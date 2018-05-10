@@ -6,7 +6,7 @@
                 v-model="shared.workout.name"
             >
             </input>
-            <router-link :to="'/workouts/' + shared.workout.id" tag="i" class="close far fa-times-circle fa-2x"></router-link>
+            <router-link to="/workouts" tag="i" class="close far fa-times-circle fa-2x"></router-link>
         </div>
 
        <div class="container">

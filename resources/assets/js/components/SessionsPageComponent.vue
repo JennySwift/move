@@ -1,46 +1,30 @@
 <template>
     <f7-page>
-        <f7-navbar title="Sessions" back-link="Back"></f7-navbar>
-        <div id="activity-page">
-            <div class="container">
+        <f7-navbar back-link="Back">
+            <f7-nav-title>Sessions</f7-nav-title>
+            <f7-nav-right>
+                <f7-link v-on:click="createSessionFromSavedWorkout()"><f7-icon f7="add"></f7-icon></f7-link>
+            </f7-nav-right>
+        </f7-navbar>
 
-                <button v-on:click="createSessionFromSavedWorkout()" class="btn new-btn btn-default">Start Workout</button>
+        <f7-list media-list>
+            <f7-list-item
+                v-for="session in shared.sessions.data"
+                v-bind:title="session.name"
+                v-bind:subtitle="session.created_at | formatDate"
+                v-bind:text="session.created_at | formatDate"
+                v-bind:after="session.created_at | getDaysAgo"
+                :link="'/sessions/' + session.id + '/edit'"
+                v-on:click="setSession(session)"
+                v-bind:key="session.id"
+            >
+            </f7-list-item>
+        </f7-list>
 
-                <div class="list-group-div">
-                    <div class="list-group-item-div-container" v-for="session in shared.sessions.data">
-                        <div class="dates-container">
-                            <span>{{session.created_at | formatDate}}</span>
-                            <span>{{session.created_at | getDaysAgo}}</span>
-                        </div>
-
-                        <f7-list-item
-                            :link="'/sessions/' + session.id + '/edit'"
-                            v-bind:title="session.name"
-                            v-on:click="setSession(session)"
-                            v-bind:key="session.id"
-                        >
-                        </f7-list-item>
-
-                        <!--<router-link-->
-
-                            <!--:to="'/sessions/' + session.id + '/edit'"-->
-                            <!--tag="div"-->
-                            <!--class="pointer list-group-item-div"-->
-                            <!--v-on:click="setSession(session)"-->
-                            <!--v-bind:key="session.id"-->
-                        <!--&gt;-->
-                            <!--{{session.name}}-->
-                        <!--</router-link>-->
-                    </div>
-
-                </div>
-
-                <div class="pagination-btns">
-                    <button v-bind:disabled="!shared.sessions.pagination.prev_page_url" class="btn btn-default" v-on:click="prevPage()">Newer</button>
-                    <button v-bind:disabled="!shared.sessions.pagination.next_page_url" class="btn btn-default" v-on:click="nextPage()">Older</button>
-                </div>
-            </div>
-        </div>
+        <f7-segmented>
+            <f7-button v-bind:disabled="!shared.sessions.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>
+            <f7-button v-bind:disabled="!shared.sessions.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>
+        </f7-segmented>
     </f7-page>
 
 </template>

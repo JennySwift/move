@@ -196,7 +196,8 @@
                 // console.log(this.$f7router);
                 // console.log(this.$f7.views.main.router);
                 console.log(this.$f7route.params.id);
-                var id = this.$f7route.params.id;
+
+                var id = helpers.getIdFromRouteParams(this);
 
                 helpers.get({
                     url: this.baseUrl + '/' + id + '?include=exercises',

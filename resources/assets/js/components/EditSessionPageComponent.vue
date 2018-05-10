@@ -218,7 +218,7 @@
              *
              */
             getSession: function () {
-                var id = this.$route.params.id;
+                var id = helpers.getIdFromRouteParams(this);
 
                 helpers.get({
                     url: this.baseUrl + '/' + id + '?include=exercises',

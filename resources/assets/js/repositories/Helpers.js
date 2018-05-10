@@ -36,6 +36,10 @@ export default {
         return updatedArray;
     },
 
+    getIdFromRouteParams: function (that) {
+        return that.$f7route.params.id;
+    },
+
     /**
      *
      * @param item

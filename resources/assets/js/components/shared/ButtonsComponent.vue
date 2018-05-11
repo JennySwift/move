@@ -50,6 +50,7 @@
 <style lang="scss" type="text/scss">
     .buttons-container {
         display: flex;
+        width: 100%;
         > * {
             flex-grow: 1;
             margin: 0 5px;

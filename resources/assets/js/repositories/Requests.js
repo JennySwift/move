@@ -119,8 +119,6 @@ export default {
                 if (options.redirectTo) {
                     helpers.goToRoute(options.redirectTo);
                 }
-                helpers.hidePopup();
-
             })
             .catch(function (error) {
                 helpers.notify(error);

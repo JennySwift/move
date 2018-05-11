@@ -46,6 +46,7 @@ export default {
     },
 
     notify: function (error) {
+        console.log(error);
         var message = error.response.data.error;
         var notification = app.f7.notification.create({
             icon: '<i class="fas fa-exclamation"></i>',

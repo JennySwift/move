@@ -2,17 +2,13 @@
     <f7-page>
         <f7-navbar back-link="Back">
             <f7-nav-title>{{shared.workout.name}}</f7-nav-title>
-            <!--<f7-nav-right>-->
-                <!--<f7-link href="/add-workout"><f7-icon f7="add"></f7-icon></f7-link>-->
-            <!--</f7-nav-right>-->
+            <f7-nav-right>
+                <f7-link v-on:click="addExerciseToWorkout()"><f7-icon f7="add"></f7-icon></f7-link>
+            </f7-nav-right>
         </f7-navbar>
 
-        <div>
-
-            <input
-                class="center invisible-input"
-                v-model="shared.workout.name"
-            />
+        <f7-page-content>
+            <f7-input type="text" :value="shared.workout.name" @input="shared.workout.name = $event.target.value" placeholder="Name"></f7-input>
 
             <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
                 <!-- Card Header -->
@@ -37,13 +33,11 @@
                         </thead>
                         <tbody>
                         <tr v-for="row in exercise">
-                            <td class="numeric-cell">
-                                8
-                                <!--<f7-input type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>-->
+                            <td class="input-cell">
+                                <f7-input type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
                             </td>
-                            <td class="numeric-cell">
-                                7
-                                <!--<f7-input type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>-->
+                            <td class="input-cell">
+                                <f7-input type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
                             </td>
                             <td class="actions-cell">
                                 <f7-icon f7="trash"  v-on:click="removeSet(row)"></f7-icon>
@@ -55,16 +49,17 @@
                 </div>
             </div>
 
-            <div class="btn-container">
-                <button class="btn btn-default new-btn" v-on:click="addExerciseToWorkout()">Add Exercise</button>
 
-                <buttons
-                    :save="updateWorkout"
-                >
-                </buttons>
-            </div>
+        </f7-page-content>
 
-        </div>
+        <f7-toolbar>
+            <buttons
+                :save="updateWorkout"
+            >
+            </buttons>
+
+        </f7-toolbar>
+
     </f7-page>
 
 </template>
@@ -239,7 +234,7 @@
                             exercise_id: exercise.id,
                             name: exercise.name,
                             level: 1,
-                            quantity: '',
+                            quantity: 50,
                             unit: {
                                 data: helpers.findById(that.shared.exerciseUnits, result.value[1])
                             }

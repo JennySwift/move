@@ -9,6 +9,7 @@
 
         <f7-page-content>
             <f7-input type="text" :value="shared.workout.name" @input="shared.workout.name = $event.target.value" placeholder="Name"></f7-input>
+            
 
             <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
                 <!-- Card Header -->
@@ -26,22 +27,22 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="numeric-cell">LEVEL</th>
-                            <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
-                            <th class="actions-cell"></th>
+                            <th class="label-cell">LEVEL</th>
+                            <th class="label-cell">{{exercise[0].unit.data.name}}</th>
+                            <!--<th class="actions-cell"></th>-->
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="row in exercise">
                             <td class="input-cell">
-                                <f7-input type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
+                                <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
                             </td>
                             <td class="input-cell">
-                                <f7-input type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
+                                <f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
                             </td>
-                            <td class="actions-cell">
-                                <f7-icon f7="trash"  v-on:click="removeSet(row)"></f7-icon>
-                            </td>
+                            <!--<td class="actions-cell">-->
+                                <!--<f7-icon f7="trash"  v-on:click="removeSet(row)"></f7-icon>-->
+                            <!--</td>-->
 
                         </tr>
                         </tbody>

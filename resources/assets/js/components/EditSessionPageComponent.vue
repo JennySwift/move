@@ -9,7 +9,7 @@
 
         <f7-page-content>
 
-            <div class="data-table data-table-init card" v-for="exercise in clonedAndSortedExercises">
+            <div class="data-table data-table-init card" v-for="(exercise, index1) in clonedAndSortedExercises">
                 <!-- Card Header -->
                 <div class="card-header">
                     <!-- Table title -->
@@ -25,26 +25,27 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="label-cell">LEVEL</th>
-                            <th class="label-cell">{{exercise[0].unit.data.name}}</th>
+                            <th class="numeric-cell">LEVEL</th>
+                            <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
                             <th class="checkbox-cell"></th>
+                            <th class="actions-cell"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in exercise">
-                            <td class="input-cell">
+                        <tr v-for="(row, index2) in exercise">
+                            <td class="numeric-cell numeric-input-cell">
                                 <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
                             </td>
-                            <td class="input-cell">
-                                <f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
+                            <td class="numeric-cell numeric-input-cell">
+                                <f7-input type="number" inputStyle="width: 30px" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
                             </td>
                             <td class="checkbox-cell">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
                             </td>
 
-                            <!--<td class="actions-cell">-->
-                            <!--<f7-icon f7="trash"  v-on:click="removeSet(row)"></f7-icon>-->
-                            <!--</td>-->
+                            <td class="actions-cell" v-on:click="removeSet(row)">
+                                <f7-icon f7="trash" size="22"></f7-icon>
+                            </td>
 
                         </tr>
                         </tbody>

@@ -1,3 +1,13 @@
+
+.numeric-input-cell {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    input {
+        text-align: right;
+    }
+}
+
 //.pointer {
 //	cursor: pointer;
 //}

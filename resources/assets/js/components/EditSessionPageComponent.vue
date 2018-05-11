@@ -1,36 +1,43 @@
 <template>
     <f7-page>
-        <f7-navbar title="Edit Session" back-link="Back"></f7-navbar>
-        <div id="edit-session-page">
-            <div class="top-bar">
-                <input
-                    class="center invisible-input"
-                    v-model="shared.session.name"
-                />
-                <i v-on:click="showTrashIcons = !showTrashIcons" class="edit fas fa-pencil-alt fa-2x"></i>
-            </div>
+        <f7-navbar back-link="Back">
+            <f7-nav-title>Edit Session</f7-nav-title>
+            <f7-nav-right>
+                <f7-link v-on:click="addExerciseToSession()"><f7-icon f7="add"></f7-icon></f7-link>
+            </f7-nav-right>
+        </f7-navbar>
 
-            <div class="container">
+        <f7-page-content>
 
-                <div v-for="exercise in clonedAndSortedExercises">
-                    {{exercise[0].name}}
-                    <table class="table table-striped table-bordered">
+            <div class="data-table data-table-init card" v-for="exercise in clonedAndSortedExercises">
+                <!-- Card Header -->
+                <div class="card-header">
+                    <!-- Table title -->
+                    <div class="data-table-title">{{exercise[0].name}}</div>
+                    <!-- Table actions -->
+                    <div class="data-table-actions">
+                        <f7-link><f7-icon f7="time"></f7-icon></f7-link>
+                        <f7-link v-on:click="addSet(exercise[0])"><f7-icon f7="add"></f7-icon></f7-link>
+                    </div>
+                </div>
+                <!-- Card Content -->
+                <div class="card-content">
+                    <table>
                         <thead>
                         <tr>
-                            <th>LEVEL</th>
-                            <th>{{exercise[0].unit.data.name}}</th>
-                            <th></th>
+                            <th class="label-cell">LEVEL</th>
+                            <th class="label-cell">{{exercise[0].unit.data.name}}</th>
+                            <th class="actions-cell"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="row in exercise">
-                            <td>
-                                <input v-model="row.level" class="invisible-input" type="text"/>
+                            <td class="input-cell">
+                                <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
                             </td>
-                            <td>
-                                <input v-model="row.quantity" class="invisible-input" type="text"/>
+                            <td class="input-cell">
+                                <f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
                             </td>
-
                             <!--Complete td-->
                             <td v-on:click="row.complete = !row.complete" v-if="!showTrashIcons">
                                 <i
@@ -39,51 +46,26 @@
                                 >
                                 </i>
                             </td>
+                            <!--<td class="actions-cell">-->
+                            <!--<f7-icon f7="trash"  v-on:click="removeSet(row)"></f7-icon>-->
+                            <!--</td>-->
 
-                            <!--Trash td-->
-                            <td v-if="showTrashIcons">
-                                <i
-                                    class="fas fa-trash-alt"
-                                    v-on:click="removeSet(row)"
-                                >
-                                </i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" v-on:click="addSet(exercise[0])" class="add-set-td">Add Set</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <!--<autocomplete-->
-                <!--input-id="add-exercise-to-session-input"-->
-                <!--prop="name"-->
-                <!--:unfiltered-options="shared.exercises"-->
-                <!--input-placeholder="Add an exercise..."-->
-                <!--&gt;-->
-                <!--</autocomplete>-->
-
-                <!--<autocomplete-->
-                <!--input-id="choose-unit-for-exercise-input"-->
-                <!--prop="name"-->
-                <!--:unfiltered-options="shared.exerciseUnits"-->
-                <!--input-placeholder="Choose a unit..."-->
-                <!--&gt;-->
-                <!--</autocomplete>-->
-
-                <div class="btn-container">
-                    <button class="btn btn-default new-btn" v-on:click="addExerciseToSession()">Add Exercise</button>
-
-                    <buttons
-                        :save="updateSession"
-                    >
-                    </buttons>
-                </div>
-
             </div>
 
-        </div>
+        </f7-page-content>
+
+        <f7-toolbar>
+            <buttons
+                :save="updateSession"
+            >
+            </buttons>
+
+        </f7-toolbar>
+
     </f7-page>
 
 </template>

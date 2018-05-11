@@ -9,7 +9,7 @@
 
         <f7-page-content>
             <f7-input type="text" :value="shared.workout.name" @input="shared.workout.name = $event.target.value" placeholder="Name"></f7-input>
-            
+
 
             <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
                 <!-- Card Header -->

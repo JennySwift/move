@@ -25,8 +25,8 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="numeric-cell">LEVEL</th>
-                            <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
+                            <th class="numeric-cell numeric-input-cell"><div>LEVEL</div></th>
+                            <th class="numeric-cell numeric-input-cell"><div>{{exercise[0].unit.data.name}}</div></th>
                             <th class="checkbox-cell"></th>
                             <th class="actions-cell"></th>
                         </tr>

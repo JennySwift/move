@@ -1,12 +1,19 @@
 
 .numeric-input-cell {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    input {
-        text-align: right;
+    .item-input-wrap {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        input {
+            text-align: right;
+        }
     }
 }
+//th.numeric-input-cell {
+//    div {
+//        text-align: center;
+//    }
+//}
 
 span.preloader {
     position: fixed;

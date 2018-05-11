@@ -7,20 +7,22 @@
             </f7-nav-right>
         </f7-navbar>
 
-        <div id="new-workout-page">
+        <f7-list no-hairlines-md contacts-list inset>
+            <f7-list-item>
+                <f7-label>Enter a name for your workout</f7-label>
+                <f7-input type="text" :value="newWorkout.name.name" @input="newWorkout.name = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
 
-            <div class="container">
-                <label for="new-workout-name">Enter a name for your new workout</label>
-                <input v-model="newWorkout.name" id="new-workout-name" type="text" class=""/>
+        </f7-list>
 
-                <buttons
-                    :save="insertWorkout"
-                >
-                </buttons>
+        <f7-block>
+            <buttons
+                :save="insertWorkout"
+            >
+            </buttons>
+        </f7-block>
 
-            </div>
 
-        </div>
     </f7-page>
 
 </template>
@@ -51,7 +53,7 @@
                     message: 'Workout created',
                     clearFields: this.clearFields,
                     callback: function (response) {
-                        helpers.goToRoute('/workouts/' + response.id);
+                        helpers.goToRoute('/workouts/' + response.id + '/edit');
                     }.bind(this)
                 });
             }

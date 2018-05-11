@@ -47,6 +47,7 @@ const app = new Vue({
         store.getExercises();
         store.getExerciseUnits();
         store.getWorkouts();
+        store.getSessions();
     },
     framework7: {
         root: '#app',

@@ -11,13 +11,17 @@ import helpers from './Helpers'
 
 
 export default {
+
     /**
      * storeProperty is the store property to set once the items are loaded.
      * loadedProperty is the store property to set once the items are loaded, to indicate that the items are loaded.
      * todo: allow for sending data: add {params:data} as second argument
      */
     get: function (options) {
-        store.showLoading();
+        if (!helpers.isHomePage()) {
+            store.showLoading();
+        }
+
         axios.get(options.url)
             .then(function (response) {
                 if (options.storeProperty) {
@@ -46,7 +50,11 @@ export default {
                     store.set(true, options.loadedProperty);
                 }
 
-                store.hideLoading();
+                if (!helpers.isHomePage()) {
+                    store.hideLoading();
+                }
+
+
         })
         .catch(function (error) {
             helpers.notify(error);

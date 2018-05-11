@@ -21,6 +21,8 @@
 <div id="app">
     <f7-statusbar></f7-statusbar>
 
+    {{--<f7-preloader style="width: 44px; height: 44px"></f7-preloader>--}}
+
     <!-- Left Panel -->
     <f7-panel left reveal theme-dark>
         <f7-view id="left-panel-view">

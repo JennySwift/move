@@ -8,6 +8,10 @@ export default {
         // return app.__vue__.$router;
     },
 
+    isHomePage: function () {
+        return !app.f7.views.main.router.url;
+    },
+
     goToRoute (path) {
         app.f7.router.navigate(path);
     },

@@ -33,6 +33,8 @@ export default {
     //Route methods
     getIdFromRouteParams: routes.getIdFromRouteParams,
     goToRoute: routes.goToRoute,
+    getRouteName: routes.getRouteName,
+    isHomePage: routes.isHomePage,
 
 
     toast: function (message, type) {
@@ -47,6 +49,7 @@ export default {
 
     notify: function (error) {
         console.log(error);
+        store.hideLoading();
         var message = error.response.data.error;
         var notification = app.f7.notification.create({
             icon: '<i class="fas fa-exclamation"></i>',

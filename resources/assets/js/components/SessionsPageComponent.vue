@@ -114,7 +114,7 @@
             }
         },
         mounted: function () {
-            store.getSessions();
+            // store.getSessions();
         }
     }
 </script>

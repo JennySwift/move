@@ -89,14 +89,16 @@ export default {
      *
      */
     showLoading: function () {
-        this.state.loading = true;
+        app.f7.preloader.show();
+        // this.state.loading = true;
     },
 
     /**
      *
      */
     hideLoading: function () {
-        this.state.loading = false;
+        app.f7.preloader.hide();
+        // this.state.loading = false;
     },
 
     /**

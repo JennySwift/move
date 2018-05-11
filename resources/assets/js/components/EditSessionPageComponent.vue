@@ -27,7 +27,7 @@
                         <tr>
                             <th class="label-cell">LEVEL</th>
                             <th class="label-cell">{{exercise[0].unit.data.name}}</th>
-                            <th class="actions-cell"></th>
+                            <th class="checkbox-cell"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -38,14 +38,10 @@
                             <td class="input-cell">
                                 <f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
                             </td>
-                            <!--Complete td-->
-                            <td v-on:click="row.complete = !row.complete" v-if="!showTrashIcons">
-                                <i
-                                    v-if="row.complete"
-                                    class="fas fa-check"
-                                >
-                                </i>
+                            <td class="checkbox-cell">
+                                <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
                             </td>
+
                             <!--<td class="actions-cell">-->
                             <!--<f7-icon f7="trash"  v-on:click="removeSet(row)"></f7-icon>-->
                             <!--</td>-->

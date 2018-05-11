@@ -15,7 +15,8 @@ export default {
     },
 
     formatForUser: function (date) {
-        return Date.create(date).format('{Dow} {d} {Mon}');
+        //For 'Wed' do {Dow}
+        return Date.create(date).format('{d} {Mon}');
     },
 
     getDaysAgo: function (date) {

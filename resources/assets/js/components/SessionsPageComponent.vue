@@ -7,24 +7,28 @@
             </f7-nav-right>
         </f7-navbar>
 
-        <f7-list media-list>
-            <f7-list-item
-                v-for="session in shared.sessions.data"
-                v-bind:title="session.name"
-                v-bind:subtitle="session.created_at | formatDate"
-                v-bind:text="session.created_at | formatDate"
-                v-bind:after="session.created_at | getDaysAgo"
-                :link="'/sessions/' + session.id + '/edit'"
-                v-on:click="setSession(session)"
-                v-bind:key="session.id"
-            >
-            </f7-list-item>
+        <f7-list contacts-list>
+            <f7-list-group>
+                <!--v-bind:text="session.created_at | formatDate"-->
+                <f7-list-item
+                    v-for="session in shared.sessions.data"
+                    v-bind:title="session.name"
+                    v-bind:subtitle="session.created_at | formatDate"
+                    v-bind:after="session.created_at | formatDate"
+                    :link="'/sessions/' + session.id + '/edit'"
+                    v-on:click="setSession(session)"
+                    v-bind:key="session.id"
+                >
+                </f7-list-item>
+            </f7-list-group>
+
         </f7-list>
 
-        <f7-segmented>
+        <f7-toolbar>
             <f7-button v-bind:disabled="!shared.sessions.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>
             <f7-button v-bind:disabled="!shared.sessions.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>
-        </f7-segmented>
+        </f7-toolbar>
+
     </f7-page>
 
 </template>

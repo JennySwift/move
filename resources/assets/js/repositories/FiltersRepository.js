@@ -40,25 +40,50 @@ export default {
 
     /**
      *
+     * @param boolean
+     * @returns {number}
+     */
+    convertBooleanToInteger: function (boolean) {
+        if (boolean) {
+            return 1;
+        }
+        return 0;
+    },
+
+    /**
+     *
      * @param number
      * @returns {*}
      */
-    removeUnnecessaryZeros: function (number) {
-        if (number && number.substr(number.length-3, 3) === ".00")  {
-            //Remove the decimal and two zeros.
-            return number.slice(0, number.length - 3);
-        }
-        else if (number[number.length-1] === "0" && number.indexOf(".") !== -1)  {
-            return number.slice(0, number.length - 1);
-        }
-        return number;
-    },
+    // removeUnnecessaryZeros: function (number) {
+    //     if (number && number.substr(number.length-3, 3) === ".00")  {
+    //         //Remove the decimal and two zeros.
+    //         return number.slice(0, number.length - 3);
+    //     }
+    //     else if (number[number.length-1] === "0" && number.indexOf(".") !== -1)  {
+    //         return number.slice(0, number.length - 1);
+    //     }
+    //     return number;
+    // },
+    //
+    // removeUnnecessaryZeros: function (number) {
+    //     if (number) {
+    //         return filters.removeUnnecessaryZeros(number);
+    //     }
+    //     return false;
+    // },
 
-    removeUnnecessaryZeros: function (number) {
-        if (number) {
-            return filters.removeUnnecessaryZeros(number);
+    /**
+     *
+     * @param number
+     * @returns {*}
+     */
+    addZeros: function (number) {
+        if (number < 10) {
+            return '0' + number;
         }
-        return false;
+
+        return number;
     },
 
     filterExercises: function (exercises) {

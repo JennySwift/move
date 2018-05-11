@@ -35,5 +35,25 @@ export default {
         array = _.without(array, array[index]);
 
         return array;
-    }
+    },
+
+    deleteFromArray: function (itemToDelete, array) {
+        var updatedArray = helpers.deleteById(array, itemToDelete.id);
+        // object.set(array, '', updatedArray);
+        // return object;
+        return updatedArray;
+    },
+
+    /**
+     *
+     * @param item
+     * @param array
+     * @returns {*}
+     */
+    updateItemInArray: function (item, array) {
+        var index = helpers.findIndexById(array, item.id);
+        array[index] = item;
+        //array should now be updated
+        return array;
+    },
 }

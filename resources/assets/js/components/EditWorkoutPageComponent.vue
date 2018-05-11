@@ -1,67 +1,73 @@
 <template>
-    <f7-page>
-        <f7-navbar back-link="Back">
-            <f7-nav-title>{{shared.workout.name}}</f7-nav-title>
-            <f7-nav-right>
-                <f7-link v-on:click="addExerciseToWorkout()"><f7-icon f7="add"></f7-icon></f7-link>
-            </f7-nav-right>
-        </f7-navbar>
+    <div>
+        <f7-page :page-content="false">
+            <f7-navbar back-link="Back">
+                <f7-nav-title>{{shared.workout.name}}</f7-nav-title>
+                <f7-nav-right>
+                    <f7-link v-on:click="addExerciseToWorkout()"><f7-icon f7="add"></f7-icon></f7-link>
+                </f7-nav-right>
+            </f7-navbar>
 
-        <f7-page-content>
-            <f7-input type="text" :value="shared.workout.name" @input="shared.workout.name = $event.target.value" placeholder="Name"></f7-input>
+            <f7-page-content>
+                <f7-list inset>
+                    <f7-list-item>
+                        <f7-input type="text" :value="shared.workout.name" @input="shared.workout.name = $event.target.value" placeholder="Name"></f7-input>
+                    </f7-list-item>
+                </f7-list>
 
+                <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
+                    <!-- Card Header -->
+                    <div class="card-header">
+                        <!-- Table title -->
+                        <div class="data-table-title">{{exercise[0].name}}</div>
+                        <!-- Table actions -->
+                        <div class="data-table-actions">
+                            <f7-link><f7-icon f7="time"></f7-icon></f7-link>
+                            <f7-link v-on:click="addSet(exercise[0])"><f7-icon f7="add"></f7-icon></f7-link>
+                        </div>
+                    </div>
+                    <!-- Card Content -->
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="numeric-cell">LEVEL</th>
+                                <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
+                                <th class="actions-cell"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="row in exercise">
+                                <td class="numeric-cell numeric-input-cell">
+                                    <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
+                                </td>
+                                <td class="numeric-cell numeric-input-cell">
+                                    <f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
+                                </td>
+                                <td class="actions-cell" v-on:click="removeSet(row)">
+                                    <f7-icon f7="trash" size="22"></f7-icon>
+                                </td>
 
-            <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
-                <!-- Card Header -->
-                <div class="card-header">
-                    <!-- Table title -->
-                    <div class="data-table-title">{{exercise[0].name}}</div>
-                    <!-- Table actions -->
-                    <div class="data-table-actions">
-                        <f7-link><f7-icon f7="time"></f7-icon></f7-link>
-                        <f7-link v-on:click="addSet(exercise[0])"><f7-icon f7="add"></f7-icon></f7-link>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <!-- Card Content -->
-                <div class="card-content">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th class="numeric-cell">LEVEL</th>
-                            <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
-                            <th class="actions-cell"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="row in exercise">
-                            <td class="numeric-cell numeric-input-cell">
-                                <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
-                            </td>
-                            <td class="numeric-cell numeric-input-cell">
-                                <f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
-                            </td>
-                            <td class="actions-cell" v-on:click="removeSet(row)">
-                                <f7-icon f7="trash" size="22"></f7-icon>
-                            </td>
-
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
 
-        </f7-page-content>
+            </f7-page-content>
 
-        <f7-toolbar>
-            <buttons
-                :save="updateWorkout"
-            >
-            </buttons>
+            <f7-toolbar>
+                <buttons
+                    :save="updateWorkout"
+                >
+                </buttons>
 
-        </f7-toolbar>
+            </f7-toolbar>
 
-    </f7-page>
+        </f7-page>
+    </div>
+
 
 </template>
 

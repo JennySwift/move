@@ -49,7 +49,7 @@ export default {
                 store.hideLoading();
         })
         .catch(function (error) {
-            helpers.handleResponseError(error.response);
+            helpers.notify(error.response);
         });
     },
 
@@ -73,7 +73,8 @@ export default {
                 store.hideLoading();
 
                 if (options.message) {
-                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
+                    helpers.toast(options.message);
+                    // app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
                 }
 
                 if (options.array) {
@@ -89,7 +90,7 @@ export default {
                 }
         })
         .catch(function (error) {
-            helpers.handleResponseError(error.response);
+            helpers.notify(error.response);
         });
     },
 
@@ -108,7 +109,7 @@ export default {
                 store.hideLoading();
 
                 if (options.message) {
-                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
+                    helpers.toast(options.message);
                 }
 
                 if (options.property) {
@@ -122,7 +123,7 @@ export default {
 
             })
             .catch(function (error) {
-                helpers.handleResponseError(error.response);
+                helpers.notify(error.response);
             })
     },
 
@@ -175,7 +176,7 @@ export default {
                 store.hideLoading();
 
                 if (options.message) {
-                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
+                    helpers.toast(options.message);
                 }
 
                 if (options.array) {
@@ -190,7 +191,7 @@ export default {
                 if (options.onFail) {
                     options.onFail();
                 }
-                helpers.handleResponseError(error.response);
+                helpers.notify(error.response);
             });
     }
 }

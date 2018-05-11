@@ -1,43 +1,34 @@
 <template>
     <f7-page>
         <f7-navbar title="New Exercise" back-link="Back"></f7-navbar>
-        <div id="new-exercise-page">
-            <div class="container">
-                <div class="input-group-container">
-                    <input-group
-                        label="Name:"
-                        :model.sync="newExercise.name"
-                        :enter="insertExercise"
-                        id="new-exercise-name"
-                    >
-                    </input-group>
 
-                    <input-group
-                        label="Description:"
-                        :model.sync="newExercise.description"
-                        :enter="insertExercise"
-                        id="new-exercise-description"
-                    >
-                    </input-group>
+        <f7-list no-hairlines-md contacts-list>
+            <f7-list-item>
+                <f7-label>Enter a name</f7-label>
+                <f7-input type="text" :value="newExercise.name" @input="newExercise.name = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
 
-                    <input-group
-                        label="Priority:"
-                        :model.sync="newExercise.priority"
-                        :enter="insertExercise"
-                        id="new-exercise-priority"
-                    >
-                    </input-group>
-                </div>
+            <f7-list-item>
+                <f7-label>Enter a description (optional)</f7-label>
+                <f7-input type="text" :value="newExercise.description" @input="newExercise.description = $event.target.value" clear-button=""></f7-input>
 
-                <buttons
-                    :save="insertExercise"
-                    :redirect-to="redirectTo"
-                >
-                </buttons>
-            </div>
+            </f7-list-item>
+
+            <f7-list-item>
+                <f7-label>Enter a priority (number)</f7-label>
+                <f7-input type="text" :value="newExercise.priority" @input="newExercise.priority = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
+        </f7-list>
+
+        <f7-block>
+            <buttons
+            :save="insertExercise"
+            :redirect-to="redirectTo"
+            >
+            </buttons>
+        </f7-block>
 
 
-        </div>
     </f7-page>
 
 </template>

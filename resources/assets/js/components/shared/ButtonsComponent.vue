@@ -1,12 +1,14 @@
 <template>
     <div class="buttons-container">
 
-        <f7-list-item
+        <f7-button
             v-if="redirectTo"
-            :link="redirectTo"
-            title="Cancel"
+            :href="redirectTo"
+            text="Cancel"
+            color="grey"
         >
-        </f7-list-item>
+        </f7-button>
+
         <!--<router-link-->
             <!--v-if="redirectTo"-->
             <!--:to="redirectTo"-->
@@ -16,22 +18,22 @@
             <!--Cancel-->
         <!--</router-link>-->
 
-        <button
+        <f7-button
             v-if="destroy"
             v-on:click="destroy()"
-            class="btn btn-danger"
+            text="Delete"
+            color="red"
         >
-            Delete
-        </button>
+        </f7-button>
 
         <!--Not adding the redirectTo here because that's done with the JS in case there is an error and we don't want to redirect-->
-        <button
+        <f7-button
             v-if="save"
             v-on:click="save()"
-            class="btn btn-success"
+            text="Save"
+            color="green"
         >
-            Save
-        </button>
+        </f7-button>
     </div>
 </template>
 

@@ -53,6 +53,26 @@ export default {
         return array;
     },
 
+    toast: function (message, type) {
+        var toast = app.f7.toast.create({
+            text: message,
+            position: 'top',
+            closeTimeout: 2000,
+            cssClass: 'color-theme-green'
+            // icon: '<i class="f7-icons">check_round_fill</i>'
+        }).open();
+    },
+
+    notify: function (message) {
+        var notification = app.f7.notification.create({
+            icon: '<i class="fas fa-exclamation"></i>',
+            title: 'Error',
+            subtitle: message,
+            text: 'Click me to close',
+            closeOnClick: true,
+        }).open();
+    },
+
     /**
      *
      * @param data

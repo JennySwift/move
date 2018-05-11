@@ -5,6 +5,7 @@ namespace Tests;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Http\Response;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -50,6 +51,16 @@ abstract class TestCase extends BaseTestCase
         $this->be($user);
         $this->user = $user;
         $this->actingAs($user, 'api');
+    }
+
+    /**
+     *
+     * @param $content
+     */
+    protected function checkValidationError($content)
+    {
+        $this->assertEquals($this->validationErrorMessage, $content['error']);
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $content['status']);
     }
 
     /**

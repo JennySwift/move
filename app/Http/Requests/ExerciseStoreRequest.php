@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Auth;
+use Illuminate\Validation\Rule;
 
 class ExerciseStoreRequest extends Request
 {
@@ -23,9 +25,31 @@ class ExerciseStoreRequest extends Request
      */
     public function rules()
     {
+//        dd(Auth::id());
+//        dd($this->all());
+//        'required|unique:exercises,name,NULL,id,user_id,'. Auth::id(),
         return [
-            'name' => 'required',
+//            'name' => [
+//                'required',
+//                Rule::unique('exercises')->where(function ($query) {
+//                    dd($query)->toSql();
+//                    $query->where('user_id', '!=', Auth::id());
+//                })
+//            ],
+            'name' => 'required|unique:exercises,name,NULL,id,user_id,' . Auth::id(),
             'priority' => 'required',
+        ];
+    }
+
+
+    /**
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.unique' => 'That name already exists.'
         ];
     }
 }

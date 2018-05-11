@@ -21,20 +21,13 @@
 <div id="app">
     <f7-statusbar></f7-statusbar>
 
-    {{--<f7-preloader style="width: 44px; height: 44px"></f7-preloader>--}}
-
-    <!-- Left Panel -->
-    <f7-panel left reveal theme-dark>
-        <f7-view id="left-panel-view">
-            <f7-page>
-                <f7-navbar title="Left Panel"></f7-navbar>
-                <f7-block strong>
-                    <p>Left panel content goes here</p>
-                    <p>Weeeeee</p>
-                </f7-block>
-            </f7-page>
-        </f7-view>
-    </f7-panel>
+    <div class="panel panel-right panel-cover">
+        <div class="block">
+            <p><a class="panel-close" href="/sessions">Sessions</a></p>
+            <p><a class="panel-close" href="/workouts">Workouts</a></p>
+            <p><a class="panel-close" href="/exercises">Exercises</a></p>
+        </div>
+    </div>
 
     <f7-view id="main-view" main>
 
@@ -44,10 +37,10 @@
 <template id="home-page">
     <f7-page>
         <f7-navbar>
-            <f7-nav-left>
-                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="left"></f7-link>
-            </f7-nav-left>
             <f7-nav-title>Move</f7-nav-title>
+            <f7-nav-right>
+                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
+            </f7-nav-right>
         </f7-navbar>
 
         <f7-list contacts-list>

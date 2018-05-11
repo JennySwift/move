@@ -1,6 +1,12 @@
 <template>
     <f7-page>
-        <f7-navbar title="New Workout" back-link="Back"></f7-navbar>
+        <f7-navbar back-link="Back">
+            <f7-nav-title>New Workout</f7-nav-title>
+            <f7-nav-right>
+                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
+            </f7-nav-right>
+        </f7-navbar>
+
         <div id="new-workout-page">
 
             <div class="container">

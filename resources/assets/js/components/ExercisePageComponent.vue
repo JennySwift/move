@@ -1,45 +1,32 @@
 <template>
     <f7-page>
         <f7-navbar title="Exercise" back-link="Back"></f7-navbar>
-        <div id="exercise-page">
+        <f7-list no-hairlines-md contacts-list>
+            <f7-list-item>
+                <f7-label>Enter a name</f7-label>
+                <f7-input type="text" :value="shared.exercise.name" @input="shared.exercise.name = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
 
-            <div class="container">
-                <input type="text"
-                       class="center invisible-input"
-                       v-model="shared.exercise.name"
-                       v-on:enter="updateExercise"
-                />
+            <f7-list-item>
+                <f7-label>Enter a description (optional)</f7-label>
+                <f7-input type="text" :value="shared.exercise.description" @input="shared.exercise.description = $event.target.value" clear-button=""></f7-input>
 
-                <label for="exercise-description">Description</label>
-                <div      id="exercise-description"
-                          contenteditable="true"
-                          v-model="shared.exercise.description"
-                          v-on:enter="updateExercise"
-                >
-                    {{shared.exercise.description}}
-                </div>
+            </f7-list-item>
 
-                <div class="input-group-container">
-                    <input-group
-                        label="Priority:"
-                        :model.sync="shared.exercise.priority"
-                        :enter="updateExercise"
-                        id="exercise-priority"
-                    >
-                    </input-group>
+            <f7-list-item>
+                <f7-label>Enter a priority (number)</f7-label>
+                <f7-input type="text" :value="shared.exercise.priority" @input="shared.exercise.priority = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
+        </f7-list>
 
-
-                </div>
-
-                <buttons
-                    :save="updateExercise"
-                    :destroy="deleteExercise"
-                    :redirect-to="redirectTo"
-                >
-                </buttons>
-            </div>
-
-        </div>
+       <f7-block>
+           <buttons
+               :save="updateExercise"
+               :destroy="deleteExercise"
+               :redirect-to="redirectTo"
+           >
+           </buttons>
+       </f7-block>
 
     </f7-page>
 
@@ -80,7 +67,6 @@
              *
              */
             updateExercise: function () {
-                store.set($('#exercise-description').text(), 'exercise.description');
                 var data = ExercisesRepository.setData(this.shared.exercise);
 
                 helpers.put({

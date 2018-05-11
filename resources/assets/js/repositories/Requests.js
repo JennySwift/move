@@ -49,7 +49,7 @@ export default {
                 store.hideLoading();
         })
         .catch(function (error) {
-            helpers.notify(error.response);
+            helpers.notify(error);
         });
     },
 
@@ -86,11 +86,11 @@ export default {
                 }
 
                 if (options.redirectTo) {
-                    that.getRouter().push(options.redirectTo);
+                    helpers.goToRoute(options.redirectTo);
                 }
         })
         .catch(function (error) {
-            helpers.notify(error.response);
+            helpers.notify(error);
         });
     },
 
@@ -117,13 +117,13 @@ export default {
                 }
 
                 if (options.redirectTo) {
-                    that.getRouter().push(options.redirectTo);
+                    helpers.goToRoute(options.redirectTo);
                 }
                 helpers.hidePopup();
 
             })
             .catch(function (error) {
-                helpers.notify(error.response);
+                helpers.notify(error);
             })
     },
 
@@ -184,14 +184,14 @@ export default {
                 }
 
                 if (options.redirectTo) {
-                    helpers.getRouter().push(options.redirectTo);
+                    helpers.goToRoute(options.redirectTo);
                 }
             })
             .catch(function (error) {
                 if (options.onFail) {
                     options.onFail();
                 }
-                helpers.notify(error.response);
+                helpers.notify(error);
             });
     }
 }

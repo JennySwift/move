@@ -63,7 +63,8 @@ export default {
         }).open();
     },
 
-    notify: function (message) {
+    notify: function (error) {
+        var message = error.response.data.error;
         var notification = app.f7.notification.create({
             icon: '<i class="fas fa-exclamation"></i>',
             title: 'Error',
@@ -87,11 +88,12 @@ export default {
     },
 
     getRouter: function () {
-        return app.__vue__.$router;
+        // return that.$f7route
+        // return app.__vue__.$router;
     },
 
     goToRoute (path) {
-        this.getRouter().push(path);
+        app.f7.router.navigate(path);
     },
 
     /**

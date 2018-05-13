@@ -25,19 +25,21 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="numeric-cell numeric-input-cell"><div>LEVEL</div></th>
-                            <th class="numeric-cell numeric-input-cell"><div>{{exercise[0].unit.data.name}}</div></th>
+                            <th class="numeric-cell"><div>LEVEL</div></th>
+                            <th class="numeric-cell"><div>{{exercise[0].unit.data.name}}</div></th>
                             <th class="checkbox-cell"></th>
                             <th class="actions-cell"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="(row, index2) in exercise">
-                            <td class="numeric-cell numeric-input-cell">
-                                <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
+                            <td class="numeric-cell">
+                                {{row.level}}
+                                <!--<f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>-->
                             </td>
-                            <td class="numeric-cell numeric-input-cell">
-                                <f7-input type="tel" inputStyle="width: 30px" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
+                            <td class="numeric-cell" v-on:click="showPicker(row)">
+                                {{row.quantity}}
+                                <!--<f7-input type="tel" inputStyle="width: 30px" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>-->
                             </td>
                             <td class="checkbox-cell">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
@@ -52,6 +54,8 @@
                     </table>
                 </div>
             </div>
+
+            <f7-input id="session-page-picker-input" style="display:none"></f7-input>
 
         </f7-page-content>
 
@@ -116,6 +120,28 @@
             }
         },
         methods: {
+            showPicker: function (row) {
+                var values = [];
+                for (var i = 0; i<= 1000; i++) {
+                    values.push(i);
+                }
+                var picker = app.f7.picker.create({
+                    inputEl: '#session-page-picker-input',
+                    cols: [
+                        {
+                            values: values
+                        }
+                    ],
+                    on: {
+                        change: function (picker, values, displayValues) {
+                            row.quantity = values[0];
+                        }
+                    }
+                });
+                picker.setValue([row.quantity]);
+                picker.open();
+
+            },
             openActions: function (exerciseGroup) {
                 var that = this;
                 var ac1 = app.f7.actions.create({

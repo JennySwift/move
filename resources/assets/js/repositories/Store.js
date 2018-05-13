@@ -14,6 +14,7 @@ export default {
             data: [],
             pagination: {}
         },
+        dateFormat: 'daysAgo',
         history: {
             data: [],
             pagination: {}
@@ -87,6 +88,22 @@ export default {
         exerciseUnitsLoaded: false,
         exerciseProgramsLoaded: false,
         loading: false
+    },
+
+    toggleDateFormat: function () {
+        if (this.state.dateFormat === 'daysAgo') {
+            this.state.dateFormat = 'date';
+        }
+        else if (this.state.dateFormat === 'date') {
+            this.state.dateFormat = 'daysAgo';
+        }
+    },
+
+    dateFilter: function (date) {
+        if (this.state.dateFormat === 'daysAgo') {
+            return helpers.getDaysAgo(date);
+        }
+        return helpers.formatDateForUser(date);
     },
 
     /**

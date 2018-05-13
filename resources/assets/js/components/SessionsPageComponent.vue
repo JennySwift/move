@@ -10,7 +10,7 @@
                 <f7-list-item
                     v-for="session in shared.sessions.data"
                     v-bind:title="session.name"
-                    v-bind:after="session.created_at | dateFilter(dateFormat)"
+                    v-bind:after="session.created_at | dateFilter"
                     :link="'/sessions/' + session.id"
                     v-on:click="setSession(session)"
                     v-bind:key="session.id"
@@ -37,7 +37,6 @@
             return {
                 shared: store.state,
                 baseUrl: 'api/sessions',
-                dateFormat: 'daysAgo'
             };
         },
         filters: {
@@ -47,11 +46,8 @@
             daysAgo: function (date) {
                 return helpers.getDaysAgo(date);
             },
-            dateFilter: function (date, dateFormat) {
-                if (dateFormat === 'daysAgo') {
-                    return helpers.getDaysAgo(date);
-                }
-                return helpers.formatDateForUser(date);
+            dateFilter: function (date) {
+               return store.dateFilter(date);
             }
         },
 //        computed: {
@@ -62,12 +58,7 @@
 //        },
         methods: {
             toggleDateFormat: function () {
-                if (this.dateFormat === 'daysAgo') {
-                    this.dateFormat = 'date';
-                }
-                else if (this.dateFormat === 'date') {
-                    this.dateFormat = 'daysAgo';
-                }
+               store.toggleDateFormat();
             },
             nextPage: function () {
                 store.getSessions(this.shared.sessions.pagination.next_page_url);

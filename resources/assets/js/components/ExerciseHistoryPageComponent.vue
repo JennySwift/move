@@ -1,7 +1,7 @@
 <template>
     <div>
         <f7-page :page-content="false">
-            <navbar :title="shared.exercise.name" popover-id="history">
+            <navbar title="History" popover-id="history">
             </navbar>
 
 
@@ -10,7 +10,7 @@
                     <!-- Card Header -->
                     <div class="card-header">
                         <!-- Table title -->
-                        <div class="data-table-title">{{session.name}} <small>{{session.created_at}}</small></div>
+                        <div class="data-table-title">{{session.name}} <small>{{session.created_at | dateFilter}}</small></div>
                     </div>
                     <!-- Card Content -->
                     <div class="card-content">
@@ -62,6 +62,17 @@
                 baseUrl: 'api/exercises'
             }
         },
+        computed: {
+            name: function () {
+                // return 'History';
+              // return this.shared.history.data[0].exercises.data[0].name;
+            }
+        },
+        filters: {
+            dateFilter: function (date) {
+                return store.dateFilter(date);
+            }
+        },
         methods: {
             nextPage: function () {
                 this.getHistory(this.shared.history.pagination.next_page_url);
@@ -72,6 +83,9 @@
             },
             isEmpty: function (obj) {
                 return _.isEmpty(obj);
+            },
+            toggleDateFormat: function () {
+                store.toggleDateFormat();
             },
             /**
              *

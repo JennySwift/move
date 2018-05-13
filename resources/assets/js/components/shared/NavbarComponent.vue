@@ -1,5 +1,5 @@
 <template>
-    <f7-navbar back-link="Back">
+    <f7-navbar>
         <f7-nav-title>{{title}}</f7-nav-title>
         <f7-nav-right>
             <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" :popover-open="'#' + popoverId + '-menu'"></f7-link>

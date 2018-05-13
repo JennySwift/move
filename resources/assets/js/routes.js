@@ -11,16 +11,7 @@ import EditSessionPage from './components/EditSessionPageComponent.vue'
 import SessionsPage from './components/SessionsPageComponent.vue'
 import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
 
-// Vue.component('home-page', {
-//     template: '#home-page'
-// });
-
 export default [
-    // {
-    //     name: 'home',
-    //     path: '/',
-    //     component: 'home-page'
-    // },
     {
         name: 'exercises',
         path: '/exercises',
@@ -50,7 +41,14 @@ export default [
     {
         name: 'workouts',
         path: '/workouts',
-        component: WorkoutsPage
+        component: WorkoutsPage,
+        // routes: [
+        //     {
+        //         name: 'workout',
+        //         path: '/:id',
+        //         component: EditWorkoutPage
+        //     },
+        // ]
     },
     // {
     //     path: '/workouts/:id',
@@ -67,12 +65,12 @@ export default [
     },
     {
         name: 'workout',
-        path: '/workouts/:id/edit',
+        path: '/workouts/:id',
         component: EditWorkoutPage
     },
     {
         name: 'session',
-        path: '/sessions/:id/edit',
+        path: '/sessions/:id',
         component: EditSessionPage
     },
 ]

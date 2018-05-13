@@ -49,7 +49,7 @@
                     message: 'Workout created',
                     clearFields: this.clearFields,
                     callback: function (response) {
-                        helpers.goToRoute('/workouts/' + response.id + '/edit');
+                        helpers.goToRoute('/workouts/' + response.id);
                     }.bind(this)
                 });
             }

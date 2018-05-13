@@ -11,7 +11,7 @@
                     v-for="session in shared.sessions.data"
                     v-bind:title="session.name"
                     v-bind:after="session.created_at | dateFilter(dateFormat)"
-                    :link="'/sessions/' + session.id + '/edit'"
+                    :link="'/sessions/' + session.id"
                     v-on:click="setSession(session)"
                     v-bind:key="session.id"
                 >
@@ -116,7 +116,7 @@
                             message: 'Enjoy your workout :)',
                             clearFields: that.clearFields,
                             callback: function (response) {
-                                helpers.goToRoute('/sessions/' + response.id + '/edit');
+                                helpers.goToRoute('/sessions/' + response.id);
                             }.bind(that)
                         });
                     }

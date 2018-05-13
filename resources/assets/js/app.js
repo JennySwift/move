@@ -57,7 +57,10 @@ const app = new Vue({
         routes: routes,
         view: {
             pushState: true,
-            stackPages: true
+            // stackPages: true,
+            // history: true,
+            // reloadAll: false,
+            // clearPreviousHistory: false,
         },
         panel: {
             swipe: 'right'

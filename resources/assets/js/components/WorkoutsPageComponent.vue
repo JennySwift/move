@@ -8,7 +8,7 @@
             <f7-list-group>
                 <f7-list-item
                     v-for="workout in shared.workouts"
-                    :link="'/workouts/' + workout.id + '/edit'"
+                    :link="'/workouts/' + workout.id"
                     v-bind:title="workout.name"
                     v-on:click="setWorkout(workout)"
                     v-bind:key="workout.id"

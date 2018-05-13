@@ -55,6 +55,9 @@ const app = new Vue({
         name: 'Move',
         theme: 'ios',
         routes: routes,
+        view: {
+            pushState: true,
+        }
     }
 });
 

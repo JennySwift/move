@@ -20,58 +20,37 @@ export default [
     {
         name: 'home',
         path: '/',
-        component: 'home-page',
-        options: {
-            pushState: true
-        }
+        component: 'home-page'
     },
     {
         name: 'exercises',
         path: '/exercises',
-        component: ExercisesPage,
-        options: {
-            pushState: true
-        }
+        component: ExercisesPage
     },
     {
         name: 'exercise',
         path: '/exercises/:id',
-        component: ExercisePage,
-        options: {
-            pushState: true
-        }
+        component: ExercisePage
     },
     {
         name: 'add exercise',
         path: '/add-exercise',
-        component: NewExercisePage,
-        options: {
-            pushState: true
-        }
+        component: NewExercisePage
     },
     {
         name: 'sessions',
         path: '/sessions',
-        component: SessionsPage,
-        options: {
-            pushState: true
-        }
+        component: SessionsPage
     },
     {
         name: 'units',
         path: '/units',
-        component: UnitsPage,
-        options: {
-            pushState: true
-        }
+        component: UnitsPage
     },
     {
         name: 'workouts',
         path: '/workouts',
-        component: WorkoutsPage,
-        options: {
-            pushState: true
-        }
+        component: WorkoutsPage
     },
     // {
     //     path: '/workouts/:id',
@@ -84,26 +63,17 @@ export default [
     {
         name: 'add workout',
         path: '/add-workout',
-        component: NewWorkoutPage,
-        options: {
-            pushState: true
-        }
+        component: NewWorkoutPage
     },
     {
         name: 'workout',
         path: '/workouts/:id/edit',
-        component: EditWorkoutPage,
-        options: {
-            pushState: true
-        }
+        component: EditWorkoutPage
     },
     {
         name: 'session',
         path: '/sessions/:id/edit',
-        component: EditSessionPage,
-        options: {
-            pushState: true
-        }
+        component: EditSessionPage
     },
 ]
 

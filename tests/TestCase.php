@@ -136,6 +136,35 @@ abstract class TestCase extends BaseTestCase
 
     /**
      *
+     * @param $pagination
+     */
+    protected function checkPaginationKeysExist($pagination)
+    {
+        $this->assertArrayHasKey('per_page', $pagination);
+        $this->assertArrayHasKey('current_page', $pagination);
+        $this->assertArrayHasKey('next_page_url', $pagination);
+        $this->assertArrayHasKey('prev_page_url', $pagination);
+        $this->assertArrayHasKey('from', $pagination);
+        $this->assertArrayHasKey('to', $pagination);
+    }
+
+    /**
+     *
+     * @param $exercise
+     */
+    protected function checkExerciseSessionKeysExist($exercise)
+    {
+        $this->assertArrayHasKey('id', $exercise);
+        $this->assertArrayHasKey('exercise_id', $exercise);
+        $this->assertArrayHasKey('name', $exercise);
+        $this->assertArrayHasKey('level', $exercise);
+        $this->assertArrayHasKey('quantity', $exercise);
+        $this->assertArrayHasKey('complete', $exercise);
+        $this->checkUnitKeysExist($exercise['unit']['data']);
+    }
+
+    /**
+     *
      * @param $response
      * @return mixed
      */

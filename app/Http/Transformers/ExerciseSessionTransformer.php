@@ -3,6 +3,7 @@
 namespace App\Http\Transformers;
 
 use App\Models\Exercise;
+use App\Models\Session;
 use App\Models\Unit;
 use League\Fractal\TransformerAbstract;
 

@@ -111,6 +111,33 @@ class ExercisesTest extends TestCase {
 
     /**
      * @test
+     */
+    public function it_can_show_the_session_history_for_an_exercise()
+    {
+        $this->logInUser();
+
+        $exercise = Exercise::forCurrentUser()->first();
+
+        $response = $this->call('GET', $this->url . '/' . $exercise->id . '?include=sessions');
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkSessionKeysExist($content['data'][0]);
+        $this->checkExerciseSessionKeysExist($content['data'][0]['exercises']['data'][0]);
+        $this->checkPaginationKeysExist($content['pagination']);
+
+        foreach ($content['data'] as $session) {
+            foreach ($session['exercises']['data'] as $tempExercise) {
+                $this->assertEquals($exercise->id, $tempExercise['exercise_id']);
+            }
+        }
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+
+    }
+
+    /**
+     * @test
      * @return void
      */
     public function it_can_update_an_exercise()

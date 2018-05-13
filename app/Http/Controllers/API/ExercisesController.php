@@ -4,8 +4,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\ExerciseStoreRequest;
 use App\Http\Transformers\Exercises\ExerciseTransformer;
+use App\Http\Transformers\SessionTransformer;
 use App\Models\Exercise;
 use App\Models\Series;
+use App\Models\Session;
 use App\Models\Unit;
 use Auth;
 use DB;
@@ -62,8 +64,30 @@ class ExercisesController extends Controller
      */
     public function show(Request $request, Exercise $exercise)
     {
-        $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
-        return response($exercise, Response::HTTP_OK);
+        if ($request->get('include') === 'sessions') {
+            $sessions = Session::whereHas('exercises', function ($q) use ($exercise) {
+                $q->where('exercises.id', $exercise->id);
+            })->with(['exercises' => function ($query) use ($exercise) {
+                $query->where('exercises.id', '=', $exercise->id);
+            }])
+                ->paginate(5);
+
+//            dd($sessions);
+
+            return response(
+                [
+                    'data' => $this->transform($this->createCollection($sessions, new SessionTransformer), ['exercises'])['data'],
+                    'pagination' => $this->getPaginationProperties($sessions)
+                ],
+                Response::HTTP_OK
+            );
+        }
+        else {
+            $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
+            return response($exercise, Response::HTTP_OK);
+        }
+
+
     }
 
     /**

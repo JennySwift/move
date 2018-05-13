@@ -35,11 +35,13 @@
                             </thead>
                             <tbody>
                             <tr v-for="row in exercise">
-                                <td class="numeric-cell numeric-input-cell">
-                                    <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
+                                <td class="numeric-cell" v-on:click="showPrompt(row, 'level')">
+                                    {{row.level}}
+                                    <!--<f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>-->
                                 </td>
-                                <td class="numeric-cell numeric-input-cell">
-                                    <f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
+                                <td class="numeric-cell" v-on:click="showPrompt(row, 'quantity')">
+                                    {{row.quantity}}
+                                    <!--<f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>-->
                                 </td>
                                 <td class="actions-cell" v-on:click="removeSet(row)">
                                     <f7-icon f7="trash" size="22"></f7-icon>
@@ -116,6 +118,11 @@
             }
         },
         methods: {
+            showPrompt: function (row, field) {
+                var prompt = app.f7.dialog.prompt('Enter a ' + field, function (value) {
+                    row[field] = value;
+                });
+            },
             // openActions: function (exerciseGroup) {
             //     var that = this;
             //     var ac1 = app.f7.actions.create({

@@ -30,11 +30,11 @@
                         </thead>
                         <tbody>
                         <tr v-for="(row, index2) in exercise">
-                            <td class="numeric-cell">
+                            <td class="numeric-cell" v-on:click="showPrompt(row, 'level')">
                                 {{row.level}}
                                 <!--<f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>-->
                             </td>
-                            <td class="numeric-cell" v-on:click="showPicker(row)">
+                            <td class="numeric-cell" v-on:click="showPrompt(row, 'quantity')">
                                 {{row.quantity}}
                                 <!--<f7-input type="tel" inputStyle="width: 30px" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>-->
                             </td>
@@ -117,6 +117,11 @@
             }
         },
         methods: {
+            showPrompt: function (row, field) {
+                var prompt = app.f7.dialog.prompt('Enter a ' + field, function (value) {
+                   row[field] = value;
+                });
+            },
             showPicker: function (row) {
                 var values = [];
                 for (var i = 0; i<= 1000; i++) {

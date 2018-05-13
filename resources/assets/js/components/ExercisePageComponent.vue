@@ -21,6 +21,8 @@
             </f7-list-item>
         </f7-list>
 
+        <f7-link :href="'/exercises/' + shared.exercise.id + '/history'">View History</f7-link>
+
        <f7-block>
            <buttons
                :save="updateExercise"

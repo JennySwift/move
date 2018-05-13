@@ -10,6 +10,7 @@ import EditWorkoutPage from './components/EditWorkoutPageComponent.vue'
 import EditSessionPage from './components/EditSessionPageComponent.vue'
 import SessionsPage from './components/SessionsPageComponent.vue'
 import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
+import ExerciseHistoryPage from './components/ExerciseHistoryPageComponent.vue'
 
 export default [
     {
@@ -21,6 +22,11 @@ export default [
         name: 'exercise',
         path: '/exercises/:id',
         component: ExercisePage
+    },
+    {
+        name: 'exercise history',
+        path: '/exercises/:id/history',
+        component: ExerciseHistoryPage
     },
     {
         name: 'add exercise',

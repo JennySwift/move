@@ -14,6 +14,7 @@ export default {
             data: [],
             pagination: {}
         },
+        history: [],
         workout: {
             name: '',
             exercises: {

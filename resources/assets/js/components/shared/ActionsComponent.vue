@@ -5,6 +5,9 @@
             <f7-actions-button>
                 <f7-link :href="'/exercises/' + exercise[0].exercise_id">View Exercise</f7-link>
             </f7-actions-button>
+            <f7-actions-button>
+                <f7-link :href="'/exercises/' + exercise[0].exercise_id + '/history'" v-on:click="setExercise(exercise)">View History</f7-link>
+            </f7-actions-button>
         </f7-actions-group>
     </f7-actions>
 </template>
@@ -15,7 +18,15 @@
             'exercise',
             'addSet',
             'id'
-        ]
+        ],
+        methods: {
+            /**
+             *
+             */
+            setExercise: function (exercise) {
+                store.set(exercise, 'exercise');
+            },
+        }
     }
 </script>
 

@@ -5,8 +5,12 @@
             <f7-actions-button v-on:click="setExercise()">
                 <f7-link :href="'/exercises/' + exercise[0].exercise_id">View Exercise</f7-link>
             </f7-actions-button>
-            <f7-actions-button>
-                <f7-link :href="'/exercises/' + exercise[0].exercise_id + '/history'">View History</f7-link>
+            <!--<f7-actions-button>-->
+                <!--<f7-link :href="'/exercises/' + exercise[0].exercise_id + '/history'">View History</f7-link>-->
+            <!--</f7-actions-button>-->
+
+            <f7-actions-button v-on:click="openPopup()">
+                History
             </f7-actions-button>
         </f7-actions-group>
     </f7-actions>
@@ -25,6 +29,20 @@
             'id'
         ],
         methods: {
+            openPopup: function () {
+                var popup = app.f7.popup.create({
+                    el: '.popup-template',
+                    on: {
+                        open: function (popup) {
+                            console.log('Popup open');
+                        },
+                        opened: function (popup) {
+                            console.log('Popup opened');
+                        },
+                    }
+                });
+                popup.open();
+            },
             /**
              *
              */

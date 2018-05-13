@@ -14,8 +14,7 @@
                 <f7-list-item
                     v-for="session in shared.sessions.data"
                     v-bind:title="session.name"
-                    v-bind:subtitle="session.created_at | formatDate"
-                    v-bind:after="session.created_at | formatDate"
+                    v-bind:after="session.created_at | dateFilter(dateFormat)"
                     :link="'/sessions/' + session.id + '/edit'"
                     v-on:click="setSession(session)"
                     v-bind:key="session.id"
@@ -27,6 +26,7 @@
 
         <f7-toolbar>
             <f7-button v-bind:disabled="!shared.sessions.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>
+            <f7-button v-on:click="toggleDateFormat()"><i class="far fa-clock"></i></f7-button>
             <f7-button v-bind:disabled="!shared.sessions.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>
         </f7-toolbar>
 
@@ -40,15 +40,22 @@
         data: function () {
             return {
                 shared: store.state,
-                baseUrl: 'api/sessions'
+                baseUrl: 'api/sessions',
+                dateFormat: 'daysAgo'
             };
         },
         filters: {
             formatDate: function (date) {
                 return helpers.formatDateForUser(date);
             },
-            getDaysAgo: function (date) {
+            daysAgo: function (date) {
                 return helpers.getDaysAgo(date);
+            },
+            dateFilter: function (date, dateFormat) {
+                if (dateFormat === 'daysAgo') {
+                    return helpers.getDaysAgo(date);
+                }
+                return helpers.formatDateForUser(date);
             }
         },
 //        computed: {
@@ -58,7 +65,14 @@
 //            }
 //        },
         methods: {
-
+            toggleDateFormat: function () {
+                if (this.dateFormat === 'daysAgo') {
+                    this.dateFormat = 'date';
+                }
+                else if (this.dateFormat === 'date') {
+                    this.dateFormat = 'daysAgo';
+                }
+            },
             nextPage: function () {
                 store.getSessions(this.shared.sessions.pagination.next_page_url);
             },

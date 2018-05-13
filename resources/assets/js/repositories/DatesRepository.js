@@ -20,8 +20,15 @@ export default {
     },
 
     getDaysAgo: function (date) {
-        // return Date.create(date).daysAgo();
-        return Date.create(date).relative();
+        var daysAgo = Date.create(date).daysAgo();
+        if (daysAgo === 0){
+            return 'Today';
+        }
+        if (daysAgo === 1) {
+            return daysAgo + ' day ago';
+        }
+        return daysAgo + ' days ago';
+        // return Date.create(date).relative();
     },
     /**
      *

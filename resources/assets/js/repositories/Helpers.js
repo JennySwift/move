@@ -35,6 +35,7 @@ export default {
     goToRoute: routes.goToRoute,
     getRouteName: routes.getRouteName,
     isHomePage: routes.isHomePage,
+    getRouteHistory: routes.getRouteHistory,
 
 
     toast: function (message, type) {

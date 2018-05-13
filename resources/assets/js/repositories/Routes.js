@@ -12,8 +12,18 @@ export default {
         return !app.f7.views.main.router.url;
     },
 
-    goToRoute (path) {
-        app.f7.router.navigate(path);
+    goToRoute: function (path) {
+        app.f7.router.navigate(path, {
+            history: true,
+            reloadAll: false,
+            clearPreviousHistory: false,
+            pushState: true
+        });
+        console.log(this.getRouteHistory());
+    },
+
+    getRouteHistory: function () {
+        return app.f7.view.main.router.history;
     },
 
     /**

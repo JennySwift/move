@@ -13,7 +13,15 @@
                     <div class="data-table-title">{{exercise[0].name}}</div>
                     <!-- Table actions -->
                     <div class="data-table-actions">
-                        <f7-button v-on:click="openActions(exercise)">Actions</f7-button>
+                        <f7-button :actions-open="'#' + exercise[0].exercise_id + '-session-actions'">Actions</f7-button>
+                        <f7-actions :id="exercise[0].exercise_id + '-session-actions'">
+                            <f7-actions-group>
+                                <f7-actions-button v-on:click="addSet(exercise[0])">Add Set</f7-actions-button>
+                                <f7-actions-button>
+                                    <f7-link :href="'/exercises/' + exercise[0].exercise_id">View Exercise</f7-link>
+                                </f7-actions-button>
+                            </f7-actions-group>
+                        </f7-actions>
                     </div>
                 </div>
                 <!-- Card Content -->
@@ -138,32 +146,32 @@
                 picker.open();
 
             },
-            openActions: function (exerciseGroup) {
-                var that = this;
-                var ac1 = app.f7.actions.create({
-                    buttons: [
-                        {
-                            text: 'Add Set',
-                            onClick: function () {
-                                that.addSet(exerciseGroup[0])
-                            }
-                        },
-                        {
-                            text: 'View History'
-                        },
-                        {
-                            text: 'View Exercise',
-                            onClick: function () {
-                                helpers.goToRoute('/exercises/' + exerciseGroup[0].exercise_id);
-                            }
-                        },
-                        {
-                            text: 'Cancel',
-                            color: 'red'
-                        },
-                    ]
-                }).open();
-            },
+            // openActions: function (exerciseGroup) {
+            //     var that = this;
+            //     var ac1 = app.f7.actions.create({
+            //         buttons: [
+            //             {
+            //                 text: 'Add Set',
+            //                 onClick: function () {
+            //                     that.addSet(exerciseGroup[0])
+            //                 }
+            //             },
+            //             {
+            //                 text: 'View History'
+            //             },
+            //             {
+            //                 text: 'View Exercise',
+            //                 onClick: function () {
+            //                     helpers.goToRoute('/exercises/' + exerciseGroup[0].exercise_id);
+            //                 }
+            //             },
+            //             {
+            //                 text: 'Cancel',
+            //                 color: 'red'
+            //             },
+            //         ]
+            //     }).open();
+            // },
             getUnitOptions: function () {
                 var options = {};
                 _.forEach(this.shared.exerciseUnits, function (value, index) {

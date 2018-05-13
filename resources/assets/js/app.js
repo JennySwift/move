@@ -30,8 +30,8 @@ global.helpers = helpers;
 global.filters = filters;
 
 
-const bus = new Vue()
-Vue.prototype.$bus = bus
+const bus = new Vue();
+Vue.prototype.$bus = bus;
 
 
 
@@ -57,6 +57,7 @@ const app = new Vue({
         routes: routes,
         view: {
             pushState: true,
+            stackPages: true
         },
         panel: {
             swipe: 'right'

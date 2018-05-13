@@ -39,7 +39,9 @@
     export default {
         data: function () {
             return {
-                newExercise: {},
+                newExercise: {
+                    priority: 1
+                },
                 shared: store.state,
                 redirectTo: '/exercises'
             };

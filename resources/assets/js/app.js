@@ -57,6 +57,9 @@ const app = new Vue({
         routes: routes,
         view: {
             pushState: true,
+        },
+        panel: {
+            swipe: 'right'
         }
     }
 });

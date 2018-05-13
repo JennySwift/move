@@ -1,12 +1,8 @@
 <template>
     <f7-page>
-        <f7-navbar back-link="Back">
-            <f7-nav-title>Workouts</f7-nav-title>
-            <f7-nav-right>
-                <f7-link href="/add-workout"><f7-icon f7="add"></f7-icon></f7-link>
-                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
-            </f7-nav-right>
-        </f7-navbar>
+        <navbar title="Workouts" popover-id="workouts">
+            <f7-list-item link="/add-workout/" title="Add Workout" popover-close></f7-list-item>
+        </navbar>
 
         <f7-list contacts-list>
             <f7-list-group>

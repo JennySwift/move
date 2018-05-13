@@ -1,13 +1,9 @@
 <template>
     <div>
         <f7-page :page-content="false">
-            <f7-navbar back-link="Back">
-                <f7-nav-title>{{shared.workout.name}}</f7-nav-title>
-                <f7-nav-right>
-                    <f7-link v-on:click="addExerciseToWorkout()"><f7-icon f7="add"></f7-icon></f7-link>
-                    <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
-                </f7-nav-right>
-            </f7-navbar>
+            <navbar :title="shared.workout.name" popover-id="edit-workout">
+                <f7-list-item v-on:click="addExerciseToWorkout()" link="false" title="Add Exercise" popover-close></f7-list-item>
+            </navbar>
 
             <f7-page-content>
                 <f7-list inset>

@@ -21,13 +21,25 @@
 <div id="app">
     <f7-statusbar></f7-statusbar>
 
-    <div class="panel panel-right panel-cover">
-        <div class="block">
-            <p><a class="panel-close" href="/sessions">Sessions</a></p>
-            <p><a class="panel-close" href="/workouts">Workouts</a></p>
-            <p><a class="panel-close" href="/exercises">Exercises</a></p>
-        </div>
-    </div>
+    <f7-panel right>
+        <f7-list contacts-list>
+            <f7-list-group>
+                <f7-list-item class="panel-close" link="/sessions" title="Sessions"></f7-list-item>
+                <f7-list-item class="panel-close" link="/workouts" title="Workouts"></f7-list-item>
+                <f7-list-item class="panel-close" link="/exercises/" title="Exercises"></f7-list-item>
+            </f7-list-group>
+        </f7-list>
+    </f7-panel>
+
+    {{--<div class="panel panel-right panel-cover">--}}
+        {{--<div class="block">--}}
+            {{--<f7-list-group>--}}
+                {{--<f7-list-item class="panel-close" link="/sessions" title="Sessions"></f7-list-item>--}}
+                {{--<f7-list-item class="panel-close" link="/workouts" title="Workouts"></f7-list-item>--}}
+                {{--<f7-list-item class="panel-close" link="/exercises/" title="Exercises"></f7-list-item>--}}
+            {{--</f7-list-group>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
     <f7-view id="main-view" main>
 

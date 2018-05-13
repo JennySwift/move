@@ -1,11 +1,7 @@
 <template>
     <f7-page>
-        <f7-navbar back-link="Back">
-            <f7-nav-title>New Workout</f7-nav-title>
-            <f7-nav-right>
-                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
-            </f7-nav-right>
-        </f7-navbar>
+        <navbar title="New Workout" popover-id="new-workout">
+        </navbar>
 
         <f7-list no-hairlines-md contacts-list inset>
             <f7-list-item>

@@ -1,44 +1,24 @@
 <template>
-    <ul id="navbar" style="z-index:1000">
+    <f7-navbar back-link="Back">
+        <f7-nav-title>{{title}}</f7-nav-title>
+        <f7-nav-right>
+            <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" :popover-open="'#' + popoverId + '-menu'"></f7-link>
+            <f7-popover :id="popoverId + '-menu'">
+                <f7-list contacts-list>
+                    <f7-list-group>
+                        <f7-list-item class="panel-close" link="/sessions" title="Sessions" popover-close></f7-list-item>
+                        <f7-list-item class="panel-close" link="/workouts" title="Workouts" popover-close></f7-list-item>
+                        <f7-list-item class="panel-close" link="/exercises/" title="Exercises" popover-close></f7-list-item>
+                        <slot></slot>
+                    </f7-list-group>
+                </f7-list>
+            </f7-popover>
+        </f7-nav-right>
+    </f7-navbar>
 
-        <li class="big-screens"><a href="http://jennyswiftcreations.com">jennyswiftcreations</a></li>
-
-        <li class="dropdown">
-            <a href="#" data-toggle="dropdown">
-                <i class="fas fa-bars fa-2x"></i>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li><router-link to="/">Start Workout</router-link></li>
-                <li><router-link to="/sessions">Activity</router-link></li>
-                <li><router-link to="/exercises">Exercises</router-link></li>
-                <li><router-link to="/workouts">Workouts</router-link></li>
-            </ul>
-        </li>
-
-        <li>
-            <a v-on:click="showFilters()" href="#" class="fa fa-search"></a>
-        </li>
-
-        <!--User-->
-        <li class="dropdown gravatar-li">
-            <a href="#" data-toggle="dropdown">
-                You
-            </a>
-            <a href="#" data-toggle="dropdown" class="gravatar-container">
-                <img v-bind:img="shared.me.gravatar" class="gravatar"/>
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <!-- if they are a guest they shouldn't see this page anyway, but so that my code will work... -->
-                <li><a href="/logout">Logout</a></li>
-            </ul>
-        </li>
-
-    </ul>
 </template>
 
 <script>
-//    import 'bootstrap'
     export default {
         data: function () {
             return {
@@ -47,76 +27,12 @@
         },
         components: {},
         methods: {
-            /**
-             *
-             */
-            showFilters: function () {
-                store.set(true, 'showFilters')
-            }
+
         },
+        props: [
+            'title',
+            'popoverId'
+        ]
     }
+
 </script>
-
-<style lang="scss" type="text/scss">
-    @import '../../../sass/shared/index';
-    #navbar {
-        //    display: none;
-        display:flex;
-        justify-content: space-around;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        color: #888;
-        @include gradient;
-        padding: 0;
-        margin: 0;
-        @media (max-width: 320px) {
-            .big-screens {
-                display: none;
-            }
-        }
-        .dropdown-menu {
-            min-width: inherit;
-            a {
-                padding: 5px 30px;
-                color: $base1;
-                font-size: 20px;
-            }
-        }
-        > li {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            height: $navHeight;
-            //min-width: 70px;
-            > a {
-                transition: all .5s ease;
-            }
-            &:hover {
-                > a {
-                    //font-size: 25px;
-                }
-            }
-            .fa-heart {
-                //color: red;
-            }
-        }
-        a {
-            color: white;
-        }
-        .gravatar-li {
-            //min-width: 160px;
-            .gravatar-container {
-                margin-left: 5px;
-                display: flex;
-                align-items: center;
-                .gravatar {
-                    border-radius: 8px;
-                    height: 32px;
-                }
-            }
-        }
-    }
-</style>
-

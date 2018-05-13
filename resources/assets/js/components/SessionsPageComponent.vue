@@ -1,12 +1,8 @@
 <template>
     <f7-page>
-        <f7-navbar back-link="Back">
-            <f7-nav-title>Sessions</f7-nav-title>
-            <f7-nav-right>
-                <f7-link v-on:click="createSessionFromSavedWorkout()"><f7-icon f7="add"></f7-icon></f7-link>
-                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
-            </f7-nav-right>
-        </f7-navbar>
+        <navbar title="Sessions" popover-id="sessions">
+            <f7-list-item v-on:click="createSessionFromSavedWorkout()" title="Start Session" link="false" popover-close></f7-list-item>
+        </navbar>
 
         <f7-list contacts-list>
             <f7-list-group>

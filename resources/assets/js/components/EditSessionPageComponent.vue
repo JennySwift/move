@@ -1,12 +1,8 @@
 <template>
     <f7-page>
-        <f7-navbar back-link="Back">
-            <f7-nav-title>Edit Session</f7-nav-title>
-            <f7-nav-right>
-                <f7-link v-on:click="addExerciseToSession()"><f7-icon f7="add"></f7-icon></f7-link>
-                <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
-            </f7-nav-right>
-        </f7-navbar>
+        <navbar :title="shared.session.name" popover-id="edit-session">
+            <f7-list-item v-on:click="addExerciseToSession()" link="false" title="Add Exercise" popover-close></f7-list-item>
+        </navbar>
 
         <f7-page-content>
 

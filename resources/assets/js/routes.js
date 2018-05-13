@@ -10,18 +10,17 @@ import EditWorkoutPage from './components/EditWorkoutPageComponent.vue'
 import EditSessionPage from './components/EditSessionPageComponent.vue'
 import SessionsPage from './components/SessionsPageComponent.vue'
 import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
-// import HomePage from './components/HomePageComponent.vue'
 
-Vue.component('home-page', {
-    template: '#home-page'
-});
+// Vue.component('home-page', {
+//     template: '#home-page'
+// });
 
 export default [
-    {
-        name: 'home',
-        path: '/',
-        component: 'home-page'
-    },
+    // {
+    //     name: 'home',
+    //     path: '/',
+    //     component: 'home-page'
+    // },
     {
         name: 'exercises',
         path: '/exercises',
@@ -40,7 +39,8 @@ export default [
     {
         name: 'sessions',
         path: '/sessions',
-        component: SessionsPage
+        component: SessionsPage,
+        alias: '/'
     },
     {
         name: 'units',

@@ -1,7 +1,7 @@
 <template>
     <div>
         <f7-page :page-content="false">
-            <navbar title="History" popover-id="history">
+            <navbar :title="name" popover-id="history">
             </navbar>
 
 
@@ -64,8 +64,9 @@
         },
         computed: {
             name: function () {
-                // return 'History';
-              // return this.shared.history.data[0].exercises.data[0].name;
+                if (this.shared.history.data[0]) {
+                    return this.shared.history.data[0].exercises.data[0].name;
+                }
             }
         },
         filters: {

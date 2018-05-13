@@ -16,7 +16,9 @@ export default {
         },
         dateFormat: 'daysAgo',
         history: {
-            data: [],
+            data: [
+
+            ],
             pagination: {}
         },
         workout: {

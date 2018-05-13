@@ -17,8 +17,7 @@
                     <div class="data-table-title">{{exercise[0].name}}</div>
                     <!-- Table actions -->
                     <div class="data-table-actions">
-                        <f7-link><f7-icon f7="time"></f7-icon></f7-link>
-                        <f7-link v-on:click="addSet(exercise[0])"><f7-icon f7="add"></f7-icon></f7-link>
+                        <f7-button v-on:click="openActions(exercise)">Actions</f7-button>
                     </div>
                 </div>
                 <!-- Card Content -->
@@ -117,6 +116,32 @@
             }
         },
         methods: {
+            openActions: function (exerciseGroup) {
+                var that = this;
+                var ac1 = app.f7.actions.create({
+                    buttons: [
+                        {
+                            text: 'Add Set',
+                            onClick: function () {
+                                that.addSet(exerciseGroup[0])
+                            }
+                        },
+                        {
+                            text: 'View History'
+                        },
+                        {
+                            text: 'View Exercise',
+                            onClick: function () {
+                                helpers.goToRoute('/exercises/' + exerciseGroup[0].exercise_id);
+                            }
+                        },
+                        {
+                            text: 'Cancel',
+                            color: 'red'
+                        },
+                    ]
+                }).open();
+            },
             getUnitOptions: function () {
                 var options = {};
                 _.forEach(this.shared.exerciseUnits, function (value, index) {

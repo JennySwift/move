@@ -100,9 +100,7 @@
             }
         },
         mounted: function () {
-            if (!this.shared.exercise.id) {
-                this.getExercise();
-            }
+            this.getExercise();
         }
     }
 </script>

@@ -31,7 +31,7 @@
         methods: {
             openPopup: function () {
                 var popup = app.f7.popup.create({
-                    el: '.popup-template',
+                    el: '.history-popup',
                     on: {
                         open: function (popup) {
                             console.log('Popup open');

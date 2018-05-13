@@ -1,52 +1,59 @@
 <template>
-    <div>
-        <f7-page :page-content="false">
-            <navbar :title="name" popover-id="history">
-            </navbar>
+    <f7-popup class="history-popup">
+        <div class="block">
+            I am history
+            <p><a class="link popup-close" href="#">Close popup</a></p>
+        </div>
+    </f7-popup>
+
+    <!--<div>-->
+        <!--<f7-page :page-content="false">-->
+            <!--<navbar :title="name" popover-id="history">-->
+            <!--</navbar>-->
 
 
-            <f7-page-content>
-                <div class="data-table data-table-init card" v-for="session in shared.history.data">
-                    <!-- Card Header -->
-                    <div class="card-header">
-                        <!-- Table title -->
-                        <div class="data-table-title">{{session.name}} <small>{{session.created_at | dateFilter}}</small></div>
-                    </div>
-                    <!-- Card Content -->
-                    <div class="card-content">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th class="numeric-cell">LEVEL</th>
-                                <th class="numeric-cell">{{session.exercises.data[0].unit.data.name}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="row in session.exercises.data">
-                                <td class="numeric-cell">
-                                    {{row.level}}
-                                </td>
-                                <td class="numeric-cell">
-                                    {{row.quantity}}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <!--<f7-page-content>-->
+                <!--<div class="data-table data-table-init card" v-for="session in shared.history.data">-->
+                    <!--&lt;!&ndash; Card Header &ndash;&gt;-->
+                    <!--<div class="card-header">-->
+                        <!--&lt;!&ndash; Table title &ndash;&gt;-->
+                        <!--<div class="data-table-title">{{session.name}} <small>{{session.created_at | dateFilter}}</small></div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; Card Content &ndash;&gt;-->
+                    <!--<div class="card-content">-->
+                        <!--<table>-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th class="numeric-cell">LEVEL</th>-->
+                                <!--<th class="numeric-cell">{{session.exercises.data[0].unit.data.name}}</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr v-for="row in session.exercises.data">-->
+                                <!--<td class="numeric-cell">-->
+                                    <!--{{row.level}}-->
+                                <!--</td>-->
+                                <!--<td class="numeric-cell">-->
+                                    <!--{{row.quantity}}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                <!--</div>-->
 
 
-            </f7-page-content>
+            <!--</f7-page-content>-->
 
-            <f7-toolbar>
-                <f7-button v-bind:disabled="!shared.history.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>
-                <f7-button v-on:click="toggleDateFormat()"><i class="far fa-clock"></i></f7-button>
-                <f7-button v-bind:disabled="!shared.history.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>
-            </f7-toolbar>
+            <!--<f7-toolbar>-->
+                <!--<f7-button v-bind:disabled="!shared.history.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>-->
+                <!--<f7-button v-on:click="toggleDateFormat()"><i class="far fa-clock"></i></f7-button>-->
+                <!--<f7-button v-bind:disabled="!shared.history.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>-->
+            <!--</f7-toolbar>-->
 
 
-        </f7-page>
-    </div>
+        <!--</f7-page>-->
+    <!--</div>-->
 
 
 </template>

@@ -6,11 +6,7 @@
 
         <f7-page-content>
 
-            <f7-popup class="popup-template">
-                <div class="block">
-                    <p><a class="link popup-close" href="#">Close popup</a></p>
-                </div>
-            </f7-popup>
+            <history class="history-popup"></history>
 
 
             <div class="data-table data-table-init card" v-for="(exercise, index1) in clonedAndSortedExercises">

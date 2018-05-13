@@ -14,14 +14,7 @@
                     <!-- Table actions -->
                     <div class="data-table-actions">
                         <f7-button :actions-open="'#' + exercise[0].exercise_id + '-session-actions'">Actions</f7-button>
-                        <f7-actions :id="exercise[0].exercise_id + '-session-actions'">
-                            <f7-actions-group>
-                                <f7-actions-button v-on:click="addSet(exercise[0])">Add Set</f7-actions-button>
-                                <f7-actions-button>
-                                    <f7-link :href="'/exercises/' + exercise[0].exercise_id">View Exercise</f7-link>
-                                </f7-actions-button>
-                            </f7-actions-group>
-                        </f7-actions>
+                        <actions :exercise="exercise" :addSet="addSet"></actions>
                     </div>
                 </div>
                 <!-- Card Content -->

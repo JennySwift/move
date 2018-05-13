@@ -1,22 +1,29 @@
 <template>
-    <f7-page>
+    <f7-page :page-content="false">
         <navbar title="Exercises" popover-id="exercises">
             <f7-list-item link="/add-exercise/" title="Add Exercise" popover-close></f7-list-item>
         </navbar>
 
-        <f7-list contacts-list>
-            <f7-list-group>
-                <f7-list-item
-                    v-for="exercise in shared.exercises"
-                    :link="'/exercises/' + exercise.id"
-                    v-bind:title="exercise.name"
-                    v-on:click="setExercise(exercise)"
-                    v-bind:key="exercise.id"
-                >
+        <f7-page-content class="ptr-content">
+            <div class="ptr-preloader">
+                <div class="preloader"></div>
+                <div class="ptr-arrow"></div>
+            </div>
+            <f7-list contacts-list>
+                <f7-list-group>
+                    <f7-list-item
+                        v-for="exercise in shared.exercises"
+                        :link="'/exercises/' + exercise.id"
+                        v-bind:title="exercise.name"
+                        v-on:click="setExercise(exercise)"
+                        v-bind:key="exercise.id"
+                    >
 
-                </f7-list-item>
-            </f7-list-group>
-        </f7-list>
+                    </f7-list-item>
+                </f7-list-group>
+            </f7-list>
+        </f7-page-content>
+
 
     </f7-page>
 </template>
@@ -178,7 +185,15 @@
                         $.event.trigger('show-series-popup');
                     }
                 }.bind(this));
+            },
+            listen: function () {
+                $('.ptr-content').on('ptr:refresh', function (e) {
+                    store.getExercises({pullToRefresh: true});
+                });
             }
+        },
+        mounted: function () {
+            this.listen();
         }
     }
 </script>

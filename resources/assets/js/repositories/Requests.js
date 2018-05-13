@@ -50,6 +50,11 @@ export default {
                     store.set(true, options.loadedProperty);
                 }
 
+                if (options.pullToRefresh) {
+                    app.f7.ptr.done();
+                    helpers.toast('haha');
+                }
+
                 if (!helpers.isHomePage()) {
                     store.hideLoading();
                 }

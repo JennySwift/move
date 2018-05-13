@@ -137,11 +137,16 @@ export default {
     /**
     *
     */
-    getExercises: function () {
+    getExercises: function (options) {
+        var pullToRefresh = false;
+        if (options) {
+            pullToRefresh = options.pullToRefresh;
+        }
         helpers.get({
             url: '/api/exercises',
             storeProperty: 'exercises',
-            loadedProperty: 'exercisesLoaded'
+            loadedProperty: 'exercisesLoaded',
+            pullToRefresh: pullToRefresh
         });
     },
 

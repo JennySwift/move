@@ -38,6 +38,12 @@
 
             </f7-page-content>
 
+            <f7-toolbar>
+                <f7-button v-bind:disabled="!shared.history.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>
+                <f7-button v-on:click="toggleDateFormat()"><i class="far fa-clock"></i></f7-button>
+                <f7-button v-bind:disabled="!shared.history.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>
+            </f7-toolbar>
+
 
         </f7-page>
     </div>
@@ -57,18 +63,34 @@
             }
         },
         methods: {
+            nextPage: function () {
+                this.getHistory(this.shared.history.pagination.next_page_url);
+            },
+
+            prevPage: function () {
+                this.getHistory(this.shared.history.pagination.prev_page_url);
+            },
             isEmpty: function (obj) {
                 return _.isEmpty(obj);
             },
             /**
              *
              */
-            getHistory: function () {
+            getHistory: function (url) {
                 var id = helpers.getIdFromRouteParams(this);
 
+                if (!url) {
+                    url = this.baseUrl + '/' + id + '?include=sessions';
+                }
+                else {
+                    //This part isn't in the pagination url
+                    url += '&include=sessions';
+                }
+
                 helpers.get({
-                    url: this.baseUrl + '/' + id + '?include=sessions',
-                    storeProperty: 'history'
+                    url: url,
+                    storeProperty: 'history',
+                    pagination: true
                 });
             },
         },

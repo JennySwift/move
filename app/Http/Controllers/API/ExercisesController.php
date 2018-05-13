@@ -70,7 +70,7 @@ class ExercisesController extends Controller
             })->with(['exercises' => function ($query) use ($exercise) {
                 $query->where('exercises.id', '=', $exercise->id);
             }])
-                ->paginate(5);
+                ->paginate(3);
 
 //            dd($sessions);
 

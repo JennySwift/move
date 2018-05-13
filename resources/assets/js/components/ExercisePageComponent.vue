@@ -99,7 +99,10 @@
             }
         },
         mounted: function () {
-            this.getExercise();
+            if (!this.shared.exercise.id) {
+                this.getExercise();
+            }
+
         }
     }
 </script>

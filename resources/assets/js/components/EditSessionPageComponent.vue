@@ -37,7 +37,7 @@
                                 <f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>
                             </td>
                             <td class="numeric-cell numeric-input-cell">
-                                <f7-input type="number" inputStyle="width: 30px" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
+                                <f7-input type="tel" inputStyle="width: 30px" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>
                             </td>
                             <td class="checkbox-cell">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>

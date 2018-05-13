@@ -1,5 +1,5 @@
 <template>
-    <f7-actions :id="exercise[0].exercise_id + '-session-actions'">
+    <f7-actions :id="exercise[0].exercise_id + '-' + id + '-actions'">
         <f7-actions-group>
             <f7-actions-button v-on:click="addSet(exercise[0])">Add Set</f7-actions-button>
             <f7-actions-button>
@@ -13,7 +13,8 @@
     export default {
         props: [
             'exercise',
-            'addSet'
+            'addSet',
+            'id'
         ]
     }
 </script>

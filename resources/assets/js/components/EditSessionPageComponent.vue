@@ -14,7 +14,7 @@
                     <!-- Table actions -->
                     <div class="data-table-actions">
                         <f7-button :actions-open="'#' + exercise[0].exercise_id + '-session-actions'">Actions</f7-button>
-                        <actions :exercise="exercise" :addSet="addSet"></actions>
+                        <actions :exercise="exercise" id="session" :addSet="addSet"></actions>
                     </div>
                 </div>
                 <!-- Card Content -->

@@ -33,11 +33,11 @@
                         <tbody>
                         <tr v-for="(row, index2) in exercise">
                             <td class="numeric-cell">
-                                <a href="#" :data-sheet="'#session-exercise-level-keypad-' + row.id" class="sheet-open">{{row.level}}</a>
+                                <span :data-sheet="'#session-exercise-level-keypad-' + row.id" class="sheet-open">{{row.level}}</span>
                                 <keypad :value.sync="row.level" :id="'session-exercise-level-keypad-' + row.id"></keypad>
                             </td>
                             <td class="numeric-cell">
-                                <a href="#" :data-sheet="'#session-exercise-quantity-keypad-' + row.id" class="sheet-open">{{row.quantity}}</a>
+                                <span :data-sheet="'#session-exercise-quantity-keypad-' + row.id" class="sheet-open">{{row.quantity}}</span>
                                 <keypad :value.sync="row.quantity" :id="'session-exercise-quantity-keypad-' + row.id"></keypad>
                             </td>
                             <td class="checkbox-cell">

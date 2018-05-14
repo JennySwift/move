@@ -8,7 +8,6 @@
 
             <history class="history-popup"></history>
 
-
             <div class="data-table data-table-init card" v-for="(exercise, index1) in clonedAndSortedExercises">
                 <!-- Card Header -->
                 <div class="card-header">
@@ -33,13 +32,13 @@
                         </thead>
                         <tbody>
                         <tr v-for="(row, index2) in exercise">
-                            <td class="numeric-cell" v-on:click="showPrompt(row, 'level')">
-                                {{row.level}}
-                                <!--<f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>-->
+                            <td class="numeric-cell">
+                                <a href="#" :data-sheet="'#session-exercise-level-keypad-' + row.id" class="sheet-open">{{row.level}}</a>
+                                <keypad :value.sync="row.level" :id="'session-exercise-level-keypad-' + row.id"></keypad>
                             </td>
-                            <td class="numeric-cell" v-on:click="showPrompt(row, 'quantity')">
-                                {{row.quantity}}
-                                <!--<f7-input type="tel" inputStyle="width: 30px" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>-->
+                            <td class="numeric-cell">
+                                <a href="#" :data-sheet="'#session-exercise-quantity-keypad-' + row.id" class="sheet-open">{{row.quantity}}</a>
+                                <keypad :value.sync="row.quantity" :id="'session-exercise-quantity-keypad-' + row.id"></keypad>
                             </td>
                             <td class="checkbox-cell">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>

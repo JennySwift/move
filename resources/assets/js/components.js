@@ -12,6 +12,7 @@ import InputGroup from './components/shared/InputGroupComponent.vue'
 import CheckboxGroup from './components/shared/CheckboxGroupComponent.vue'
 // import HomePage from './components/HomePageComponent.vue'
 import History from './components/ExerciseHistoryPageComponent.vue'
+import Keypad from './components/shared/KeypadComponent.vue'
 
 //Shared components
 Vue.component('navbar', Navbar);
@@ -26,4 +27,5 @@ Vue.component('checkbox-group', CheckboxGroup);
 Vue.component('nav-menu', Menu);
 Vue.component('actions', Actions);
 Vue.component('history', History);
+Vue.component('keypad', Keypad);
 // Vue.component('home-page', HomePage);

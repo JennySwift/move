@@ -1,7 +1,11 @@
 <template>
-    <f7-page>
+    <f7-page id="exercise-page">
         <navbar :title="shared.exercise.name" popover-id="edit-exercise">
         </navbar>
+        
+        <f7-list contacts-list>
+            <f7-list-item v-on:click="openHistoryPopup()" link="false">View History</f7-list-item>
+        </f7-list>
 
         <f7-list no-hairlines-md contacts-list>
             <f7-list-item>
@@ -20,8 +24,6 @@
                 <f7-input type="text" :value="shared.exercise.priority" @input="shared.exercise.priority = $event.target.value" clear-button=""></f7-input>
             </f7-list-item>
         </f7-list>
-
-        <f7-button v-on:click="openHistoryPopup()">View History</f7-button>
 
        <f7-block>
            <buttons
@@ -113,6 +115,10 @@
 <style lang="scss" type="text/scss">
     @import '../../sass/shared/index';
     #exercise-page {
+        .contacts-list {
+            margin: 5px 0;
+            margin-bottom: 10px;
+        }
         #exercise-description {
             width: 100%;
         }

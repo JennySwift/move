@@ -30,16 +30,22 @@
         ],
         methods: {
             openPopup: function () {
+                this.setExercise();
+                store.getHistory();
                 var popup = app.f7.popup.create({
                     el: '.history-popup',
-                    on: {
-                        open: function (popup) {
-                            console.log('Popup open');
-                        },
-                        opened: function (popup) {
-                            console.log('Popup opened');
-                        },
-                    }
+                    // on: {
+                    //     open: function (popup) {
+                    //         console.log('Popup open');
+                    //     },
+                    //     opened: function (popup) {
+                    //         console.log('Popup opened');
+                    //     },
+                    // }
+                });
+                popup.on('open', function (something) {
+                    //
+
                 });
                 popup.open();
             },

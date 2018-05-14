@@ -153,6 +153,28 @@ export default {
     /**
      *
      */
+    getHistory: function (url) {
+        // var id = helpers.getIdFromRouteParams(this);
+        var id = this.state.exercise.id;
+
+        if (!url) {
+            url = 'api/exercises/' + id + '?include=sessions';
+        }
+        else {
+            //This part isn't in the pagination url
+            url += '&include=sessions';
+        }
+
+        helpers.get({
+            url: url,
+            storeProperty: 'history',
+            pagination: true
+        });
+    },
+
+    /**
+     *
+     */
     getWorkouts: function () {
         helpers.get({
             url: '/api/workouts',

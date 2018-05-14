@@ -75,42 +75,18 @@
         },
         methods: {
             nextPage: function () {
-                this.getHistory(this.shared.history.pagination.next_page_url);
+                store.getHistory(this.shared.history.pagination.next_page_url);
             },
 
             prevPage: function () {
-                this.getHistory(this.shared.history.pagination.prev_page_url);
+                store.getHistory(this.shared.history.pagination.prev_page_url);
             },
             isEmpty: function (obj) {
                 return _.isEmpty(obj);
             },
             toggleDateFormat: function () {
                 store.toggleDateFormat();
-            },
-            /**
-             *
-             */
-            getHistory: function (url) {
-                // var id = helpers.getIdFromRouteParams(this);
-                var id = 1;
-
-                if (!url) {
-                    url = this.baseUrl + '/' + id + '?include=sessions';
-                }
-                else {
-                    //This part isn't in the pagination url
-                    url += '&include=sessions';
-                }
-
-                helpers.get({
-                    url: url,
-                    storeProperty: 'history',
-                    pagination: true
-                });
-            },
-        },
-        mounted: function () {
-            this.getHistory();
+            }
         }
     }
 </script>

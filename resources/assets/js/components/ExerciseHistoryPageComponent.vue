@@ -2,8 +2,13 @@
     <f7-popup class="history-popup">
 
         <f7-page :page-content="false">
-
-            <p><a class="link popup-close" href="#">Close popup</a></p>
+            <f7-navbar>
+                <f7-nav-title>{{shared.exercise.name}} History</f7-nav-title>
+                <f7-nav-right>
+                    <!--<a class="link popup-close" href="#">Close popup</a>-->
+                    <f7-link popup-close><f7-icon f7="close"></f7-icon></f7-link>
+                </f7-nav-right>
+            </f7-navbar>
 
             <f7-page-content>
                 <div class="data-table data-table-init card" v-for="session in shared.history.data">

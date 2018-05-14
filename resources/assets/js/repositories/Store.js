@@ -94,6 +94,17 @@ export default {
         loading: false
     },
 
+    /**
+     * Set the exercise before calling this function
+     */
+    openHistoryPopup: function () {
+        store.getHistory();
+        var popup = app.f7.popup.create({
+            el: '.history-popup'
+        });
+        popup.open();
+    },
+
     toggleDateFormat: function () {
         if (this.state.dateFormat === 'daysAgo') {
             this.state.dateFormat = 'date';

@@ -12,6 +12,8 @@
                     </f7-list-item>
                 </f7-list>
 
+                <history class="history-popup"></history>
+
                 <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
                     <!-- Card Header -->
                     <div class="card-header">

@@ -9,6 +9,9 @@
                 <div class="preloader"></div>
                 <div class="ptr-arrow"></div>
             </div>
+
+            <history class="history-popup"></history>
+
             <f7-list contacts-list>
                 <f7-list-group>
                     <f7-list-item

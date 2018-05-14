@@ -5,6 +5,7 @@ Homestead.yaml
 Homestead.json
 .env
 /.idea
+/public/hot
 
 public/scss/.sass-cache
 .DS_Store

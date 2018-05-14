@@ -1,7 +1,7 @@
 <template>
     <f7-page :page-content="false">
         <navbar title="Exercises" popover-id="exercises">
-            <f7-list-item link="/add-exercise/" title="Add Exercise" popover-close></f7-list-item>
+            <!--<f7-list-item link="/add-exercise/" title="Add Exercise" popover-close></f7-list-item>-->
         </navbar>
 
         <f7-page-content class="ptr-content">
@@ -9,6 +9,10 @@
                 <div class="preloader"></div>
                 <div class="ptr-arrow"></div>
             </div>
+
+            <f7-list>
+                <f7-list-item link="/add-exercise/" title="Add Exercise"></f7-list-item>
+            </f7-list>
 
             <f7-list contacts-list>
                 <f7-list-group>

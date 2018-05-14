@@ -14,6 +14,8 @@ export default {
             data: [],
             pagination: {}
         },
+        routeHistory: [],
+        previousRoute: '',
         dateFormat: 'daysAgo',
         history: {
             data: [
@@ -106,6 +108,32 @@ export default {
             return helpers.getDaysAgo(date);
         }
         return helpers.formatDateForUser(date);
+    },
+
+    goToPreviousRoute: function () {
+        // console.log('before', this.state.routeHistory);
+        // console.log('before', this.state.previousRoute);
+        //So that pressing the back button twice or more doesn't mean going back and forth to the same pages
+        this.state.routeHistory.pop();
+        // console.log('after', this.state.routeHistory);
+        // console.log('after', this.state.previousRoute);
+    },
+
+    updateRouteHistory: function (path) {
+        // console.log('before', this.state.routeHistory);
+        // console.log('before', this.state.previousRoute);
+        var newRoute = app.f7.views.main.router.url;
+        var previousRoute = this.state.routeHistory[this.state.routeHistory.length-1];
+
+        if (newRoute !== previousRoute) {
+            //Back button was not pressed
+            this.add(newRoute, 'routeHistory');
+        }
+
+
+        this.set(this.state.routeHistory[this.state.routeHistory.length-2], 'previousRoute');
+        // console.log('after', this.state.routeHistory);
+        // console.log('after', this.state.previousRoute);
     },
 
     /**

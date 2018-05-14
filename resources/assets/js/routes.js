@@ -12,72 +12,73 @@ import SessionsPage from './components/SessionsPageComponent.vue'
 import UnitsPage from './components/ExerciseUnitsPageComponent.vue'
 import ExerciseHistoryPage from './components/ExerciseHistoryPageComponent.vue'
 
+var on = {
+    pageAfterIn: function (e, page) {
+        store.updateRouteHistory(page.route.path);
+    }
+};
+
 export default [
     {
         name: 'exercises',
         path: '/exercises',
-        component: ExercisesPage
+        component: ExercisesPage,
+        on: on
     },
     {
         name: 'exercise',
         path: '/exercises/:id',
-        component: ExercisePage
+        component: ExercisePage,
+        on: on
     },
     {
         name: 'exercise history',
         path: '/exercises/:id/history',
-        component: ExerciseHistoryPage
+        component: ExerciseHistoryPage,
+        on: on
     },
     {
         name: 'add exercise',
         path: '/add-exercise',
-        component: NewExercisePage
+        component: NewExercisePage,
+        on: on
     },
     {
         name: 'sessions',
         path: '/sessions',
         component: SessionsPage,
-        alias: '/'
+        alias: '/',
+        on: on
     },
     {
         name: 'units',
         path: '/units',
-        component: UnitsPage
+        component: UnitsPage,
+        on: on
     },
     {
         name: 'workouts',
         path: '/workouts',
         component: WorkoutsPage,
-        // routes: [
-        //     {
-        //         name: 'workout',
-        //         path: '/:id',
-        //         component: EditWorkoutPage
-        //     },
-        // ]
+        on: on
     },
-    // {
-    //     path: '/workouts/:id',
-    //     component: WorkoutPage
-    // },
-    // {
-    //     path: '/sessions/:id',
-    //     component: SessionPage
-    // },
     {
         name: 'add workout',
         path: '/add-workout',
-        component: NewWorkoutPage
+        component: NewWorkoutPage,
+        on: on
     },
     {
         name: 'workout',
         path: '/workouts/:id',
-        component: EditWorkoutPage
+        component: EditWorkoutPage,
+        on: on
     },
     {
         name: 'session',
         path: '/sessions/:id',
-        component: EditSessionPage
+        component: EditSessionPage,
+        on: on
     },
 ]
 

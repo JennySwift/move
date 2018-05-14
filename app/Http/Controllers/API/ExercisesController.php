@@ -68,7 +68,8 @@ class ExercisesController extends Controller
             $sessions = Session::whereHas('exercises', function ($q) use ($exercise) {
                 $q->where('exercises.id', $exercise->id);
             })->with(['exercises' => function ($query) use ($exercise) {
-                $query->where('exercises.id', '=', $exercise->id);
+                $query->where('exercises.id', '=', $exercise->id)
+                    ->where('complete', 1);
             }])
                 ->paginate(3);
 

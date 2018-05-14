@@ -129,6 +129,40 @@ class ExercisesTest extends TestCase {
         foreach ($content['data'] as $session) {
             foreach ($session['exercises']['data'] as $tempExercise) {
                 $this->assertEquals($exercise->id, $tempExercise['exercise_id']);
+                $this->assertEquals(1, $tempExercise['complete']);
+            }
+        }
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+
+        $this->assertEquals(1, $content['pagination']['current_page']);
+
+    }
+
+    /**
+     * @test
+     */
+    public function it_only_shows_complete_exercises_for_the_history()
+    {
+        $this->logInUser();
+
+        $exercise = Exercise::forCurrentUser()->find(10);
+
+        $incompleteEntry = DB::table('exercise_session')->where('exercise_id', $exercise->id)->where('complete', 0)->first();
+        $this->assertEquals(0, $incompleteEntry->complete);
+
+        $response = $this->call('GET', $this->url . '/' . $exercise->id . '?include=sessions');
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkSessionKeysExist($content['data'][0]);
+        $this->checkExerciseSessionKeysExist($content['data'][0]['exercises']['data'][0]);
+        $this->checkPaginationKeysExist($content['pagination']);
+
+        foreach ($content['data'] as $session) {
+            foreach ($session['exercises']['data'] as $tempExercise) {
+                $this->assertEquals($exercise->id, $tempExercise['exercise_id']);
+                $this->assertEquals(1, $tempExercise['complete']);
             }
         }
 

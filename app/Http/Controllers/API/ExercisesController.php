@@ -71,6 +71,7 @@ class ExercisesController extends Controller
                 $query->where('exercises.id', '=', $exercise->id)
                     ->where('complete', 1);
             }])
+                ->orderBy('created_at', 'desc')
                 ->paginate(3);
 
 //            dd($sessions);

@@ -3,6 +3,8 @@
         <navbar :title="shared.exercise.name" popover-id="edit-exercise">
         </navbar>
 
+        <history class="history-popup"></history>
+
         <f7-list contacts-list>
             <f7-list-item v-on:click="openHistoryPopup()" link="false">View History</f7-list-item>
         </f7-list>
@@ -68,7 +70,7 @@
                 helpers.get({
                     url: this.baseUrl + '/' + id,
                     storeProperty: 'exercise',
-                    loadedProperty: 'exerciseLoaded',
+                    loadedProperty: 'exerciseLoaded'
                 });
             },
 

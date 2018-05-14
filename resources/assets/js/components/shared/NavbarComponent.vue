@@ -1,7 +1,10 @@
 <template>
     <f7-navbar>
         <f7-nav-left v-if="shared.previousRoute">
-            <f7-link :href="shared.previousRoute" v-on:click="goToPreviousRoute()">Back</f7-link>
+            <f7-link :href="shared.previousRoute" v-on:click="goToPreviousRoute()" id="back-navigation-link">
+                <f7-icon f7="chevron_left"></f7-icon>
+                <span>Back</span>
+            </f7-link>
         </f7-nav-left>
         <f7-nav-title>{{title}}</f7-nav-title>
         <f7-nav-right>
@@ -41,3 +44,11 @@
     }
 
 </script>
+
+<style lang="scss" type="text/scss">
+    #back-navigation-link {
+        span {
+            padding-top: 1px;
+        }
+    }
+</style>

@@ -35,13 +35,13 @@
                             </thead>
                             <tbody>
                             <tr v-for="row in exercise">
-                                <td class="numeric-cell" v-on:click="showPrompt(row, 'level')">
-                                    {{row.level}}
-                                    <!--<f7-input inputStyle="width: 30px" type="number" :value="row.level" @input="row.level = $event.target.value"></f7-input>-->
+                                <td class="numeric-cell">
+                                    <span :data-sheet="'#workout-exercise-level-keypad-' + row.id" class="sheet-open">{{row.level}}</span>
+                                    <keypad :value.sync="row.level" :id="'workout-exercise-level-keypad-' + row.id"></keypad>
                                 </td>
-                                <td class="numeric-cell" v-on:click="showPrompt(row, 'quantity')">
-                                    {{row.quantity}}
-                                    <!--<f7-input inputStyle="width: 30px" type="number" :value="row.quantity" @input="row.quantity = $event.target.value"></f7-input>-->
+                                <td class="numeric-cell">
+                                    <span :data-sheet="'#workout-exercise-quantity-keypad-' + row.id" class="sheet-open">{{row.quantity}}</span>
+                                    <keypad :value.sync="row.quantity" :id="'workout-exercise-quantity-keypad-' + row.id"></keypad>
                                 </td>
                                 <td class="actions-cell" v-on:click="removeSet(row)">
                                     <f7-icon f7="trash" size="22"></f7-icon>

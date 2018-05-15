@@ -2,6 +2,7 @@
 <html>
 <head>
     @include('shared.head')
+    @include('shared.links')
 </head>
 <body>
 <div id="app">

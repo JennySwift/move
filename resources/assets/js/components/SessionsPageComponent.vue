@@ -1,8 +1,12 @@
 <template>
     <f7-page>
         <navbar title="Sessions" popover-id="sessions">
-            <f7-list-item v-on:click="createSessionFromSavedWorkout()" title="Start Session" link="false" popover-close></f7-list-item>
+            <!--<f7-list-item v-on:click="createSessionFromSavedWorkout()" title="Start Session" link="false" popover-close></f7-list-item>-->
         </navbar>
+
+        <f7-fab color="green" position="right-bottom" v-on:click="createSessionFromSavedWorkout()">
+            <f7-icon f7="add"></f7-icon>
+        </f7-fab>
 
         <f7-list contacts-list>
             <f7-list-group>

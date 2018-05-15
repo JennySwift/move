@@ -16,7 +16,7 @@
                     <!-- Card Header -->
                     <div class="card-header">
                         <!-- Table title -->
-                        <div class="data-table-title">{{session.name}} <small>{{session.created_at | dateFilter}}</small></div>
+                        <div class="data-table-title">{{session.created_at | dateFilter}}</div>
                     </div>
                     <!-- Card Content -->
                     <div class="card-content">

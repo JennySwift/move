@@ -11,7 +11,7 @@
             </f7-navbar>
 
             <f7-page-content>
-                <div class="data-table data-table-init card" v-for="session in shared.history.data">
+                <div v-if="session.exercises.data[0]" class="data-table data-table-init card" v-for="session in shared.history.data">
                     <!-- Card Header -->
                     <div class="card-header">
                         <!-- Table title -->

@@ -3,6 +3,9 @@
         <navbar title="Exercises" popover-id="exercises">
             <!--<f7-list-item link="/add-exercise/" title="Add Exercise" popover-close></f7-list-item>-->
         </navbar>
+        <f7-fab color="green" position="right-bottom" href="/add-exercise/">
+            <f7-icon f7="add"></f7-icon>
+        </f7-fab>
 
         <f7-page-content class="ptr-content">
             <div class="ptr-preloader">
@@ -10,9 +13,9 @@
                 <div class="ptr-arrow"></div>
             </div>
 
-            <f7-list>
-                <f7-list-item link="/add-exercise/" title="Add Exercise"></f7-list-item>
-            </f7-list>
+            <!--<f7-list>-->
+                <!--<f7-list-item link="/add-exercise/" title="Add Exercise"></f7-list-item>-->
+            <!--</f7-list>-->
 
             <f7-list contacts-list>
                 <f7-list-group>

@@ -72,7 +72,7 @@ class ExercisesController extends Controller
                     ->where('complete', 1);
             }])
                 ->orderBy('created_at', 'desc')
-                ->paginate(3);
+                ->paginate(5);
 
 //            dd($sessions);
 

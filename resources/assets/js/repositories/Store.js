@@ -244,6 +244,41 @@ export default {
         });
     },
 
+    showAddExercisePicker: function (that) {
+        var picker = app.f7.picker.create({
+            inputEl: '#exercise-picker',
+            cols: [
+                {
+                    textAlign: 'left',
+                    values: _.map(this.state.exercises, 'id'),
+                    displayValues: _.map(this.state.exercises, 'name')
+                },
+                {
+                    values: _.map(this.state.exerciseUnits, 'id'),
+                    displayValues: _.map(this.state.exerciseUnits, 'name')
+                },
+            ],
+            on: {
+                close: function (picker) {
+                    var exercise = helpers.findById(store.state.exercises, picker.value[0]);
+                    var row = {
+                        exercise_id: exercise.id,
+                        name: exercise.name,
+                        level: 1,
+                        quantity: 50,
+                        complete: 0,
+                        unit: {
+                            data: helpers.findById(store.state.exerciseUnits, picker.value[1])
+                        }
+                    };
+
+                    that.addSet(row);
+                }
+            }
+        });
+        picker.open();
+    },
+
     /**
      *
      */

@@ -6,8 +6,10 @@
             </navbar>
 
             <f7-page-content>
+
                 <f7-list inset>
                     <f7-list-item>
+                        <f7-label>Edit Workout Name</f7-label>
                         <f7-input type="text" :value="shared.workout.name" @input="shared.workout.name = $event.target.value" placeholder="Name"></f7-input>
                     </f7-list-item>
                 </f7-list>

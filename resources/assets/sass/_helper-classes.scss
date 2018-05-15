@@ -16,7 +16,7 @@
 //}
 
 .page-content {
-    .list:not(.contacts-list) {
+    .list:not(.contacts-list, .inset) {
         margin: 5px 0 10px 0;
     }
 }

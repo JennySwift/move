@@ -146,32 +146,6 @@
                 picker.open();
 
             },
-            // openActions: function (exerciseGroup) {
-            //     var that = this;
-            //     var ac1 = app.f7.actions.create({
-            //         buttons: [
-            //             {
-            //                 text: 'Add Set',
-            //                 onClick: function () {
-            //                     that.addSet(exerciseGroup[0])
-            //                 }
-            //             },
-            //             {
-            //                 text: 'View History'
-            //             },
-            //             {
-            //                 text: 'View Exercise',
-            //                 onClick: function () {
-            //                     helpers.goToRoute('/exercises/' + exerciseGroup[0].exercise_id);
-            //                 }
-            //             },
-            //             {
-            //                 text: 'Cancel',
-            //                 color: 'red'
-            //             },
-            //         ]
-            //     }).open();
-            // },
             getUnitOptions: function () {
                 var options = {};
                 _.forEach(this.shared.exerciseUnits, function (value, index) {
@@ -193,11 +167,6 @@
             removeSet: function (row) {
                 this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
             },
-//            toggleCompletion: function (row) {
-//                if (!row.complete)
-//                row.complete = 1;
-//                this.clonedExercises = helpers.updateItemInArray(row, this.clonedExercises);
-//            },
             addSet: function (row) {
                 var newSet = {
                     exercise_id: row.exercise_id,
@@ -300,32 +269,6 @@
                 picker.open();
             },
 
-//            optionChosen: function (option, inputId) {
-//                var that = this;
-//                if (inputId === 'add-exercise-to-session-input') {
-//                    option.exercise_id = option.id;
-//                    option.level = 1;
-//                    option.quantity = '';
-////                    option.unit = {
-////                        data: this.shared.exerciseUnits[0]
-////                    };
-//                    swal({
-//                        title: "Choose a Unit",
-//                        input: 'select',
-//                        inputOptions: this.getUnitOptions(),
-//                        showCloseButton: true
-//                    }).then(function (result) {
-//                        result = parseInt(result);
-//                        option.unit = {
-//                            data: helpers.findById(that.shared.exerciseUnits, result)
-//                        };
-//                        that.addSet(option);
-//                    });
-//                }
-//            },
-        },
-        created: function () {
-//            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
         },
         mounted: function () {
             this.getSession();
@@ -334,29 +277,5 @@
 </script>
 
 <style lang="scss" type="text/scss">
-    #edit-session-page {
-        th {
-            text-align:center;
-        }
-        td {
-            padding: 0 8px;
-            input {
-                width: 85%;
-                text-align: center;
-            }
-        }
-        .add-set-td {
-            padding: 4px;
-        }
-        .btn-container {
-            :first-child {
-                margin-bottom: 4px;
-            }
-        }
-        th, td {
-            &:last-child {
-                width: 32px;
-            }
-        }
-    }
+
 </style>

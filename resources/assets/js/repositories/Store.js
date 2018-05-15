@@ -251,11 +251,14 @@ export default {
                 {
                     textAlign: 'left',
                     values: _.map(this.state.exercises, 'id'),
-                    displayValues: _.map(this.state.exercises, 'name')
+                    displayValues: _.map(this.state.exercises, 'name'),
+                    cssClass: 'exercise'
                 },
                 {
                     values: _.map(this.state.exerciseUnits, 'id'),
-                    displayValues: _.map(this.state.exerciseUnits, 'name')
+                    displayValues: _.map(this.state.exerciseUnits, 'name'),
+                    cssClass: 'unit',
+                    width: 60
                 },
             ],
             on: {

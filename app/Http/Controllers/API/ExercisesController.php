@@ -66,8 +66,10 @@ class ExercisesController extends Controller
     {
         if ($request->get('include') === 'sessions') {
             $sessions = Session::whereHas('exercises', function ($q) use ($exercise) {
-                $q->where('exercises.id', $exercise->id);
-            })->with(['exercises' => function ($query) use ($exercise) {
+                $q->where('exercises.id', $exercise->id)
+                ->where('complete', 1);
+            })
+                ->with(['exercises' => function ($query) use ($exercise) {
                 $query->where('exercises.id', '=', $exercise->id)
                     ->where('complete', 1);
             }])

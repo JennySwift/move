@@ -2,7 +2,7 @@
     <div>
         <f7-page :page-content="false">
             <navbar :title="shared.workout.name" popover-id="edit-workout">
-                <f7-list-item v-on:click="addExerciseToWorkout()" link="false" title="Add Exercise" popover-close></f7-list-item>
+                <f7-list-item v-on:click="showAddExercisePicker()" link="false" title="Add Exercise" popover-close></f7-list-item>
             </navbar>
 
             <f7-page-content>
@@ -120,6 +120,9 @@
             }
         },
         methods: {
+            showAddExercisePicker: function () {
+                store.showAddExercisePicker(this);
+            },
             showPrompt: function (row, field) {
                 var prompt = app.f7.dialog.prompt('Enter a ' + field, function (value) {
                     row[field] = value;
@@ -244,44 +247,6 @@
                         this.setClonedExercises();
                     }.bind(this)
                 });
-            },
-
-            addExerciseToWorkout: function () {
-                var that = this;
-                swal.mixin({
-                    showCloseButton: true,
-                    animation: false,
-//                    customClass: 'animated zoomIn',
-                    progressSteps: ['1', '2'],
-//                    grow: 'fullscreen'
-                }).queue([
-                    {
-                        title: "Choose an Exercise",
-                        input: 'select',
-                        inputOptions: this.getExerciseOptions(),
-
-                    },
-                    {
-                        title: "Choose a Unit",
-                        input: 'select',
-                        inputOptions: this.getUnitOptions(),
-                    },
-                ]).then(function (result) {
-                    if (result.value) {
-                        var exercise = helpers.findById(that.shared.exercises, result.value[0]);
-                        var row = {
-                            exercise_id: exercise.id,
-                            name: exercise.name,
-                            level: 1,
-                            quantity: 50,
-                            unit: {
-                                data: helpers.findById(that.shared.exerciseUnits, result.value[1])
-                            }
-                        };
-
-                        that.addSet(row);
-                    }
-                    })
             },
         },
         mounted: function () {

@@ -1,7 +1,7 @@
 <template>
-    <f7-page>
+    <f7-page id="session-page">
         <navbar :title="shared.session.name" popover-id="edit-session">
-            <f7-list-item v-on:click="addExerciseToSession()" link="false" title="Add Exercise" popover-close></f7-list-item>
+            <f7-list-item v-on:click="showAddExercisePicker()" link="false" title="Add Exercise" popover-close></f7-list-item>
         </navbar>
 
         <f7-page-content>
@@ -264,43 +264,40 @@
                 });
             },
 
-            addExerciseToSession: function () {
+            showAddExercisePicker: function () {
                 var that = this;
-                swal.mixin({
-                    showCloseButton: true,
-                    animation: false,
-//                    customClass: 'animated zoomIn',
-                    progressSteps: ['1', '2'],
-//                    grow: 'fullscreen'
-                }).queue([
-                    {
-                        title: "Choose an Exercise",
-                        input: 'select',
-                        inputOptions: this.getExerciseOptions(),
+                var picker = app.f7.picker.create({
+                    inputEl: '#exercise-picker',
+                    cols: [
+                        {
+                            textAlign: 'left',
+                            values: _.map(this.shared.exercises, 'id'),
+                            displayValues: _.map(this.shared.exercises, 'name')
+                        },
+                        {
+                            values: _.map(this.shared.exerciseUnits, 'id'),
+                            displayValues: _.map(this.shared.exerciseUnits, 'name')
+                        },
+                    ],
+                    on: {
+                        close: function (picker) {
+                            var exercise = helpers.findById(that.shared.exercises, picker.value[0]);
+                            var row = {
+                                exercise_id: exercise.id,
+                                name: exercise.name,
+                                level: 1,
+                                quantity: 50,
+                                complete: 0,
+                                unit: {
+                                    data: helpers.findById(that.shared.exerciseUnits, picker.value[1])
+                                }
+                            };
 
-                    },
-                    {
-                        title: "Choose a Unit",
-                        input: 'select',
-                        inputOptions: this.getUnitOptions(),
-                    },
-                ]).then(function (result) {
-                    if (result.value) {
-                        var exercise = helpers.findById(that.shared.exercises, result.value[0]);
-                        var row = {
-                            exercise_id: exercise.id,
-                            name: exercise.name,
-                            level: 1,
-                            quantity: '',
-                            complete: 0,
-                            unit: {
-                                data: helpers.findById(that.shared.exerciseUnits, result.value[1])
-                            }
-                        };
-
-                        that.addSet(row);
+                            that.addSet(row);
+                        }
                     }
-                })
+                });
+                picker.open();
             },
 
 //            optionChosen: function (option, inputId) {

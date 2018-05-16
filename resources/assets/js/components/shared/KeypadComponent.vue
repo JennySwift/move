@@ -63,14 +63,22 @@
 
 <style lang="scss" type="text/scss">
     .keypad {
-        .keypad-row {
+        //Stretch buttons to fit vertically
+        .sheet-modal-inner {
             display: flex;
-            button {
+            flex-direction: column;
+            .keypad-row {
                 flex-grow: 1;
-                border-radius: 0;
-                padding: 12px 0;
-                font-size: 25px;
+                display: flex;
+                //Stretch buttons to fit horizontally
+                button {
+                    flex-grow: 1;
+                    border-radius: 0;
+                    padding: 12px 0;
+                    font-size: 20px;
+                }
             }
         }
+
     }
 </style>

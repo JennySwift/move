@@ -4,9 +4,9 @@
             <!--<f7-list-item v-on:click="createSessionFromSavedWorkout()" title="Start Session" link="false" popover-close></f7-list-item>-->
         </navbar>
 
-        <f7-fab color="green" position="right-bottom" v-on:click="createSessionFromSavedWorkout()">
-            <f7-icon f7="add"></f7-icon>
-        </f7-fab>
+        <!--<f7-fab color="green" position="center-center" v-on:click="createSessionFromSavedWorkout()">-->
+            <!--<f7-icon f7="add"></f7-icon>-->
+        <!--</f7-fab>-->
 
         <f7-list contacts-list>
             <f7-list-group>
@@ -26,6 +26,7 @@
 
         <f7-toolbar>
             <f7-button v-bind:disabled="!shared.sessions.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>
+            <f7-button v-on:click="createSessionFromSavedWorkout()">Start Session</f7-button>
             <f7-button v-on:click="toggleDateFormat()"><i class="far fa-clock"></i></f7-button>
             <f7-button v-bind:disabled="!shared.sessions.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>
         </f7-toolbar>

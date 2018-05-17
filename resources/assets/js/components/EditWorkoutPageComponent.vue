@@ -2,7 +2,7 @@
     <div>
         <f7-page :page-content="false">
             <navbar :title="shared.workout.name" popover-id="edit-workout">
-                <f7-list-item v-on:click="showAddExercisePicker()" link="false" title="Add Exercise" popover-close></f7-list-item>
+                <!--<f7-list-item v-on:click="showAddExercisePicker()" link="false" title="Add Exercise" popover-close></f7-list-item>-->
             </navbar>
 
             <f7-page-content>
@@ -60,12 +60,9 @@
 
             </f7-page-content>
 
-            <f7-toolbar>
-                <buttons
-                    :save="updateWorkout"
-                >
-                </buttons>
-
+            <f7-toolbar class="flex-container">
+                <f7-button v-on:click="showAddExercisePicker()">Add Exercise</f7-button>
+                <f7-button v-on:click="updateWorkout()">Save</f7-button>
             </f7-toolbar>
 
         </f7-page>

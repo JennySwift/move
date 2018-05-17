@@ -21,6 +21,19 @@
 //    }
 //}
 
+.toolbar {
+    .icon {
+        font-size: 25px;
+    }
+    &.flex-container {
+        a.button {
+            flex-basis: 50px;
+            flex-grow: 1;
+            margin: 0 5px;
+        }
+    }
+}
+
 .picker-column {
     span {
         font-size: 15px;

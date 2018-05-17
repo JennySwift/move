@@ -19,13 +19,15 @@ export default {
         return Date.create(date).format('{d} {Mon}');
     },
 
-    getDaysAgo: function (date) {
-        var daysAgo = Date.create(date).daysAgo();
+    getDaysAgo: function (dateTime) {
+        //Converting to date from dateTime because otherwise, daysAgo is 0 if it's yesterday but less than 24 hours ago.
+        var date = Date.create(Date.create(dateTime).format('{yyyy}-{MM}-{dd}'));
+        var daysAgo = date.daysAgo();
         if (daysAgo === 0){
             return 'Today';
         }
         if (daysAgo === 1) {
-            return daysAgo + ' day ago';
+            return 'Yesterday';
         }
         return daysAgo + ' days ago';
         // return Date.create(date).relative();

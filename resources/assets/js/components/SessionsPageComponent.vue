@@ -66,11 +66,15 @@
                store.toggleDateFormat();
             },
             nextPage: function () {
-                store.getSessions(this.shared.sessions.pagination.next_page_url);
+                store.getSessions({
+                    url: this.shared.sessions.pagination.next_page_url
+                });
             },
 
             prevPage: function () {
-                store.getSessions(this.shared.sessions.pagination.prev_page_url);
+                store.getSessions({
+                    url: this.shared.sessions.pagination.prev_page_url
+                });
             },
 
             /**
@@ -108,11 +112,12 @@
                         helpers.post({
                             url: that.baseUrl,
                             data: data,
-//                            array: 'sessions',
+//                            array: 'sessions.data',
                             message: 'Enjoy your workout :)',
                             clearFields: that.clearFields,
                             callback: function (response) {
                                 helpers.goToRoute('/sessions/' + response.id);
+                                store.getSessions({});
                             }.bind(that)
                         });
                     }

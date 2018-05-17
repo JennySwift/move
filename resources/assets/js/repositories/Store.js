@@ -296,10 +296,9 @@ export default {
     /**
      * url is for pagination
      */
-    getSessions: function (url) {
-        if (!url) {
-            url = '/api/sessions';
-        }
+    getSessions: function (options) {
+        var url = options.url ? options.url : '/api/sessions';
+
         helpers.get({
             url: url,
             storeProperty: 'sessions',

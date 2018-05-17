@@ -1,7 +1,7 @@
 <template>
     <f7-page id="session-page">
         <navbar :title="shared.session.name" popover-id="edit-session">
-            <f7-list-item v-on:click="showAddExercisePicker()" link="false" title="Add Exercise" popover-close></f7-list-item>
+            <!--<f7-list-item v-on:click="showAddExercisePicker()" link="false" title="Add Exercise" popover-close></f7-list-item>-->
         </navbar>
 
         <f7-page-content>
@@ -58,12 +58,9 @@
 
         </f7-page-content>
 
-        <f7-toolbar>
-            <buttons
-                :save="updateSession"
-            >
-            </buttons>
-
+        <f7-toolbar class="flex-container">
+            <f7-button v-on:click="showAddExercisePicker()">Add Exercise</f7-button>
+            <f7-button v-on:click="updateSession()">Save</f7-button>
         </f7-toolbar>
 
     </f7-page>

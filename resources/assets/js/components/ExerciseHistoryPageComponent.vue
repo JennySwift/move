@@ -33,7 +33,8 @@
                                     {{row.level}}
                                 </td>
                                 <td class="numeric-cell">
-                                    {{row.quantity}}
+                                    <span v-if="session.exercises.data[0].unit.data.name === 'TIME'">{{row.quantity | timeFilter}}</span>
+                                    <span v-if="session.exercises.data[0].unit.data.name !== 'TIME'">{{row.quantity}}</span>
                                 </td>
                             </tr>
                             </tbody>
@@ -77,6 +78,9 @@
         filters: {
             dateFilter: function (date) {
                 return store.dateFilter(date);
+            },
+            timeFilter: function (time) {
+                return helpers.filterTime(time);
             }
         },
         methods: {

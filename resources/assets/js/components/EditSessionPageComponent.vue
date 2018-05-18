@@ -37,7 +37,8 @@
                                 <keypad :value.sync="row.level" :id="'session-exercise-level-keypad-' + row.id"></keypad>
                             </td>
                             <td class="numeric-cell sheet-open" :data-sheet="'#session-exercise-quantity-keypad-' + row.id">
-                                <span>{{row.quantity}}</span>
+                                <span v-if="exercise[0].unit.data.name !== 'TIME'">{{row.quantity}}</span>
+                                <span v-if="exercise[0].unit.data.name === 'TIME'">{{row.quantity | timeFilter}}</span>
                                 <keypad :value.sync="row.quantity" :id="'session-exercise-quantity-keypad-' + row.id"></keypad>
                             </td>
                             <td class="checkbox-cell" v-show="!deletingRows">
@@ -92,6 +93,11 @@
 
                 ],
                 showTrashIcons: false
+            }
+        },
+        filters: {
+            timeFilter: function (time) {
+                return helpers.filterTime(time);
             }
         },
         computed: {

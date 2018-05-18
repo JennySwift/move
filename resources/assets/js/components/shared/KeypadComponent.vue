@@ -70,12 +70,22 @@
             .keypad-row {
                 flex-grow: 1;
                 display: flex;
+                border-bottom: 1px solid #ccc;
+                &:last-child {
+                    border-bottom: none;
+                }
                 //Stretch buttons to fit horizontally
                 button {
                     flex-grow: 1;
                     border-radius: 0;
                     padding: 12px 0;
                     font-size: 20px;
+                    background: white;
+                    border: none;
+                    border-right: 1px solid #ccc;
+                    &:last-child {
+                        border-right: none;
+                    }
                 }
             }
         }

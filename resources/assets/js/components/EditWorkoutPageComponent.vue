@@ -39,12 +39,12 @@
                             </thead>
                             <tbody>
                             <tr v-for="row in exercise">
-                                <td class="numeric-cell">
-                                    <span :data-sheet="'#workout-exercise-level-keypad-' + row.id" class="sheet-open">{{row.level}}</span>
+                                <td class="numeric-cell sheet-open" :data-sheet="'#workout-exercise-level-keypad-' + row.id">
+                                    <span>{{row.level}}</span>
                                     <keypad :value.sync="row.level" :id="'workout-exercise-level-keypad-' + row.id"></keypad>
                                 </td>
-                                <td class="numeric-cell">
-                                    <span :data-sheet="'#workout-exercise-quantity-keypad-' + row.id" class="sheet-open">{{row.quantity}}</span>
+                                <td class="numeric-cell sheet-open" :data-sheet="'#workout-exercise-quantity-keypad-' + row.id">
+                                    <span>{{row.quantity}}</span>
                                     <keypad :value.sync="row.quantity" :id="'workout-exercise-quantity-keypad-' + row.id"></keypad>
                                 </td>
                                 <td class="actions-cell" v-on:click="removeSet(row)">

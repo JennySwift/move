@@ -83,6 +83,7 @@
                     background: white;
                     border: none;
                     border-right: 1px solid #ccc;
+                    margin: 0;
                     &:last-child {
                         border-right: none;
                     }

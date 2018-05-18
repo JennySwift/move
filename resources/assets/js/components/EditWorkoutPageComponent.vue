@@ -34,7 +34,7 @@
                             <tr>
                                 <th class="numeric-cell">LEVEL</th>
                                 <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
-                                <th class="actions-cell"></th>
+                                <th class="actions-cell" v-show="deletingRows"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -47,7 +47,7 @@
                                     <span>{{row.quantity}}</span>
                                     <keypad :value.sync="row.quantity" :id="'workout-exercise-quantity-keypad-' + row.id"></keypad>
                                 </td>
-                                <td class="actions-cell" v-on:click="removeSet(row)">
+                                <td class="actions-cell" v-on:click="removeSet(row)" v-show="deletingRows">
                                     <f7-icon f7="trash" size="22"></f7-icon>
                                 </td>
 
@@ -61,7 +61,8 @@
             </f7-page-content>
 
             <f7-toolbar class="flex-container">
-                <f7-button v-on:click="showAddExercisePicker()">Add Exercise</f7-button>
+                <f7-button v-on:click="showAddExercisePicker()"><i class="fas fa-plus"></i></f7-button>
+                <f7-button v-on:click="deletingRows = !deletingRows"><i class="fas fa-pencil-alt"></i></f7-button>
                 <f7-button v-on:click="updateWorkout()">Save</f7-button>
             </f7-toolbar>
 
@@ -80,6 +81,7 @@
             return {
                 shared: store.state,
                 baseUrl: 'api/workouts',
+                deletingRows: false,
                 clonedExercises: [
 //                    {
 //                        id: '',

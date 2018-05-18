@@ -26,8 +26,8 @@
                         <tr>
                             <th class="numeric-cell"><div>LEVEL</div></th>
                             <th class="numeric-cell"><div>{{exercise[0].unit.data.name}}</div></th>
-                            <th class="checkbox-cell"></th>
-                            <th class="actions-cell"></th>
+                            <th class="checkbox-cell" v-show="!deletingRows"></th>
+                            <th class="actions-cell" v-show="deletingRows"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -40,11 +40,11 @@
                                 <span>{{row.quantity}}</span>
                                 <keypad :value.sync="row.quantity" :id="'session-exercise-quantity-keypad-' + row.id"></keypad>
                             </td>
-                            <td class="checkbox-cell">
+                            <td class="checkbox-cell" v-show="!deletingRows">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
                             </td>
 
-                            <td class="actions-cell" v-on:click="removeSet(row)">
+                            <td class="actions-cell" v-on:click="removeSet(row)" v-show="deletingRows">
                                 <f7-icon f7="trash" size="22"></f7-icon>
                             </td>
 
@@ -59,7 +59,8 @@
         </f7-page-content>
 
         <f7-toolbar class="flex-container">
-            <f7-button v-on:click="showAddExercisePicker()">Add Exercise</f7-button>
+            <f7-button v-on:click="showAddExercisePicker()"><i class="fas fa-plus"></i></f7-button>
+            <f7-button v-on:click="deletingRows = !deletingRows"><i class="fas fa-pencil-alt"></i></f7-button>
             <f7-button v-on:click="updateSession()">Save</f7-button>
         </f7-toolbar>
 
@@ -76,6 +77,7 @@
             return {
                 shared: store.state,
                 baseUrl: 'api/sessions',
+                deletingRows: false,
                 clonedExercises: [
 //                    {
 //                        id: '',

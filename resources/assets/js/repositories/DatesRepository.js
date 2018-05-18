@@ -19,6 +19,32 @@ export default {
         return Date.create(date).format('{d} {Mon}');
     },
 
+    /**
+     * Convert seconds to a more readable time format
+     * @param seconds
+     * @returns {string}
+     */
+    filterTime: function (seconds) {
+        var hours = Math.floor(seconds / 3600);
+        seconds %= 3600;
+        var minutes = Math.floor(seconds / 60);
+        seconds %= 60;
+
+        var string = '';
+
+        if (hours) {
+            string += hours + 'h';
+        }
+        if (minutes) {
+            string+= minutes + 'm';
+        }
+        if (seconds) {
+            string+= seconds + 's';
+        }
+
+        return string;
+    },
+
     getDaysAgo: function (dateTime) {
         //Converting to date from dateTime because otherwise, daysAgo is 0 if it's yesterday but less than 24 hours ago.
         var date = Date.create(Date.create(dateTime).format('{yyyy}-{MM}-{dd}'));

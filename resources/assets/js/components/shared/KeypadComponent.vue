@@ -25,7 +25,7 @@
                 <button v-on:click="buttonClicked('9')">9</button>
             </div>
             <div class="keypad-row">
-                <button>.</button>
+                <button v-on:click="buttonClicked('clear')">Clear</button>
                 <button v-on:click="buttonClicked('0')">0</button>
                 <button v-on:click="buttonClicked('delete')"><i class="fas fa-arrow-alt-circle-left"></i></button>
             </div>
@@ -44,7 +44,10 @@
         },
         methods: {
             buttonClicked: function (value) {
-                if (value === 'delete') {
+                if (value === 'clear') {
+                    this.mutableValue = '';
+                }
+                else if (value === 'delete') {
                     this.mutableValue = this.mutableValue.toString().slice(0, -1);
                 }
                 else {

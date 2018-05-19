@@ -9,13 +9,10 @@
             <history class="history-popup"></history>
 
             <div class="data-table data-table-init card" v-for="(exercise, index1) in clonedAndSortedExercises">
-                <div class="card-header">
-                    <div class="data-table-title">{{exercise[0].name}}</div>
-                    <div class="data-table-actions">
-                        <f7-button :actions-open="'#' + exercise[0].exercise_id + '-session-actions'">Actions</f7-button>
-                        <actions :exercise="exercise" id="session" :addSet="addSet"></actions>
-                    </div>
-                </div>
+                <card-header :title="exercise[0].name">
+                    <f7-button :actions-open="'#' + exercise[0].exercise_id + '-session-actions'">Actions</f7-button>
+                    <actions :exercise="exercise" id="session" :addSet="addSet"></actions>
+                </card-header>
                 <div class="card-content">
                     <table>
                         <table-head :deletingRows="deletingRows" :exercise="exercise" page="session"></table-head>

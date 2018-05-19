@@ -4,9 +4,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkoutStoreRequest;
 use App\Http\Transformers\WorkoutTransformer;
 use App\Models\Workout;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Auth;
+use Illuminate\Http\Request;
 
 
 /**
@@ -18,22 +17,21 @@ class WorkoutsController extends Controller
     private $fields = ['name'];
 
     /**
-     * GET /api/workouts
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
         $workouts = Workout::forCurrentUser()->get();
 
-        $workouts = $this->transform($this->createCollection($workouts, new WorkoutTransformer))['data'];
-        return response($workouts, Response::HTTP_OK);
+        return $this->respondIndex($workouts, new WorkoutTransformer);
     }
 
     /**
-     * POST /api/workouts
+     *
      * @param WorkoutStoreRequest $request
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function store(WorkoutStoreRequest $request)
     {
@@ -41,38 +39,31 @@ class WorkoutsController extends Controller
         $workout->user()->associate(Auth::user());
         $workout->save();
 
-        $workout = $this->transform($this->createItem($workout, new WorkoutTransformer))['data'];
+        return $this->respondStore($workout, new WorkoutTransformer);
 
-
-        return response($workout, Response::HTTP_CREATED);
     }
 
     /**
-     * GET /api/workouts/{workouts}
+     *
      * @param Request $request
      * @param Workout $workout
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request, Workout $workout)
     {
         if ($request->get('include') === 'exercises') {
-            $workout = $this->transform($this->createItem($workout, new WorkoutTransformer), ['exercises'])['data'];
+            return $this->respondShow($workout, new WorkoutTransformer, ['exercises']);
+        } else {
+            return $this->respondShow($workout, new WorkoutTransformer);
         }
-        else {
-            $workout = $this->transform($this->createItem($workout, new WorkoutTransformer))['data'];
-        }
-
-
-        return response($workout, Response::HTTP_OK);
     }
 
     /**
-    * UPDATE /api/workouts/{workouts}
-    * @param Request $request
-    * @param Workout $workout
-    * @return Response
      * @Todo: check unit ids are foreign keys belonging to user before syncing?
-    */
+     * @param Request $request
+     * @param Workout $workout
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(Request $request, Workout $workout)
     {
         $data = $this->getData($workout, $request->only($this->fields));
@@ -94,13 +85,10 @@ class WorkoutsController extends Controller
 
             }
 
-//            dd($workout->exercises);
-
-            $workout = $this->transform($this->createItem($workout, new WorkoutTransformer), ['exercises'])['data'];
-            return response($workout, Response::HTTP_OK);
+            return $this->respondUpdate($workout, new WorkoutTransformer, ['exercises']);
         }
 
-        return $this->respond($workout, new WorkoutTransformer, 200);
+        return $this->respondUpdate($workout, new WorkoutTransformer);
     }
 
     /**

@@ -1,13 +1,10 @@
 <?php namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Http\Transformers\UnitTransformer;
 use App\Models\Unit;
-use App\Repositories\UnitsRepository;
-use Illuminate\Http\Request;
 use Auth;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 /**
  * @VP:
@@ -23,9 +20,9 @@ use Illuminate\Http\Response;
 class UnitsController extends Controller
 {
     /**
-     * GET /api/units
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
@@ -33,14 +30,14 @@ class UnitsController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        $units = $this->transform($this->createCollection($units, new UnitTransformer))['data'];
-        return response($units, Response::HTTP_OK);
+
+        return $this->respondIndex($units, new UnitTransformer);
     }
 
     /**
-     * POST /api/exerciseUnits
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function store(Request $request)
     {
@@ -51,16 +48,15 @@ class UnitsController extends Controller
         $unit->user()->associate(Auth::user());
         $unit->save();
 
-        $unit = $this->transform($this->createItem($unit, new UnitTransformer))['data'];
-        return response($unit, Response::HTTP_CREATED);
+        return $this->respondStore($unit, new UnitTransformer);
     }
 
     /**
-    * UPDATE /api/units/{unit}
-    * @param Request $request
-    * @param Unit $unit
-    * @return Response
-    */
+     *
+     * @param Request $request
+     * @param Unit $unit
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(Request $request, Unit $unit)
     {
         // Create an array with the new fields merged
@@ -71,8 +67,7 @@ class UnitsController extends Controller
 
         $unit->update($data);
 
-        $unit = $this->transform($this->createItem($unit, new UnitTransformer))['data'];
-        return response($unit, Response::HTTP_OK);
+        return $this->respondUpdate($unit, new UnitTransformer);
     }
 
     /**

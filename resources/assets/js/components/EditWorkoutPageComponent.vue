@@ -18,10 +18,9 @@
 
                 <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
                     <card-header :title="exercise[0].name">
-                        <f7-button :actions-open="'#' + exercise[0].exercise_id + '-workout-actions'">Actions</f7-button>
-                        <actions :exercise="exercise" id="workout" :addSet="addSet"></actions>
+                        <actions :exercise="exercise" page="workout" :addSet="addSet"></actions>
                     </card-header>
-                    
+
                     <div class="card-content">
                         <table>
                             <table-head :deletingRows="deletingRows" :exercise="exercise"></table-head>

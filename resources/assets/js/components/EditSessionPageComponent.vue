@@ -10,8 +10,7 @@
 
             <div class="data-table data-table-init card" v-for="(exercise, index1) in clonedAndSortedExercises">
                 <card-header :title="exercise[0].name">
-                    <f7-button :actions-open="'#' + exercise[0].exercise_id + '-session-actions'">Actions</f7-button>
-                    <actions :exercise="exercise" id="session" :addSet="addSet"></actions>
+                    <actions :exercise="exercise" page="session" :addSet="addSet"></actions>
                 </card-header>
                 <div class="card-content">
                     <table>

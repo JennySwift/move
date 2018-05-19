@@ -1,20 +1,14 @@
 <?php namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Http\Requests\ExerciseStoreRequest;
 use App\Http\Transformers\Exercises\ExerciseTransformer;
 use App\Http\Transformers\SessionTransformer;
 use App\Models\Exercise;
-use App\Models\Series;
 use App\Models\Session;
-use App\Models\Unit;
 use Auth;
-use DB;
-use Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use JavaScript;
 
 
 /**
@@ -53,6 +47,7 @@ class ExercisesController extends Controller
         }
 
         $exercises = $this->transform($this->createCollection($exercises, new ExerciseTransformer))['data'];
+
         return response($exercises, Response::HTTP_OK);
     }
 
@@ -67,12 +62,14 @@ class ExercisesController extends Controller
         if ($request->get('include') === 'sessions') {
             $sessions = Session::whereHas('exercises', function ($q) use ($exercise) {
                 $q->where('exercises.id', $exercise->id)
-                ->where('complete', 1);
-            })
-                ->with(['exercises' => function ($query) use ($exercise) {
-                $query->where('exercises.id', '=', $exercise->id)
                     ->where('complete', 1);
-            }])
+            })
+                ->with([
+                    'exercises' => function ($query) use ($exercise) {
+                        $query->where('exercises.id', '=', $exercise->id)
+                            ->where('complete', 1);
+                    }
+                ])
                 ->orderBy('created_at', 'desc')
                 ->paginate(5);
 
@@ -80,7 +77,8 @@ class ExercisesController extends Controller
 
             return response(
                 [
-                    'data' => $this->transform($this->createCollection($sessions, new SessionTransformer), ['exercises'])['data'],
+                    'data' => $this->transform($this->createCollection($sessions, new SessionTransformer),
+                        ['exercises'])['data'],
                     'pagination' => $this->getPaginationProperties($sessions)
                 ],
                 Response::HTTP_OK
@@ -88,6 +86,7 @@ class ExercisesController extends Controller
         }
         else {
             $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
+
             return response($exercise, Response::HTTP_OK);
         }
 
@@ -115,11 +114,11 @@ class ExercisesController extends Controller
     }
 
     /**
-    * UPDATE /api/exercises/{exercises}
-    * @param Request $request
-    * @param Exercise $exercise
-    * @return Response
-    */
+     * UPDATE /api/exercises/{exercises}
+     * @param Request $request
+     * @param Exercise $exercise
+     * @return Response
+     */
     public function update(Request $request, Exercise $exercise)
     {
         // Create an array with the new fields merged
@@ -135,6 +134,7 @@ class ExercisesController extends Controller
         $exercise->update($data);
 
         $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
+
         return response($exercise, Response::HTTP_OK);
     }
 
@@ -148,9 +148,9 @@ class ExercisesController extends Controller
     {
         try {
             $exercise->delete();
+
             return response([], Response::HTTP_NO_CONTENT);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             //Integrity constraint violation
             if ($e->getCode() === '23000') {
                 $message = 'Exercise could not be deleted. It is in use.';
@@ -158,6 +158,7 @@ class ExercisesController extends Controller
             else {
                 $message = 'There was an error';
             }
+
             return response([
                 'error' => $message,
                 'status' => Response::HTTP_BAD_REQUEST

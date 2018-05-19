@@ -21,8 +21,8 @@
                         <table-head :deletingRows="deletingRows" :exercise="exercise" page="session"></table-head>
                         <tbody>
                         <tr v-for="(row, index2) in exercise">
-                            <level-cell page="session" :row="row"></level-cell>
-                            <quantity-cell page="session" :row="row" :exercise="exercise"></quantity-cell>
+                            <level-cell page="session" :row="row" :index="index2" :exerciseRows="exercise"></level-cell>
+                            <quantity-cell page="session" :row="row" :index="index2" :exerciseRows="exercise"></quantity-cell>
 
                             <td class="checkbox-cell">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>

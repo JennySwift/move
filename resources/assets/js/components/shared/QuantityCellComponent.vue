@@ -1,8 +1,8 @@
 <template>
     <!--Unit is not TIME-->
-    <td v-if="exercise[0].unit.data.name !== 'TIME'" class="numeric-cell sheet-open" :data-sheet="'#' + page + '-exercise-quantity-keypad-' + row.id">
+    <td v-if="exerciseRows[0].unit.data.name !== 'TIME'" class="numeric-cell sheet-open" :data-sheet="'#' + id">
         <span>{{row.quantity}}</span>
-        <keypad :value.sync="row.quantity" :id="page + '-exercise-quantity-keypad-' + row.id"></keypad>
+        <keypad :value.sync="row.quantity" :id="id"></keypad>
     </td>
     <!--Unit is TIME-->
     <td v-else class="numeric-cell" v-on:click="showTimePicker()">
@@ -15,6 +15,11 @@
         filters: {
             timeFilter: function (time) {
                 return helpers.filterTime(time);
+            }
+        },
+        computed: {
+            id: function () {
+                return this.page + 'page-exercise-' + this.exerciseRows[0].exercise_id + 'quantity-keypad-index' + this.index;
             }
         },
         methods: {
@@ -64,8 +69,9 @@
         },
         props: [
             'row',
-            'exercise',
-            'page'
+            'exerciseRows',
+            'page',
+            'index'
         ]
     }
 </script>

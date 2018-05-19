@@ -28,9 +28,9 @@
                         <table>
                             <table-head :deletingRows="deletingRows" :exercise="exercise"></table-head>
                             <tbody>
-                            <tr v-for="row in exercise">
-                                <level-cell page="workout" :row="row"></level-cell>
-                                <quantity-cell page="workout" :row="row" :exercise="exercise"></quantity-cell>
+                            <tr v-for="(row, index2) in exercise">
+                                <level-cell page="workout" :row="row" :index="index2" :exerciseRows="exercise"></level-cell>
+                                <quantity-cell page="workout" :row="row" :index="index2" :exerciseRows="exercise"></quantity-cell>
 
                                 <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
                             </tr>

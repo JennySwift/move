@@ -175,12 +175,29 @@ class Controller extends BaseController
      * @param array $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondShowWIthPagination($collection, $transformer, array $includes)
+    protected function respondShowWithPagination($collection, $transformer, array $includes)
     {
         return response(
             [
                 'data' => $this->transform($this->createCollection($collection, $transformer),
                     $includes)['data'],
+                'pagination' => $this->getPaginationProperties($collection)
+            ],
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     *
+     * @param $collection
+     * @param $transformer
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function respondIndexWithPagination($collection, $transformer)
+    {
+        return response(
+            [
+                'data' => $this->transform($this->createCollection($collection, $transformer))['data'],
                 'pagination' => $this->getPaginationProperties($collection)
             ],
             Response::HTTP_OK
@@ -203,11 +220,12 @@ class Controller extends BaseController
      *
      * @param $model
      * @param $transformer
+     * @param array|null $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondUpdate($model, $transformer)
+    protected function respondUpdate($model, $transformer, array $includes=null)
     {
-        $model = $this->transformItem($model, $transformer);
+        $model = $this->transformItem($model, $transformer, $includes);
 
         return response($model, Response::HTTP_OK);
     }
@@ -216,15 +234,22 @@ class Controller extends BaseController
      *
      * @param $model
      * @param $transformer
+     * @param array|null $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondStore($model, $transformer)
+    protected function respondStore($model, $transformer, array $includes=null)
     {
-        $model = $this->transformItem($model, $transformer);
+        $model = $this->transformItem($model, $transformer, $includes);
 
         return response($model, Response::HTTP_CREATED);
     }
 
+    /**
+     *
+     * @param $collection
+     * @param $transformer
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     protected function respondIndex($collection, $transformer)
     {
         $collection = $this->transformCollection($collection, $transformer);

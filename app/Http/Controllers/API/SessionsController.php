@@ -7,7 +7,6 @@ use App\Models\Session;
 use App\Models\Workout;
 use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 
 /**
@@ -19,22 +18,16 @@ class SessionsController extends Controller
     private $fields = ['name'];
 
     /**
-     * GET /api/sessions
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
         $max = $request->get('max') ? $request->get('max') : 14;
         $sessions = Session::forCurrentUser()->orderBy('created_at', 'desc')->simplePaginate($max);
 
-        return response(
-            [
-                'data' => $this->transform($this->createCollection($sessions, new SessionTransformer))['data'],
-                'pagination' => $this->getPaginationProperties($sessions)
-            ],
-            Response::HTTP_OK
-        );
+        return $this->respondIndexWithPagination($sessions, new SessionTransformer);
     }
 
     /**
@@ -47,12 +40,10 @@ class SessionsController extends Controller
     {
         if ($request->get('include') === 'exercises') {
             return $this->respondShow($session, new SessionTransformer, ['exercises']);
-        }
-        else {
+        } else {
             return $this->respondShow($session, new SessionTransformer);
         }
     }
-
 
 
     /**
@@ -67,11 +58,8 @@ class SessionsController extends Controller
             $session->user()->associate(Auth::user());
             $session->save();
 
-            $session = $this->transform($this->createItem($session, new SessionTransformer))['data'];
-
-            return response($session, Response::HTTP_CREATED);
-        }
-        else {
+            return $this->respondStore($session, new SessionTransformer);
+        } else {
             //Start an session from a saved workout
             $workout = Workout::forCurrentUser()->findOrFail($request->get('workout_id'));
 
@@ -88,18 +76,15 @@ class SessionsController extends Controller
                 ]);
             }
 
-            $session = $this->transform($this->createItem($session, new SessionTransformer), ['exercises'])['data'];
-            return response($session, Response::HTTP_CREATED);
+            return $this->respondStore($session, new SessionTransformer, ['exercises']);
         }
-
     }
 
     /**
-     * UPDATE /api/sessions/{sessions}
+     * @Todo: check unit ids are foreign keys belonging to user before syncing?
      * @param Request $request
      * @param Session $session
-     * @return Response
-     * @Todo: check unit ids are foreign keys belonging to user before syncing?
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(Request $request, Session $session)
     {
@@ -123,13 +108,10 @@ class SessionsController extends Controller
 
             }
 
-//            dd($session->exercises);
-
-            $session = $this->transform($this->createItem($session, new SessionTransformer), ['exercises'])['data'];
-            return response($session, Response::HTTP_OK);
+            return $this->respondUpdate($session, new SessionTransformer, ['exercises']);
         }
 
-        return $this->respond($session, new SessionTransformer, 200);
+        return $this->respondUpdate($session, new SessionTransformer);
     }
 
     /**

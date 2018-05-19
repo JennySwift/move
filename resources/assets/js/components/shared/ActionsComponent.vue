@@ -4,9 +4,9 @@
 
         <f7-actions :id="id">
             <f7-actions-group>
-                <f7-actions-button v-on:click="addSet(exercise[0])">Add Set</f7-actions-button>
+                <f7-actions-button v-on:click="addSet(tableData[0])">Add Set</f7-actions-button>
                 <f7-actions-button v-on:click="setExercise()">
-                    <f7-link :href="'/exercises/' + exercise[0].exercise_id">View Exercise</f7-link>
+                    <f7-link :href="'/exercises/' + tableData[0].exercise_id">View Exercise</f7-link>
                 </f7-actions-button>
                 <!--<f7-actions-button>-->
                 <!--<f7-link :href="'/exercises/' + exercise[0].exercise_id + '/history'">View History</f7-link>-->
@@ -29,11 +29,11 @@
         },
         computed: {
             id: function () {
-              return this.exercise[0].exercise_id + '-' + this.page + 'page-actions';
+              return this.tableData[0].exercise_id + '-' + this.page + 'page-actions';
             }
         },
         props: [
-            'exercise',
+            'tableData',
             'addSet',
             'page'
         ],
@@ -47,7 +47,7 @@
              *
              */
             setExercise: function () {
-                var exercise = helpers.findById(this.shared.exercises, this.exercise[0].exercise_id);
+                var exercise = helpers.findById(this.shared.exercises, this.tableData[0].exercise_id);
                 store.set(exercise, 'exercise');
             },
         }

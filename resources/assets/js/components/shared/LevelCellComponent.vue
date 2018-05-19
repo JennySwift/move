@@ -9,14 +9,14 @@
     export default {
         computed: {
             id: function () {
-              return this.page + 'page-exercise-' + this.exerciseRows[0].exercise_id + 'level-keypad-index' + this.index;
+              return this.page + 'page-exercise-' + this.tableData[0].exercise_id + 'level-keypad-index' + this.index;
             }
         },
         props: [
             'page',
             'row',
             'index',
-            'exerciseRows'
+            'tableData'
         ]
     }
 </script>

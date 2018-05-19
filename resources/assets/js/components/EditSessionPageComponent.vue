@@ -10,21 +10,19 @@
 
             <data-table v-for="(tableData, index) in clonedAndSortedExercises" v-bind:key="index">
                 <card-header :title="tableData[0].name">
-                    <actions :exercise="tableData" page="session" :addSet="addSet"></actions>
+                    <actions :tableData="tableData" page="session" :addSet="addSet"></actions>
                 </card-header>
-                <div class="card-content">
-                    <table>
-                        <table-head :deletingRows="deletingRows" :exercise="tableData" page="session"></table-head>
-                        <tbody>
-                        <tr v-for="(row, index2) in tableData">
-                            <level-cell page="session" :row="row" :index="index2" :exerciseRows="tableData"></level-cell>
-                            <quantity-cell page="session" :row="row" :index="index2" :exerciseRows="tableData"></quantity-cell>
-                            <checkbox-cell :row="row"></checkbox-cell>
-                            <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <template slot="table-content">
+                    <table-head :deletingRows="deletingRows" :tableData="tableData" page="session"></table-head>
+                    <tbody>
+                    <tr v-for="(row, index2) in tableData">
+                        <level-cell page="session" :row="row" :index="index2" :tableData="tableData"></level-cell>
+                        <quantity-cell page="session" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
+                        <checkbox-cell :row="row"></checkbox-cell>
+                        <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
+                    </tr>
+                    </tbody>
+                </template>
             </data-table>
 
 

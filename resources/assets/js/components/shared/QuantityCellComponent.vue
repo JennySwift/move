@@ -1,6 +1,6 @@
 <template>
     <!--Unit is not TIME-->
-    <td v-if="exerciseRows[0].unit.data.name !== 'TIME'" class="numeric-cell sheet-open" :data-sheet="'#' + id">
+    <td v-if="tableData[0].unit.data.name !== 'TIME'" class="numeric-cell sheet-open" :data-sheet="'#' + id">
         <span>{{row.quantity}}</span>
         <keypad :value.sync="row.quantity" :id="id"></keypad>
     </td>
@@ -19,7 +19,7 @@
         },
         computed: {
             id: function () {
-                return this.page + 'page-exercise-' + this.exerciseRows[0].exercise_id + 'quantity-keypad-index' + this.index;
+                return this.page + 'page-exercise-' + this.tableData[0].exercise_id + 'quantity-keypad-index' + this.index;
             }
         },
         methods: {
@@ -69,7 +69,7 @@
         },
         props: [
             'row',
-            'exerciseRows',
+            'tableData',
             'page',
             'index'
         ]

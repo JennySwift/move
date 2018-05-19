@@ -9,17 +9,13 @@
             <history class="history-popup"></history>
 
             <div class="data-table data-table-init card" v-for="(exercise, index1) in clonedAndSortedExercises">
-                <!-- Card Header -->
                 <div class="card-header">
-                    <!-- Table title -->
                     <div class="data-table-title">{{exercise[0].name}}</div>
-                    <!-- Table actions -->
                     <div class="data-table-actions">
                         <f7-button :actions-open="'#' + exercise[0].exercise_id + '-session-actions'">Actions</f7-button>
                         <actions :exercise="exercise" id="session" :addSet="addSet"></actions>
                     </div>
                 </div>
-                <!-- Card Content -->
                 <div class="card-content">
                     <table>
                         <table-head :deletingRows="deletingRows" :exercise="exercise" page="session"></table-head>
@@ -29,11 +25,9 @@
                                 <span>{{row.level}}</span>
                                 <keypad :value.sync="row.level" :id="'session-exercise-level-keypad-' + row.id"></keypad>
                             </td>
-                            <td class="numeric-cell sheet-open" :data-sheet="'#session-exercise-quantity-keypad-' + row.id">
-                                <span v-if="exercise[0].unit.data.name !== 'TIME'">{{row.quantity}}</span>
-                                <span v-if="exercise[0].unit.data.name === 'TIME'">{{row.quantity | timeFilter}}</span>
-                                <keypad :value.sync="row.quantity" :id="'session-exercise-quantity-keypad-' + row.id"></keypad>
-                            </td>
+
+                            <quantity-cell page="session" :row="row" :exercise="exercise"></quantity-cell>
+
                             <td class="checkbox-cell" v-show="!deletingRows">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
                             </td>
@@ -62,7 +56,9 @@
 <script>
     import Vue from 'vue'
     import TrashCell from './shared/TrashCellComponent'
+    import QuantityCell from './shared/QuantityCellComponent'
     import TableHead from './shared/TableHeadComponent'
+
     import swal from 'sweetalert2'
     var object = require('lodash/object');
     export default {
@@ -89,12 +85,8 @@
         },
         components: {
             'trash-cell': TrashCell,
+            'quantity-cell': QuantityCell,
             'table-head': TableHead
-        },
-        filters: {
-            timeFilter: function (time) {
-                return helpers.filterTime(time);
-            }
         },
         computed: {
             /**

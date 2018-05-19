@@ -33,11 +33,8 @@
                                     <span>{{row.level}}</span>
                                     <keypad :value.sync="row.level" :id="'workout-exercise-level-keypad-' + row.id"></keypad>
                                 </td>
-                                <td class="numeric-cell sheet-open" :data-sheet="'#workout-exercise-quantity-keypad-' + row.id">
-                                    <span v-if="exercise[0].unit.data.name !== 'TIME'">{{row.quantity}}</span>
-                                    <span v-if="exercise[0].unit.data.name === 'TIME'">{{row.quantity | timeFilter}}</span>
-                                    <keypad :value.sync="row.quantity" :id="'workout-exercise-quantity-keypad-' + row.id"></keypad>
-                                </td>
+
+                                <quantity-cell page="workout" :row="row" :exercise="exercise"></quantity-cell>
 
                                 <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
                             </tr>
@@ -64,6 +61,7 @@
 <script>
     import Vue from 'vue'
     import TrashCell from './shared/TrashCellComponent'
+    import QuantityCell from './shared/QuantityCellComponent'
     import TableHead from './shared/TableHeadComponent'
     import swal from 'sweetalert2'
     var object = require('lodash/object');
@@ -87,13 +85,9 @@
                 ],
             }
         },
-        filters: {
-            timeFilter: function (time) {
-                return helpers.filterTime(time);
-            }
-        },
         components: {
             'trash-cell': TrashCell,
+            'quantity-cell': QuantityCell,
             'table-head': TableHead
         },
         computed: {

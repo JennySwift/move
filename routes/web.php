@@ -15,10 +15,6 @@ Route::get('/', ['middleware' => 'auth', function () {
     return view('home');
 }]);
 
-Route::group(['middleware' => ['auth', 'owner'], 'namespace' => 'API', 'prefix' => 'api'], function () {
-
-});
-
 //Auth::routes();
 
 // Authentication Routes...
@@ -36,7 +32,3 @@ Route::get('/logout', 'Auth\LoginController@logout');
 //$this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 //$this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 //$this->post('password/reset', 'Auth\ResetPasswordController@reset');
-
-
-
-Route::get('/home', 'HomeController@index')->name('home');

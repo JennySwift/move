@@ -16,25 +16,25 @@
 
                 <history class="history-popup"></history>
 
-                <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
-                    <card-header :title="exercise[0].name">
-                        <actions :exercise="exercise" page="workout" :addSet="addSet"></actions>
+                <data-table v-for="(tableData, index) in clonedAndSortedExercises" v-if="!isEmpty(clonedAndSortedExercises)" v-bind:key="index">
+                    <card-header :title="tableData[0].name">
+                        <actions :exercise="tableData" page="workout" :addSet="addSet"></actions>
                     </card-header>
 
                     <div class="card-content">
                         <table>
-                            <table-head :deletingRows="deletingRows" :exercise="exercise"></table-head>
+                            <table-head :deletingRows="deletingRows" :exercise="tableData"></table-head>
                             <tbody>
-                            <tr v-for="(row, index2) in exercise">
-                                <level-cell page="workout" :row="row" :index="index2" :exerciseRows="exercise"></level-cell>
-                                <quantity-cell page="workout" :row="row" :index="index2" :exerciseRows="exercise"></quantity-cell>
+                            <tr v-for="(row, index2) in tableData">
+                                <level-cell page="workout" :row="row" :index="index2" :exerciseRows="row"></level-cell>
+                                <quantity-cell page="workout" :row="row" :index="index2" :exerciseRows="row"></quantity-cell>
 
                                 <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </data-table>
 
 
             </f7-page-content>
@@ -110,6 +110,9 @@
             }
         },
         methods: {
+            isEmpty: function (obj) {
+                return _.isEmpty(obj);
+            },
             showAddExercisePicker: function () {
                 store.showAddExercisePicker(this);
             },
@@ -144,9 +147,6 @@
             //         ]
             //     }).open();
             // },
-            isEmpty: function (obj) {
-                return _.isEmpty(obj);
-            },
             getUnitOptions: function () {
                 var options = {};
                 _.forEach(this.shared.exerciseUnits, function (value, index) {

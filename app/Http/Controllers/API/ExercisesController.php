@@ -9,6 +9,7 @@ use App\Models\Session;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Tests\ExtendedResponse;
 
 
 /**
@@ -25,13 +26,9 @@ class ExercisesController extends Controller
     ];
 
     /**
-     * GET /api/exercises
-     * Get all exercises for the current user,
-     * along with their tags, default unit name
-     * and the name of the series each exercise belongs to.
-     * Order first by series name, then by step number.
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
@@ -46,16 +43,14 @@ class ExercisesController extends Controller
                 ->get();
         }
 
-        $exercises = $this->transform($this->createCollection($exercises, new ExerciseTransformer))['data'];
-
-        return response($exercises, Response::HTTP_OK);
+        return $this->respondIndex($exercises, new ExerciseTransformer);
     }
 
     /**
-     * GET /api/exercises/{exercises}
+     *
      * @param Request $request
      * @param Exercise $exercise
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request, Exercise $exercise)
     {
@@ -73,21 +68,10 @@ class ExercisesController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate(5);
 
-//            dd($sessions);
-
-            return response(
-                [
-                    'data' => $this->transform($this->createCollection($sessions, new SessionTransformer),
-                        ['exercises'])['data'],
-                    'pagination' => $this->getPaginationProperties($sessions)
-                ],
-                Response::HTTP_OK
-            );
+            return $this->respondShowWithPagination($sessions, new SessionTransformer, ['exercises']);
         }
         else {
-            $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
-
-            return response($exercise, Response::HTTP_OK);
+            return $this->respondShow($exercise, new ExerciseTransformer);
         }
 
 
@@ -96,46 +80,30 @@ class ExercisesController extends Controller
     /**
      *
      * @param ExerciseStoreRequest $request
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function store(ExerciseStoreRequest $request)
     {
-        $exercise = new Exercise($request->only(
-            'name',
-            'description',
-            'priority'
-        ));
+        $exercise = new Exercise($request->only($this->fields));
         $exercise->user()->associate(Auth::user());
         $exercise->save();
 
-        $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
-
-        return response($exercise, Response::HTTP_CREATED);
+        return $this->respondStore($exercise, new ExerciseTransformer);
     }
 
     /**
-     * UPDATE /api/exercises/{exercises}
+     *
      * @param Request $request
      * @param Exercise $exercise
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(Request $request, Exercise $exercise)
     {
-        // Create an array with the new fields merged
-        $data = array_compare($exercise->toArray(), $request->only([
-            'name'
-        ]));
-
-        $exercise->update($data);
-
-        // Create an array with the new fields merged
         $data = array_compare($exercise->toArray(), $request->only($this->fields));
 
         $exercise->update($data);
 
-        $exercise = $this->transform($this->createItem($exercise, new ExerciseTransformer))['data'];
-
-        return response($exercise, Response::HTTP_OK);
+        return $this->respondUpdate($exercise, new ExerciseTransformer);
     }
 
     /**

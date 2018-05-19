@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\DataArraySerializer;
 use League\Fractal\TransformerAbstract;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use ReflectionClass;
 
 class Controller extends BaseController
 {
@@ -70,54 +69,11 @@ class Controller extends BaseController
     ) {
         if ($resource instanceof EloquentCollection) {
             $resource = $this->transform($this->createCollection($resource, $transformer), $includes, $request)['data'];
-        }
-        else {
+        } else {
             $resource = $this->transform($this->createItem($resource, $transformer), $includes, $request)['data'];
         }
 
         return response($resource, $responseCode);
-    }
-
-    /**
-     *
-     * @param Model $model
-     * @param null $name
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     * @throws \ReflectionException
-     */
-    protected function destroyModel(Model $model, $name = null)
-    {
-        try {
-            $model->delete();
-
-            return response([], Response::HTTP_NO_CONTENT);
-        } catch (Exception $e) {
-
-            //Integrity constraint violation
-            if ($e->getCode() === '23000') {
-                $name = (new \ReflectionClass($model))->getShortName();
-                $message = $name . ' could not be deleted. It is in use.';
-            }
-            else {
-                $message = 'There was an error';
-            }
-
-            return response([
-                'error' => $message,
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_BAD_REQUEST);
-        }
-    }
-
-    /**
-     * @param Model $model
-     * @param TransformerAbstract $transformer
-     * @param null $key
-     * @return Item
-     */
-    function createItem($model, TransformerAbstract $transformer, $key = null)
-    {
-        return new Item($model, $transformer, $key);
     }
 
     /**
@@ -155,6 +111,134 @@ class Controller extends BaseController
     public function createCollection($model, TransformerAbstract $transformer, $key = null)
     {
         return new Collection($model, $transformer, $key);
+    }
+
+    /**
+     * @param Model $model
+     * @param TransformerAbstract $transformer
+     * @param null $key
+     * @return Item
+     */
+    function createItem($model, TransformerAbstract $transformer, $key = null)
+    {
+        return new Item($model, $transformer, $key);
+    }
+
+    /**
+     *
+     * @param Model $model
+     * @param null $name
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
+     */
+    protected function destroyModel(Model $model, $name = null)
+    {
+        try {
+            $model->delete();
+
+            return response([], Response::HTTP_NO_CONTENT);
+        } catch (Exception $e) {
+
+            //Integrity constraint violation
+            if ($e->getCode() === '23000') {
+                $name = (new \ReflectionClass($model))->getShortName();
+                $message = $name . ' could not be deleted. It is in use.';
+            } else {
+                $message = 'There was an error';
+            }
+
+            return response([
+                'error' => $message,
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     *
+     * @param $model
+     * @param $transformer
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function respondShow($model, $transformer)
+    {
+        $model = $this->transformItem($model, $transformer);
+
+        return response($model, Response::HTTP_OK);
+    }
+
+    /**
+     *
+     * @param $collection
+     * @param $transformer
+     * @param array $fields
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function respondShowWIthPagination($collection, $transformer, array $fields)
+    {
+        return response(
+            [
+                'data' => $this->transform($this->createCollection($collection, $transformer),
+                    $fields)['data'],
+                'pagination' => $this->getPaginationProperties($collection)
+            ],
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     *
+     * @param $model
+     * @param $transformer
+     * @return mixed
+     */
+    private function transformItem($model, $transformer)
+    {
+        return $this->transform($this->createItem($model, $transformer))['data'];
+    }
+
+    /**
+     *
+     * @param $model
+     * @param $transformer
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function respondUpdate($model, $transformer)
+    {
+        $model = $this->transformItem($model, $transformer);
+
+        return response($model, Response::HTTP_OK);
+    }
+
+    /**
+     *
+     * @param $model
+     * @param $transformer
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function respondStore($model, $transformer)
+    {
+        $model = $this->transformItem($model, $transformer);
+
+        return response($model, Response::HTTP_CREATED);
+    }
+
+    protected function respondIndex($collection, $transformer)
+    {
+        $collection = $this->transformCollection($collection, $transformer);
+
+        return response($collection, Response::HTTP_OK);
+    }
+
+    /**
+     *
+     * @param $collection
+     * @param $transformer
+     * @return mixed
+     */
+    private function transformCollection($collection, $transformer)
+    {
+        return $this->transform($this->createCollection($collection, $transformer))['data'];
     }
 
     /**

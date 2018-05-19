@@ -45,10 +45,7 @@
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
                             </td>
 
-                            <td class="actions-cell" v-on:click="removeSet(row)" v-show="deletingRows">
-                                <f7-icon f7="trash" size="22"></f7-icon>
-                            </td>
-
+                            <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
                         </tr>
                         </tbody>
                     </table>
@@ -71,6 +68,7 @@
 
 <script>
     import Vue from 'vue'
+    import TrashCell from './shared/TrashCellComponent'
     import swal from 'sweetalert2'
     var object = require('lodash/object');
     export default {
@@ -94,6 +92,9 @@
                 ],
                 showTrashIcons: false
             }
+        },
+        components: {
+            'trash-cell': TrashCell
         },
         filters: {
             timeFilter: function (time) {

@@ -48,10 +48,8 @@
                                     <span v-if="exercise[0].unit.data.name === 'TIME'">{{row.quantity | timeFilter}}</span>
                                     <keypad :value.sync="row.quantity" :id="'workout-exercise-quantity-keypad-' + row.id"></keypad>
                                 </td>
-                                <td class="actions-cell" v-on:click="removeSet(row)" v-show="deletingRows">
-                                    <f7-icon f7="trash" size="22"></f7-icon>
-                                </td>
 
+                                <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
                             </tr>
                             </tbody>
                         </table>
@@ -75,6 +73,7 @@
 
 <script>
     import Vue from 'vue'
+    import TrashCell from './shared/TrashCellComponent'
     import swal from 'sweetalert2'
     var object = require('lodash/object');
     export default {
@@ -101,6 +100,9 @@
             timeFilter: function (time) {
                 return helpers.filterTime(time);
             }
+        },
+        components: {
+            'trash-cell': TrashCell
         },
         computed: {
             redirectTo: function () {

@@ -46,14 +46,11 @@ class SessionsController extends Controller
     public function show(Request $request, Session $session)
     {
         if ($request->get('include') === 'exercises') {
-            $session = $this->transform($this->createItem($session, new SessionTransformer), ['exercises'])['data'];
+            return $this->respondShow($session, new SessionTransformer, ['exercises']);
         }
         else {
-            $session = $this->transform($this->createItem($session, new SessionTransformer))['data'];
+            return $this->respondShow($session, new SessionTransformer);
         }
-
-
-        return response($session, Response::HTTP_OK);
     }
 
 

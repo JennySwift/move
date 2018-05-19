@@ -158,11 +158,12 @@ class Controller extends BaseController
      *
      * @param $model
      * @param $transformer
+     * @param array $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondShow($model, $transformer)
+    protected function respondShow($model, $transformer, array $includes=null)
     {
-        $model = $this->transformItem($model, $transformer);
+        $model = $this->transformItem($model, $transformer, $includes);
 
         return response($model, Response::HTTP_OK);
     }
@@ -171,15 +172,15 @@ class Controller extends BaseController
      *
      * @param $collection
      * @param $transformer
-     * @param array $fields
+     * @param array $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondShowWIthPagination($collection, $transformer, array $fields)
+    protected function respondShowWIthPagination($collection, $transformer, array $includes)
     {
         return response(
             [
                 'data' => $this->transform($this->createCollection($collection, $transformer),
-                    $fields)['data'],
+                    $includes)['data'],
                 'pagination' => $this->getPaginationProperties($collection)
             ],
             Response::HTTP_OK
@@ -190,11 +191,12 @@ class Controller extends BaseController
      *
      * @param $model
      * @param $transformer
+     * @param array $includes
      * @return mixed
      */
-    private function transformItem($model, $transformer)
+    private function transformItem($model, $transformer, array $includes=null)
     {
-        return $this->transform($this->createItem($model, $transformer))['data'];
+        return $this->transform($this->createItem($model, $transformer), $includes)['data'];
     }
 
     /**

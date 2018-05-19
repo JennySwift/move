@@ -24,7 +24,7 @@
                             <level-cell page="session" :row="row"></level-cell>
                             <quantity-cell page="session" :row="row" :exercise="exercise"></quantity-cell>
 
-                            <td class="checkbox-cell" v-show="!deletingRows">
+                            <td class="checkbox-cell">
                                 <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
                             </td>
 

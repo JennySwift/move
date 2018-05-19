@@ -140,6 +140,7 @@ class SessionsController extends Controller
      * @param Request $request
      * @param Session $session
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
      */
     public function destroy(Request $request, Session $session)
     {

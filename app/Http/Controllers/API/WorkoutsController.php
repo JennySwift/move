@@ -104,10 +104,11 @@ class WorkoutsController extends Controller
     }
 
     /**
-     * DELETE /api/workouts/{workouts}
+     *
      * @param Request $request
      * @param Workout $workout
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
      */
     public function destroy(Request $request, Workout $workout)
     {

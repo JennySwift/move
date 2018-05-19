@@ -76,10 +76,11 @@ class UnitsController extends Controller
     }
 
     /**
-     * DELETE /api/exerciseUnits/{exerciseUnit}
+     *
      * @param Request $request
      * @param Unit $unit
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
      */
     public function destroy(Request $request, Unit $unit)
     {

@@ -83,6 +83,7 @@ class Controller extends BaseController
      * @param Model $model
      * @param null $name
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
      */
     protected function destroyModel(Model $model, $name = null)
     {

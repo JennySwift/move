@@ -139,30 +139,14 @@ class ExercisesController extends Controller
     }
 
     /**
-     * DELETE /api/exercises/{exercises}
+     *
      * @param Request $request
      * @param Exercise $exercise
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
      */
     public function destroy(Request $request, Exercise $exercise)
     {
-        try {
-            $exercise->delete();
-
-            return response([], Response::HTTP_NO_CONTENT);
-        } catch (\Exception $e) {
-            //Integrity constraint violation
-            if ($e->getCode() === '23000') {
-                $message = 'Exercise could not be deleted. It is in use.';
-            }
-            else {
-                $message = 'There was an error';
-            }
-
-            return response([
-                'error' => $message,
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_BAD_REQUEST);
-        }
+        return $this->destroyModel($exercise);
     }
 }

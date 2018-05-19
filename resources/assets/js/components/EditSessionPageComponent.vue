@@ -20,11 +20,7 @@
                         <tr v-for="(row, index2) in exercise">
                             <level-cell page="session" :row="row" :index="index2" :exerciseRows="exercise"></level-cell>
                             <quantity-cell page="session" :row="row" :index="index2" :exerciseRows="exercise"></quantity-cell>
-
-                            <td class="checkbox-cell">
-                                <f7-checkbox :checked="row.complete > 0" @change="row.complete = $event.target.checked"></f7-checkbox>
-                            </td>
-
+                            <checkbox-cell :row="row"></checkbox-cell>
                             <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
                         </tr>
                         </tbody>
@@ -51,6 +47,7 @@
     import TrashCell from './shared/TrashCellComponent'
     import LevelCell from './shared/LevelCellComponent'
     import QuantityCell from './shared/QuantityCellComponent'
+    import CheckboxCell from './shared/CheckBoxCellComponent'
     import TableHead from './shared/TableHeadComponent'
 
     import swal from 'sweetalert2'
@@ -81,6 +78,7 @@
             'trash-cell': TrashCell,
             'level-cell': LevelCell,
             'quantity-cell': QuantityCell,
+            'checkbox-cell': CheckboxCell,
             'table-head': TableHead
         },
         computed: {

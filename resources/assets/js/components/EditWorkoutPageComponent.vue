@@ -29,11 +29,7 @@
                             <table-head :deletingRows="deletingRows" :exercise="exercise"></table-head>
                             <tbody>
                             <tr v-for="row in exercise">
-                                <td class="numeric-cell sheet-open" :data-sheet="'#workout-exercise-level-keypad-' + row.id">
-                                    <span>{{row.level}}</span>
-                                    <keypad :value.sync="row.level" :id="'workout-exercise-level-keypad-' + row.id"></keypad>
-                                </td>
-
+                                <level-cell page="workout" :row="row"></level-cell>
                                 <quantity-cell page="workout" :row="row" :exercise="exercise"></quantity-cell>
 
                                 <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
@@ -61,6 +57,7 @@
 <script>
     import Vue from 'vue'
     import TrashCell from './shared/TrashCellComponent'
+    import LevelCell from './shared/LevelCellComponent'
     import QuantityCell from './shared/QuantityCellComponent'
     import TableHead from './shared/TableHeadComponent'
     import swal from 'sweetalert2'
@@ -87,6 +84,7 @@
         },
         components: {
             'trash-cell': TrashCell,
+            'level-cell': LevelCell,
             'quantity-cell': QuantityCell,
             'table-head': TableHead
         },

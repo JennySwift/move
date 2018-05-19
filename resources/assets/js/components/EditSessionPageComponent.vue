@@ -21,11 +21,7 @@
                         <table-head :deletingRows="deletingRows" :exercise="exercise" page="session"></table-head>
                         <tbody>
                         <tr v-for="(row, index2) in exercise">
-                            <td class="numeric-cell sheet-open" :data-sheet="'#session-exercise-level-keypad-' + row.id">
-                                <span>{{row.level}}</span>
-                                <keypad :value.sync="row.level" :id="'session-exercise-level-keypad-' + row.id"></keypad>
-                            </td>
-
+                            <level-cell page="session" :row="row"></level-cell>
                             <quantity-cell page="session" :row="row" :exercise="exercise"></quantity-cell>
 
                             <td class="checkbox-cell" v-show="!deletingRows">
@@ -56,6 +52,7 @@
 <script>
     import Vue from 'vue'
     import TrashCell from './shared/TrashCellComponent'
+    import LevelCell from './shared/LevelCellComponent'
     import QuantityCell from './shared/QuantityCellComponent'
     import TableHead from './shared/TableHeadComponent'
 
@@ -85,6 +82,7 @@
         },
         components: {
             'trash-cell': TrashCell,
+            'level-cell': LevelCell,
             'quantity-cell': QuantityCell,
             'table-head': TableHead
         },

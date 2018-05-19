@@ -6,7 +6,7 @@
                 <f7-nav-title>{{shared.exercise.name}} History</f7-nav-title>
                 <f7-nav-right>
                     <!--<a class="link popup-close" href="#">Close popup</a>-->
-                    <f7-link popup-close><f7-icon f7="close"></f7-icon></f7-link>
+                    <f7-link popup-close>Close</f7-link>
                 </f7-nav-right>
             </f7-navbar>
 

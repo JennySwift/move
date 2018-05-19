@@ -19,6 +19,15 @@ export default {
         return Date.create(date).format('{d} {Mon}');
     },
 
+    convertDurationToSeconds: function (duration) {
+        var seconds = 0;
+        seconds+= (duration.hours * 3600);
+        seconds+= (duration.minutes * 60);
+        seconds+= (duration.seconds * 1);
+
+        return seconds;
+    },
+
     /**
      * Convert seconds to a more readable time format
      * @param seconds

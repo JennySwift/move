@@ -30,6 +30,7 @@ export default {
     formatDateForUser: dates.formatForUser,
     getDaysAgo: dates.getDaysAgo,
     filterTime: dates.filterTime,
+    convertDurationToSeconds: dates.convertDurationToSeconds,
 
     //Route methods
     getIdFromRouteParams: routes.getIdFromRouteParams,

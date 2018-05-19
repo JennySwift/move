@@ -34,6 +34,11 @@
     }
 }
 
+.sheet-modal-inner.picker-columns {
+    display: flex;
+    justify-content: space-around;
+}
+
 .picker-column {
     span {
         font-size: 15px;

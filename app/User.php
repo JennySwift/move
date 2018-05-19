@@ -37,36 +37,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function programs()
-    {
-        return $this->hasMany('App\Models\Program');
-    }
-
-    /**
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function exercises()
     {
         return $this->hasMany('App\Models\Exercise');
-    }
-
-    /**
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function exerciseEntries()
-    {
-        return $this->hasMany('App\Models\Entry');
-    }
-
-    /**
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function exerciseSeries()
-    {
-        return $this->hasMany('App\Models\Series');
     }
 
     /**

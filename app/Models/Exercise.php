@@ -38,15 +38,6 @@ class Exercise extends Model
 
     /**
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function entries()
-    {
-        return $this->hasMany('App\Models\Entry');
-    }
-
-    /**
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function workouts()
@@ -72,31 +63,4 @@ class Exercise extends Model
     {
         return route('exercises.show', $this->id);
     }
-
-    /**
-     * Get how many days ago the exercise was done
-     * @return mixed
-     */
-    public function getLastDoneAttribute()
-    {
-        if (count($this->entries) > 0) {
-            return getHowManyDaysAgo($this->entries()->max('date'));
-        }
-
-        return null;
-    }
-
-    /**
-     * Get how many days ago the exercise was done
-     * @return mixed
-     */
-    public function getDueInAttribute()
-    {
-        if (count($this->entries) < 1) {
-            return 0;
-        }
-
-        return $this->frequency - $this->lastDone;
-    }
-
 }

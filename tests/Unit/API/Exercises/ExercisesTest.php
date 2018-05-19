@@ -268,28 +268,26 @@ class ExercisesTest extends TestCase {
     }
 
     /**
-     * Todo: this test fails
      * @test
      * @return void
      */
     public function it_can_create_a_exercise_with_the_same_name_for_different_users()
     {
-        $this->markTestIncomplete();
+        //First, create an exercise for user 1 that user 2 doesn't have
         $this->logInUser(1);
-        $existingExerciseForAnotherUser = Exercise::where('user_id', 1)->first();
+        $this->addExercise(['name' => 'some new exercise', 'description' => '', 'priority' => 1]);
+        $existingExerciseForAnotherUser = Exercise::where('name', 'some new exercise')->first();
 
         $this->logInUser(2);
         $this->assertEquals(2, $this->user->id);
         $this->assertEquals(2, Auth::user()->id);
 
-
-
         $data = $this->setRequiredFields($existingExerciseForAnotherUser);
 
         $response = $this->apiCall('POST', $this->url, $data);
         $content = $this->getContent($response);
-        dd($content);
-        $this->assertEquals(Response::HTTP_OK, $content['status']);
+//        dd($content);
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }
 
     /**

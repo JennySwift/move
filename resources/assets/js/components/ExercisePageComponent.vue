@@ -50,12 +50,6 @@
                 baseUrl: 'api/exercises'
             };
         },
-        computed: {
-            units: function () {
-                return this.shared.exerciseUnits;
-            }
-        },
-        components: {},
         methods: {
             openHistoryPopup: function () {
                 store.openHistoryPopup();

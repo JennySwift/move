@@ -22,14 +22,7 @@
                 <!-- Card Content -->
                 <div class="card-content">
                     <table>
-                        <thead>
-                        <tr>
-                            <th class="numeric-cell"><div>LEVEL</div></th>
-                            <th class="numeric-cell"><div>{{exercise[0].unit.data.name}}</div></th>
-                            <th class="checkbox-cell" v-show="!deletingRows"></th>
-                            <th class="actions-cell" v-show="deletingRows"></th>
-                        </tr>
-                        </thead>
+                        <table-head :deletingRows="deletingRows" :exercise="exercise" page="session"></table-head>
                         <tbody>
                         <tr v-for="(row, index2) in exercise">
                             <td class="numeric-cell sheet-open" :data-sheet="'#session-exercise-level-keypad-' + row.id">
@@ -69,6 +62,7 @@
 <script>
     import Vue from 'vue'
     import TrashCell from './shared/TrashCellComponent'
+    import TableHead from './shared/TableHeadComponent'
     import swal from 'sweetalert2'
     var object = require('lodash/object');
     export default {
@@ -94,7 +88,8 @@
             }
         },
         components: {
-            'trash-cell': TrashCell
+            'trash-cell': TrashCell,
+            'table-head': TableHead
         },
         filters: {
             timeFilter: function (time) {

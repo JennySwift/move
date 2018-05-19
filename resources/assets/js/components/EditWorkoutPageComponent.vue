@@ -17,26 +17,16 @@
                 <history class="history-popup"></history>
 
                 <div class="data-table data-table-init card" v-if="!isEmpty(clonedAndSortedExercises)" v-for="exercise in clonedAndSortedExercises">
-                    <!-- Card Header -->
                     <div class="card-header">
-                        <!-- Table title -->
                         <div class="data-table-title">{{exercise[0].name}}</div>
-                        <!-- Table actions -->
                         <div class="data-table-actions">
                             <f7-button :actions-open="'#' + exercise[0].exercise_id + '-workout-actions'">Actions</f7-button>
                             <actions :exercise="exercise" id="workout" :addSet="addSet"></actions>
                         </div>
                     </div>
-                    <!-- Card Content -->
                     <div class="card-content">
                         <table>
-                            <thead>
-                            <tr>
-                                <th class="numeric-cell">LEVEL</th>
-                                <th class="numeric-cell">{{exercise[0].unit.data.name}}</th>
-                                <th class="actions-cell" v-show="deletingRows"></th>
-                            </tr>
-                            </thead>
+                            <table-head :deletingRows="deletingRows" :exercise="exercise"></table-head>
                             <tbody>
                             <tr v-for="row in exercise">
                                 <td class="numeric-cell sheet-open" :data-sheet="'#workout-exercise-level-keypad-' + row.id">
@@ -74,6 +64,7 @@
 <script>
     import Vue from 'vue'
     import TrashCell from './shared/TrashCellComponent'
+    import TableHead from './shared/TableHeadComponent'
     import swal from 'sweetalert2'
     var object = require('lodash/object');
     export default {
@@ -102,7 +93,8 @@
             }
         },
         components: {
-            'trash-cell': TrashCell
+            'trash-cell': TrashCell,
+            'table-head': TableHead
         },
         computed: {
             redirectTo: function () {

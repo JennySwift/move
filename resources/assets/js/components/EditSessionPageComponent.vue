@@ -6,6 +6,13 @@
 
         <f7-page-content>
 
+            <f7-list inset>
+                <f7-list-item>
+                    <f7-label>Edit Session Name</f7-label>
+                    <f7-input type="text" :value="shared.session.name" @input="shared.session.name = $event.target.value" placeholder="Name"></f7-input>
+                </f7-list-item>
+            </f7-list>
+
             <history class="history-popup"></history>
 
             <data-table v-for="(tableData, index) in clonedAndSortedExercises" v-bind:key="index">

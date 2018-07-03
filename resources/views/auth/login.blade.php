@@ -44,6 +44,14 @@
                         <input type="submit" class="button" value="Login">
                     </f7-block>
 
+                    <f7-block>
+                        <f7-link external href="{{ route('password.request') }}">
+                            Forgot Your Password?
+                        </f7-link>
+                    </f7-block>
+
+
+
 
                 </form>
             </div>

@@ -11,6 +11,14 @@
             <div class="flex">
                 @include('auth.errors')
 
+                <f7-block>
+                    To demo the app, log in with
+                    <ul>
+                        <li>email:jennyswiftcreations@gmail.com</li>
+                        <li>password: abcdefg</li>
+                    </ul>
+                </f7-block>
+
                 <form class="form-horizontal" role="form" method="POST" action="/login">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

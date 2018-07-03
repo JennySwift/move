@@ -17,6 +17,7 @@
                         <li>email:jennyswiftcreations@gmail.com</li>
                         <li>password: abcdefg</li>
                     </ul>
+                    <p>Please be aware that for the demo, the data is public, so others may see changes you make, and vice versa.</p>
                 </f7-block>
 
                 <form class="form-horizontal" role="form" method="POST" action="/login">

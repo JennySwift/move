@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Entry;
 use App\Models\Exercise;
-use App\Models\Series;
+use App\Models\Session;
 use App\Models\Unit;
 use App\Models\Workout;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +27,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
 
         Route::bind('exercise', function($id)
@@ -42,12 +39,12 @@ class RouteServiceProvider extends ServiceProvider
             return Unit::forCurrentUser()->findOrFail($id);
         });
 
-        Route::bind('entry', function ($id) {
-            return Entry::forCurrentUser()->findOrFail($id);
-        });
-
         Route::bind('workout', function ($id) {
             return Workout::forCurrentUser()->findOrFail($id);
+        });
+
+        Route::bind('session', function ($id) {
+            return Session::forCurrentUser()->findOrFail($id);
         });
     }
 

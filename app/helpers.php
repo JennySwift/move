@@ -87,15 +87,15 @@ function pluckName($name, $table)
  * I'm trying to pass a second parameter to my transformer but don't know how.
  * @param $resource
  */
-function transform($resource)
-{
-    $manager = new Manager();
-    $manager->setSerializer(new DataArraySerializer);
-
-    $manager->parseIncludes(request()->get('includes', []));
-
-    return $manager->createData($resource)->toArray();
-}
+//function transform($resource)
+//{
+//    $manager = new Manager();
+//    $manager->setSerializer(new DataArraySerializer);
+//
+//    $manager->parseIncludes(request()->get('includes', []));
+//
+//    return $manager->createData($resource)->toArray();
+//}
 
 /**
  *

@@ -18,7 +18,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected $baseUrl = 'http://localhost';
 
-    protected $validationErrorMessage = 'The given data failed to pass validation.';
+    protected $validationErrorMessage = 'The given data was invalid.';
 
     /**
      * Make an API call

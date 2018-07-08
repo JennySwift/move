@@ -83,7 +83,7 @@ class ExercisesTest extends TestCase {
 
         $response = $this->apiCall('POST', $this->url, $data);
         $content = $this->getContent($response);
-
+        
       $this->assertContains($content['error'], $this->validationErrorMessage);
 
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());

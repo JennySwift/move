@@ -161,7 +161,7 @@ class Controller extends BaseController
      * @param array $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondShow($model, $transformer, array $includes=null)
+    protected function respondShow($model, $transformer, array $includes = null)
     {
         $model = $this->transformItem($model, $transformer, $includes);
 
@@ -211,7 +211,7 @@ class Controller extends BaseController
      * @param array $includes
      * @return mixed
      */
-    private function transformItem($model, $transformer, array $includes=null)
+    private function transformItem($model, $transformer, array $includes = null)
     {
         return $this->transform($this->createItem($model, $transformer), $includes)['data'];
     }
@@ -223,7 +223,7 @@ class Controller extends BaseController
      * @param array|null $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondUpdate($model, $transformer, array $includes=null)
+    protected function respondUpdate($model, $transformer, array $includes = null)
     {
         $model = $this->transformItem($model, $transformer, $includes);
 
@@ -237,7 +237,7 @@ class Controller extends BaseController
      * @param array|null $includes
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    protected function respondStore($model, $transformer, array $includes=null)
+    protected function respondStore($model, $transformer, array $includes = null)
     {
         $model = $this->transformItem($model, $transformer, $includes);
 

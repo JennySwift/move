@@ -11,6 +11,10 @@
                     <f7-label>Edit Session Name</f7-label>
                     <f7-input type="text" :value="shared.session.name" @input="shared.session.name = $event.target.value" placeholder="Name"></f7-input>
                 </f7-list-item>
+                <f7-list-item>
+                    <f7-label>Edit Session Date</f7-label>
+                    <f7-input type="text" :value="shared.session.created_at" @input="shared.session.created_at = $event.target.value" placeholder="Date"></f7-input>
+                </f7-list-item>
             </f7-list>
 
             <history class="history-popup"></history>
@@ -194,8 +198,8 @@
             updateSession: function () {
                 var data = {
                     name: this.shared.session.name,
+                    created_at: this.shared.session.created_at,
                     exercises: this.formatExerciseDataForSyncing()
-
                 };
 
                 helpers.put({

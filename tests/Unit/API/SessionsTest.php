@@ -53,6 +53,29 @@ class SessionsTest extends TestCase
     /**
      * @test
      */
+    public function it_can_update_a_session()
+    {
+        $this->logInUser();
+
+        $session = Session::forCurrentUser()->first();
+
+        $response = $this->call('PUT', $this->url . $session->id, [
+            'name' => 'numbat',
+            'created_at' => '2010-01-01 00:00:00'
+        ]);
+        $content = $this->getContent($response);
+
+        $this->checkSessionKeysExist($content);
+
+        $this->assertEquals('numbat', $content['name']);
+        $this->assertEquals('2010-01-01 00:00:00', $content['created_at']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
     public function it_can_create_a_session()
     {
         $this->logInUser();

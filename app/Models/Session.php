@@ -16,7 +16,7 @@ class Session extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'created_at'];
 
     /**
      *

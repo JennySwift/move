@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
  */
 class SessionsController extends Controller
 {
-    private $fields = ['name'];
+    private $fields = ['name', 'created_at'];
 
     /**
      *

@@ -1,13 +1,17 @@
 <template>
     <!--Unit is not TIME-->
-    <td v-if="tableData[0].unit.data.name !== 'TIME'" class="numeric-cell sheet-open" :data-sheet="'#' + id">
-        <span>{{row.quantity}}</span>
+    <div v-if="tableData[0].unit.data.name !== 'TIME'" class="numeric-cell sheet-open" :data-sheet="'#' + id">
+        <!--<span>{{row.quantity}}</span>-->
+        <f7-badge v-if="!row.complete" color="red">{{row.quantity}}</f7-badge>
+        <f7-badge v-if="row.complete" color="green">{{row.quantity}}</f7-badge>
         <keypad :value.sync="row.quantity" :id="id"></keypad>
-    </td>
+    </div>
     <!--Unit is TIME-->
-    <td v-else class="numeric-cell" v-on:click="showTimePicker()">
-        <span>{{row.quantity | timeFilter}}</span>
-    </td>
+    <div v-else class="numeric-cell" v-on:click="showTimePicker()">
+        <!--<span>{{ row.quantity | timeFilter}}</span>-->
+        <f7-badge v-if="!row.complete" color="red">{{row.quantity | timeFilter}}</f7-badge>
+        <f7-badge v-if="row.complete" color="green">{{row.quantity | timeFilter}}</f7-badge>
+    </div>
 </template>
 
 <script>

@@ -1,8 +1,8 @@
 <template>
-    <td class="numeric-cell sheet-open" :data-sheet="'#' + id">
+    <div class="numeric-cell sheet-open" :data-sheet="'#' + id">
         <span>{{row.level}}</span>
         <keypad :value.sync="row.level" :id="id"></keypad>
-    </td>
+    </div>
 </template>
 
 <script>

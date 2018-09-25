@@ -19,22 +19,54 @@
 
             <history class="history-popup"></history>
 
-            <data-table v-for="(tableData, index) in clonedAndSortedExercises" v-bind:key="index">
-                <card-header :title="tableData[0].name">
-                    <actions :tableData="tableData" page="session" :addSet="addSet"></actions>
-                </card-header>
-                <template slot="table-content">
-                    <table-head :deletingRows="deletingRows" :tableData="tableData" page="session"></table-head>
-                    <tbody>
-                    <tr v-for="(row, index2) in tableData">
-                        <level-cell page="session" :row="row" :index="index2" :tableData="tableData"></level-cell>
-                        <quantity-cell page="session" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
-                        <checkbox-cell :row="row"></checkbox-cell>
-                        <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
-                    </tr>
-                    </tbody>
-                </template>
-            </data-table>
+            <!--<data-table v-for="(tableData, index) in clonedAndSortedExercises" v-bind:key="index">-->
+                <!--<card-header :title="tableData[0].name">-->
+                    <!--<actions :tableData="tableData" page="session" :addSet="addSet"></actions>-->
+                <!--</card-header>-->
+                <!--<template slot="table-content">-->
+                    <!--<table-head :deletingRows="deletingRows" :tableData="tableData" page="session"></table-head>-->
+                    <!--<tbody>-->
+                    <!--<tr v-for="(row, index2) in tableData">-->
+                        <!--<level-cell page="session" :row="row" :index="index2" :tableData="tableData"></level-cell>-->
+                        <!--<quantity-cell page="session" :row="row" :index="index2" :tableData="tableData"></quantity-cell>-->
+                        <!--<checkbox-cell :row="row"></checkbox-cell>-->
+                        <!--<trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</template>-->
+            <!--</data-table>-->
+
+            <f7-list v-for="(tableData, index) in clonedAndSortedExercises" v-bind:key="index" class="no-chevron">
+                <f7-list-group>
+                    <card-header :title="tableData[0].name">
+                        <actions :tableData="tableData" page="session" :addSet="addSet"></actions>
+                    </card-header>
+                    <f7-list-item
+                        swipeout
+                        color="green"
+                        v-for="(row, index2) in tableData"
+                        :key="row.id"
+                    >
+                        <div slot="title">
+                            <level-cell page="session" :row="row" :index="index2" :tableData="tableData"></level-cell>
+                        </div>
+
+                        <div slot="after">
+                            <quantity-cell page="session" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
+                        </div>
+
+                        <f7-swipeout-actions left>
+                            <f7-swipeout-button close v-if="!row.complete" color="green" v-on:click="toggleComplete(row)" overswipe>Complete</f7-swipeout-button>
+                            <f7-swipeout-button close v-if="row.complete" color="grey" v-on:click="toggleComplete(row)" overswipe>Incomplete</f7-swipeout-button>
+                        </f7-swipeout-actions>
+
+                        <f7-swipeout-actions right>
+                            <f7-swipeout-button close color="red" v-on:click="removeSet(row)" overswipe>Delete</f7-swipeout-button>
+                        </f7-swipeout-actions>
+
+                    </f7-list-item>
+                </f7-list-group>
+            </f7-list>
 
 
             <f7-input id="session-page-picker-input" style="display:none"></f7-input>
@@ -43,7 +75,7 @@
 
         <f7-toolbar class="flex-container">
             <f7-button v-on:click="showAddExercisePicker()"><i class="fas fa-plus"></i></f7-button>
-            <f7-button v-on:click="deletingRows = !deletingRows"><i class="fas fa-pencil-alt"></i></f7-button>
+            <!--<f7-button v-on:click="deletingRows = !deletingRows"><i class="fas fa-pencil-alt"></i></f7-button>-->
             <f7-button v-on:click="updateSession()">Save</f7-button>
         </f7-toolbar>
 
@@ -162,6 +194,9 @@
             removeSet: function (row) {
                 this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
             },
+            toggleComplete: function (row) {
+                row.complete = !row.complete;
+            },
             addSet: function (row) {
                 var newSet = {
                     exercise_id: row.exercise_id,
@@ -240,5 +275,7 @@
 </script>
 
 <style lang="scss" type="text/scss">
-
+    .list .item-title {
+        font-weight: normal !important;
+    }
 </style>

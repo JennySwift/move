@@ -109,6 +109,9 @@
                             workout_id: result.value
                         };
 
+                        //Set the shared workout so I can update it from the session
+                        store.set(helpers.findById(that.shared.workouts, result.value), 'workout');
+
                         helpers.post({
                             url: that.baseUrl,
                             data: data,

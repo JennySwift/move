@@ -376,6 +376,24 @@ export default {
         });
     },
 
+    formatExerciseDataForSyncing: function (exerciseData) {
+        var data = [];
+
+        _.forEach(exerciseData, function (value, index) {
+            data.push(
+                {
+                    exercise_id: value.exercise_id,
+                    level: value.level,
+                    quantity: value.quantity,
+                    complete: value.complete,
+                    unit_id: value.unit.data.id
+                }
+            );
+        });
+
+        return data;
+    },
+
     /**
      * Add an item to an array
      * @param item

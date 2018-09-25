@@ -210,21 +210,7 @@
                 Vue.set(this.clonedExercises, this.clonedExercises.length, newSet);
             },
             formatExerciseDataForSyncing: function () {
-                var data = [];
-
-                _.forEach(this.clonedExercises, function (value, index) {
-                    data.push(
-                        {
-                            exercise_id: value.exercise_id,
-                            level: value.level,
-                            quantity: value.quantity,
-                            complete: value.complete,
-                            unit_id: value.unit.data.id
-                        }
-                    );
-                });
-
-                return data;
+                return store.formatExerciseDataForSyncing(this.clonedExercises);
             },
 
             /**

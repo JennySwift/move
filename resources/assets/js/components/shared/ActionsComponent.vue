@@ -15,6 +15,10 @@
                 <f7-actions-button v-on:click="openPopup()">
                     History
                 </f7-actions-button>
+
+                <f7-actions-button v-if="page === 'session'" v-on:click="updateSetsForOneExerciseInWorkout()">
+                    Update Workout
+                </f7-actions-button>
             </f7-actions-group>
         </f7-actions>
     </div>
@@ -35,7 +39,7 @@
         props: [
             'tableData',
             'addSet',
-            'page'
+            'page',
         ],
         methods: {
             openPopup: function () {
@@ -50,6 +54,28 @@
                 var exercise = helpers.findById(this.shared.exercises, this.tableData[0].exercise_id);
                 store.set(exercise, 'exercise');
             },
+
+            /**
+             * For updating sets for just one exercise in a workout to match what I did in the session
+             */
+            updateSetsForOneExerciseInWorkout: function () {
+                var data = {
+                    exercise_id: this.tableData[0].exercise_id,
+                    unit_id: this.tableData[0].unit.data.id,
+                    exercises: store.formatExerciseDataForSyncing(this.tableData)
+                };
+
+                helpers.put({
+                    url: 'api/workouts/' + this.shared.workout.id + '?include=exercises',
+                    data: data,
+                    property: 'workouts',
+                    message: 'Workout updated',
+                    callback: function (response) {
+
+                    }.bind(this)
+                });
+            },
+
         }
     }
 </script>

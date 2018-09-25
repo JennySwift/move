@@ -1,6 +1,6 @@
 <template>
     <div>
-        <f7-page :page-content="false">
+        <f7-page :page-content="false" id="edit-workout-page">
             <navbar :title="shared.workout.name" popover-id="edit-workout">
                 <!--<f7-list-item v-on:click="showAddExercisePicker()" link="false" title="Add Exercise" popover-close></f7-list-item>-->
             </navbar>
@@ -33,38 +33,42 @@
                     <!--</template>-->
                 <!--</data-table>-->
 
-                <f7-list v-for="(tableData, index) in clonedAndSortedExercises" v-if="!isEmpty(clonedAndSortedExercises)" v-bind:key="index" class="no-chevron">
-                    <f7-list-group>
-                        <card-header :title="tableData[0].name">
+                <f7-list sortable contacts-list @sortable:sort="onSort" id="exercises-in-workout">
+                    <f7-list-item v-for="(tableData, index) in clonedAndSortedExercises" v-if="!isEmpty(clonedAndSortedExercises)" v-bind:key="index" class="no-chevron sortable-item sets-for-exercise">
+                        <f7-list-group>
+                            <card-header :title="tableData[0].name">
                             <actions :tableData="tableData" page="workout" :addSet="addSet"></actions>
-                        </card-header>
-                        <f7-list-item
-                            swipeout
-                            v-for="(row, index2) in tableData"
-                            :key="row.id"
-                        >
-                            <div slot="title">
-                                <level-cell page="workout" :row="row" :index="index2" :tableData="tableData"></level-cell>
-                            </div>
+                            </card-header>
+                            <f7-list-item
+                                swipeout
+                                v-for="(row, index2) in tableData"
+                                :key="row.id"
+                            >
+                                <div slot="title">
+                                    <level-cell page="workout" :row="row" :index="index2" :tableData="tableData"></level-cell>
+                                </div>
 
-                            <div slot="after">
-                                <quantity-cell page="workout" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
-                            </div>
+                                <div slot="after">
+                                    <quantity-cell page="workout" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
+                                </div>
 
-                            <f7-swipeout-actions right>
-                                <f7-swipeout-button close color="red" v-on:click="removeSet(row)" overswipe>Delete</f7-swipeout-button>
-                            </f7-swipeout-actions>
+                                <f7-swipeout-actions right>
+                                    <f7-swipeout-button close color="red" v-on:click="removeSet(row)" overswipe>Delete</f7-swipeout-button>
+                                </f7-swipeout-actions>
 
-                        </f7-list-item>
-                    </f7-list-group>
+                            </f7-list-item>
+                        </f7-list-group>
+                    </f7-list-item>
                 </f7-list>
+
+
 
 
             </f7-page-content>
 
             <f7-toolbar class="flex-container">
                 <f7-button v-on:click="showAddExercisePicker()"><i class="fas fa-plus"></i></f7-button>
-                <!--<f7-button v-on:click="deletingRows = !deletingRows"><i class="fas fa-pencil-alt"></i></f7-button>-->
+                <f7-button v-on:click="toggleSortable"><i class="fas fa-pencil-alt"></i></f7-button>
                 <f7-button v-on:click="updateWorkout()">Save</f7-button>
             </f7-toolbar>
 
@@ -133,6 +137,14 @@
             }
         },
         methods: {
+            onSort(e) {
+                // Sort data
+                console.log(e.target);
+                console.log(e.detail);
+            },
+            toggleSortable: function () {
+                app.f7.sortable.toggle('.sortable-item');
+            },
             isEmpty: function (obj) {
                 return _.isEmpty(obj);
             },
@@ -259,6 +271,38 @@
     @import '../../sass/shared/index';
     @include exerciseRow;
     #edit-workout-page {
+        #exercises-in-workout {
+            .card-header {
+                padding: 0;
+            }
+            ul {
+                background: inherit;
+            }
+            .sets-for-exercise {
+                background: white;
+                margin-bottom: 20px;
+                > .item-content {
+                    > .item-inner {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        padding: 0;
+                    }
+                }
+                .list-group {
+                    width: 100%;
+                    ul {
+                        padding-left: 0;
+                    }
+                    > .item-content {
+                        padding-left: 0;
+                        > .item-inner {
+                            padding-right: 0;
+                        }
+                    }
+
+                }
+            }
+        }
         th {
             text-align:center;
         }

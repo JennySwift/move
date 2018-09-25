@@ -279,4 +279,11 @@
         font-weight: normal !important;
         flex-grow: 1;
     }
+    .ios .badge {
+        font-size: 20px;
+        border-radius: 5px;
+        padding: 0px 6px;
+        height: auto;
+        line-height: inherit;
+    }
 </style>

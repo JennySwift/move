@@ -1,5 +1,19 @@
 @import 'variables';
 
+@mixin exerciseRow {
+	.list .item-title {
+		font-weight: normal !important;
+		flex-grow: 1;
+	}
+	.ios .badge {
+		font-size: 20px;
+		border-radius: 5px;
+		padding: 0px 6px;
+		height: auto;
+		line-height: inherit;
+	}
+}
+
 @mixin gradient {
 	background: #43cea2; /* fallback for old browsers */
 	background: -webkit-linear-gradient(to left, $base1 , $base2); /* Chrome 10-25, Safari 5.1-6 */

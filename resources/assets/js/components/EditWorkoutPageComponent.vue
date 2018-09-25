@@ -16,29 +16,55 @@
 
                 <history class="history-popup"></history>
 
-                <data-table v-for="(tableData, index) in clonedAndSortedExercises" v-if="!isEmpty(clonedAndSortedExercises)" v-bind:key="index">
-                    <card-header :title="tableData[0].name">
-                        <actions :tableData="tableData" page="workout" :addSet="addSet"></actions>
-                    </card-header>
+                <!--<data-table v-for="(tableData, index) in clonedAndSortedExercises" v-if="!isEmpty(clonedAndSortedExercises)" v-bind:key="index">-->
+                    <!--<card-header :title="tableData[0].name">-->
+                        <!--<actions :tableData="tableData" page="workout" :addSet="addSet"></actions>-->
+                    <!--</card-header>-->
 
-                    <template slot="table-content">
-                        <table-head :deletingRows="deletingRows" :tableData="tableData"></table-head>
-                        <tbody>
-                        <tr v-for="(row, index2) in tableData">
-                            <level-cell page="workout" :row="row" :index="index2" :tableData="tableData"></level-cell>
-                            <quantity-cell page="workout" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
-                            <trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>
-                        </tr>
-                        </tbody>
-                    </template>
-                </data-table>
+                    <!--<template slot="table-content">-->
+                        <!--<table-head :deletingRows="deletingRows" :tableData="tableData"></table-head>-->
+                        <!--<tbody>-->
+                        <!--<tr v-for="(row, index2) in tableData">-->
+                            <!--<level-cell page="workout" :row="row" :index="index2" :tableData="tableData"></level-cell>-->
+                            <!--<quantity-cell page="workout" :row="row" :index="index2" :tableData="tableData"></quantity-cell>-->
+                            <!--<trash-cell :removeSet="removeSet" :row="row" :deletingRows="deletingRows"></trash-cell>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</template>-->
+                <!--</data-table>-->
+
+                <f7-list v-for="(tableData, index) in clonedAndSortedExercises" v-if="!isEmpty(clonedAndSortedExercises)" v-bind:key="index" class="no-chevron">
+                    <f7-list-group>
+                        <card-header :title="tableData[0].name">
+                            <actions :tableData="tableData" page="workout" :addSet="addSet"></actions>
+                        </card-header>
+                        <f7-list-item
+                            swipeout
+                            v-for="(row, index2) in tableData"
+                            :key="row.id"
+                        >
+                            <div slot="title">
+                                <level-cell page="workout" :row="row" :index="index2" :tableData="tableData"></level-cell>
+                            </div>
+
+                            <div slot="after">
+                                <quantity-cell page="workout" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
+                            </div>
+
+                            <f7-swipeout-actions right>
+                                <f7-swipeout-button close color="red" v-on:click="removeSet(row)" overswipe>Delete</f7-swipeout-button>
+                            </f7-swipeout-actions>
+
+                        </f7-list-item>
+                    </f7-list-group>
+                </f7-list>
 
 
             </f7-page-content>
 
             <f7-toolbar class="flex-container">
                 <f7-button v-on:click="showAddExercisePicker()"><i class="fas fa-plus"></i></f7-button>
-                <f7-button v-on:click="deletingRows = !deletingRows"><i class="fas fa-pencil-alt"></i></f7-button>
+                <!--<f7-button v-on:click="deletingRows = !deletingRows"><i class="fas fa-pencil-alt"></i></f7-button>-->
                 <f7-button v-on:click="updateWorkout()">Save</f7-button>
             </f7-toolbar>
 
@@ -243,6 +269,8 @@
 </script>
 
 <style lang="scss" type="text/scss">
+    @import '../../sass/shared/index';
+    @include exerciseRow;
     #edit-workout-page {
         th {
             text-align:center;

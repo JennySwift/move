@@ -245,7 +245,7 @@ export default {
     },
 
     showAddExercisePicker: function (that) {
-        var picker = app.f7.picker.create({
+        var exercisePicker = app.f7.picker.create({
             inputEl: '#exercise-picker',
             cols: [
                 {
@@ -254,32 +254,58 @@ export default {
                     displayValues: _.map(this.state.exercises, 'name'),
                     cssClass: 'exercise'
                 },
-                {
-                    values: _.map(this.state.exerciseUnits, 'id'),
-                    displayValues: _.map(this.state.exerciseUnits, 'name'),
-                    cssClass: 'unit',
-                    width: 60
-                },
+                // {
+                //     values: _.map(this.state.exerciseUnits, 'id'),
+                //     displayValues: _.map(this.state.exerciseUnits, 'name'),
+                //     cssClass: 'unit',
+                //     width: 60
+                // },
             ],
             on: {
-                close: function (picker) {
-                    var exercise = helpers.findById(store.state.exercises, picker.value[0]);
-                    var row = {
-                        exercise_id: exercise.id,
-                        name: exercise.name,
-                        level: 1,
-                        quantity: 50,
-                        complete: 0,
-                        unit: {
-                            data: helpers.findById(store.state.exerciseUnits, picker.value[1])
-                        }
-                    };
+                close: function (exercisePicker) {
+                    var unitPicker = app.f7.picker.create({
+                        inputEl: '#unit-picker',
+                        cols: [
+                            {
+                                textAlign: 'left',
+                                values: _.map(store.state.exerciseUnits, 'id'),
+                                displayValues: _.map(store.state.exerciseUnits, 'name'),
+                                cssClass: 'unit'
+                            },
+                            // {
+                            //     values: _.map(this.state.exerciseUnits, 'id'),
+                            //     displayValues: _.map(this.state.exerciseUnits, 'name'),
+                            //     cssClass: 'unit',
+                            //     width: 60
+                            // },
+                        ],
+                        on: {
+                            close: function (unitPicker) {
+                                var exercise = helpers.findById(store.state.exercises, exercisePicker.value[0]);
+                                var row = {
+                                    exercise_id: exercise.id,
+                                    name: exercise.name,
+                                    level: 1,
+                                    quantity: 50,
+                                    complete: 0,
+                                    unit: {
+                                        // data: store.state.exerciseUnits[0]
+                                        data: helpers.findById(store.state.exerciseUnits, unitPicker.value[0])
+                                    }
+                                };
 
-                    that.addSet(row);
+                                that.addSet(row);
+                            }
+                        }
+                    });
+                    setTimeout(function () {
+                        unitPicker.open();
+                    }, 500);
+
                 }
             }
         });
-        picker.open();
+        exercisePicker.open();
     },
 
     /**

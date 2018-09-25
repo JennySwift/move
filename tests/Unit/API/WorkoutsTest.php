@@ -65,6 +65,70 @@ class WorkoutsTest extends TestCase
     /**
      * @test
      */
+    public function it_can_update_the_sets_for_just_one_exercise_in_a_workout()
+    {
+        $this->logInUser();
+
+        $workout = Workout::forCurrentUser()->first();
+
+        //Check the number of sets (every exercise) in the workout
+        $this->assertCount(17, $workout->exercises()->get());
+
+        $setsForExercise = $workout->exercises()->where('exercise_id', 1)->wherePivot('unit_id', 1)->get();
+
+        //Check the number of sets (just one exercise) in the workout
+        $this->assertCount(4, $setsForExercise);
+
+        $this->assertEquals(5, $setsForExercise[0]->pivot->level);
+        $this->assertEquals(50, $setsForExercise[0]->pivot->quantity);
+
+        $response = $this->call('PUT', $this->url . $workout->id . '?include=exercises', [
+            'name' => 'numbat',
+            'exercise_id' => 1,
+            'unit_id' => 1,
+            'exercises' => [
+                [
+                    'level' => 52,
+                    'quantity' => 60,
+                ],
+                [
+                    'level' => 15,
+                    'quantity' => 140,
+                ]
+            ]
+        ]);
+        $content = $this->getContent($response);
+//dd($content);
+        $this->checkWorkoutKeysExist($content);
+        $this->assertArrayHasKey('exercises', $content);
+        $exercises = $content['exercises']['data'];
+        $this->checkExerciseWorkoutKeysExist($exercises[0]);
+
+        //Check the other exercises didn't get detached
+        $this->assertCount(15, $exercises);
+
+        $setsForExercise = $workout->exercises()->where('exercise_id', 1)->wherePivot('unit_id', 1)->get();
+
+        //Check the number of sets (just one exercise) in the workout
+        $this->assertCount(2, $setsForExercise);
+
+        //Check the data for the updated exercise was updated correctly
+        $this->assertEquals(1, $exercises[13]['exercise_id']);
+        $this->assertEquals(52, $exercises[13]['level']);
+        $this->assertEquals(60, $exercises[13]['quantity']);
+        $this->assertEquals(1, $exercises[13]['unit']['data']['id']);
+
+        $this->assertEquals(1, $exercises[14]['exercise_id']);
+        $this->assertEquals(15, $exercises[14]['level']);
+        $this->assertEquals(140, $exercises[14]['quantity']);
+        $this->assertEquals(1, $exercises[14]['unit']['data']['id']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
     public function it_can_update_the_exercises_for_a_workout()
     {
         $this->logInUser();

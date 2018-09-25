@@ -70,7 +70,8 @@ class WorkoutsController extends Controller
         $workout->update($data);
 
         if ($request->get('include') === 'exercises') {
-            if ($request->has('exercises')) {
+            //Updating all the exercises in a workout at once
+            if ($request->has('exercises') && !$request->has('exercise_id')) {
                 //I need to detach before syncing, otherwise if there is more than one set of an exercise
                 //in the workout, it syncs all sets, which is not the behaviour I want.
                 $workout->exercises()->detach();
@@ -82,7 +83,21 @@ class WorkoutsController extends Controller
                         'unit_id' => $exercise['unit_id'],
                     ]);
                 }
+            }
+            //Updating the sets for just one exercise in a workout
+            else if ($request->has('exercise_id')) {
+                $exerciseId = $request->get('exercise_id');
+                $unitId = $request->get('unit_id');
+                //Todo: If the workout has an exercise with one unit, and the same exercise with another unit, both kinds will be deleted
+                $workout->exercises()->detach($exerciseId);
 
+                foreach ($request->get('exercises') as $exercise) {
+                    $workout->exercises()->attach($exerciseId, [
+                        'level' => $exercise['level'],
+                        'quantity' => $exercise['quantity'],
+                        'unit_id' => $unitId,
+                    ]);
+                }
             }
 
             return $this->respondUpdate($workout, new WorkoutTransformer, ['exercises']);

@@ -277,5 +277,6 @@
 <style lang="scss" type="text/scss">
     .list .item-title {
         font-weight: normal !important;
+        flex-grow: 1;
     }
 </style>

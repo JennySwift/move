@@ -35,4 +35,15 @@ class Workout extends Model {
     {
         return $this->belongsToMany('App\Models\Exercise')->withPivot('level', 'quantity', 'unit_id', 'id', 'workout_group_id');
     }
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groups()
+    {
+        return $this->hasMany('App\Models\WorkoutGroup');
+//        return $this->belongsToMany('App\Models\WorkoutGroup', 'exercise_workout', 'workout_id', 'workout_group_id')->withPivot('order', 'quantity', 'unit_id', 'id', 'exercise_id');
+//        return $this->belongsToMany('App\Models\WorkoutGroup', 'exercise_workout', 'workout_id', 'workout_group_id');
+    }
 }

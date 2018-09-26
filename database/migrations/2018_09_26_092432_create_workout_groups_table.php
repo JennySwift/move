@@ -24,7 +24,8 @@ class CreateWorkoutGroupsTable extends Migration
 //            $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
 
             $table->integer('order')->index();
-            $table->unique(array('order', 'workout_id'));
+            //Removing unique constraint, since it stopped me from being able to increment the positions when moving a group
+//            $table->unique(array('order', 'workout_id'));
         });
     }
 

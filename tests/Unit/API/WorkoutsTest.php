@@ -90,10 +90,12 @@ class WorkoutsTest extends TestCase
                 [
                     'level' => 52,
                     'quantity' => 60,
+                    'workout_group_id' => 1
                 ],
                 [
                     'level' => 15,
                     'quantity' => 140,
+                    'workout_group_id' => 1
                 ]
             ]
         ]);
@@ -142,19 +144,23 @@ class WorkoutsTest extends TestCase
                     'exercise_id' => 1,
                     'level' => 52,
                     'quantity' => 60,
-                    'unit_id' => 1
+                    'unit_id' => 1,
+                    //Todo: haven't check this workout group belongs to the workout
+                    'workout_group_id' => 1
                 ],
                 [
                     'exercise_id' => 6,
                     'level' => 15,
                     'quantity' => 140,
-                    'unit_id' => 2
+                    'unit_id' => 2,
+                    'workout_group_id' => 1
                 ],
                 [
                     'exercise_id' => 6,
                     'level' => 15,
                     'quantity' => 140,
-                    'unit_id' => 2
+                    'unit_id' => 2,
+                    'workout_group_id' => 1
                 ]
             ]
         ]);

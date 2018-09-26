@@ -57,6 +57,6 @@ class WorkoutGroupsController extends Controller
                 'order' => $newPosition
             ]);
         }
-//        return $this->respondUpdate($workoutGroup, new WorkoutGroupTransformer);
+        return $this->respondIndex($workout->groups, new WorkoutGroupTransformer);
     }
 }

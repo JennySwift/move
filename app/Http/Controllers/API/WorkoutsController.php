@@ -81,6 +81,7 @@ class WorkoutsController extends Controller
                         'level' => $exercise['level'],
                         'quantity' => $exercise['quantity'],
                         'unit_id' => $exercise['unit_id'],
+                        'workout_group_id' => $exercise['workout_group_id'],
                     ]);
                 }
             }
@@ -96,6 +97,7 @@ class WorkoutsController extends Controller
                         'level' => $exercise['level'],
                         'quantity' => $exercise['quantity'],
                         'unit_id' => $unitId,
+                        'workout_group_id' => $exercise['workout_group_id'],
                     ]);
                 }
             }

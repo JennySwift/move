@@ -38,6 +38,10 @@ class WorkoutGroupsTest extends TestCase
             'workout_id' => $workout->id
         ]);
 
+        $content = $this->getContent($response);
+//dd($content);
+        $this->checkWorkoutGroupKeysExist($content[0]);
+
         $workoutGroups = $workout->groups()->get();
         $this->assertEquals(1, $workoutGroups[1]->order);
         $this->assertEquals(2, $workoutGroups[0]->order);

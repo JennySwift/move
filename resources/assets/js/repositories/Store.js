@@ -377,6 +377,18 @@ export default {
         });
     },
 
+    formatDataForAddingSet: function (row) {
+        return {
+            exercise_id: row.exercise_id,
+            level: row.level,
+            name: row.name,
+            quantity: row.quantity,
+            complete: 0,
+            unit: row.unit,
+            workoutGroup: row.workoutGroup
+        };
+    },
+
     formatExerciseDataForSyncing: function (exerciseData) {
         var data = [];
 
@@ -387,7 +399,8 @@ export default {
                     level: value.level,
                     quantity: value.quantity,
                     complete: value.complete,
-                    unit_id: value.unit.data.id
+                    unit_id: value.unit.data.id,
+                    workout_group_id: value.workoutGroup.data.id
                 }
             );
         });

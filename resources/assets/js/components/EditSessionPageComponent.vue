@@ -198,14 +198,7 @@
                 row.complete = !row.complete;
             },
             addSet: function (row) {
-                var newSet = {
-                    exercise_id: row.exercise_id,
-                    level: row.level,
-                    name: row.name,
-                    quantity: row.quantity,
-                    complete: 0,
-                    unit: row.unit
-                };
+                var newSet = store.formatDataForAddingSet(row);
 
                 Vue.set(this.clonedExercises, this.clonedExercises.length, newSet);
             },

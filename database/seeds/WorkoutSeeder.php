@@ -215,7 +215,7 @@ class WorkoutSeeder extends Seeder
                 'name' => 'Hanging',
                 'groups' => [
                     [
-                        'order' => 1,
+                        'order' => 2,
                         'exercises' => [
                             [
                                 'exercise_id' => $this->getExercise('Bar Hang (Overhand)'),
@@ -226,7 +226,7 @@ class WorkoutSeeder extends Seeder
                         ]
                     ],
                     [
-                        'order' => 2,
+                        'order' => 1,
                         'exercises' => [
                             [
                                 'exercise_id' => $this->getExercise('Bar Hang (Underhand)'),

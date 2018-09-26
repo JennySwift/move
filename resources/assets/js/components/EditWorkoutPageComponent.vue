@@ -132,8 +132,8 @@
              ]
              */
             clonedAndSortedExercises: function () {
-                var sorted = _.sortBy(this.clonedExercises, 'order');
-                sorted = _.groupBy(sorted, 'name');
+                // var sorted = _.groupBy(this.clonedExercises, 'name');
+                var sorted = _.groupBy(this.clonedExercises, 'workoutGroup.data.order');
                 return sorted;
             }
         },

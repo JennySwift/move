@@ -126,6 +126,11 @@ class ExerciseSeeder extends Seeder {
                 'description' => '',
                 'priority' => 1,
             ],
+            [
+                'name' => 'Calf Raises',
+                'description' => '',
+                'priority' => 1,
+            ],
         ];
 
         $users = User::all();

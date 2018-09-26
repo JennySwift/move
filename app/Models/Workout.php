@@ -33,6 +33,6 @@ class Workout extends Model {
      */
     public function exercises()
     {
-        return $this->belongsToMany('App\Models\Exercise')->withPivot('level', 'quantity', 'unit_id', 'id');
+        return $this->belongsToMany('App\Models\Exercise')->withPivot('level', 'quantity', 'unit_id', 'id', 'workout_group_id');
     }
 }

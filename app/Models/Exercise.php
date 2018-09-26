@@ -49,6 +49,15 @@ class Exercise extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+    public function workoutGroups()
+    {
+        return $this->belongsToMany('App\Models\WorkoutGroup');
+    }
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function sessions()
     {
         return $this->belongsToMany('App\Models\Session')->withTimestamps();

@@ -132,15 +132,66 @@
              ]
              */
             clonedAndSortedExercises: function () {
-                var sorted = _.groupBy(this.clonedExercises, 'name');
-               return sorted;
+                var sorted = _.sortBy(this.clonedExercises, 'order');
+                sorted = _.groupBy(sorted, 'name');
+                return sorted;
             }
         },
         methods: {
             onSort(e) {
+                var exerciseId;
                 // Sort data
-                console.log(e.target);
-                console.log(e.detail);
+                // console.log(e.detail.from);
+                // console.log(e.detail.to);
+                // console.log(this.clonedExercises);
+                // console.log(this.clonedAndSortedExercises);
+
+                //Find the id of the exercise that the group that was moved consists of
+                var index = -1;
+                _.forEach(this.clonedAndSortedExercises, function (value) {
+                    index++;
+                    if (index === e.detail.from) {
+                        exerciseId = value[0].exercise_id;
+                    }
+                });
+
+                //Find all the sets of that exercise
+
+                var that = this;
+
+                var itemsToMove =_.remove(this.clonedExercises, function (o) {
+                    return o.exercise_id === exerciseId;
+                });
+
+                index = -1;
+                _.forEach(itemsToMove, function (value) {
+                    index++;
+                    that.clonedExercises.splice(0,0,itemsToMove[index]);
+                });
+
+
+                // var itemsToMove = _.filter(that.clonedExercises, function (o) {
+                //     return o.exercise_id === exerciseId;
+                // });
+
+                // var newArray = _.remove(that.clonedExercises, itemsToMove);
+                // newArray.splice(0,0,itemsToMove[0]);
+                // this.clonedExercises = newArray;
+                // var indexesOfItemsToMove = [];
+                // _.forEach(this.clonedExercises, function (value) {
+                //     index++;
+                //     if (value.exercise_id === exerciseId) {
+                //         // indexesOfItemsToMove.push(index);
+                //         itemsToMove.push(that.clonedExercises.splice(index, 1));
+                //     }
+                // });
+
+                //Move the sets of that exercise to the new position
+                // this.clonedExercises.splice(0, 0, itemsToMove);
+
+                console.log(this.clonedExercises);
+
+
             },
             toggleSortable: function () {
                 app.f7.sortable.toggle('.sortable-item');

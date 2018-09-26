@@ -31,6 +31,7 @@ export default {
                         id: '',
                         level: '',
                         quantity: 0,
+                        order: 0,
                         unit: {
                             data: {}
                         }

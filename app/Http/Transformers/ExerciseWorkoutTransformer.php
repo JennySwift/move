@@ -4,6 +4,7 @@ namespace App\Http\Transformers;
 
 use App\Models\Exercise;
 use App\Models\Unit;
+use App\Models\WorkoutGroup;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -12,7 +13,8 @@ use League\Fractal\TransformerAbstract;
 class ExerciseWorkoutTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [
-        'unit'
+        'unit',
+        'workoutGroup'
     ];
 
     /**
@@ -27,6 +29,7 @@ class ExerciseWorkoutTransformer extends TransformerAbstract
             'name' => $exercise->name,
             'level' => $exercise->pivot->level,
             'quantity' => $exercise->pivot->quantity,
+            'order' => $exercise->pivot->order
         ];
 
         return $array;
@@ -42,6 +45,20 @@ class ExerciseWorkoutTransformer extends TransformerAbstract
         $unit = Unit::find($exercise->pivot->unit_id);
 
         return $this->item($unit, new UnitTransformer);
+    }
+
+    /**
+     *
+     * @param Exercise $exercise
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeWorkoutGroup(Exercise $exercise)
+    {
+        $workoutGroup = WorkoutGroup::find($exercise->pivot->workout_group_id);
+
+        if ($workoutGroup) {
+            return $this->item($workoutGroup, new WorkoutGroupTransformer);
+        }
     }
 
 }

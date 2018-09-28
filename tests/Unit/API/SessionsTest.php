@@ -169,21 +169,25 @@ class SessionsTest extends TestCase
                     'level' => 52,
                     'quantity' => 60,
                     'unit_id' => 1,
-                    'complete' => 0
+                    'complete' => 0,
+                    //Todo: make these the right workout group ids
+                    'workout_group_id' => 1
                 ],
                 [
                     'exercise_id' => 6,
                     'level' => 15,
                     'quantity' => 140,
                     'unit_id' => 2,
-                    'complete' => 1
+                    'complete' => 1,
+                    'workout_group_id' => 1
                 ],
                 [
                     'exercise_id' => 6,
                     'level' => 15,
                     'quantity' => 140,
                     'unit_id' => 2,
-                    'complete' => 1
+                    'complete' => 1,
+                    'workout_group_id' => 1
                 ]
             ]
         ]);

@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        dd($exception);
+//        dd($exception);
         if ($exception instanceof ModelNotFoundException) {
             $model = (new \ReflectionClass($exception->getModel()))->getShortName();
 

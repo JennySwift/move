@@ -104,6 +104,7 @@ class SessionsController extends Controller
                         'quantity' => $exercise['quantity'],
                         'complete' => $exercise['complete'],
                         'unit_id' => $exercise['unit_id'],
+                        'workout_group_id' => $exercise['workout_group_id']
                     ]);
                 }
 

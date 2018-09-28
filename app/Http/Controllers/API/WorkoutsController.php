@@ -5,6 +5,7 @@ use App\Http\Requests\WorkoutStoreRequest;
 use App\Http\Transformers\WorkoutTransformer;
 use App\Models\Workout;
 use App\Models\WorkoutGroup;
+use App\Repositories\WorkoutGroupsRepository;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,19 @@ use Illuminate\Http\Request;
 class WorkoutsController extends Controller
 {
     private $fields = ['name'];
+
+    /**
+     * @var
+     */
+    private $workoutGroupsRepository;
+
+    /**
+     * WorkoutsExercisesController constructor.
+     * @param WorkoutGroupsRepository $workoutGroupsRepository
+     */
+    public function __construct(WorkoutGroupsRepository $workoutGroupsRepository) {
+        $this->workoutGroupsRepository = $workoutGroupsRepository;
+    }
 
     /**
      *
@@ -60,7 +74,6 @@ class WorkoutsController extends Controller
     }
 
     /**
-     * @Todo: check unit ids are foreign keys belonging to user before syncing?
      * @param Request $request
      * @param Workout $workout
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -70,49 +83,25 @@ class WorkoutsController extends Controller
         $data = $this->getData($workout, $request->only($this->fields));
         $workout->update($data);
 
-        if ($request->get('include') === 'exercises') {
-            if ($request->has('createExerciseGroup')) {
-                //A new exercise has been added to the workout in the frontend,
-                //so create a new workout group for it
-                $workoutGroup = new WorkoutGroup([
-                    'order' => $workout->groups()->max('order') + 1,
+        //Updating all the exercises in a workout at once
+        if ($request->has('exercises') && !$request->has('exercise_id')) {
+            //I need to detach before syncing, otherwise if there is more than one set of an exercise
+            //in the workout, it syncs all sets, which is not the behaviour I want.
+            $workout->exercises()->detach();
+
+            foreach ($request->get('exercises') as $exercise) {
+                $workoutGroupId = $exercise['workout_group_id'] ? $exercise['workout_group_id'] : $this->workoutGroupsRepository->createWorkoutGroup($workout)->id;
+                $workout->exercises()->attach($exercise['exercise_id'], [
+                    'level' => $exercise['level'],
+                    'quantity' => $exercise['quantity'],
+                    'unit_id' => $exercise['unit_id'],
+                    'workout_group_id' => $workoutGroupId,
                 ]);
-
-                $workoutGroup->workout()->associate($workout);
-                $workoutGroup->save();
-//                return $this->respondStore($workout, new WorkoutTransformer);
             }
-            //Updating all the exercises in a workout at once
-            if ($request->has('exercises') && !$request->has('exercise_id')) {
-                //I need to detach before syncing, otherwise if there is more than one set of an exercise
-                //in the workout, it syncs all sets, which is not the behaviour I want.
-                $workout->exercises()->detach();
-
-                foreach ($request->get('exercises') as $exercise) {
-                    $workout->exercises()->attach($exercise['exercise_id'], [
-                        'level' => $exercise['level'],
-                        'quantity' => $exercise['quantity'],
-                        'unit_id' => $exercise['unit_id'],
-                        'workout_group_id' => $exercise['workout_group_id'],
-                    ]);
-                }
-                //Todo: delete any workout groups no longer in use, to make sure the ordering stays right
-            }
-            //Updating the sets for just one exercise in a workout
-            else if ($request->has('exercise_id')) {
-                $exerciseId = $request->get('exercise_id');
-                $unitId = $request->get('unit_id');
-                //Todo: If the workout has an exercise with one unit, and the same exercise with another unit, both kinds will be deleted
-                $workout->exercises()->detach($exerciseId);
-
-                foreach ($request->get('exercises') as $exercise) {
-                    $workout->exercises()->attach($exerciseId, [
-                        'level' => $exercise['level'],
-                        'quantity' => $exercise['quantity'],
-                        'unit_id' => $unitId,
-                        'workout_group_id' => $exercise['workout_group_id'],
-                    ]);
-                }
+            //Todo: fix the ordering of the workout groups after deleting the unused ones?
+            $groupsToDelete = $workout->groups()->whereDoesntHave('exercises')->get();
+            foreach ($groupsToDelete as $groupToDelete) {
+                $groupToDelete->delete();
             }
 
             return $this->respondUpdate($workout, new WorkoutTransformer, ['exercises']);

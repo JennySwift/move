@@ -49,6 +49,7 @@ class WorkoutGroup extends Model {
      */
     public function exercises()
     {
-        return $this->belongsToMany('App\Models\Exercise')->withPivot('order');
+        return $this->belongsToMany('App\Models\Exercise', 'exercise_workout')->withPivot('order', 'quantity', 'unit_id', 'id', 'exercise_id');
+
     }
 }

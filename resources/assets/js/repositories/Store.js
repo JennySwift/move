@@ -398,7 +398,7 @@ export default {
 
         _.forEach(exerciseData, function (value, index) {
             //If the exercise has just been added to the workout, it won't have a workout group id yet
-            var workoutGroupId = value.workoutGroup.data ? value.workoutGroup.data.id : null;
+            var workoutGroupId = value.workoutGroup ? value.workoutGroup.data.id : null;
             data.push(
                 {
                     exercise_id: value.exercise_id,

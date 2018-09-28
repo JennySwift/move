@@ -17,6 +17,7 @@ export default {
         routeHistory: [],
         previousRoute: '',
         dateFormat: 'daysAgo',
+        newWorkoutGroup: {},
         history: {
             data: [
 
@@ -289,6 +290,9 @@ export default {
                                     level: 1,
                                     quantity: 50,
                                     complete: 0,
+                                    workoutGroup: {
+                                        data: store.state.newWorkoutGroup
+                                    },
                                     unit: {
                                         // data: store.state.exerciseUnits[0]
                                         data: helpers.findById(store.state.exerciseUnits, unitPicker.value[0])

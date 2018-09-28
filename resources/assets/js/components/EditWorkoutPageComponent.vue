@@ -67,7 +67,7 @@
             </f7-page-content>
 
             <f7-toolbar class="flex-container">
-                <f7-button v-on:click="showAddExercisePicker()"><i class="fas fa-plus"></i></f7-button>
+                <f7-button v-on:click="insertWorkoutGroup"><i class="fas fa-plus"></i></f7-button>
                 <f7-button v-on:click="toggleSortable"><i class="fas fa-pencil-alt"></i></f7-button>
                 <f7-button v-on:click="updateWorkout()">Save</f7-button>
             </f7-toolbar>
@@ -233,6 +233,26 @@
             },
             formatExerciseDataForSyncing: function () {
                 return store.formatExerciseDataForSyncing(this.clonedExercises);
+            },
+
+            /**
+            *
+            */
+            insertWorkoutGroup: function () {
+                var data = {
+                    workout_id: this.shared.workout.id
+                };
+
+                helpers.post({
+                    url: '/api/workoutGroups/',
+                    data: data,
+                    property: 'newWorkoutGroup',
+                    message: 'New group created',
+                    callback: function (response) {
+                        // this.newWorkoutGroup = response;
+                        this.showAddExercisePicker();
+                    }.bind(this)
+                });
             },
 
             /**

@@ -57,7 +57,10 @@ class ExerciseSessionTransformer extends TransformerAbstract
     {
         $workoutGroup = WorkoutGroup::find($exercise->pivot->workout_group_id);
 
-        return $this->item($workoutGroup, new WorkoutGroupTransformer);
+        if ($workoutGroup) {
+            return $this->item($workoutGroup, new WorkoutGroupTransformer);
+        }
+        return null;
     }
 
 }

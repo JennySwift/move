@@ -53,7 +53,7 @@
                                 </div>
 
                                 <f7-swipeout-actions right>
-                                    <f7-swipeout-button close color="red" v-on:click="removeSet(row)" overswipe>Delete</f7-swipeout-button>
+                                    <f7-swipeout-button close color="red" v-on:click="deleteSet(row)" overswipe>Delete</f7-swipeout-button>
                                 </f7-swipeout-actions>
 
                             </f7-list-item>
@@ -208,8 +208,23 @@
                 this.clonedExercises = helpers.clone(this.shared.workout.exercises.data);
 
             },
-            removeSet: function (row) {
-                this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
+            // removeSet: function (row) {
+            //     this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
+            // },
+            /**
+            *
+            */
+            deleteSet: function (row) {
+                helpers.delete({
+                    url: 'api/workouts/' + this.shared.workout.id + '/exercises/' + row.exercise_id + '?include=exercises&id=' + row.id,
+                    // array: 'workout.exercises.data',
+                    // itemToDelete: row,
+                    message: 'Set deleted',
+                    noConfirm: true,
+                    callback: function () {
+                        this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
+                    }.bind(this)
+                });
             },
             addSet: function (row) {
                 var newSet = store.formatDataForAddingSet(row);

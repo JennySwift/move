@@ -193,11 +193,39 @@ abstract class TestCase extends BaseTestCase
 
     /**
      *
+     * @param $group
+     */
+    protected function checkGroupKeysExist($group)
+    {
+        $this->assertArrayHasKey('id', $group);
+        $this->assertArrayHasKey('order', $group);
+    }
+
+    /**
+     *
      * @param $response
      * @return mixed
      */
     protected function getContent($response)
     {
         return json_decode($response->getContent(), true);
+    }
+
+    /**
+     *
+     * @param $response
+     */
+    protected function assertResponseOk($response)
+    {
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     *
+     * @param $response
+     */
+    protected function assertResponseCreated($response)
+    {
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }
 }

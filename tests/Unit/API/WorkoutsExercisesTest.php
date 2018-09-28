@@ -133,6 +133,11 @@ class WorkoutsExercisesTest extends TestCase
                     'level' => 15,
                     'quantity' => 140,
                     'workout_group_id' => null
+                ],
+                [
+                    'level' => 15,
+                    'quantity' => 140,
+                    'workout_group_id' => null
                 ]
             ]
         ]);
@@ -140,6 +145,7 @@ class WorkoutsExercisesTest extends TestCase
 //dd($content);
 
         //Check the new workout groups were created for the workout
+        //and that only one group was created for the two sets of the same exercise
         $this->assertCount(12, Workout::forCurrentUser()->first()->groups);
 
         $this->checkWorkoutKeysExist($content);

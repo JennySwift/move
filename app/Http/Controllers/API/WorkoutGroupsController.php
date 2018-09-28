@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Transformers\WorkoutGroupTransformer;
 use App\Models\Workout;
 use App\Models\WorkoutGroup;
+use App\Repositories\WorkoutGroupsRepository;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,31 @@ use Illuminate\Http\Request;
  */
 class WorkoutGroupsController extends Controller
 {
+
+    /**
+     * @var
+     */
+    private $workoutGroupsRepository;
+
+    /**
+     * WorkoutsExercisesController constructor.
+     * @param WorkoutGroupsRepository $workoutGroupsRepository
+     */
+    public function __construct(WorkoutGroupsRepository $workoutGroupsRepository) {
+        $this->workoutGroupsRepository = $workoutGroupsRepository;
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function store(Request $request)
+    {
+        $group = $this->workoutGroupsRepository->createWorkoutGroup(Workout::find($request->get('workout_id')));
+
+        return $this->respondStore($group, new WorkoutGroupTransformer);
+    }
 
     public function reorder(Request $request)
     {

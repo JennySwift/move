@@ -20,6 +20,27 @@ class WorkoutGroupsTest extends TestCase
     /**
      * @test
      */
+    public function it_can_create_a_group()
+    {
+        $this->logInUser();
+
+        $workout = Workout::forCurrentUser()->first();
+        $group = [
+            'workout_id' => $workout->id,
+        ];
+
+        $response = $this->call('POST', $this->url, $group);
+        $content = $this->getContent($response);
+//      dd($content);
+
+        $this->checkGroupKeysExist($content);
+
+        $this->assertResponseCreated($response);
+    }
+
+    /**
+     * @test
+     */
     public function it_can_move_a_group_from_position_2_to_1()
     {
         $this->logInUser();

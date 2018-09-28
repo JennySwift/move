@@ -23,6 +23,7 @@ Route::group(['namespace' => 'API', 'middleware' => 'auth:api'], function () {
     Route::resource('units', 'UnitsController', ['only' => ['index', 'store', 'update']]);
     Route::resource('workouts', 'WorkoutsController');
     Route::resource('sessions', 'SessionsController');
+    Route::resource('workoutGroups', 'WorkoutGroupsController');
     Route::resource('workouts.exercises', 'WorkoutsExercisesController');
     Route::put('workoutGroups/reorder', 'WorkoutGroupsController@reorder');
 //    Route::resource('workoutGroups', 'WorkoutGroupsController');

@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkoutStoreRequest;
 use App\Http\Transformers\WorkoutTransformer;
 use App\Models\Workout;
+use App\Models\WorkoutGroup;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -70,6 +71,17 @@ class WorkoutsController extends Controller
         $workout->update($data);
 
         if ($request->get('include') === 'exercises') {
+            if ($request->has('createExerciseGroup')) {
+                //A new exercise has been added to the workout in the frontend,
+                //so create a new workout group for it
+                $workoutGroup = new WorkoutGroup([
+                    'order' => $workout->groups()->max('order') + 1,
+                ]);
+
+                $workoutGroup->workout()->associate($workout);
+                $workoutGroup->save();
+//                return $this->respondStore($workout, new WorkoutTransformer);
+            }
             //Updating all the exercises in a workout at once
             if ($request->has('exercises') && !$request->has('exercise_id')) {
                 //I need to detach before syncing, otherwise if there is more than one set of an exercise
@@ -84,6 +96,7 @@ class WorkoutsController extends Controller
                         'workout_group_id' => $exercise['workout_group_id'],
                     ]);
                 }
+                //Todo: delete any workout groups no longer in use, to make sure the ordering stays right
             }
             //Updating the sets for just one exercise in a workout
             else if ($request->has('exercise_id')) {

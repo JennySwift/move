@@ -389,10 +389,16 @@ export default {
         };
     },
 
+    sortExercises: function (exercises) {
+        return _.groupBy(exercises, 'workoutGroup.data.order');
+    },
+
     formatExerciseDataForSyncing: function (exerciseData) {
         var data = [];
 
         _.forEach(exerciseData, function (value, index) {
+            //If the exercise has just been added to the workout, it won't have a workout group id yet
+            var workoutGroupId = value.workoutGroup.data ? value.workoutGroup.data.id : null;
             data.push(
                 {
                     exercise_id: value.exercise_id,
@@ -400,7 +406,7 @@ export default {
                     quantity: value.quantity,
                     complete: value.complete,
                     unit_id: value.unit.data.id,
-                    workout_group_id: value.workoutGroup.data.id
+                    workout_group_id: workoutGroupId
                 }
             );
         });

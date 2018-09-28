@@ -140,9 +140,8 @@
              ]
              */
             clonedAndSortedExercises: function () {
-                var sorted = _.groupBy(this.clonedExercises, 'name');
-
-                return sorted;
+                return _.groupBy(this.clonedExercises, 'name');
+                // return store.sortExercises(this.clonedExercises);
             }
         },
         methods: {

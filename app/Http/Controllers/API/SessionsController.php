@@ -73,6 +73,7 @@ class SessionsController extends Controller
                     'quantity' => $exercise->pivot->quantity,
                     'complete' => 0,
                     'unit_id' => $exercise->pivot->unit_id,
+                    'workout_group_id' => $exercise->pivot->workout_group_id,
                 ]);
             }
 

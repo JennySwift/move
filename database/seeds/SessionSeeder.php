@@ -894,7 +894,10 @@ class SessionSeeder extends Seeder
                             'level' => $exercise['level'],
                             'unit_id' => $exercise['unit_id'],
                             'quantity' => $exercise['quantity'],
-                            'complete' => $complete
+                            'complete' => $complete,
+                            //Todo: Make this the correct workout id according to the workout
+                            //(session seeder should be seeded from a workout), otherwise this could be very confusing
+                            'workout_group_id' => 1
                         ]);
                 }
             }

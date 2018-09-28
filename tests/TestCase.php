@@ -88,6 +88,16 @@ abstract class TestCase extends BaseTestCase
 
     /**
      *
+     * @param $workoutGroup
+     */
+    protected function checkWorkoutGroupKeysExist($workoutGroup)
+    {
+        $this->assertArrayHasKey('id', $workoutGroup);
+        $this->assertArrayHasKey('order', $workoutGroup);
+    }
+
+    /**
+     *
      * @param $exercise
      */
     protected function checkExerciseWorkoutKeysExist($exercise)
@@ -101,16 +111,6 @@ abstract class TestCase extends BaseTestCase
         $this->assertArrayHasKey('order', $exercise);
         $this->checkUnitKeysExist($exercise['unit']['data']);
         $this->checkWorkoutGroupKeysExist($exercise['workoutGroup']['data']);
-    }
-
-    /**
-     *
-     * @param $workoutGroup
-     */
-    protected function checkWorkoutGroupKeysExist($workoutGroup)
-    {
-        $this->assertArrayHasKey('id', $workoutGroup);
-        $this->assertArrayHasKey('order', $workoutGroup);
     }
 
     /**
@@ -187,6 +187,7 @@ abstract class TestCase extends BaseTestCase
         $this->assertArrayHasKey('level', $exercise);
         $this->assertArrayHasKey('quantity', $exercise);
         $this->assertArrayHasKey('complete', $exercise);
+        $this->checkWorkoutGroupKeysExist($exercise['workoutGroup']['data']);
         $this->checkUnitKeysExist($exercise['unit']['data']);
     }
 

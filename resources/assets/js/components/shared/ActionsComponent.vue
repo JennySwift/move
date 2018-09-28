@@ -59,14 +59,15 @@
              * For updating sets for just one exercise in a workout to match what I did in the session
              */
             updateSetsForOneExerciseInWorkout: function () {
+                var exerciseId = this.tableData[0].exercise_id;
                 var data = {
-                    exercise_id: this.tableData[0].exercise_id,
+                    exercise_id: exerciseId,
                     unit_id: this.tableData[0].unit.data.id,
                     exercises: store.formatExerciseDataForSyncing(this.tableData)
                 };
 
                 helpers.put({
-                    url: 'api/workouts/' + this.shared.workout.id + '?include=exercises',
+                    url: 'api/workouts/' + this.shared.workout.id + '/exercises/' + exerciseId + '?include=exercises',
                     data: data,
                     property: 'workouts',
                     message: 'Workout updated',

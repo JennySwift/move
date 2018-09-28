@@ -60,22 +60,74 @@
              */
             updateSetsForOneExerciseInWorkout: function () {
                 var exerciseId = this.tableData[0].exercise_id;
+
+                if (!this.tableData[0].workoutGroup.data.id) {
+                    //The exercise has been added to the session but not to the workout yet
+                    //First create a new workout group
+                    this.insertWorkoutGroup();
+                }
+                else {
+                    var data = {
+                        exercise_id: exerciseId,
+                        unit_id: this.tableData[0].unit.data.id,
+                        exercises: store.formatExerciseDataForSyncing(this.tableData)
+                    };
+
+                    helpers.put({
+                        url: 'api/workouts/' + this.shared.workout.id + '/exercises/' + exerciseId + '?include=exercises',
+                        data: data,
+                        property: 'workouts',
+                        message: 'Workout updated',
+                        callback: function (response) {
+
+                        }.bind(this)
+                    });
+                }
+            },
+
+            /**
+             *
+             */
+            insertWorkoutGroup: function () {
+                var exerciseId = this.tableData[0].exercise_id;
+
                 var data = {
-                    exercise_id: exerciseId,
-                    unit_id: this.tableData[0].unit.data.id,
-                    exercises: store.formatExerciseDataForSyncing(this.tableData)
+                    workout_id: this.shared.workout.id
                 };
 
-                helpers.put({
-                    url: 'api/workouts/' + this.shared.workout.id + '/exercises/' + exerciseId + '?include=exercises',
+                helpers.post({
+                    url: '/api/workoutGroups/',
                     data: data,
-                    property: 'workouts',
-                    message: 'Workout updated',
+                    property: 'newWorkoutGroup',
+                    message: 'New group created',
                     callback: function (response) {
+                        //Now that the workout group has been created, add the workout group id
+                        //to the exercises in the group before adding them to the workout
+                        _.forEach(this.tableData, function (value, index) {
+                            value.workoutGroup = {
+                                data: response
+                            }
+                        });
 
+                        var data = {
+                            exercise_id: exerciseId,
+                            unit_id: this.tableData[0].unit.data.id,
+                            exercises: store.formatExerciseDataForSyncing(this.tableData)
+                        };
+
+                        helpers.put({
+                            url: 'api/workouts/' + this.shared.workout.id + '/exercises/' + exerciseId + '?include=exercises',
+                            data: data,
+                            property: 'workouts',
+                            message: 'Workout updated',
+                            callback: function (response) {
+
+                            }.bind(this)
+                        });
                     }.bind(this)
                 });
             },
+
 
         }
     }

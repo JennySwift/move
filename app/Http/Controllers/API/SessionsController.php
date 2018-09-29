@@ -99,12 +99,14 @@ class SessionsController extends Controller
                 $session->exercises()->detach();
 
                 foreach ($request->get('exercises') as $exercise) {
+                    $workoutGroupId = isset($exercise['workout_group_id']) ? $exercise['workout_group_id'] : null;
+
                     $session->exercises()->attach($exercise['exercise_id'], [
                         'level' => $exercise['level'],
                         'quantity' => $exercise['quantity'],
                         'complete' => $exercise['complete'],
                         'unit_id' => $exercise['unit_id'],
-                        'workout_group_id' => $exercise['workout_group_id']
+                        'workout_group_id' => $workoutGroupId
                     ]);
                 }
 

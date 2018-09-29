@@ -181,13 +181,14 @@ class SessionsTest extends TestCase
                     'complete' => 1,
                     'workout_group_id' => 1
                 ],
+                //Making workout_group_id null to test a new exercise set can be added to the session
                 [
                     'exercise_id' => 6,
                     'level' => 15,
                     'quantity' => 140,
                     'unit_id' => 2,
                     'complete' => 1,
-                    'workout_group_id' => 1
+//                    'workout_group_id' => null
                 ]
             ]
         ]);

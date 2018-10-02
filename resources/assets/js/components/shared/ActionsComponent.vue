@@ -92,9 +92,10 @@
              */
             insertWorkoutGroup: function () {
                 var exerciseId = this.tableData[0].exercise_id;
+                var workoutId = this.shared.workout.id ? this.shared.workout.id : this.shared.session.workout_id;
 
                 var data = {
-                    workout_id: this.shared.workout.id
+                    workout_id: workoutId
                 };
 
                 helpers.post({

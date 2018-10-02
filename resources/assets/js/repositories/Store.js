@@ -396,8 +396,19 @@ export default {
         return data;
     },
 
+    /**
+     * If the exercise has a workout group id, order by that
+     * otherwise, order by exercise id
+     * @param exercises
+     */
     sortExercises: function (exercises) {
-        return _.groupBy(exercises, 'workoutGroup.data.order');
+        // return _.groupBy(exercises, 'workoutGroup.data.order');
+        return _.groupBy(exercises, function (exercise) {
+            if (exercise.workoutGroup) {
+                return exercise.workoutGroup.data.order;
+            }
+            return exercise.exercise_id;
+        });
     },
 
     formatExerciseDataForSyncing: function (exerciseData) {

@@ -61,7 +61,7 @@
             updateSetsForOneExerciseInWorkout: function () {
                 var exerciseId = this.tableData[0].exercise_id;
 
-                if (!this.tableData[0].workoutGroup.data.id) {
+                if (!this.tableData[0].workoutGroup) {
                     //The exercise has been added to the session but not to the workout yet
                     //First create a new workout group
                     this.insertWorkoutGroup();

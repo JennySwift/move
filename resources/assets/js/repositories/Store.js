@@ -382,15 +382,18 @@ export default {
     },
 
     formatDataForAddingSet: function (row) {
-        return {
+        var data =  {
             exercise_id: row.exercise_id,
             level: row.level,
             name: row.name,
             quantity: row.quantity,
             complete: 0,
-            unit: row.unit,
-            workoutGroup: row.workoutGroup
+            unit: row.unit
         };
+        if (row.workoutGroup) {
+            data.workoutGroup = row.workoutGroup;
+        }
+        return data;
     },
 
     sortExercises: function (exercises) {

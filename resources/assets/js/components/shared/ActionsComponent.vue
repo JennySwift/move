@@ -119,7 +119,7 @@
                         };
 
                         helpers.put({
-                            url: 'api/workouts/' + this.shared.workout.id + '/exercises/' + exerciseId + '?include=exercises',
+                            url: 'api/workouts/' + workoutId + '/exercises/' + exerciseId + '?include=exercises',
                             data: data,
                             property: 'workouts',
                             message: 'Workout updated',

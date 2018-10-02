@@ -40,6 +40,15 @@ class Workout extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function sessions()
+    {
+        return $this->hasMany('App\Models\Session');
+    }
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function groups()
     {
         return $this->hasMany('App\Models\WorkoutGroup');

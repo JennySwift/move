@@ -52,6 +52,9 @@ class SessionTransformer extends TransformerAbstract
             'created_at' => $session->created_at->format('Y-m-d H:i:s'),
         ];
 
+        if ($session->workout) {
+            $array['workout_id'] = $session->workout->id;
+        }
         return $array;
     }
 }

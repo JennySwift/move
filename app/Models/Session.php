@@ -29,6 +29,15 @@ class Session extends Model
 
     /**
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function workout()
+    {
+        return $this->belongsTo('App\Models\Workout');
+    }
+
+    /**
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function exercises()

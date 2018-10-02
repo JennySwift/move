@@ -112,6 +112,7 @@ class SessionsTest extends TestCase
 //         dd($content);
 
         $this->checkSessionKeysExist($content);
+        $this->assertArrayHasKey('workout_id', $content);
 
         $exercises = $content['exercises']['data'];
         $this->checkExerciseSessionKeysExist($exercises[0]);

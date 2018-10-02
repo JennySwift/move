@@ -65,6 +65,7 @@ class SessionsController extends Controller
 
             $session = new Session(['name' => $workout->name]);
             $session->user()->associate(Auth::user());
+            $session->workout()->associate($workout);
             $session->save();
 
             foreach ($workout->exercises as $exercise) {

@@ -25,9 +25,12 @@
                 <button v-on:click="buttonClicked('9')">9</button>
             </div>
             <div class="keypad-row">
-                <button v-on:click="buttonClicked('clear')">Clear</button>
                 <button v-on:click="buttonClicked('0')">0</button>
+                <button v-on:click="buttonClicked('.')">.</button>
                 <button v-on:click="buttonClicked('delete')"><i class="fas fa-arrow-alt-circle-left"></i></button>
+            </div>
+            <div class="keypad-row">
+                <button v-on:click="buttonClicked('clear')">Clear</button>
             </div>
 
         </div>

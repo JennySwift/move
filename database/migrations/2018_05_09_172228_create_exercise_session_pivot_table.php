@@ -19,7 +19,7 @@ class CreateExerciseSessionPivotTable extends Migration
             $table->integer('exercise_id')->unsigned()->index();
             $table->integer('unit_id')->unsigned()->index();
 
-            $table->integer('level');
+            $table->decimal('level', 10, 1);
             $table->integer('quantity');
             $table->boolean('complete');
 

@@ -19,7 +19,7 @@ class CreateExerciseWorkoutPivotTable extends Migration
             $table->integer('workout_id')->unsigned()->index();
             $table->integer('unit_id')->unsigned()->index();
 
-            $table->integer('level');
+            $table->decimal('level', 10, 1);
             $table->integer('quantity');
 
             $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');

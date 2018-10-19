@@ -18,6 +18,18 @@ export default {
         previousRoute: '',
         dateFormat: 'daysAgo',
         newWorkoutGroup: {},
+        clonedExercises: [
+            // {
+            //    id: '',
+            //    exercise_id: '',
+            //    level: '',
+            //    quantity: 0,
+            //    complete: 0,
+            //    unit: {
+            //        data: {}
+            //    }
+            // }
+        ],
         history: {
             data: [
 
@@ -430,6 +442,27 @@ export default {
         });
 
         return data;
+    },
+
+    /**
+     *
+     */
+    updateSession: function () {
+        var data = {
+            name: this.state.session.name,
+            created_at: this.state.session.created_at,
+            exercises: this.formatExerciseDataForSyncing(this.state.clonedExercises)
+        };
+
+        helpers.put({
+            url: 'api/sessions/' + this.state.session.id + '?include=exercises',
+            data: data,
+            property: 'sessions',
+            message: 'Session updated',
+            callback: function (response) {
+
+            }.bind(this)
+        });
     },
 
     /**

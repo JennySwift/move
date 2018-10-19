@@ -25,6 +25,8 @@
 </template>
 
 <script>
+    import ActionsRepository from "../../repositories/ActionsRepository";
+
     export default {
         data: function () {
           return {
@@ -59,79 +61,8 @@
              * For updating sets for just one exercise in a workout to match what I did in the session
              */
             updateSetsForOneExerciseInWorkout: function () {
-                var exerciseId = this.tableData[0].exercise_id;
-
-                if (!this.tableData[0].workoutGroup) {
-                    //The exercise has been added to the session but not to the workout yet
-                    //First create a new workout group
-                    this.insertWorkoutGroup();
-                }
-                else {
-                    var data = {
-                        exercise_id: exerciseId,
-                        unit_id: this.tableData[0].unit.data.id,
-                        exercises: store.formatExerciseDataForSyncing(this.tableData)
-                    };
-
-                    var workoutId = this.shared.workout.id ? this.shared.workout.id : this.shared.session.workout_id;
-
-                    helpers.put({
-                        url: 'api/workouts/' + workoutId + '/exercises/' + exerciseId + '?include=exercises',
-                        data: data,
-                        property: 'workouts',
-                        message: 'Workout updated',
-                        callback: function (response) {
-
-                        }.bind(this)
-                    });
-                }
+                ActionsRepository.updateSetsForOneExerciseInWorkout(this.tableData);
             },
-
-            /**
-             *
-             */
-            insertWorkoutGroup: function () {
-                var exerciseId = this.tableData[0].exercise_id;
-                var workoutId = this.shared.workout.id ? this.shared.workout.id : this.shared.session.workout_id;
-
-                var data = {
-                    workout_id: workoutId
-                };
-
-                helpers.post({
-                    url: '/api/workoutGroups/',
-                    data: data,
-                    property: 'newWorkoutGroup',
-                    message: 'New group created',
-                    callback: function (response) {
-                        //Now that the workout group has been created, add the workout group id
-                        //to the exercises in the group before adding them to the workout
-                        _.forEach(this.tableData, function (value, index) {
-                            value.workoutGroup = {
-                                data: response
-                            }
-                        });
-
-                        var data = {
-                            exercise_id: exerciseId,
-                            unit_id: this.tableData[0].unit.data.id,
-                            exercises: store.formatExerciseDataForSyncing(this.tableData)
-                        };
-
-                        helpers.put({
-                            url: 'api/workouts/' + workoutId + '/exercises/' + exerciseId + '?include=exercises',
-                            data: data,
-                            property: 'workouts',
-                            message: 'Workout updated',
-                            callback: function (response) {
-
-                            }.bind(this)
-                        });
-                    }.bind(this)
-                });
-            },
-
-
         }
     }
 </script>

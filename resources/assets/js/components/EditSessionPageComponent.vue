@@ -99,7 +99,7 @@
                 shared: store.state,
                 baseUrl: 'api/sessions',
                 deletingRows: false,
-                clonedExercises: [
+                // clonedExercises: [
 //                    {
 //                        id: '',
 //                        exercise_id: '',
@@ -111,7 +111,7 @@
 //                        }
 //                    }
 
-                ],
+                // ],
                 showTrashIcons: false
             }
         },
@@ -140,8 +140,8 @@
              ]
              */
             clonedAndSortedExercises: function () {
-                // return _.groupBy(this.clonedExercises, 'name');
-                return store.sortExercises(this.clonedExercises);
+                // return _.groupBy(this.shared.clonedExercises, 'name');
+                return store.sortExercises(this.shared.clonedExercises);
             }
         },
         methods: {
@@ -187,11 +187,11 @@
                 return options;
             },
             setClonedExercises: function () {
-                this.clonedExercises = helpers.clone(this.shared.session.exercises.data);
+                this.shared.clonedExercises = helpers.clone(this.shared.session.exercises.data);
 
             },
             removeSet: function (row) {
-                this.clonedExercises = helpers.deleteFromArray(row, this.clonedExercises);
+                this.shared.clonedExercises = helpers.deleteFromArray(row, this.shared.clonedExercises);
             },
             toggleComplete: function (row) {
                 row.complete = !row.complete;
@@ -199,31 +199,14 @@
             addSet: function (row) {
                 var newSet = store.formatDataForAddingSet(row);
 
-                Vue.set(this.clonedExercises, this.clonedExercises.length, newSet);
+                Vue.set(this.shared.clonedExercises, this.shared.clonedExercises.length, newSet);
             },
             formatExerciseDataForSyncing: function () {
-                return store.formatExerciseDataForSyncing(this.clonedExercises);
+                return store.formatExerciseDataForSyncing(this.shared.clonedExercises);
             },
 
-            /**
-             *
-             */
             updateSession: function () {
-                var data = {
-                    name: this.shared.session.name,
-                    created_at: this.shared.session.created_at,
-                    exercises: this.formatExerciseDataForSyncing()
-                };
-
-                helpers.put({
-                    url: this.baseUrl + '/' + this.shared.session.id + '?include=exercises',
-                    data: data,
-                    property: 'sessions',
-                    message: 'Session updated',
-                    callback: function (response) {
-
-                    }.bind(this)
-                });
+                store.updateSession();
             },
 
             /**

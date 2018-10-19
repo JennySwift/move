@@ -49,12 +49,13 @@ class WorkoutsExercisesController extends Controller
                 $workout->exercises()->detach($exerciseId);
 
                 foreach ($request->get('exercises') as $exercise) {
-                    $workoutGroupId = $exercise['workout_group_id'] ? $exercise['workout_group_id'] : $this->workoutGroupsRepository->createWorkoutGroup($workout)->id;
+                    //Commenting this out, since doing too much here. Workout should be created in separate API call, before updating here.
+//                    $workoutGroupId = $exercise['workout_group_id'] ? $exercise['workout_group_id'] : $this->workoutGroupsRepository->createWorkoutGroup($workout)->id;
                     $workout->exercises()->attach($request->get('exercise_id'), [
                         'level' => $exercise['level'],
                         'quantity' => $exercise['quantity'],
                         'unit_id' => $request->get('unit_id'),
-                        'workout_group_id' => $workoutGroupId,
+                        'workout_group_id' => $exercise['workout_group_id'],
                     ]);
                 }
             }

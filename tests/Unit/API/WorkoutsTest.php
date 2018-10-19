@@ -185,6 +185,8 @@ class WorkoutsTest extends TestCase
 
         //Check the workout groups that are no longer used have been deleted
         $this->assertCount(2, $workout::forCurrentUser()->first()->groups);
+        //Todo: check the entries in exercise_session table that referenced the workout_group_id,
+        //that they still exist and have a workout_group_id now as null
 
         $this->assertCount(3, $exercises);
 

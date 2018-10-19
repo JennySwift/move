@@ -15,7 +15,7 @@ class AddWorkoutGroupFieldToExerciseSessionTable extends Migration
     {
         Schema::table('exercise_session', function (Blueprint $table) {
             $table->integer('workout_group_id')->nullable()->unsigned()->index();
-            $table->foreign('workout_group_id')->references('id')->on('workout_groups');
+            $table->foreign('workout_group_id')->references('id')->on('workout_groups')->onDelete('set null');
         });
     }
 

@@ -357,7 +357,7 @@ class WorkoutsExercisesTest extends TestCase
     }
 
     /**
-     *
+     * Todo: test unused workout groups are deleted, and order of workout groups is updated
      * @test
      */
     public function it_can_delete_an_exercise_set_in_a_workout()

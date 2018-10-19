@@ -98,6 +98,8 @@ class WorkoutsExercisesController extends Controller
 //            ->find($request->get('id'));
 //        $setToDelete->delete();
 
+        $this->workoutGroupsRepository->deleteUnused($workout);
+
         return response([], Response::HTTP_NO_CONTENT);
     }
 

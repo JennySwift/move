@@ -98,11 +98,7 @@ class WorkoutsController extends Controller
                     'workout_group_id' => $workoutGroupId,
                 ]);
             }
-            //Todo: fix the ordering of the workout groups after deleting the unused ones?
-            $groupsToDelete = $workout->groups()->whereDoesntHave('exercises')->get();
-            foreach ($groupsToDelete as $groupToDelete) {
-                $groupToDelete->delete();
-            }
+            $this->workoutGroupsRepository->deleteUnused($workout);
 
             return $this->respondUpdate($workout, new WorkoutTransformer, ['exercises']);
         }

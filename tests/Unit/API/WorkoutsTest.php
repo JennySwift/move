@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Workout;
+use App\Models\WorkoutGroup;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
@@ -128,7 +129,6 @@ class WorkoutsTest extends TestCase
         $workout = Workout::forCurrentUser()->first();
         $this->assertCount(10, $workout->groups);
 
-
         $response = $this->call('PUT', $this->url . $workout->id . '?include=exercises', [
             'name' => 'numbat',
             'exercises' => [
@@ -184,11 +184,72 @@ class WorkoutsTest extends TestCase
         $this->assertEquals(2, $exercises[2]['workoutGroup']['data']['id']);
 
         //Check the workout groups that are no longer used have been deleted
-        $this->assertCount(2, $workout::forCurrentUser()->first()->groups);
+        $this->assertCount(2, Workout::forCurrentUser()->first()->groups);
         //Todo: check the entries in exercise_session table that referenced the workout_group_id,
         //that they still exist and have a workout_group_id now as null
 
         $this->assertCount(3, $exercises);
+
+        $this->assertEquals('numbat', $content['name']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_update_the_exercises_for_a_workout_and_reorder_the_workout_groups_after_deleting_the_unused_groups()
+    {
+        $this->logInUser();
+
+        $workout = Workout::forCurrentUser()->first();
+        $this->assertCount(10, $workout->groups);
+
+//        dd($workout->exercises->first());
+
+        //Populate the data so the exercises in the workout stay as is, but
+        //with one group of exercises deleted, in order to test the order of the groups is updated
+        $exercises = [];
+        foreach ($workout->exercises as $exercise) {
+            //Add everything except one group of exercises
+            $groupToRemove = WorkoutGroup::find($exercise->pivot->workout_group_id);
+            if ($groupToRemove->order != 3) {
+                $exercises[] = [
+                    'exercise_id' => $exercise->id,
+                    'level' => $exercise->pivot->level,
+                    'quantity' => $exercise->pivot->quantity,
+                    'unit_id' => $exercise->pivot->unit_id,
+                    'workout_group_id' => $exercise->pivot->workout_group_id
+                ];
+            }
+
+        }
+
+        $response = $this->call('PUT', $this->url . $workout->id . '?include=exercises', [
+            'name' => 'numbat',
+            'exercises' => $exercises
+        ]);
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkWorkoutKeysExist($content);
+        $this->assertArrayHasKey('exercises', $content);
+        $exercises = $content['exercises']['data'];
+        $this->checkExerciseWorkoutKeysExist($exercises[0]);
+
+        //Check the workout groups that are no longer used have been deleted
+        $groups = $workout->groups()->get();
+
+        $this->assertCount(9, $groups);
+
+        //Check the group order has updated
+        $this->assertEquals(1, $groups[0]->order);
+        $this->assertEquals(2, $groups[1]->order);
+        $this->assertEquals(3, $groups[2]->order);
+        $this->assertEquals(4, $groups[3]->order);
+
+        //Todo: check the entries in exercise_session table that referenced the workout_group_id,
+        //that they still exist and have a workout_group_id now as null
 
         $this->assertEquals('numbat', $content['name']);
 

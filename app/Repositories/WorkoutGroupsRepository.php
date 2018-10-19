@@ -25,7 +25,6 @@ class WorkoutGroupsRepository
     }
 
     /**
-     * Todo: fix the ordering of the workout groups after deleting the unused ones?
      * @param Workout $workout
      * @return Workout
      */
@@ -33,7 +32,14 @@ class WorkoutGroupsRepository
     {
         $groupsToDelete = $workout->groups()->whereDoesntHave('exercises')->get();
         foreach ($groupsToDelete as $groupToDelete) {
+            $order = $groupToDelete->order;
+
             $groupToDelete->delete();
+
+            //Update the order of the workout groups
+            $workout->groups()
+                ->where('order', '>', $order)
+                ->decrement('order');
         }
         return $workout;
     }

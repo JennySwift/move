@@ -3,6 +3,7 @@
 use App\Models\Exercise;
 use App\Models\Session;
 use App\Models\Unit;
+use App\Models\Workout;
 use App\User;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
@@ -872,34 +873,50 @@ class SessionSeeder extends Seeder
 
             $today = Carbon:: today();
             foreach ($sessions as $session) {
+                $workout = Workout::forCurrentUser()->where('name', $session['name'])->firstOrFail();
+
                 $temp = new Session([
-                    'name' => $session['name'],
+                    'name' => $workout['name'],
                     'created_at' => $today->copy()->subDays($session['daysAgo'])->format('Y-m-d H:i:s')
                 ]);
 
-
                 $temp->user()->associate($this->user);
+                $temp->workout()->associate($workout);
 
                 $temp->save();
 
-                foreach ($session['exercises'] as $exercise) {
-                    if (!isset($exercise['complete'])) {
-                        $complete = 1;
+                foreach ($workout->exercises as $index => $exercise) {
+                    $complete = 1;
+                    if ($index % 2) {
+                        $complete = 0;
                     }
-                    else {
-                        $complete = $exercise['complete'];
-                    }
-                     $temp->exercises()->attach($exercise['exercise_id'],
-                        [
-                            'level' => $exercise['level'],
-                            'unit_id' => $exercise['unit_id'],
-                            'quantity' => $exercise['quantity'],
-                            'complete' => $complete,
-                            //Todo: Make this the correct workout id according to the workout
-                            //(session seeder should be seeded from a workout), otherwise this could be very confusing
-                            'workout_group_id' => 1
-                        ]);
+                    $temp->exercises()->attach($exercise->id, [
+                        'level' => $exercise->pivot->level,
+                        'quantity' => $exercise->pivot->quantity,
+                        'complete' => $complete,
+                        'unit_id' => $exercise->pivot->unit_id,
+                        'workout_group_id' => $exercise->pivot->workout_group_id,
+                    ]);
                 }
+
+//                foreach ($session['exercises'] as $exercise) {
+//                    if (!isset($exercise['complete'])) {
+//                        $complete = 1;
+//                    }
+//                    else {
+//                        $complete = $exercise['complete'];
+//                    }
+//                     $temp->exercises()->attach($exercise['exercise_id'],
+//                        [
+//                            'level' => $exercise['level'],
+//                            'unit_id' => $exercise['unit_id'],
+//                            'quantity' => $exercise['quantity'],
+//                            'complete' => $complete,
+//                            //Todo: Make this the correct workout id according to the workout
+//                            //(session seeder should be seeded from a workout), otherwise this could be very confusing
+//                            'workout_group_id' => 1
+//                        ]);
+//                }
             }
 
         }

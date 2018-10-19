@@ -41,23 +41,6 @@ class WorkoutGroupsTest extends TestCase
     /**
      * @test
      */
-    public function it_can_delete_a_group_that_is_used_in_a_session()
-    {
-        $this->markTestIncomplete();
-//        $this->logInUser();
-//
-//        $group = WorkoutGroup::forCurrentUser()->first();
-//
-//        $response = $this->call('DELETE', $this->url . $group->id);
-//        $this->assertEquals(204, $response->getStatusCode());
-//
-//        $response = $this->call('DELETE', $this->url . $group->id);
-//        $this->assertEquals(404, $response->getStatusCode());
-    }
-
-    /**
-     * @test
-     */
     public function it_can_move_a_group_from_position_2_to_1()
     {
         $this->logInUser();

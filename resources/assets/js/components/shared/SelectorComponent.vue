@@ -96,7 +96,7 @@
                 var key = event.data;
             },
             closePopup: function () {
-                store.closePopup('.selector-popup');
+                store.closePopup('#' + this.id);
             },
             selectOption: function (option) {
                 if (this.model) {

@@ -14,6 +14,11 @@ export default {
             data: [],
             pagination: {}
         },
+        //For adding an exercise to a workout or session
+        selectorValues: {
+            exercise: {},
+            unit: {}
+        },
         routeHistory: [],
         previousRoute: '',
         dateFormat: 'daysAgo',
@@ -289,52 +294,48 @@ export default {
             ],
             on: {
                 close: function (exercisePicker) {
-                    var unitPicker = app.$f7.picker.create({
-                        inputEl: '#unit-picker',
-                        cols: [
-                            {
-                                textAlign: 'left',
-                                values: _.map(store.state.exerciseUnits, 'id'),
-                                displayValues: _.map(store.state.exerciseUnits, 'name'),
-                                cssClass: 'unit'
-                            },
-                            // {
-                            //     values: _.map(this.state.exerciseUnits, 'id'),
-                            //     displayValues: _.map(this.state.exerciseUnits, 'name'),
-                            //     cssClass: 'unit',
-                            //     width: 60
-                            // },
-                        ],
-                        on: {
-                            close: function (unitPicker) {
-                                var exercise = helpers.findById(store.state.exercises, exercisePicker.value[0]);
-                                var row = {
-                                    exercise_id: exercise.id,
-                                    name: exercise.name,
-                                    level: 1,
-                                    quantity: 50,
-                                    complete: 0,
-                                    workoutGroup: {
-                                        data: store.state.newWorkoutGroup
-                                    },
-                                    unit: {
-                                        // data: store.state.exerciseUnits[0]
-                                        data: helpers.findById(store.state.exerciseUnits, unitPicker.value[0])
-                                    }
-                                };
-
-                                that.addSet(row);
-                            }
-                        }
-                    });
-                    setTimeout(function () {
-                        unitPicker.open();
-                    }, 500);
-
+                    store.showUnitPicker(that);
                 }
             }
         });
         exercisePicker.open();
+    },
+
+    showUnitPicker: function (that) {
+        var unitPicker = app.$f7.picker.create({
+            inputEl: '#unit-picker',
+            cols: [
+                {
+                    textAlign: 'left',
+                    values: _.map(store.state.exerciseUnits, 'id'),
+                    displayValues: _.map(store.state.exerciseUnits, 'name'),
+                    cssClass: 'unit'
+                }
+            ],
+            on: {
+                close: function (unitPicker) {
+                    var row = {
+                        exercise_id: store.state.selectorValues.exercise.id,
+                        name: store.state.selectorValues.exercise.name,
+                        level: 1,
+                        quantity: 50,
+                        complete: 0,
+                        workoutGroup: {
+                            data: store.state.newWorkoutGroup
+                        },
+                        unit: {
+                            // data: store.state.exerciseUnits[0]
+                            data: helpers.findById(store.state.exerciseUnits, unitPicker.value[0])
+                        }
+                    };
+
+                    that.addSet(row);
+                }
+            }
+        });
+        setTimeout(function () {
+            unitPicker.open();
+        }, 500);
     },
 
     /**

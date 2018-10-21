@@ -33,6 +33,8 @@
                     <!--</template>-->
                 <!--</data-table>-->
 
+                <exercise-selector id="add-exercise-to-workout-selector" :on-select="showUnitPicker"></exercise-selector>
+
                 <f7-list sortable contacts-list @sortable:sort="onSort" id="exercises-in-workout">
                     <f7-list-item v-for="(tableData, index) in clonedAndSortedExercises" v-if="!isEmpty(clonedAndSortedExercises)" v-bind:key="index" class="no-chevron sortable-item sets-for-exercise">
                         <f7-list-group>
@@ -88,6 +90,7 @@
     import LevelCell from './shared/LevelCellComponent'
     import QuantityCell from './shared/QuantityCellComponent'
     import TableHead from './shared/TableHeadComponent'
+    import ExerciseSelector from './shared/ExerciseSelector.vue'
     import swal from 'sweetalert2'
     var object = require('lodash/object');
     export default {
@@ -114,7 +117,8 @@
             'trash-cell': TrashCell,
             'level-cell': LevelCell,
             'quantity-cell': QuantityCell,
-            'table-head': TableHead
+            'table-head': TableHead,
+            'exercise-selector': ExerciseSelector
         },
         computed: {
             redirectTo: function () {
@@ -161,7 +165,12 @@
                 return _.isEmpty(obj);
             },
             showAddExercisePicker: function () {
-                store.showAddExercisePicker(this);
+                store.openPopup('#add-exercise-to-workout-selector');
+//                store.showAddExercisePicker(this);
+            },
+            showUnitPicker: function (selectedExercise) {
+                store.set(selectedExercise, 'selectorValues.exercise');
+                store.showUnitPicker(this);
             },
             showPrompt: function (row, field) {
                 var prompt = app.$f7.dialog.prompt('Enter a ' + field, function (value) {

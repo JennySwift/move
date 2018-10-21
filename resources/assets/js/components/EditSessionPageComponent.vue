@@ -36,6 +36,8 @@
                 <!--</template>-->
             <!--</data-table>-->
 
+            <exercise-selector id="add-exercise-to-session-selector" :on-select="showUnitPicker"></exercise-selector>
+
             <f7-list v-for="(tableData, index) in clonedAndSortedExercises" v-bind:key="index" class="no-chevron">
                 <f7-list-group>
                     <card-header :title="tableData[0].name">
@@ -91,6 +93,7 @@
     import QuantityCell from './shared/QuantityCellComponent'
     import CheckboxCell from './shared/CheckBoxCellComponent'
     import TableHead from './shared/TableHeadComponent'
+    import ExerciseSelector from './shared/ExerciseSelector.vue'
 
     import swal from 'sweetalert2'
     var object = require('lodash/object');
@@ -121,7 +124,8 @@
             'level-cell': LevelCell,
             'quantity-cell': QuantityCell,
             'checkbox-cell': CheckboxCell,
-            'table-head': TableHead
+            'table-head': TableHead,
+            'exercise-selector': ExerciseSelector
         },
         computed: {
             /**
@@ -146,6 +150,10 @@
             }
         },
         methods: {
+            showUnitPicker: function (selectedExercise) {
+                store.set(selectedExercise, 'selectorValues.exercise');
+                store.showUnitPicker(this);
+            },
             showPrompt: function (row, field) {
                 var prompt = app.$f7.dialog.prompt('Enter a ' + field, function (value) {
                    row[field] = value;
@@ -226,7 +234,8 @@
             },
 
             showAddExercisePicker: function () {
-                store.showAddExercisePicker(this);
+                store.openPopup('#add-exercise-to-session-selector');
+//                store.showAddExercisePicker(this);
             },
 
         },

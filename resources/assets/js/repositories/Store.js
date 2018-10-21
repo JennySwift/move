@@ -247,6 +247,18 @@ export default {
         });
     },
 
+    openPopup: function (popup) {
+        app.$f7.popup.get(popup).open();
+    },
+
+    closePopup: function (popup) {
+        app.$f7.popup.get(popup).close();
+        //Doing it this way because the popup wouldn't close if it was in the main view
+        if ($(popup).hasClass('modal-in')) {
+            $(popup).addClass('modal-out').removeClass('modal-in');
+        }
+    },
+
     /**
      *
      */

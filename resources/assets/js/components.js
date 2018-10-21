@@ -12,6 +12,7 @@ import InputGroup from './components/shared/InputGroupComponent.vue'
 import CheckboxGroup from './components/shared/CheckboxGroupComponent.vue'
 import CardHeader from './components/shared/CardHeaderComponent.vue'
 import DataTable from './components/shared/DataTableComponent.vue'
+import SelectorComponent from './components/shared/SelectorComponent.vue'
 // import HomePage from './components/HomePageComponent.vue'
 import History from './components/ExerciseHistoryPageComponent.vue'
 import Keypad from './components/shared/KeypadComponent.vue'
@@ -32,4 +33,5 @@ Vue.component('history', History);
 Vue.component('keypad', Keypad);
 Vue.component('card-header', CardHeader);
 Vue.component('data-table', DataTable);
+Vue.component('selector', SelectorComponent);
 // Vue.component('home-page', HomePage);

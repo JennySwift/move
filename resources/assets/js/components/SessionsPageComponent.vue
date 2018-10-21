@@ -8,6 +8,16 @@
             <!--<f7-icon f7="add"></f7-icon>-->
         <!--</f7-fab>-->
 
+        <selector
+            :options="shared.workouts"
+            display-prop="name"
+            :on-select="createSessionFromSavedWorkout"
+            field-to-filter-by="name"
+            id="start-session-selector"
+            popup-title="Start Session"
+        >
+        </selector>
+
         <f7-list contacts-list>
             <f7-list-group>
                 <!--v-bind:text="session.created_at | formatDate"-->
@@ -26,7 +36,7 @@
 
         <f7-toolbar>
             <f7-button v-bind:disabled="!shared.sessions.pagination.prev_page_url" v-on:click="prevPage()">Newer</f7-button>
-            <f7-button v-on:click="createSessionFromSavedWorkout()">Start Session</f7-button>
+            <f7-button popup-open="#start-session-selector">Start Session</f7-button>
             <f7-button v-on:click="toggleDateFormat()"><i class="far fa-clock"></i></f7-button>
             <f7-button v-bind:disabled="!shared.sessions.pagination.next_page_url" v-on:click="nextPage()">Older</f7-button>
         </f7-toolbar>
@@ -84,52 +94,39 @@
                 store.set(session, 'session');
             },
 
-            getWorkoutOptions: function () {
-                var options = {};
-                _.forEach(this.shared.workouts, function (value, index) {
-                    options[value.id] = value.name;
-                });
-                return options;
-            },
+//            getWorkoutOptions: function () {
+//                var options = {};
+//                _.forEach(this.shared.workouts, function (value, index) {
+//                    options[value.id] = value.name;
+//                });
+//                return options;
+//            },
 
             /**
             *
             */
-            createSessionFromSavedWorkout: function () {
-                var that = this;
-                swal({
-                    showCloseButton: true,
-                    animation: false,
-                    title: "Choose a Workout",
-                    input: 'select',
-                    inputOptions: this.getWorkoutOptions(),
-                }).then(function (result) {
-                    if (result.value) {
-                        var data = {
-                            workout_id: result.value
-                        };
+            createSessionFromSavedWorkout: function (workout) {
+                var data = {
+                    workout_id: workout.id
+                };
 
-                        //Set the shared workout so I can update it from the session
-                        store.set(helpers.findById(that.shared.workouts, result.value), 'workout');
+                //Set the shared workout so I can update it from the session
+                store.set(helpers.findById(this.shared.workouts, workout.id), 'workout');
 
-                        helpers.post({
-                            url: that.baseUrl,
-                            data: data,
-//                            array: 'sessions.data',
-                            message: 'Enjoy your workout :)',
-                            clearFields: that.clearFields,
-                            callback: function (response) {
-                                helpers.goToRoute('/sessions/' + response.id);
-                                store.getSessions({});
-                            }.bind(that)
-                        });
-                    }
-                })
-
+                helpers.post({
+                    url: this.baseUrl,
+                    data: data,
+                    message: 'Enjoy your workout :)',
+                    clearFields: this.clearFields,
+                    callback: function (response) {
+                        helpers.goToRoute('/sessions/' + response.id);
+                        store.getSessions({});
+                    }.bind(this)
+                });
             }
         },
         mounted: function () {
-            // store.getSessions();
+
         }
     }
 </script>

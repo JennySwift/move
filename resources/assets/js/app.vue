@@ -51,6 +51,12 @@
                     },
                     panel: {
                         swipe: 'right'
+                    },
+                    smartSelect: {
+                        pageTitle: 'Select Option',
+                        openIn: 'popup',
+                        searchbar: true,
+                        closeOnSelect: true
                     }
                 }
             }

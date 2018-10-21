@@ -145,8 +145,34 @@
              ]
              */
             clonedAndSortedExercises: function () {
-                // return _.groupBy(this.shared.clonedExercises, 'name');
-                return store.sortExercises(this.shared.clonedExercises);
+                //Filter out the sets that are in the session but not the workout
+                var setsInWorkout = _.filter(this.shared.clonedExercises, function (set) {
+                    if (!set.workoutGroup) {
+                        return false;
+                    }
+                    return set.workoutGroup.data.order;
+                });
+                setsInWorkout = _.groupBy(setsInWorkout, 'workoutGroup.data.order');
+
+                var setsNotInWorkout = _.filter(this.shared.clonedExercises, function (set) {
+                    if (!set.workoutGroup) {
+                        return true;
+                    }
+                    //A set might have a workout group property in the JavaScript but not actually be in
+                    //the workout, hence I need to check for the 'order' property to see if it's in the workout
+                    return !set.workoutGroup.data.order;
+                });
+                setsNotInWorkout = _.groupBy(setsNotInWorkout, 'name');
+                //Put setsInWorkout and setsNotInWorkout together so they are both shown on page
+                console.log(setsInWorkout);
+                console.log(setsNotInWorkout);
+
+                var sets = setsInWorkout;
+                _.forEach(setsNotInWorkout, function (value, key) {
+                    sets[key] = value;
+                });
+                return sets;
+//                return store.sortExercises(this.shared.clonedExercises);
             }
         },
         methods: {

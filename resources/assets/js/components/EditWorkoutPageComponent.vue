@@ -52,6 +52,10 @@
                                     <quantity-cell page="workout" :row="row" :index="index2" :tableData="tableData"></quantity-cell>
                                 </div>
 
+                                <f7-swipeout-actions left>
+                                    <f7-swipeout-button close color="yellow" v-on:click="addSet(row)">Duplicate</f7-swipeout-button>
+                                </f7-swipeout-actions>
+
                                 <f7-swipeout-actions right>
                                     <f7-swipeout-button close color="red" v-on:click="deleteSet(row)" overswipe>Delete</f7-swipeout-button>
                                 </f7-swipeout-actions>

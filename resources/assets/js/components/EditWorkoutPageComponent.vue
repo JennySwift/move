@@ -155,7 +155,7 @@
                 });
             },
             toggleSortable: function () {
-                app.f7.sortable.toggle('.sortable-item');
+                app.$f7.sortable.toggle('.sortable-item');
             },
             isEmpty: function (obj) {
                 return _.isEmpty(obj);
@@ -164,13 +164,13 @@
                 store.showAddExercisePicker(this);
             },
             showPrompt: function (row, field) {
-                var prompt = app.f7.dialog.prompt('Enter a ' + field, function (value) {
+                var prompt = app.$f7.dialog.prompt('Enter a ' + field, function (value) {
                     row[field] = value;
                 });
             },
             // openActions: function (exerciseGroup) {
             //     var that = this;
-            //     var ac1 = app.f7.actions.create({
+            //     var ac1 = app.$f7.actions.create({
             //         buttons: [
             //             {
             //                 text: 'Add Set',

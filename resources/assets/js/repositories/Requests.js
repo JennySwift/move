@@ -51,7 +51,7 @@ export default {
                 }
 
                 if (options.pullToRefresh) {
-                    app.f7.ptr.done();
+                    app.$f7.ptr.done();
                     helpers.toast('haha');
                 }
 

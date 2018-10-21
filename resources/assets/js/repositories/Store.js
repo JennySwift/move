@@ -113,7 +113,7 @@ export default {
      */
     openHistoryPopup: function () {
         store.getHistory();
-        var popup = app.f7.popup.create({
+        var popup = app.$f7.popup.create({
             el: '.history-popup'
         });
         popup.open();
@@ -147,7 +147,7 @@ export default {
     updateRouteHistory: function (path) {
         // console.log('before', this.state.routeHistory);
         // console.log('before', this.state.previousRoute);
-        var newRoute = app.f7.views.main.router.url;
+        var newRoute = app.$f7.views.main.router.url;
         var previousRoute = this.state.routeHistory[this.state.routeHistory.length-1];
 
         if (newRoute !== previousRoute) {
@@ -165,7 +165,7 @@ export default {
      *
      */
     showLoading: function () {
-        app.f7.preloader.show();
+        app.$f7.preloader.show();
         // this.state.loading = true;
     },
 
@@ -173,7 +173,7 @@ export default {
      *
      */
     hideLoading: function () {
-        app.f7.preloader.hide();
+        app.$f7.preloader.hide();
         // this.state.loading = false;
     },
 
@@ -259,7 +259,7 @@ export default {
     },
 
     showAddExercisePicker: function (that) {
-        var exercisePicker = app.f7.picker.create({
+        var exercisePicker = app.$f7.picker.create({
             inputEl: '#exercise-picker',
             cols: [
                 {
@@ -277,7 +277,7 @@ export default {
             ],
             on: {
                 close: function (exercisePicker) {
-                    var unitPicker = app.f7.picker.create({
+                    var unitPicker = app.$f7.picker.create({
                         inputEl: '#unit-picker',
                         cols: [
                             {

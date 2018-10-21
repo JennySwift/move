@@ -147,7 +147,7 @@
         },
         methods: {
             showPrompt: function (row, field) {
-                var prompt = app.f7.dialog.prompt('Enter a ' + field, function (value) {
+                var prompt = app.$f7.dialog.prompt('Enter a ' + field, function (value) {
                    row[field] = value;
                 });
             },
@@ -156,7 +156,7 @@
                 for (var i = 0; i<= 1000; i++) {
                     values.push(i);
                 }
-                var picker = app.f7.picker.create({
+                var picker = app.$f7.picker.create({
                     inputEl: '#session-page-picker-input',
                     cols: [
                         {

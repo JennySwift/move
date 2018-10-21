@@ -41,7 +41,7 @@ export default {
 
 
     toast: function (message, type) {
-        var toast = app.f7.toast.create({
+        var toast = app.$f7.toast.create({
             text: message,
             position: 'top',
             closeTimeout: 2000,
@@ -54,7 +54,7 @@ export default {
         console.log(error);
         store.hideLoading();
         var message = error.response.data.error;
-        var notification = app.f7.notification.create({
+        var notification = app.$f7.notification.create({
             icon: '<i class="fas fa-exclamation"></i>',
             title: 'Error',
             subtitle: message,

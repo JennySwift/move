@@ -9,11 +9,11 @@ export default {
     },
 
     isHomePage: function () {
-        return !app.f7.views.main.router.url;
+        return !app.$f7.views.main.router.url;
     },
 
     goToRoute: function (path) {
-        app.f7.router.navigate(path, {
+        app.$f7.router.navigate(path, {
             history: true,
             reloadAll: false,
             clearPreviousHistory: false,
@@ -23,7 +23,7 @@ export default {
     },
 
     getRouteHistory: function () {
-        return app.f7.view.main.router.history;
+        return app.$f7.view.main.router.history;
     },
 
     /**

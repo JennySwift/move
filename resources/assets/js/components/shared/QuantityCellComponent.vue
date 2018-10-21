@@ -39,7 +39,7 @@
                     secondsValues.push(i);
                 }
 
-                var picker = app.f7.picker.create({
+                var picker = app.$f7.picker.create({
                     inputEl: '#exercise-picker',
                     cols: [
                         {

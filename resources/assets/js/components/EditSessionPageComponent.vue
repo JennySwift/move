@@ -58,6 +58,7 @@
                         <f7-swipeout-actions left>
                             <f7-swipeout-button close v-if="!row.complete" color="green" v-on:click="toggleComplete(row)" overswipe>Complete</f7-swipeout-button>
                             <f7-swipeout-button close v-if="row.complete" color="grey" v-on:click="toggleComplete(row)" overswipe>Incomplete</f7-swipeout-button>
+                            <f7-swipeout-button close color="yellow" v-on:click="addSet(row)">Duplicate</f7-swipeout-button>
                         </f7-swipeout-actions>
 
                         <f7-swipeout-actions right>

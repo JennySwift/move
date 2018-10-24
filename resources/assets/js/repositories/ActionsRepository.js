@@ -1,12 +1,25 @@
 export default {
 
     updateSetsForOneExerciseInWorkout: function (tableData) {
-        if (!tableData[0].workoutGroup.data.id) {
+        if (!this.hasWorkoutGroup(tableData[0])) {
             this.insertWorkoutGroup(tableData);
         }
         else {
             this.proceedWithUpdate(tableData);
         }
+    },
+
+    /**
+     * For checking if a set in a session has a workout group
+     * @param set
+     */
+    hasWorkoutGroup: function (set) {
+        //It might have a workoutGroup property (from the JavaScript),
+        // but not actually have a workout group
+        if (set.workoutGroup) {
+            return set.workoutGroup.data.id;
+        }
+        return false;
     },
 
     /**

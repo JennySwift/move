@@ -6,12 +6,17 @@
 </head>
 <body>
 <div id="app">
-    <f7-statusbar></f7-statusbar>
+    {{--<f7-statusbar></f7-statusbar>--}}
 
-    <f7-view id="main-view" main>
+    {{--<f7-view id="main-view" main>--}}
+        {{--@section('content')--}}
+        {{--@show--}}
+    {{--</f7-view>--}}
+
+    <div id="main-view" main>
         @section('content')
         @show
-    </f7-view>
+    </div>
 
 </div>
 

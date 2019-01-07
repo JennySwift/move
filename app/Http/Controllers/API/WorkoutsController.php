@@ -38,7 +38,7 @@ class WorkoutsController extends Controller
      */
     public function index(Request $request)
     {
-        $workouts = Workout::forCurrentUser()->get();
+        $workouts = Workout::forCurrentUser()->orderBy('name', 'asc')->get();
 
         return $this->respondIndex($workouts, new WorkoutTransformer);
     }
